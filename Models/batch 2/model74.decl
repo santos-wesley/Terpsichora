@@ -1,0 +1,49 @@
+activity Plan Campaign
+activity Design Creatives
+activity Select Channels
+activity Allocate Budget
+activity Launch Campaign
+activity Monitor Performance
+activity Optimize Campaign
+activity Generate Report
+activity Review Report
+activity Conduct Meeting
+activity Plan Next Campaign
+activity Approve Budget
+activity Review Creatives
+activity Negotiate Contracts
+activity Close Campaign
+bind Plan Campaign: Campaign Goal
+bind Allocate Budget: Budget Amount
+bind Monitor Performance: Performance Metric, Reach
+bind Review Creatives: Approval Status
+bind Conduct Meeting: Stakeholder Name
+bind Generate Report: Report Status
+bind Optimize Campaign: Number of Revisions
+bind Monitor Performance: Conversion Rate
+bind Select Channels: Media Channel
+Budget Amount: integer between 1000 and 1000000
+Campaign Goal: Brand Awareness, Lead Generation, Sales Increase
+Performance Metric: integer between 0 and 1000
+Media Channel: Social Media, TV, Radio, Print
+Approval Status: Approved, Pending, Rejected
+Stakeholder Name: Alice Johnson, Bob Smith, Carol White
+Number of Revisions: integer between 0 and 10
+Report Status: Complete, Incomplete
+Conversion Rate: float between 0.0 and 100.0
+Reach: integer between 0 and 1000000
+Init[Plan Campaign] | |
+Chain Response[Plan Campaign, Design Creatives] | | |
+Precedence[Review Creatives, Select Channels] | | |
+End[Launch Campaign] | |
+Response[Launch Campaign, Monitor Performance] | | |
+Response[Monitor Performance, Optimize Campaign] | | |
+Absence5[Optimize Campaign] | |
+Response[Optimize Campaign, Generate Report] | | |
+Chain Response[Generate Report, Conduct Meeting] | | |
+Response[Conduct Meeting, Plan Next Campaign] | | |
+Precedence[Allocate Budget, Approve Budget] | | |
+Response[Optimize Campaign, Generate Report] | | |0,24,h
+Response[Launch Campaign, Review Creatives] | | |0,48,h
+Response[Conduct Meeting, Plan Next Campaign] | | |0,5,d
+Chain Response[Generate Report, Review Report] | | |0,2,d

@@ -1,0 +1,50 @@
+activity Identify Problem
+activity Define Variables
+activity Review Literature
+activity Formulate Model
+activity Select Solution Method
+activity Collect Data
+activity Analyze Data
+activity Develop Algorithm
+activity Implement Solution
+activity Validate Model
+activity Refine Model
+activity Document Findings
+activity Review Results
+activity Prepare Report
+activity Present Findings
+bind Identify Problem: Difficulty Level
+bind Define Variables: Number of Variables
+bind Review Literature: Data Type
+bind Select Solution Method: Solution Method
+bind Analyze Data: Significance Level
+bind Validate Model: Validation Status
+bind Develop Algorithm: Algorithm Complexity
+bind Prepare Report: Review Outcome
+bind Present Findings: Presentation Format
+bind Refine Model: Model Accuracy
+Difficulty Level: integer between 1 and 10
+Data Type: Qualitative, Quantitative
+Number of Variables: integer between 1 and 100
+Significance Level: float between 0.0 and 1.0
+Solution Method: Analytical, Numerical, Statistical
+Model Accuracy: float between 0.0 and 100.0
+Algorithm Complexity: integer between 1 and 100
+Validation Status: Validated, Not Validated
+Review Outcome: Approved, Rejected, Revision Required
+Presentation Format: Slides, Document, Oral Presentation
+Init[Identify Problem] | |
+End[Formulate Model] | |
+Precedence[Implement Solution, Validate Model] | | |
+Precedence[Document Findings, Review Results] | | |
+Chain Response[Analyze Data, Develop Algorithm] | | |
+Precedence[Formulate Model, Select Solution Method] | | |
+Response[Review Literature, Collect Data] | | |
+Absence5[Review Results] | |
+Precedence[Prepare Report, Present Findings] | | |0,1,d
+Chain Response[Analyze Data, Review Results] | | |
+Succession[Develop Algorithm, Implement Solution] | | |
+Response[Validate Model, Refine Model] | | |0,2,d
+Precedence[Identify Problem, Define Variables] | | |
+Precedence[Identify Problem, Collect Data] | | |
+Precedence[Identify Problem, Formulate Model] | | |0,48,h

@@ -1,0 +1,47 @@
+activity Identify Victim
+activity Report Incident
+activity Provide Shelter
+activity Medical Checkup
+activity Psychological Support
+activity Legal Assistance
+activity Investigate Case
+activity Arrest Suspect
+activity Prosecute Suspect
+activity Reintegrate Victim
+activity Conduct Awareness Campaign
+activity Train Volunteers
+activity Monitor Hotspots
+activity Evaluate Program
+activity Adjust Strategy
+bind Identify Victim: Victim Age, Victim Gender
+bind Report Incident: Incident Type, Number of Suspects, Number of Victims
+bind Provide Shelter: Support Type
+bind Investigate Case: Investigation Status
+bind Reintegrate Victim: Reintegration Status
+bind Evaluate Program: Program Effectiveness
+bind Conduct Awareness Campaign: Funding Amount
+Victim Age: integer between 1 and 100
+Victim Gender: Male, Female, Other
+Incident Type: Sex Trafficking, Labor Trafficking, Other
+Number of Suspects: integer between 1 and 100
+Number of Victims: integer between 1 and 100
+Investigation Status: Ongoing, Completed, Suspended
+Funding Amount: float between 1000.0 and 1000000.0
+Support Type: Shelter, Medical, Psychological, Legal
+Reintegration Status: In Progress, Completed, Not Started
+Program Effectiveness: float between 0.0 and 100.0
+Init[Identify Victim] | |
+Precedence[Identify Victim, Report Incident] | | |
+Chain Response[Report Incident, Provide Shelter] | | |0,48,h
+Response[Provide Shelter, Medical Checkup] | | |
+Response[Medical Checkup, Psychological Support] | | |
+Response[Psychological Support, Legal Assistance] | | |
+Precedence[Report Incident, Investigate Case] | | |
+Response[Investigate Case, Arrest Suspect] | | |
+Response[Arrest Suspect, Prosecute Suspect] | | |
+Response[Psychological Support, Reintegrate Victim] | | |
+Chain Response[Evaluate Program, Adjust Strategy] | | |0,5,d
+Absence3[Conduct Awareness Campaign] | |
+Existence[Arrest Suspect] | |
+End[Adjust Strategy] | |
+Choice[Monitor Hotspots, Conduct Awareness Campaign] | | |

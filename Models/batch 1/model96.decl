@@ -1,0 +1,40 @@
+activity Identify Asset
+activity Assess Threat
+activity Implement Control
+activity Monitor Asset
+activity Detect Intrusion
+activity Respond Incident
+activity Recover System
+activity Report Status
+activity Review Policy
+activity Conduct Audit
+bind Identify Asset: Asset ID
+bind Assess Threat: Asset ID, Threat Level
+bind Implement Control: Asset ID, Control Measure
+bind Monitor Asset: Asset ID, Monitoring Frequency
+bind Detect Intrusion: Asset ID, Incident Type
+bind Respond Incident: Asset ID, Response Time
+bind Recover System: Asset ID, Recovery Action
+bind Report Status: Asset ID, Report Status
+bind Review Policy: Policy Status
+bind Conduct Audit: Audit ID
+Asset ID: integer between 1 and 10000
+Threat Level: Low, Medium, High
+Control Measure: Firewall, Encryption, Access Control
+Monitoring Frequency: float between 0.1 and 24.0
+Incident Type: Intrusion, Malware, DDoS
+Response Time: integer between 1 and 60
+Recovery Action: Restart, Patch, Isolate
+Report Status: Pending, Submitted, Reviewed
+Audit ID: integer between 1 and 5000
+Policy Status: Up-to-date, Outdated
+Init[Identify Asset] | |
+Existence[Review Policy] | |
+Precedence[Assess Threat, Identify Asset] | | |
+Response[Assess Threat, Implement Control] | | |
+Chain Succession[Monitor Asset, Detect Intrusion] | | |
+Chain Response[Detect Intrusion, Respond Incident] | | |0,30,m
+Chain Response[Respond Incident, Recover System] | | |0,2,h
+Chain Response[Recover System, Report Status] | | |0,1,h
+Precedence[Review Policy, Conduct Audit] | | |0,24,h
+End[Conduct Audit] | |

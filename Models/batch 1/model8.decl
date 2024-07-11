@@ -1,0 +1,40 @@
+activity Collect Water Samples
+activity Analyze Water Quality
+activity Monitor Marine Life
+activity Record Weather Data
+activity Sample Sediment
+activity Measure Temperature
+activity Measure Salinity
+activity Evaluate Algal Blooms
+activity Record Sonar Data
+activity Report Findings
+bind Collect Water Samples: Sample ID
+bind Analyze Water Quality: Sample ID, Analysis Result
+bind Monitor Marine Life: Marine Species
+bind Record Weather Data: Weather Condition
+bind Sample Sediment: Subsample ID, Sediment Depth
+bind Measure Temperature: Water Temperature
+bind Measure Salinity: Sample ID, Salinity
+bind Evaluate Algal Blooms: Bloom Type
+bind Record Sonar Data: Sonar Equipment
+bind Report Findings: Analysis Result
+Sample ID: integer between 1 and 999999
+Subsample ID: integer between 1 and 999999
+Marine Species: Fish, Crustacean, Mollusk, Mammal, Reptile
+Weather Condition: Sunny, Cloudy, Rainy, Stormy
+Water Temperature: float between -2.0 and 40.0
+Salinity: float between 0.0 and 42.0
+Bloom Type: Red Tide, Green Algae, Cyanobacteria
+Sonar Equipment: Single-beam, Multi-beam, Side-scan
+Sediment Depth: float between 0.1 and 100.0
+Analysis Result: Good, Moderate, Poor, Extremely Poor
+Init[Collect Water Samples] | |
+Precedence[Collect Water Samples, Analyze Water Quality] | | |
+Chain Response[Collect Water Samples, Measure Salinity] | | |
+Precedence[Measure Temperature, Evaluate Algal Blooms] | | |0,24,h
+Response[Record Sonar Data, Report Findings] | | |0,2,d
+Chain Response[Record Weather Data, Sample Sediment] | | |
+Existence[Record Weather Data] | |
+Absence5[Analyze Water Quality] | |
+Response[Collect Water Samples, Monitor Marine Life] | | |
+End[Report Findings] | |

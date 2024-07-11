@@ -1,0 +1,29 @@
+activity Log Interaction
+activity Analyze Feedback
+activity Plan Improvement
+activity Implement Action
+activity Review Results
+activity Train Staff
+activity Close Interaction
+activity Send Survey
+bind Log Interaction: Interaction ID, Feedback Source
+bind Analyze Feedback: Customer Satisfaction
+bind Plan Improvement: Improvement Budget
+bind Train Staff: Staff ID, Training Type, Training Date
+Interaction ID: integer between 1 and 999999
+Customer Satisfaction: Very Unsatisfied, Unsatisfied, Neutral, Satisfied, Very Satisfied
+Feedback Source: Email, Phone, In-person, Survey
+Staff ID: integer between None and None
+Improvement Budget: float between 0 and 100000
+Training Type: Customer Service, Technical Skills, Compliance
+Training Date: 2023-07-01, 2023-07-02, 2023-07-03
+Init[Log Interaction] | |
+End[Close Interaction] | |
+Precedence[Analyze Feedback, Log Interaction] | | |
+Response[Analyze Feedback, Plan Improvement] | | |
+Chain Succession[Plan Improvement, Implement Action] | | |
+Succession[Plan Improvement, Train Staff] | | |
+Alternate Response[Train Staff, Review Results] | | |
+Choice[Send Survey, Close Interaction] | | |
+Chain Response[Send Survey, Close Interaction] | | |0,2,d
+Absence[Close Interaction] | |

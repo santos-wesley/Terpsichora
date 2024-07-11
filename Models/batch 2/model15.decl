@@ -1,0 +1,55 @@
+activity Register Animal
+activity Assess Health
+activity Microchip Animal
+activity Vaccinate Animal
+activity Assign Foster Home
+activity Schedule Surgery
+activity Conduct Surgery
+activity Monitor Recovery
+activity Review Adoption Application
+activity Approve Adoption
+activity Reject Adoption
+activity Finalize Adoption
+activity Provide Post-Adoption Support
+activity Arrange Fundraising Event
+activity Report Animal Incident
+bind Register Animal: Animal ID
+bind Assess Health: Health Status, Animal ID
+bind Microchip Animal: Microchip ID, Animal ID
+bind Vaccinate Animal: Vaccination Type, Animal ID
+bind Assign Foster Home: Foster Home, Animal ID
+bind Schedule Surgery: Surgery ID, Animal ID
+bind Conduct Surgery: Surgery ID, Animal ID
+bind Monitor Recovery: Animal ID
+bind Review Adoption Application: Adoption Status, Animal ID, Adopter ID
+bind Approve Adoption: Adoption Status, Animal ID
+bind Reject Adoption: Adoption Status, Animal ID
+bind Finalize Adoption: Animal ID, Adopter ID
+bind Provide Post-Adoption Support: Animal ID
+bind Arrange Fundraising Event: Fund Amount
+bind Report Animal Incident: Incident Type, Animal ID
+Animal ID: integer between 1 and 99999
+Health Status: Healthy, Injured, Sick
+Microchip ID: integer between 1 and 999999
+Vaccination Type: Rabies, Parvovirus, Distemper
+Foster Home: Home A, Home B, Home C
+Surgery ID: integer between 1 and 9999
+Adoption Status: Pending, Approved, Rejected
+Adopter ID: integer between 1 and 99999
+Incident Type: Bite, Escape, Illness
+Fund Amount: float between 0.0 and 100000.0
+Init[Register Animal] | |
+Exactly[Register Animal] | |
+Response[Register Animal, Assess Health] | | |
+Alternate Response[Register Animal, Microchip Animal] | | |
+Succession[Assess Health, Vaccinate Animal] | | |
+Chain Succession[Vaccinate Animal, Assign Foster Home] | | |
+Precedence[Conduct Surgery, Schedule Surgery] | | |
+Chain Response[Conduct Surgery, Monitor Recovery] | | |0,2,d
+Precedence[Review Adoption Application, Assess Health] | | |
+Choice[Review Adoption Application, Approve Adoption] | | |
+Response[Approve Adoption, Finalize Adoption] | | |
+Alternate Response[Assign Foster Home, Finalize Adoption] | | |0,1,d
+Existence[Arrange Fundraising Event] | |
+Chain Response[Finalize Adoption, Provide Post-Adoption Support] | | |0,30,d
+Responded Existence[Microchip Animal, Report Animal Incident] | | |

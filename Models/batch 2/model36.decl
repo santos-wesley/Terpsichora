@@ -1,0 +1,49 @@
+activity Identify Regulatory Requirements
+activity Prepare Regulatory Submission
+activity Review Submission
+activity Submit to Regulatory Agency
+activity Respond to Regulatory Queries
+activity Conduct Clinical Trials
+activity Monitor Clinical Trials
+activity Collect Trial Data
+activity Analyze Trial Data
+activity Compile Clinical Study Report
+activity Submit Clinical Study Report
+activity Obtain Regulatory Approval
+activity Manufacture Product
+activity Distribute Product
+activity Post-Market Surveillance
+bind Identify Regulatory Requirements: Regulatory Agency
+bind Prepare Regulatory Submission: Submission ID
+bind Conduct Clinical Trials: Trial Budget, Trial Phase, Trial ID
+bind Compile Clinical Study Report: Trial ID
+bind Obtain Regulatory Approval: Approval Status
+bind Manufacture Product: Manufacture Cost, Batch Number
+bind Distribute Product: Market Region
+bind Post-Market Surveillance: Post-Market Report ID
+Submission ID: integer between 1 and 999999
+Regulatory Agency: FDA, EMA, MHRA
+Trial Budget: float between 10000.0 and 1000000.0
+Trial Phase: Phase 1, Phase 2, Phase 3
+Trial ID: integer between 1 and 99999
+Approval Status: Approved, Rejected, Pending
+Manufacture Cost: float between 50000.0 and 500000.0
+Batch Number: integer between 1000 and 99999
+Market Region: North America, Europe, Asia
+Post-Market Report ID: integer between 1 and 999999
+Init[Identify Regulatory Requirements] | |
+End[Post-Market Surveillance] | |
+Existence[Conduct Clinical Trials] | |
+Absence2[Review Submission] | |
+Response[Prepare Regulatory Submission, Submit to Regulatory Agency] | | |
+Precedence[Respond to Regulatory Queries, Submit to Regulatory Agency] | | |
+Chain Response[Submit to Regulatory Agency, Conduct Clinical Trials] | | |0,30,d
+Succession[Conduct Clinical Trials, Analyze Trial Data] | | |
+Chain Succession[Compile Clinical Study Report, Submit Clinical Study Report] | | |
+Precedence[Manufacture Product, Obtain Regulatory Approval] | | |
+Chain Response[Manufacture Product, Distribute Product] | | |0,10,d
+Choice[Prepare Regulatory Submission, Conduct Clinical Trials] | | |
+Exclusive Choice[Submit to Regulatory Agency, Respond to Regulatory Queries] | | |0,15,d
+Precedence[Post-Market Surveillance, Distribute Product] | | |
+Response[Review Submission, Submit to Regulatory Agency] | | |
+Precedence[Submit to Regulatory Agency, Identify Regulatory Requirements] | | |

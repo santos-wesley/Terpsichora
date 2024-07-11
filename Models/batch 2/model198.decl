@@ -1,0 +1,43 @@
+activity Receive Complaint
+activity Assign Investigator
+activity Initial Assessment
+activity Collect Evidence
+activity Interview Witnesses
+activity Review Documents
+activity Analyze Evidence
+activity Prepare Report
+activity Review Report
+activity Submit Report
+activity Recommend Actions
+activity Implement Actions
+activity Follow Up
+activity Close Case
+bind Receive Complaint: Complaint ID, Complaint Type
+bind Assign Investigator: Investigator ID
+bind Analyze Evidence: Evidence Strength
+bind Interview Witnesses: Witness Cooperation Level
+bind Review Documents: Document Type
+bind Prepare Report: Report ID
+Complaint ID: integer between 1 and 999999
+Complaint Type: Harassment, Fraud, Discrimination
+Investigator ID: integer between 1 and 9999
+Employee Satisfaction Score: float between 0.0 and 10.0
+Witness Cooperation Level: High, Medium, Low
+Document Type: Email, Financial Records, HR Records
+Evidence Strength: float between 0.0 and 10.0
+Report ID: integer between 1 and 999999
+Init[Receive Complaint] | |
+Response[Receive Complaint, Assign Investigator] | | |
+Response[Assign Investigator, Initial Assessment] | | |
+Response[Initial Assessment, Collect Evidence] | | |
+Response[Collect Evidence, Interview Witnesses] | | |
+Response[Interview Witnesses, Review Documents] | | |
+Response[Review Documents, Analyze Evidence] | | |
+Response[Analyze Evidence, Prepare Report] | | |
+Response[Prepare Report, Review Report] | | |
+End[Submit Report] | |
+Chain Succession[Recommend Actions, Implement Actions] | | |0,7,d
+Chain Succession[Implement Actions, Follow Up] | | |0,14,d
+Chain Succession[Follow Up, Close Case] | | |0,30,d
+Existence[Follow Up] | |
+Absence[Receive Complaint] | |

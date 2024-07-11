@@ -1,0 +1,55 @@
+activity Synthesize Nanoparticles
+activity Characterize Nanoparticles
+activity Modify Surface
+activity Prepare Samples
+activity Conduct Toxicity Tests
+activity Perform Stability Tests
+activity Optimize Formulation
+activity Scale Up Production
+activity Conduct Clinical Trials
+activity Analyze Results
+activity File Patents
+activity Publish Research
+activity Attend Conferences
+activity Collaborate with Researchers
+activity Market Products
+bind Synthesize Nanoparticles: Sample ID, Sample Type
+bind Characterize Nanoparticles: Sample ID, Particle Size
+bind Modify Surface: Sample ID, Sample Type
+bind Prepare Samples: Sample ID
+bind Conduct Toxicity Tests: Sample ID, Toxicity Level
+bind Perform Stability Tests: Sample ID, Stability Duration
+bind Optimize Formulation: Sample ID, Particle Size
+bind Scale Up Production: Batch Number
+bind Conduct Clinical Trials: Sample ID, Dosage
+bind Analyze Results: Sample ID, Research Outcome
+bind File Patents: Batch Number
+bind Publish Research: Sample ID
+bind Attend Conferences: Conference Name
+bind Collaborate with Researchers: Research Outcome
+bind Market Products: Market Region
+Sample ID: integer between 1 and 999999
+Sample Type: Quantum Dots, Metal Nanoparticles, Polymeric Nanoparticles
+Particle Size: float between 1 and 1000
+Toxicity Level: Low, Medium, High
+Batch Number: integer between 1 and 10000
+Stability Duration: float between 1 and 100
+Dosage: float between 0.1 and 100
+Research Outcome: Success, Partial Success, Failure
+Conference Name: NanoTech Summit, International Nanotech Conference, Advanced Nanomaterials Conference
+Market Region: North America, Europe, Asia
+Init[Synthesize Nanoparticles] | |
+Precedence[Synthesize Nanoparticles, Characterize Nanoparticles] | | |
+Alternate Response[Modify Surface, Prepare Samples] | | |
+Absence3[Conduct Toxicity Tests] | |
+Chain Response[Synthesize Nanoparticles, Perform Stability Tests] | | |
+Response[Perform Stability Tests, Optimize Formulation] | | |0,48,h
+End[Scale Up Production] | |
+Succession[Optimize Formulation, Conduct Clinical Trials] | | |
+Alternate Response[Conduct Clinical Trials, Analyze Results] | | |0,30,d
+Chain Response[Analyze Results, File Patents] | | |
+Responded Existence[Analyze Results, Publish Research] | | |
+Precedence[Attend Conferences, Publish Research] | | |
+Chain Response[Attend Conferences, Collaborate with Researchers] | | |0,15,d
+Alternate Succession[Collaborate with Researchers, Market Products] | | |0,60,d
+Exactly[Market Products] | |

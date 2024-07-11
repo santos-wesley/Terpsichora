@@ -1,0 +1,55 @@
+activity Record Transport Request
+activity Assign Driver
+activity Schedule Vehicle
+activity Load Goods
+activity Inspect Vehicle
+activity Start Journey
+activity Monitor Route
+activity Unload Goods
+activity Complete Delivery
+activity Send Invoice
+activity Receive Payment
+activity Record Feedback
+activity Perform Maintenance
+activity Archive Records
+activity Evaluate Performance
+bind Record Transport Request: Transport Request ID
+bind Assign Driver: Transport Request ID, Driver Name
+bind Schedule Vehicle: Transport Request ID, Vehicle ID
+bind Load Goods: Transport Request ID, Goods Type
+bind Inspect Vehicle: Transport Request ID, Inspection Status
+bind Start Journey: Transport Request ID, Distance
+bind Monitor Route: Transport Request ID
+bind Unload Goods: Transport Request ID
+bind Complete Delivery: Transport Request ID
+bind Send Invoice: Transport Request ID, Payment Status
+bind Receive Payment: Transport Request ID, Payment Status
+bind Record Feedback: Transport Request ID, Feedback Rating
+bind Perform Maintenance: Maintenance ID, Vehicle ID
+bind Archive Records: Transport Request ID
+bind Evaluate Performance: Transport Request ID, Performance Status
+Transport Request ID: integer between 1 and 999999
+Driver Name: John Doe, Jane Smith, Alice Johnson
+Vehicle ID: integer between 1 and 9999
+Goods Type: Perishable, Non-perishable
+Inspection Status: Passed, Failed
+Distance: float between 0.1 and 1000.0
+Payment Status: Pending, Completed
+Feedback Rating: Excellent, Good, Fair, Poor
+Maintenance ID: integer between 1 and 99999
+Performance Status: Successful, Unsuccessful
+Init[Record Transport Request] | |
+End[Archive Records] | |
+Absence2[Inspect Vehicle] | |
+Precedence[Load Goods, Start Journey] | | |
+Chain Response[Inspect Vehicle, Start Journey] | | |
+Precedence[Assign Driver, Load Goods] | | |
+Alternate Response[Start Journey, Monitor Route] | | |0,2,h
+Succession[Complete Delivery, Send Invoice] | | |
+Chain Succession[Receive Payment, Record Feedback] | | |
+Precedence[Evaluate Performance, Archive Records] | | |
+Response[Complete Delivery, Evaluate Performance] | | |
+Alternate Precedence[Record Feedback, Receive Payment] | | |0,1,d
+Chain Precedence[Start Journey, Inspect Vehicle] | | |0,1,h
+Not Co-Existence[Perform Maintenance, Start Journey] | | |
+Responded Existence[Inspect Vehicle, Perform Maintenance] | | |0,7,d

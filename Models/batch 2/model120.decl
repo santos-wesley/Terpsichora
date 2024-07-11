@@ -1,0 +1,50 @@
+activity Collect Water Sample
+activity Analyze Water Sample
+activity Tag Marine Species
+activity Track Marine Species
+activity Document Species Behavior
+activity Submit Report
+activity Review Report
+activity Approve Report
+activity Archive Report
+activity Conduct Underwater Survey
+activity Record Survey Findings
+activity Analyze Survey Data
+activity Publish Findings
+activity Conduct Biodiversity Assessment
+activity Conduct Water Quality Assessment
+bind Collect Water Sample: Sample ID
+bind Analyze Water Sample: Salinity Level, Ph Level
+bind Tag Marine Species: Species Type, Tag ID
+bind Document Species Behavior: Behavior Type
+bind Submit Report: Report ID
+bind Review Report: Report ID
+bind Approve Report: Report ID
+bind Archive Report: Report ID
+bind Conduct Underwater Survey: Survey Area
+bind Conduct Biodiversity Assessment: Assessment ID, Assessment Type
+bind Conduct Water Quality Assessment: Assessment ID, Assessment Type
+Sample ID: integer between 1 and 100000
+Salinity Level: float between 0.0 and 40.0
+Ph Level: float between 0.0 and 14.0
+Species Type: Shark, Turtle, Dolphin, Whale
+Tag ID: integer between 1 and 10000
+Behavior Type: Feeding, Resting, Migrating, Breeding
+Report ID: integer between 1 and 100000
+Survey Area: Coral Reef, Open Ocean, Kelp Forest, Deep Sea
+Assessment Type: Biodiversity, Water Quality
+Assessment ID: integer between 1 and 100000
+Init[Collect Water Sample] | |
+Precedence[Collect Water Sample, Analyze Water Sample] | | |0,1,d
+Precedence[Tag Marine Species, Track Marine Species] | | |
+Response[Document Species Behavior, Submit Report] | | |
+Absence3[Submit Report] | |
+Chain Response[Submit Report, Review Report] | | |0,12,h
+Chain Response[Review Report, Approve Report] | | |0,24,h
+Chain Response[Approve Report, Archive Report] | | |0,1,d
+Chain Response[Conduct Underwater Survey, Record Survey Findings] | | |
+Chain Response[Record Survey Findings, Analyze Survey Data] | | |
+Chain Response[Analyze Survey Data, Publish Findings] | | |0,5,d
+Precedence[Conduct Underwater Survey, Conduct Biodiversity Assessment] | | |
+Precedence[Conduct Underwater Survey, Conduct Water Quality Assessment] | | |
+End[Archive Report] | |

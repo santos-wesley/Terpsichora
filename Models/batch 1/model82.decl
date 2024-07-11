@@ -1,0 +1,30 @@
+activity Define Specifications
+activity Design Prototype
+activity Develop Components
+activity Assemble Prototype
+activity Initial Testing
+activity Iterate Design
+activity Final Testing
+activity Review Results
+activity Present Prototype
+activity Document Process
+bind Define Specifications: Specification ID
+bind Develop Components: Component ID, Development Cost
+bind Initial Testing: Component ID, Test Result
+bind Final Testing: Component ID, Test Result
+bind Present Prototype: Specification ID, Stakeholder Feedback
+Specification ID: integer between 1 and 1000
+Component ID: integer between 1 and 10000
+Development Cost: float between 0.0 and 10000.0
+Test Result: Pass, Fail, Needs Improvement
+Stakeholder Feedback: Positive, Neutral, Negative
+Init[Define Specifications] | |
+End[Document Process] | |
+Chain Response[Define Specifications, Design Prototype] | | |
+Precedence[Develop Components, Design Prototype] | | |
+Response[Develop Components, Assemble Prototype] | | |
+Chain Response[Assemble Prototype, Initial Testing] | | |
+Chain Succession[Iterate Design, Final Testing] | | |0,7,d
+Chain Succession[Final Testing, Review Results] | | |0,2,d
+Response[Review Results, Present Prototype] | | |
+Chain Succession[Present Prototype, Document Process] | | |0,3,d

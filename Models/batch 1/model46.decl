@@ -1,0 +1,35 @@
+activity Monitor Energy Usage
+activity Analyze Energy Data
+activity Adjust Energy Settings
+activity Generate Energy Report
+activity Review Energy Report
+activity Implement Energy Conservation Measures
+activity Schedule Maintenance
+activity Conduct Maintenance
+activity Audit Energy Performance
+activity Update Energy Policies
+bind Monitor Energy Usage: Energy Consumption, Energy Cost, Energy Source
+bind Conduct Maintenance: Maintenance ID, Maintenance Status
+bind Audit Energy Performance: Audit ID, Audit Result
+bind Update Energy Policies: Policy ID, Policy Revision Status
+bind Generate Energy Report: Report Accuracy
+Energy Consumption: integer between 0 and 10000
+Energy Cost: float between 0 and 10000
+Maintenance Status: Scheduled, In Progress, Completed
+Audit Result: Pass, Fail
+Policy Revision Status: Pending, Approved, Rejected
+Report Accuracy: Accurate, Inaccurate
+Maintenance ID: integer between 1 and 100000
+Audit ID: integer between 1 and 100000
+Policy ID: integer between 1 and 100000
+Energy Source: Solar, Wind, Hydro, Coal, Nuclear
+Init[Monitor Energy Usage] | |
+Response[Monitor Energy Usage, Analyze Energy Data] | | |
+Existence[Generate Energy Report] | |
+Chain Response[Analyze Energy Data, Adjust Energy Settings] | | |
+Precedence[Schedule Maintenance, Conduct Maintenance] | | |0,2,d
+Absence5[Audit Energy Performance] | |
+Precedence[Audit Energy Performance, Update Energy Policies] | | |
+Response[Generate Energy Report, Review Energy Report] | | |0,24,h
+Chain Succession[Review Energy Report, Implement Energy Conservation Measures] | | |
+End[Update Energy Policies] | |

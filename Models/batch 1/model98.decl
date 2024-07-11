@@ -1,0 +1,33 @@
+activity Identify Target Audience
+activity Conduct Surveys
+activity Analyze Survey Results
+activity Design Branding Strategies
+activity Implement Strategies
+activity Monitor Progress
+activity Evaluate Impact
+activity Gather Testimonials
+activity Create Visual Content
+activity Publish Content
+bind Conduct Surveys: Survey ID, Survey Date
+bind Identify Target Audience: Audience ID
+bind Design Branding Strategies: Branding Strategy, Strategy Duration
+bind Create Visual Content: Content Type, Visual Content ID
+bind Publish Content: Platform
+bind Gather Testimonials: Feedback Status
+Survey ID: integer between 1 and 999999
+Audience ID: integer between 1 and 999999
+Branding Strategy: Social Media Campaign, Internal Communication, Employer Events
+Survey Date: 2023-01-10, 2023-01-11, 2023-01-12
+Content Type: Infographic, Video, Poster
+Brand Perception Score: float between 0.0 and 10.0
+Strategy Duration: float between 0.0 and 12.0
+Visual Content ID: integer between 1 and 999999
+Platform: LinkedIn, Twitter, Facebook
+Feedback Status: Pending, Completed
+Init[Identify Target Audience] | |
+Chain Response[Conduct Surveys, Analyze Survey Results] | | |
+Precedence[Implement Strategies, Design Branding Strategies] | | |0,24,h
+Alternate Response[Create Visual Content, Publish Content] | | |0,48,h
+Response[Monitor Progress, Evaluate Impact] | | |
+Existence[Gather Testimonials] | |
+End[Evaluate Impact] | |

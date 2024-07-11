@@ -1,0 +1,40 @@
+activity Report Incident
+activity Assign Incident
+activity Investigate Incident
+activity Resolve Incident
+activity Close Incident
+activity Reopen Incident
+activity Review Incident
+activity Escalate Incident
+activity Notify Stakeholders
+activity Log Incident Data
+bind Report Incident: Incident ID, Incident Type, Priority Level
+bind Assign Incident: Incident ID, Responder ID, Incident Status
+bind Investigate Incident: Incident ID, Responder ID
+bind Resolve Incident: Incident ID, Resolution Time, Incident Status
+bind Close Incident: Incident ID, Incident Status
+bind Reopen Incident: Incident ID, Incident Status
+bind Review Incident: Incident ID, Reviewer ID, Review Time
+bind Escalate Incident: Incident ID, Escalation Needed
+bind Notify Stakeholders: Incident ID, Stakeholder Notified
+bind Log Incident Data: Incident ID
+Incident ID: integer between 1 and 1000000
+Incident Type: Security, Service Outage, Data Breach, Other
+Priority Level: Low, Medium, High, Critical
+Resolution Time: float between 0.1 and 100.0
+Responder ID: integer between 1 and 10000
+Incident Status: Reported, Assigned, In Progress, Resolved, Closed
+Escalation Needed: Yes, No
+Reviewer ID: integer between 1 and 10000
+Review Time: float between 0.1 and 50.0
+Stakeholder Notified: Yes, No
+Init[Report Incident] | |
+End[Log Incident Data] | |
+Precedence[Assign Incident, Report Incident] | | |
+Response[Report Incident, Assign Incident] | | |
+Chain Succession[Resolve Incident, Close Incident] | | |0,2,h
+Chain Response[Review Incident, Close Incident] | | |0,1,h
+Response[Investigate Incident, Resolve Incident] | | |1,24,h
+Alternate Response[Reopen Incident, Resolve Incident] | | |0,10,h
+Succession[Escalate Incident, Notify Stakeholders] | | |
+Absence2[Reopen Incident] | |

@@ -1,0 +1,55 @@
+activity Register Business
+activity Review Application
+activity Approve Investment
+activity Reject Investment
+activity Conduct Feasibility Study
+activity Financial Due Diligence
+activity Legal Due Diligence
+activity Monitor Investments
+activity Disburse Funds
+activity Receive Funds
+activity Sign Agreement
+activity Assign Case
+activity Prepare Report
+activity Submit Tax Documents
+activity Evaluate Tax Compliance
+bind Register Business: Application ID, Investor Type, Country
+bind Review Application: Application ID, Officer ID
+bind Approve Investment: Application ID, Decision Status
+bind Reject Investment: Application ID, Decision Status
+bind Conduct Feasibility Study: Application ID, Feasibility Score
+bind Financial Due Diligence: Application ID, Investment Amount
+bind Legal Due Diligence: Application ID, Compliance Status
+bind Monitor Investments: Application ID, Compliance Status
+bind Disburse Funds: Application ID, Investment Amount
+bind Receive Funds: Application ID, Investment Amount
+bind Sign Agreement: Application ID
+bind Assign Case: Application ID, Officer ID
+bind Prepare Report: Application ID
+bind Submit Tax Documents: Application ID, Tax Document ID
+bind Evaluate Tax Compliance: Application ID, Tax Document ID
+Application ID: integer between 1 and 999999
+Investor Type: Individual, Company, Consortium
+Investment Amount: integer between 1000 and 100000000
+Investment Sector: Technology, Healthcare, Manufacturing, Energy, Infrastructure
+Country: USA, Germany, China, India, Brazil
+Officer ID: integer between 1 and 9999
+Feasibility Score: float between 0.0 and 10.0
+Decision Status: Approved, Rejected, Pending
+Compliance Status: Compliant, Non-Compliant
+Tax Document ID: integer between 1 and 999999
+Init[Register Business] | |
+Precedence[Register Business, Review Application] | | |0,2,d
+Response[Review Application, Conduct Feasibility Study] | | |
+Chain Response[Conduct Feasibility Study, Approve Investment] | | |0,1,d
+Chain Succession[Conduct Feasibility Study, Prepare Report] | | |
+Alternate Response[Prepare Report, Submit Tax Documents] | | |0,48,h
+Co-Existence[Financial Due Diligence, Legal Due Diligence] | | |
+Absence[Reject Investment] | |
+Precedence[Approve Investment, Sign Agreement] | | |
+Co-Existence[Disburse Funds, Receive Funds] | | |
+Co-Existence[Register Business, Assign Case] | | |
+Absence[Approve Investment] | |
+Response[Disburse Funds, Monitor Investments] | | |
+End[Receive Funds] | |
+Existence[Evaluate Tax Compliance] | |

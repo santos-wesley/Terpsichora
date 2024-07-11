@@ -1,0 +1,48 @@
+activity Define Audience
+activity Set Goals
+activity Conduct Research
+activity Develop Strategy
+activity Create Content
+activity Review Strategy
+activity Launch Campaign
+activity Monitor Performance
+activity Adjust Strategy
+activity Engage Audience
+activity Collect Feedback
+activity Analyze Feedback
+activity Generate Report
+activity Evaluate Success
+activity Disseminate Learnings
+bind Define Audience: Audience Size
+bind Set Goals: Goal Status
+bind Create Content: Content Type, Budget Allocation
+bind Review Strategy: Ethical Review Status
+bind Engage Audience: Engagement Rate
+bind Analyze Feedback: Feedback Sentiment
+bind Adjust Strategy: Adjustment Type
+bind Disseminate Learnings: Learning Points
+Audience Size: integer between 100 and 10000
+Budget Allocation: float between 1000.0 and 100000.0
+Content Type: Blog Post, Video, Graphic, Infographic
+Ethical Review Status: Approved, Rejected, Pending
+Engagement Rate: integer between 0 and 100
+Conversion Rate: float between 0.0 and 100.0
+Feedback Sentiment: Positive, Neutral, Negative
+Goal Status: Achieved, Not Achieved, In Progress
+Adjustment Type: Major, Minor, None
+Learning Points: integer between 1 and 20
+Init[Define Audience] | |
+End[Disseminate Learnings] | |
+Precedence[Set Goals, Define Audience] | | |
+Precedence[Conduct Research, Set Goals] | | |
+Chain Response[Conduct Research, Develop Strategy] | | |0,48,h
+Precedence[Create Content, Develop Strategy] | | |
+Chain Response[Develop Strategy, Review Strategy] | | |
+Chain Response[Review Strategy, Launch Campaign] | | |0,24,h
+Response[Launch Campaign, Monitor Performance] | | |
+Chain Response[Launch Campaign, Engage Audience] | | |0,12,h
+Response[Engage Audience, Collect Feedback] | | |
+Response[Collect Feedback, Analyze Feedback] | | |
+Chain Response[Analyze Feedback, Adjust Strategy] | | |0,24,h
+Response[Monitor Performance, Generate Report] | | |
+Response[Generate Report, Evaluate Success] | | |

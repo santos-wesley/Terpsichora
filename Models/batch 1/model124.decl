@@ -1,0 +1,39 @@
+activity Plan Campaign
+activity Design Creatives
+activity Approve Budget
+activity Launch Campaign
+activity Monitor Performance
+activity Optimize Strategy
+activity End Campaign
+activity Collect Feedback
+activity Analyze Feedback
+activity Report Results
+bind Plan Campaign: Campaign ID, Campaign Name
+bind Approve Budget: Campaign ID, Budget Amount, Approval Date
+bind Launch Campaign: Campaign ID, Launch Date
+bind Monitor Performance: Campaign ID, Performance Metric
+bind Optimize Strategy: Campaign ID, Optimized Date
+bind End Campaign: Campaign ID, End Date
+bind Collect Feedback: Campaign ID, Feedback Type
+bind Analyze Feedback: Campaign ID, Feedback Type
+bind Report Results: Campaign ID, Report Date
+Campaign ID: integer between 1 and 10000
+Campaign Name: Spring Sale, Holiday Discount, Back to School, Black Friday Special
+Budget Amount: float between 1000.0 and 1000000.0
+Approval Date: 2023-01-01, 2023-02-01, 2023-03-01, 2023-04-01
+Launch Date: 2023-05-01, 2023-06-01, 2023-07-01, 2023-08-01
+Performance Metric: Click Through Rate, Conversion Rate, Impressions, Engagement
+Optimized Date: 2023-05-15, 2023-06-15, 2023-07-15, 2023-08-15
+End Date: 2023-09-01, 2023-10-01, 2023-11-01, 2023-12-01
+Feedback Type: Positive, Negative, Neutral
+Report Date: 2023-10-10, 2023-11-10, 2023-12-10, 2024-01-10
+Init[Plan Campaign] | |
+Precedence[Plan Campaign, Approve Budget] | | |0,3,d
+Precedence[Approve Budget, Launch Campaign] | | |0,7,d
+Response[Launch Campaign, Monitor Performance] | | |0,30,d
+Response[Monitor Performance, Optimize Strategy] | | |0,15,d
+Existence[End Campaign] | |
+Response[End Campaign, Collect Feedback] | | |
+Response[Collect Feedback, Analyze Feedback] | | |
+Response[Analyze Feedback, Report Results] | | |
+End[Report Results] | |

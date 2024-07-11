@@ -1,0 +1,37 @@
+activity Collect Evidence
+activity Log Evidence
+activity Store Evidence
+activity Review Evidence
+activity Authorize Access
+activity Retrieve Evidence
+activity Submit Evidence
+activity Return Evidence
+activity Dispose Evidence
+activity Archive Records
+bind Collect Evidence: Evidence ID, Evidence Type, Collection Date
+bind Log Evidence: Evidence ID, Weight, Storage Location ID
+bind Review Evidence: Evidence ID, Reviewer Name
+bind Authorize Access: Evidence ID, Access Authorization Date
+bind Submit Evidence: Evidence ID, Court Submission Date
+bind Return Evidence: Evidence ID, Return Date
+bind Dispose Evidence: Evidence ID, Disposal Date
+Evidence ID: integer between 1 and 999999
+Evidence Type: Physical, Digital, Documentary
+Collection Date: 2023-01-01, 2023-01-02, 2023-01-03
+Weight: float between 0.1 and 10000.0
+Storage Location ID: integer between 1 and 5000
+Reviewer Name: John Doe, Jane Smith, Alice Johnson
+Access Authorization Date: 2023-01-05, 2023-01-06, 2023-01-07
+Court Submission Date: 2023-02-01, 2023-02-02, 2023-02-03
+Return Date: 2023-02-10, 2023-02-11, 2023-02-12
+Disposal Date: 2023-03-01, 2023-03-02, 2023-03-03
+Init[Collect Evidence] | |
+End[Archive Records] | |
+Precedence[Log Evidence, Collect Evidence] | | |
+Chain Response[Collect Evidence, Log Evidence] | | |
+Alternate Response[Log Evidence, Store Evidence] | | |
+Response[Review Evidence, Authorize Access] | | |
+Chain Succession[Retrieve Evidence, Submit Evidence] | | |
+Precedence[Dispose Evidence, Return Evidence] | | |0,2,d
+Chain Response[Dispose Evidence, Archive Records] | | |0,48,h
+Absence[Submit Evidence] | |

@@ -1,0 +1,40 @@
+activity Log Incident
+activity Analyze Incident
+activity Assign Incident
+activity Mitigate Incident
+activity Resolve Incident
+activity Review Incident
+activity Close Incident
+activity Escalate Incident
+activity Notify Stakeholders
+activity Document Incident
+bind Log Incident: Incident ID, Incident Type, Location, Severity Level
+bind Analyze Incident: Incident ID, Impact Score
+bind Assign Incident: Incident ID, Responder ID, Priority
+bind Mitigate Incident: Incident ID, Impact Score
+bind Resolve Incident: Incident ID, Resolution Method, Resolution Time
+bind Review Incident: Incident ID, Status
+bind Close Incident: Incident ID
+bind Escalate Incident: Incident ID, Priority, Severity Level
+bind Notify Stakeholders: Incident ID, Status
+bind Document Incident: Incident ID, Resolution Time
+Incident ID: integer between 1 and 9999
+Incident Type: Network Issue, Software Bug, Hardware Failure
+Impact Score: float between 0 and 10
+Location: Headquarters, Branch Office, Remote Site
+Responder ID: integer between 1 and 9999
+Status: Open, In Progress, Resolved, Closed
+Severity Level: integer between 1 and 5
+Priority: Low, Medium, High, Critical
+Resolution Method: Reboot, Patch, Replace Component
+Resolution Time: float between 0.0 and 48.0
+Init[Log Incident] | |
+Precedence[Log Incident, Analyze Incident] | | |
+Response[Analyze Incident, Mitigate Incident] | | |
+Chain Succession[Mitigate Incident, Resolve Incident] | | |0,48,h
+Chain Response[Resolve Incident, Review Incident] | | |
+Precedence[Review Incident, Close Incident] | | |0,24,h
+Absence3[Escalate Incident] | |
+End[Close Incident] | |
+Alternate Response[Close Incident, Notify Stakeholders] | | |
+Existence[Document Incident] | |

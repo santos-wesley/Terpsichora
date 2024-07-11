@@ -1,0 +1,40 @@
+activity Submit Dossier
+activity Review Dossier
+activity Request Additional Information
+activity Provide Additional Information
+activity Approve Dossier
+activity Reject Dossier
+activity Prepare Amendment
+activity Submit Amendment
+activity Conduct Internal Audit
+activity File Documentation
+bind Submit Dossier: Dossier ID, Reviewer
+bind Review Dossier: Dossier ID, Review Type, Approval Status
+bind Request Additional Information: Dossier ID, Request Type
+bind Provide Additional Information: Dossier ID
+bind Approve Dossier: Dossier ID, Approval Status
+bind Reject Dossier: Dossier ID, Approval Status
+bind Prepare Amendment: Dossier ID, Amendment Type
+bind Submit Amendment: Dossier ID, Reviewer
+bind Conduct Internal Audit: Audit ID, Compliance Score, Audit Result
+bind File Documentation: Document ID
+Dossier ID: integer between 1 and 999999
+Reviewer: John Doe, Jane Smith, Alice Johnson
+Audit ID: integer between 1 and 9999
+Request Type: Technical, Administrative, Clinical
+Compliance Score: float between 0.0 and 10.0
+Approval Status: Approved, Rejected, Pending
+Audit Result: Pass, Fail
+Amendment Type: Minor, Major
+Review Type: Initial, Follow-Up
+Document ID: integer between 1 and 999999
+Init[Submit Dossier] | |
+Response[Submit Dossier, Review Dossier] | | |
+Alternate Response[Review Dossier, Request Additional Information] |A.Approval Status = 'Pending' | |
+Response[Review Dossier, Approve Dossier] |A.Approval Status = 'Approved' | |
+Chain Response[Review Dossier, Reject Dossier] |A.Approval Status = 'Rejected' | |
+Response[Request Additional Information, Prepare Amendment] | | |0,7,d
+Chain Response[Prepare Amendment, Submit Amendment] | | |
+Existence[Conduct Internal Audit] | |
+End[File Documentation] | |
+Chain Response[Request Additional Information, Provide Additional Information] | | |0,5,d

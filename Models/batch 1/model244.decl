@@ -1,0 +1,39 @@
+activity Introduce Topic
+activity Assign Reading
+activity Host Discussion
+activity Give Assignment
+activity Review Assignment
+activity Provide Feedback
+activity Show Documentary
+activity Organize Guest Lecture
+activity Hold Exam
+activity Analyze Exam Performance
+bind Introduce Topic: Topic Name
+bind Assign Reading: Reading Material, Topic Name
+bind Give Assignment: Student ID, Assignment Score
+bind Review Assignment: Student ID, Assignment Score
+bind Provide Feedback: Student ID, Feedback Type
+bind Show Documentary: Documentary ID, Topic Name
+bind Organize Guest Lecture: Guest Lecturer ID, Topic Name
+bind Hold Exam: Exam ID, Exam Score
+bind Analyze Exam Performance: Student ID, Performance Improvement
+Student ID: integer between 1 and 999999
+Topic Name: Immigration, Civil Rights, Cultural Identity, Racial Discrimination
+Reading Material: Book A, Book B, Article X, Article Y
+Assignment Score: float between 0.0 and 100.0
+Documentary ID: integer between 1 and 9999
+Feedback Type: Written, Verbal
+Guest Lecturer ID: integer between 1 and 9999
+Exam Score: float between 0.0 and 100.0
+Exam ID: integer between 1 and 99999
+Performance Improvement: float between 0.0 and 100.0
+Init[Introduce Topic] | |
+Precedence[Assign Reading, Introduce Topic] | | |
+Precedence[Give Assignment, Host Discussion] | | |
+Succession[Give Assignment, Review Assignment] | | |
+Chain Response[Provide Feedback, Review Assignment] | | |0,48,h
+Existence[Show Documentary] | |
+Precedence[Hold Exam, Organize Guest Lecture] | | |
+Response[Hold Exam, Analyze Exam Performance] | | |
+Response[Hold Exam, Organize Guest Lecture] | | |0,30,d
+End[Analyze Exam Performance] | |

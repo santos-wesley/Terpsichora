@@ -1,0 +1,40 @@
+activity Assess Situation
+activity Mobilize Teams
+activity Establish Communication
+activity Distribute Supplies
+activity Set Up Medical Camps
+activity Conduct Search and Rescue
+activity Perform Damage Assessment
+activity Coordinate with Local Authorities
+activity Provide Psychological Support
+activity Prepare Recovery Plan
+bind Assess Situation: Number of Teams, Estimated Damage
+bind Mobilize Teams: Number of Teams
+bind Establish Communication: Communication Status
+bind Distribute Supplies: Number of Supplies
+bind Set Up Medical Camps: Medical Camp Status
+bind Conduct Search and Rescue: Number of Rescued, Injury Severity
+bind Perform Damage Assessment: Estimated Damage
+bind Coordinate with Local Authorities: Coordination Level
+bind Provide Psychological Support: Psychological Impact
+bind Prepare Recovery Plan: Recovery Budget
+Number of Teams: integer between 1 and 100
+Estimated Damage: float between 0.0 and 10000000.0
+Communication Status: Established, Not Established
+Number of Supplies: integer between 1 and 10000
+Medical Camp Status: Operational, Not Operational
+Number of Rescued: integer between 1 and 1000
+Injury Severity: integer between 1 and 10
+Coordination Level: High, Medium, Low
+Psychological Impact: float between 1.0 and 10.0
+Recovery Budget: float between 0.0 and 5000000.0
+Init[Assess Situation] | |
+Precedence[Assess Situation, Mobilize Teams] | | |
+Not Precedence[Mobilize Teams, Assess Situation] | | |
+Chain Succession[Mobilize Teams, Establish Communication] | | |
+Exactly[Distribute Supplies] | |
+Response[Distribute Supplies, Set Up Medical Camps] | | |0,2,h
+Precedence[Conduct Search and Rescue, Perform Damage Assessment] | | |
+Existence[Coordinate with Local Authorities] | |
+Chain Succession[Provide Psychological Support, Prepare Recovery Plan] | | |
+Alternate Response[Distribute Supplies, Provide Psychological Support] | | |0,3,d

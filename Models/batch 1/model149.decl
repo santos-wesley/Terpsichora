@@ -1,0 +1,38 @@
+activity Plan Campaign
+activity Design Materials
+activity Launch Campaign
+activity Monitor Performance
+activity Collect Feedback
+activity Analyze Feedback
+activity Adjust Strategies
+activity Prepare Report
+activity Present Report
+activity Celebrate Success
+bind Plan Campaign: Campaign ID, Media Type, Budget
+bind Design Materials: Campaign ID, Design Status
+bind Launch Campaign: Campaign ID, Media Type
+bind Collect Feedback: Campaign ID, Feedback Score, Feedback Sentiment
+bind Prepare Report: Campaign ID, Report ID
+bind Present Report: Report ID, Stakeholder ID
+bind Adjust Strategies: Campaign ID, Strategy Adjustment Status
+bind Celebrate Success: Campaign ID, Team Member ID
+Campaign ID: integer between 1 and 9999
+Media Type: Print, Digital, Social Media
+Budget: float between 1000.0 and 100000.0
+Feedback Score: integer between 1 and 10
+Feedback Sentiment: Positive, Neutral, Negative
+Design Status: Not Started, In Progress, Completed
+Report ID: integer between 1 and 99999
+Stakeholder ID: integer between 1 and 999
+Strategy Adjustment Status: Pending, In Progress, Implemented
+Team Member ID: integer between 1 and 999
+Init[Plan Campaign] | |
+Existence[Launch Campaign] | |
+Precedence[Design Materials, Launch Campaign] | | |
+Response[Collect Feedback, Analyze Feedback] | | |
+Chain Succession[Prepare Report, Present Report] | | |
+Absence3[Monitor Performance] | |
+Chain Response[Celebrate Success, Plan Campaign] | | |0,2,d
+Precedence[Present Report, Adjust Strategies] | | |0,48,h
+Not Co-Existence[Present Report, Celebrate Success] | | |
+End[Present Report] | |

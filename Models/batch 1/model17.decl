@@ -1,0 +1,40 @@
+activity Receive Animal
+activity Conduct Health Check
+activity Administer Vaccination
+activity Assign Animal to Shelter
+activity Provide Daily Care
+activity Evaluate Adoption Suitability
+activity Handle Adoption Process
+activity Monitor Post-Adoption
+activity Update Database
+activity Conduct Behavioral Training
+bind Receive Animal: Animal ID, Animal Type
+bind Conduct Health Check: Animal ID, Animal Weight, Health Status
+bind Administer Vaccination: Animal ID, Vaccination Type
+bind Assign Animal to Shelter: Animal ID, Shelter ID
+bind Provide Daily Care: Animal ID, Care Quality
+bind Evaluate Adoption Suitability: Animal ID
+bind Handle Adoption Process: Animal ID, Adoption Status
+bind Monitor Post-Adoption: Animal ID, Post-Adoption Check
+bind Update Database: Animal ID
+bind Conduct Behavioral Training: Animal ID, Training Level
+Animal ID: integer between 1 and 99999
+Animal Type: Dog, Cat, Rabbit, Bird
+Animal Weight: float between 0.5 and 100.0
+Health Status: Healthy, Injured, Sick
+Vaccination Type: Rabies, Distemper, Parvovirus
+Shelter ID: integer between 1 and 500
+Care Quality: Basic, Standard, Premium
+Adoption Status: Available, Pending, Adopted
+Training Level: None, Basic, Advanced
+Post-Adoption Check: Successful, Unsuccessful
+Init[Receive Animal] | |
+Response[Receive Animal, Conduct Health Check] | | |
+Precedence[Conduct Health Check, Administer Vaccination] | | |
+Precedence[Administer Vaccination, Assign Animal to Shelter] | | |0,2,d
+Existence[Provide Daily Care] | |
+Precedence[Evaluate Adoption Suitability, Handle Adoption Process] | | |0,7,d
+Not Precedence[Conduct Health Check, Conduct Behavioral Training] | | |
+Response[Handle Adoption Process, Monitor Post-Adoption] | | |
+End[Update Database] | |
+Response[Monitor Post-Adoption, Conduct Behavioral Training] |A.Post-Adoption Check is 'Unsuccessful' | |

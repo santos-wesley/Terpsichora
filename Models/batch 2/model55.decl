@@ -1,0 +1,49 @@
+activity Install Security Cameras
+activity Monitor Security Cameras
+activity Perform Security Audit
+activity Issue Access Cards
+activity Deactivate Access Cards
+activity Patrol Premises
+activity Investigate Suspicious Activity
+activity Log Security Incidents
+activity Respond to Alarms
+activity Conduct Fire Drill
+activity Test Alarm System
+activity Maintain Security Equipment
+activity Train Security Staff
+activity Review Security Policies
+activity Approve Visitor Access
+bind Install Security Cameras: Camera ID
+bind Monitor Security Cameras: Camera ID
+bind Issue Access Cards: Card ID, Access Level
+bind Deactivate Access Cards: Card ID
+bind Investigate Suspicious Activity: Incident Type, Incident Severity
+bind Log Security Incidents: Incident ID, Incident Type, Incident Severity
+bind Conduct Fire Drill: Drill Type
+bind Test Alarm System: Alarm Status
+bind Maintain Security Equipment: Maintenance Status
+Card ID: integer between 1 and 1000
+Camera ID: integer between 1 and 500
+Incident ID: integer between 1 and 10000
+Incident Severity: float between 0.1 and 10.0
+Incident Type: Theft, Vandalism, Unauthorized Access
+Access Level: Employee, Contractor, Visitor, Admin
+Security Level: Low, Medium, High
+Drill Type: Fire, Earthquake, Evacuation
+Alarm Status: Active, Inactive, Faulty
+Maintenance Status: Completed, Pending, In Progress
+Init[Install Security Cameras] | |
+Precedence[Deactivate Access Cards, Perform Security Audit] | | |
+Chain Response[Respond to Alarms, Monitor Security Cameras] | | |0,30,s
+Chain Succession[Monitor Security Cameras, Patrol Premises] | | |0,1,h
+Precedence[Train Security Staff, Maintain Security Equipment] | | |
+Existence[Perform Security Audit] | |
+Chain Response[Investigate Suspicious Activity, Log Security Incidents] | | |0,1,h
+Responded Existence[Investigate Suspicious Activity, Log Security Incidents] |A.Incident Severity > 5 | |
+Absence3[Conduct Fire Drill] | |
+Existence[Test Alarm System] | |
+Precedence[Approve Visitor Access, Perform Security Audit] | | |
+Response[Perform Security Audit, Review Security Policies] | | |
+Not Precedence[Log Security Incidents, Maintain Security Equipment] | | |
+Precedence[Monitor Security Cameras, Install Security Cameras] | | |
+Chain Succession[Investigate Suspicious Activity, Conduct Fire Drill] | | |0,2,d

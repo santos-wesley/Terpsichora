@@ -1,0 +1,40 @@
+activity Prepare Soil
+activity Plant Crops
+activity Irrigate Crops
+activity Apply Fertilizers
+activity Control Pests
+activity Harvest Crops
+activity Sort Yield
+activity Store Yield
+activity Sell Yield
+activity Monitor Soil Health
+bind Prepare Soil: Soil Type, Soil pH, Soil Nutrient Level
+bind Plant Crops: Crop ID
+bind Irrigate Crops: Crop ID, Water pH
+bind Apply Fertilizers: Crop ID, Fertilizer ID
+bind Control Pests: Crop ID, Pest Type
+bind Harvest Crops: Crop ID
+bind Sort Yield: Yield Quality, Crop ID
+bind Store Yield: Crop ID, Storage Room ID
+bind Sell Yield: Crop ID, Buyer Type
+bind Monitor Soil Health: Crop ID, Soil pH, Soil Nutrient Level
+Crop ID: integer between 1 and 1000
+Soil Type: Clay, Sandy, Loamy, Peaty, Saline
+Water pH: float between 0.0 and 14.0
+Fertilizer ID: integer between 1 and 500
+Pest Type: Insects, Weeds, Fungus
+Yield Quality: High, Medium, Low
+Storage Room ID: integer between 1 and 50
+Soil Nutrient Level: float between 0.0 and 100.0
+Buyer Type: Retailer, Wholesaler, Direct Consumer
+Soil pH: float between 0.0 and 14.0
+Init[Prepare Soil] | |
+Precedence[Prepare Soil, Plant Crops] | | |0,3,d
+Chain Response[Plant Crops, Irrigate Crops] | | |0,2,d
+Chain Succession[Irrigate Crops, Apply Fertilizers] | | |
+Chain Response[Irrigate Crops, Control Pests] | | |0,2,d
+Precedence[Control Pests, Harvest Crops] | | |0,5,d
+Chain Succession[Harvest Crops, Sort Yield] | | |
+Chain Succession[Sort Yield, Store Yield] | | |
+Chain Succession[Store Yield, Sell Yield] | | |
+End[Monitor Soil Health] | |

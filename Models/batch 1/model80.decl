@@ -1,0 +1,28 @@
+activity Identify Conflict
+activity Gather Information
+activity Assess Impact
+activity Define Resolution Criteria
+activity Generate Solutions
+activity Evaluate Solutions
+activity Select Solution
+activity Implement Solution
+activity Monitor Results
+activity Document Resolution
+bind Identify Conflict: Conflict ID, Conflict Type
+bind Assess Impact: Impact Level, Conflict Duration
+bind Define Resolution Criteria: Resolution Status
+bind Generate Solutions: Solution Type
+Conflict ID: integer between 1 and 999999
+Conflict Type: Interpersonal, Intrapersonal, Organizational, Other
+Impact Level: Low, Medium, High
+Solution Type: Mediation, Negotiation, Arbitration, Other
+Resolution Status: Resolved, Partially Resolved, Unresolved
+Conflict Duration: float between 0 and 365
+Init[Identify Conflict] | |
+End[Monitor Results] | |
+Precedence[Gather Information, Identify Conflict] | | |
+Not Co-Existence[Assess Impact, Gather Information] | | |
+Chain Response[Define Resolution Criteria, Generate Solutions] | | |
+Precedence[Generate Solutions, Assess Impact] | | |0,2,d
+Response[Select Solution, Implement Solution] | | |0,1,d
+Response[Implement Solution, Document Resolution] | | |

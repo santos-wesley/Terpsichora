@@ -1,0 +1,55 @@
+activity Book Appointment
+activity Conduct Intake Assessment
+activity Create Counseling Plan
+activity Conduct Counseling Session
+activity Evaluate Progress
+activity Adjust Counseling Plan
+activity Close Case
+activity Refer to Specialist
+activity Schedule Follow-Up
+activity Send Feedback Survey
+activity Receive Feedback
+activity Analyze Feedback
+activity Update Records
+activity Conduct Outreach
+activity Prepare Reports
+bind Book Appointment: Member ID, Appointment Date
+bind Conduct Intake Assessment: Member ID, Assessment Outcome
+bind Create Counseling Plan: Member ID, Assessment Outcome
+bind Conduct Counseling Session: Member ID, Counseling Type, Session Number
+bind Evaluate Progress: Member ID, Assessment Outcome
+bind Adjust Counseling Plan: Member ID, Case ID
+bind Close Case: Case ID
+bind Refer to Specialist: Member ID, Assessment Outcome
+bind Schedule Follow-Up: Member ID, Follow-Up Date
+bind Send Feedback Survey: Member ID, Satisfaction Score
+bind Receive Feedback: Member ID, Feedback Type
+bind Analyze Feedback: Feedback Type, Satisfaction Score
+bind Update Records: Member ID, Case ID
+bind Conduct Outreach: Report Type
+bind Prepare Reports: Report Type
+Member ID: integer between 1 and 999999
+Appointment Date: 2023-01-01, 2023-01-02, 2023-01-03
+Assessment Outcome: Low Risk, Medium Risk, High Risk
+Counseling Type: Individual, Group, Family
+Session Number: integer between 1 and 50
+Satisfaction Score: float between 0 and 10
+Case ID: integer between 1 and 999999
+Follow-Up Date: 2023-02-01, 2023-02-02, 2023-02-03
+Feedback Type: Positive, Negative, Neutral
+Report Type: Monthly, Quarterly, Annual
+Init[Book Appointment] | |
+Existence[Conduct Counseling Session] | |
+Response[Conduct Counseling Session, Evaluate Progress] | | |
+Precedence[Create Counseling Plan, Conduct Intake Assessment] | | |
+Chain Response[Conduct Counseling Session, Update Records] | | |
+Precedence[Close Case, Evaluate Progress] | | |0,48,h
+Chain Succession[Conduct Intake Assessment, Refer to Specialist] | | |0,24,h
+Absence10[Evaluate Progress] | |
+Alternate Response[Close Case, Send Feedback Survey] | | |0,72,h
+Response[Send Feedback Survey, Receive Feedback] | | |
+Chain Response[Receive Feedback, Analyze Feedback] | | |0,24,h
+Exactly[Create Counseling Plan] | |
+End[Close Case] | |
+Precedence[Conduct Outreach, Prepare Reports] | | |
+Absence20[Conduct Counseling Session] | |

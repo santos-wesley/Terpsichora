@@ -1,0 +1,40 @@
+activity Post Job
+activity Review Applications
+activity Conduct Interviews
+activity Evaluate Candidates
+activity Make Offer
+activity Complete Onboarding
+activity Assign Mentor
+activity Conduct Training
+activity Measure Performance
+activity Provide Feedback
+bind Post Job: Job ID
+bind Review Applications: Candidate ID, Candidate Status
+bind Conduct Interviews: Candidate ID, Interview Score
+bind Evaluate Candidates: Candidate ID, Candidate Status
+bind Make Offer: Candidate ID, Candidate Status
+bind Complete Onboarding: Candidate ID, Candidate Status
+bind Assign Mentor: Candidate ID, Mentor Assigned
+bind Conduct Training: Candidate ID, Training Hours, Training Type
+bind Measure Performance: Candidate ID, Performance Score
+bind Provide Feedback: Feedback ID, Feedback
+Job ID: integer between 1 and 999999
+Interview Score: float between 0 and 10
+Candidate Status: Applied, Interviewed, Offered, Onboarded
+Feedback: Positive, Negative, Neutral
+Candidate ID: integer between 1 and 999999
+Training Hours: float between 1 and 100
+Mentor Assigned: Yes, No
+Training Type: Technical, HR, Management
+Performance Score: Excellent, Good, Average, Poor
+Feedback ID: integer between 1 and 999999
+Init[Post Job] | |
+Response[Post Job, Review Applications] | | |
+Precedence[Conduct Interviews, Review Applications] | | |
+Chain Succession[Conduct Interviews, Evaluate Candidates] | | |
+Existence[Make Offer] | |
+Alternate Response[Evaluate Candidates, Make Offer] | | |
+Chain Response[Make Offer, Complete Onboarding] | | |
+Chain Succession[Complete Onboarding, Assign Mentor] | | |
+Succession[Assign Mentor, Conduct Training] | | |
+Chain Response[Measure Performance, Provide Feedback] | | |

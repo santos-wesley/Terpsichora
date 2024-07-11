@@ -1,0 +1,40 @@
+activity Draft Contract
+activity Review Contract
+activity Sign Contract
+activity Onboard Employee
+activity Assign Tasks
+activity Train Employee
+activity Evaluate Performance
+activity Address Complaints
+activity Terminate Employment
+activity Provide Exit Interview
+bind Draft Contract: Contract ID, Contract Salary, Department
+bind Review Contract: Contract ID, Review Status
+bind Sign Contract: Contract ID, Employee ID
+bind Onboard Employee: Employee ID, Department
+bind Assign Tasks: Employee ID
+bind Train Employee: Employee ID, Training Type
+bind Evaluate Performance: Employee ID, Evaluator ID, Performance Score
+bind Address Complaints: Employee ID, Complaint Type
+bind Terminate Employment: Employee ID
+bind Provide Exit Interview: Exit Interview Completion, Employee ID
+Contract ID: integer between 1 and 99999
+Contract Salary: float between 30000.0 and 200000.0
+Department: HR, IT, Sales, Marketing, Finance
+Employee ID: integer between 1 and 9999
+Review Status: Approved, Rejected
+Training Type: Orientation, Technical, Compliance
+Evaluator ID: integer between 1 and 9999
+Performance Score: float between 1.0 and 10.0
+Complaint Type: Harassment, Workload, Benefits
+Exit Interview Completion: Completed, Not Completed
+Init[Draft Contract] | |
+Chain Response[Draft Contract, Review Contract] | | |0,2,d
+Precedence[Review Contract, Sign Contract] |A.Review Status is Approved | |
+Exactly[Onboard Employee] | |
+Response[Onboard Employee, Assign Tasks] | | |
+Alternate Response[Assign Tasks, Train Employee] | | |0,5,d
+Succession[Train Employee, Evaluate Performance] | | |
+Alternate Response[Evaluate Performance, Address Complaints] | | |0,10,d
+Chain Response[Terminate Employment, Provide Exit Interview] | | |0,1,d
+End[Provide Exit Interview] | |

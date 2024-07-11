@@ -1,0 +1,50 @@
+activity Identify Problem
+activity Set Objectives
+activity Map Existing Process
+activity Analyze Process
+activity Develop New Process
+activity Test New Process
+activity Train Employees
+activity Implement New Process
+activity Monitor Implementation
+activity Collect Feedback
+activity Measure Performance
+activity Identify Areas for Improvement
+activity Adjust Process
+activity Report Outcomes
+activity Celebrate Success
+bind Identify Problem: Problem Severity
+bind Collect Feedback: Feedback Type, Employee ID
+bind Train Employees: Training Status, Employee ID
+bind Measure Performance: Performance Score
+bind Adjust Process: Adjustment Count
+bind Map Existing Process: Employee ID
+bind Cost Reduction: Objective Type, Cost Reduction
+bind Monitor Implementation: Implementation Status
+bind Analyze Process: Employee ID
+bind Develop New Process: Employee ID
+Employee ID: integer between 1 and 9999
+Process Time: float between 0.1 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Performance Score: integer between 1 and 10
+Implementation Status: Completed, In Progress, Failed
+Cost Reduction: float between 0.0 and 100.0
+Training Status: Completed, Not Completed
+Problem Severity: integer between 1 and 5
+Objective Type: Efficiency, Cost Reduction, Quality Improvement
+Adjustment Count: integer between 0 and 20
+Init[Identify Problem] | |
+End[Celebrate Success] | |
+Existence[Collect Feedback] | |
+Exactly[Train Employees] | |
+Absence5[Adjust Process] | |
+Precedence[Set Objectives, Map Existing Process] | | |
+Precedence[Analyze Process, Map Existing Process] | | |
+Chain Succession[Analyze Process, Develop New Process] | | |
+Chain Succession[Develop New Process, Test New Process] | | |
+Chain Succession[Train Employees, Implement New Process] | | |
+Response[Implement New Process, Monitor Implementation] | | |
+Response[Monitor Implementation, Collect Feedback] | | |
+Response[Identify Areas for Improvement, Adjust Process] | | |
+Response[Measure Performance, Report Outcomes] | | |
+Response[Report Outcomes, Celebrate Success] | | |

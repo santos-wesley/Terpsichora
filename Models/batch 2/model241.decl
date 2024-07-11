@@ -1,0 +1,49 @@
+activity Identify Human Rights Violations
+activity Document Violations
+activity Analyze Data
+activity Raise Awareness
+activity Engage Stakeholders
+activity Develop Advocacy Plan
+activity Implement Advocacy Plan
+activity Organize Events
+activity Monitor Progress
+activity Lobby Policy Makers
+activity Provide Legal Support
+activity Conduct Trainings
+activity Evaluate Campaigns
+activity Create Partnerships
+activity Report Outcomes
+bind Identify Human Rights Violations: Violation ID, Violation Type, Region
+bind Document Violations: Document ID, Violation ID, Region
+bind Engage Stakeholders: Violation ID, Stakeholder Type
+bind Raise Awareness: Violation ID, Awareness Platform
+bind Develop Advocacy Plan: Campaign Budget, Violation Type
+bind Implement Advocacy Plan: Violation ID, Campaign Budget
+bind Provide Legal Support: Violation ID, Legal Support Type
+bind Monitor Progress: Violation ID, Outcome Impact Score
+bind Organize Events: Violation ID, Event Type
+Violation ID: integer between 1 and 999999
+Document ID: integer between 1 and 99999
+Violation Type: Civil Rights, Political Rights, Economic Rights, Social Rights
+Region: Americas, Europe, Asia, Africa, Oceania
+Stakeholder Type: Local NGO, International NGO, Government, UN Bodies
+Awareness Platform: Social Media, TV, Radio, Newspaper
+Campaign Budget: float between 1000.0 and 100000.0
+Legal Support Type: Legal Advice, Representation, Documentation Support
+Outcome Impact Score: float between 0.0 and 10.0
+Event Type: Workshop, Seminar, Protest, Press Conference
+Init[Identify Human Rights Violations] | |
+Precedence[Document Violations, Identify Human Rights Violations] | | |
+Response[Document Violations, Analyze Data] | | |
+Existence[Analyze Data] | |
+Chain Response[Implement Advocacy Plan, Raise Awareness] | | |0,2,h
+Alternate Response[Engage Stakeholders, Provide Legal Support] | | |
+Precedence[Monitor Progress, Implement Advocacy Plan] | | |
+Response[Raise Awareness, Organize Events] | | |
+Chain Succession[Organize Events, Report Outcomes] | | |
+Existence[Evaluate Campaigns] | |
+Chain Succession[Evaluate Campaigns, Report Outcomes] | | |0,48,h
+Chain Precedence[Create Partnerships, Develop Advocacy Plan] | | |2,7,d
+Precedence[Engage Stakeholders, Analyze Data] | | |
+Absence[Develop Advocacy Plan] |A.Campaign Budget > 10000 |
+Not Co-Existence[Implement Advocacy Plan, Provide Legal Support] | | |

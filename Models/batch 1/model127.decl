@@ -1,0 +1,40 @@
+activity Identify Emergency
+activity Alert Authorities
+activity Evacuate Area
+activity Provide Medical Assistance
+activity Deploy Emergency Services
+activity Establish Communication
+activity Conduct Search and Rescue
+activity Provide Shelter
+activity Distribute Supplies
+activity Assess Damage
+bind Identify Emergency: Emergency Level
+bind Alert Authorities: Authority Type
+bind Evacuate Area: Injured Count
+bind Provide Medical Assistance: Injured Count
+bind Establish Communication: Communication Method
+bind Conduct Search and Rescue: Rescue Count
+bind Provide Shelter: Shelter Type
+bind Distribute Supplies: Supply Type
+bind Assess Damage: Damage Type
+bind Conduct Search and Rescue: Total Rescued
+Emergency Level: integer between 1 and 5
+Response Time: float between 0 and 24
+Authority Type: Police, Fire Department, Medical Team
+Injured Count: integer between 0 and 1000
+Communication Method: Radio, Satellite Phone, Mobile
+Rescue Count: integer between 0 and 1000
+Shelter Type: Temporary, Permanent
+Supply Type: Food, Water, Medical Supplies
+Damage Type: Structural, Environmental, Economic
+Total Rescued: integer between 0 and 1000
+Init[Identify Emergency] | |
+End[Assess Damage] | |
+Precedence[Alert Authorities, Identify Emergency] | | |0,10,m
+Response[Alert Authorities, Evacuate Area] | | |0,30,m
+Alternate Response[Evacuate Area, Provide Medical Assistance] | | |
+Response[Identify Emergency, Deploy Emergency Services] | | |
+Not Chain Response[Provide Medical Assistance, Conduct Search and Rescue] | | |
+Precedence[Conduct Search and Rescue, Establish Communication] | | |
+Chain Precedence[Distribute Supplies, Provide Shelter] | | |0,2,h
+Response[Conduct Search and Rescue, Assess Damage] | | |

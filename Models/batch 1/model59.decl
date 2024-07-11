@@ -1,0 +1,39 @@
+activity Identify Crisis
+activity Assess Impact
+activity Create Strategy
+activity Draft Message
+activity Approve Message
+activity Distribute Message
+activity Monitor Reactions
+activity Follow Up
+activity Evaluate Response
+activity Document Lessons
+bind Identify Crisis: Crisis ID
+bind Assess Impact: Impact Level
+bind Create Strategy: Strategy ID, Estimated Cost
+bind Draft Message: Message ID
+bind Approve Message: Message Status
+bind Distribute Message: Message ID, Message Status
+bind Monitor Reactions: Reaction Type
+bind Follow Up: Follow Up Status
+bind Evaluate Response: Evaluation Outcome
+bind Document Lessons: Update Status
+Crisis ID: integer between 1 and 99999
+Impact Level: Low, Medium, High
+Estimated Cost: float between 1.0 and 1000000.0
+Message Status: Drafted, Approved, Dispatched
+Reaction Type: Positive, Negative, Neutral
+Follow Up Status: Pending, Completed
+Evaluation Outcome: Effective, Ineffective
+Update Status: Pending, Completed
+Strategy ID: integer between 1 and 99999
+Message ID: integer between 1 and 99999
+Init[Identify Crisis] | |
+Precedence[Identify Crisis, Assess Impact] | | |
+Response[Assess Impact, Create Strategy] | | |0,48,h
+Chain Response[Draft Message, Approve Message] | | |0,24,h
+Alternate Precedence[Distribute Message, Approve Message] | | |
+Chain Succession[Approve Message, Distribute Message] | | |0,2,h
+Response[Monitor Reactions, Follow Up] | | |0,24,h
+Exactly[Evaluate Response] | |
+End[Document Lessons] | |

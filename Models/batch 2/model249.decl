@@ -1,0 +1,45 @@
+activity Identify Risks
+activity Assess Vulnerabilities
+activity Develop Mitigation Plans
+activity Implement Controls
+activity Monitor Systems
+activity Review Access
+activity Conduct Awareness Training
+activity Perform Audits
+activity Update Policies
+activity Respond to Incidents
+activity Analyze Incident
+activity Report Incident
+activity Recover Systems
+activity Review Incident Response
+activity Document Lessons Learned
+activity Revise Risk Management Strategies
+activity Implement New Controls
+activity Test Controls
+activity Report Compliance
+bind Identify Risks: Risk Score
+bind Assess Vulnerabilities: Vulnerability Score
+bind Implement Controls: Control Type, Control Cost
+bind Respond to Incidents: Incident Type
+bind Review Access: Access Level
+Risk Score: integer between 1 and 10
+Vulnerability Score: integer between 1 and 10
+Control Type: Preventive, Detective, Corrective
+Control Cost: float between 0.0 and 10000.0
+Incident Type: Data Breach, Malware Infection, Phishing Attack
+Access Level: User, Admin, Super Admin
+Init[Identify Risks] | |
+End[Document Lessons Learned] | |
+Response[Identify Risks, Assess Vulnerabilities] | | |
+Response[Assess Vulnerabilities, Develop Mitigation Plans] | | |
+Chain Succession[Implement Controls, Monitor Systems] | | |
+Chain Response[Respond to Incidents, Analyze Incident] | | |
+Precedence[Report Incident, Analyze Incident] | | |
+Succession[Monitor Systems, Review Access] | | |
+Alternate Succession[Implement Controls, Test Controls] | | |
+Existence[Conduct Awareness Training] | |
+Absence5[Perform Audits] | |
+Exactly[Update Policies] | |
+Chain Succession[Report Incident, Recover Systems] | | |0,2,d
+Alternate Response[Respond to Incidents, Review Incident Response] | | |0,48,h
+Alternate Response[Revise Risk Management Strategies, Implement New Controls] | | |0,24,h

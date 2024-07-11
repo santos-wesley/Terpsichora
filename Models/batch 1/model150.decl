@@ -1,0 +1,36 @@
+activity Identify Target Audience
+activity Create Marketing Strategy
+activity Launch Campaign
+activity Monitor Campaign Performance
+activity Engage With Audience
+activity Assess Audience Feedback
+activity Adjust Marketing Strategy
+activity Plan Next Campaign
+activity Hold Marketing Meeting
+activity Archive Campaign Data
+bind Identify Target Audience: Campaign ID, Audience Segment
+bind Create Marketing Strategy: Campaign ID, Strategy Type, Budget Allocation
+bind Launch Campaign: Campaign ID
+bind Monitor Campaign Performance: Campaign ID
+bind Engage With Audience: Engagement ID
+bind Assess Audience Feedback: Feedback Type
+bind Adjust Marketing Strategy: Campaign ID, Strategy Type, Budget Allocation
+bind Plan Next Campaign: Campaign ID
+bind Hold Marketing Meeting: Campaign ID
+bind Archive Campaign Data: Campaign ID
+Campaign ID: integer between 1 and 999999
+Audience Segment: Teens, Adults, Seniors
+Budget Allocation: float between 1000.0 and 100000.0
+Feedback Type: Positive, Negative, Neutral
+Engagement ID: integer between 10000 and 99999
+Strategy Type: Social Media, Email, Influencer, SEO
+Init[Identify Target Audience] | |
+Precedence[Create Marketing Strategy, Launch Campaign] | | |
+Precedence[Launch Campaign, Monitor Campaign Performance] | | |
+Chain Response[Monitor Campaign Performance, Engage With Audience] | | |0,48,h
+Chain Succession[Engage With Audience, Assess Audience Feedback] | | |
+Precedence[Assess Audience Feedback, Adjust Marketing Strategy] | | |
+Chain Succession[Adjust Marketing Strategy, Plan Next Campaign] | | |0,24,h
+Precedence[Plan Next Campaign, Hold Marketing Meeting] | | |
+Precedence[Hold Marketing Meeting, Archive Campaign Data] | | |
+End[Archive Campaign Data] | |

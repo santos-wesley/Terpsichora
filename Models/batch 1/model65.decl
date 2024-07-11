@@ -1,0 +1,40 @@
+activity Plan Merchandise
+activity Design Products
+activity Source Materials
+activity Manufacture Products
+activity Quality Check
+activity Distribute Merchandise
+activity Launch Campaign
+activity Monitor Sales
+activity Restock Merchandise
+activity Evaluate Performance
+bind Plan Merchandise: Season ID
+bind Design Products: Product ID
+bind Source Materials: Material Type
+bind Manufacture Products: Batch Number
+bind Quality Check: Quality Score
+bind Distribute Merchandise: Retail Location
+bind Launch Campaign: Campaign ID
+bind Monitor Sales: Sales Figures
+bind Restock Merchandise: Restock Time
+bind Evaluate Performance: Performance Score
+Product ID: integer between 1 and 999999
+Material Type: Cotton, Polyester, Leather, Silk
+Batch Number: integer between 1 and 9999
+Quality Score: float between 0 and 10
+Retail Location: New York, Los Angeles, Chicago, Houston
+Campaign ID: integer between 1 and 999999
+Sales Figures: float between 0 and 1000000
+Restock Time: 1 day, 2 days, 3 days
+Performance Score: float between 0 and 100
+Season ID: integer between 1 and 9999
+Init[Plan Merchandise] | |
+Precedence[Design Products, Source Materials] | | |0,5,d
+Response[Source Materials, Manufacture Products] | | |
+Chain Succession[Manufacture Products, Quality Check] | | |
+Existence[Distribute Merchandise] | |
+Precedence[Distribute Merchandise, Launch Campaign] | | |0,2,d
+Response[Launch Campaign, Monitor Sales] | | |
+Alternate Succession[Monitor Sales, Restock Merchandise] | | |0,7,d
+Exactly[Evaluate Performance] | |
+End[Evaluate Performance] | |

@@ -1,0 +1,48 @@
+activity Conduct Fieldwork
+activity Analyze Artifacts
+activity Interview Participants
+activity Transcribe Interviews
+activity Analyze Data
+activity Write Report
+activity Review Literature
+activity Submit Paper
+activity Present Findings
+activity Receive Feedback
+activity Revise Report
+activity Archive Data
+activity Secure Funding
+activity Design Research
+activity Form Research Team
+bind Conduct Fieldwork: Fieldwork Duration, Artifact Type
+bind Interview Participants: Participant Age, Interview Duration
+bind Submit Paper: Publication Status
+bind Receive Feedback: Feedback Type
+bind Archive Data: Data Format
+bind Secure Funding: Funding Amount
+bind Write Report: Report Length
+bind Form Research Team: Team Role
+Participant Age: integer between 18 and 100
+Artifact Type: Pottery, Tools, Jewelry, Textiles
+Publication Status: Submitted, Accepted, Rejected
+Funding Amount: integer between 1000 and 100000
+Interview Duration: integer between 10 and 180
+Feedback Type: Positive, Negative, Neutral
+Data Format: Digital, Physical
+Report Length: float between 1.0 and 500.0
+Team Role: Lead Researcher, Field Researcher, Data Analyst, Report Writer
+Fieldwork Duration: integer between 1 and 365
+Init[Design Research] | |
+Precedence[Secure Funding, Conduct Fieldwork] | | |
+Chain Succession[Conduct Fieldwork, Analyze Artifacts] | | |0,2,d
+Chain Response[Interview Participants, Transcribe Interviews] | | |0,48,h
+Precedence[Transcribe Interviews, Analyze Data] | | |
+Response[Analyze Data, Write Report] | | |
+Response[Write Report, Submit Paper] | | |
+Precedence[Submit Paper, Present Findings] | | |
+Alternate Response[Present Findings, Receive Feedback] | | |
+Chain Succession[Receive Feedback, Revise Report] | | |0,7,d
+Existence[Form Research Team] | |
+Absence[Conduct Fieldwork] | |
+Exactly[Write Report] | |
+Response[Revise Report, Archive Data] | | |
+Exactly[Submit Paper] | |

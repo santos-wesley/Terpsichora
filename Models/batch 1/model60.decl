@@ -1,0 +1,39 @@
+activity Draft Bill
+activity Review Bill
+activity Approve Bill
+activity Submit Bill
+activity Debate Bill
+activity Vote on Bill
+activity Amend Bill
+activity Finalize Bill
+activity Sign Bill
+activity Publish Law
+bind Draft Bill: Bill Number
+bind Review Bill: Bill Number, Review Comments
+bind Approve Bill: Bill Number, Approval Status
+bind Debate Bill: Bill Number, Debate Outcome
+bind Vote on Bill: Vote Count
+bind Amend Bill: Bill Number, Amendment Type, Amendment Number
+bind Finalize Bill: Bill Number, Finalization Duration
+bind Sign Bill: Bill Number, Signature Status
+bind Publish Law: Bill Number, Publication Medium
+Bill Number: integer between 1 and 10000
+Review Comments: Clarify clauses, Add references, Adjust definitions
+Approval Status: Approved, Rejected
+Debate Outcome: Passed, Amended, Rejected
+Vote Count: integer between 0 and 1000
+Amendment Type: Minor, Major
+Amendment Number: integer between 1 and 100
+Finalization Duration: float between 0.01 and 365.25
+Signature Status: Signed, Not Signed
+Publication Medium: Gazette, Website, Newsletter
+Init[Draft Bill] | |
+Response[Draft Bill, Review Bill] | | |
+Precedence[Approve Bill, Review Bill] | | |
+Response[Approve Bill, Submit Bill] | | |
+Alternate Precedence[Debate Bill, Submit Bill] | | |
+Succession[Debate Bill, Vote on Bill] | | |
+Responded Existence[Debate Bill, Amend Bill] | | |
+Chain Succession[Amend Bill, Finalize Bill] | | |
+Response[Finalize Bill, Sign Bill] | | |
+Chain Succession[Sign Bill, Publish Law] | | |

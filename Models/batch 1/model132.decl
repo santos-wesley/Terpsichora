@@ -1,0 +1,37 @@
+activity Identify Community Needs
+activity Plan Development Projects
+activity Secure Funding
+activity Engage Volunteers
+activity Implement Projects
+activity Monitor Progress
+activity Evaluate Outcomes
+activity Report Findings
+activity Celebrate Success
+activity Plan Future Initiatives
+bind Identify Community Needs: Survey ID, Community Need
+bind Secure Funding: Funding Amount
+bind Engage Volunteers: Volunteer Count
+bind Implement Projects: Project Status
+bind Evaluate Outcomes: Evaluation Score
+bind Report Findings: Report Type
+bind Plan Future Initiatives: Future Initiative ID, Initiative Plan Status
+Survey ID: integer between 1 and 999999
+Community Need: Infrastructure Improvement, Healthcare Services, Educational Programs, Job Training
+Funding Amount: float between 0.0 and 1000000.0
+Volunteer Count: integer between 1 and 500
+Project Status: Not Started, In Progress, Completed
+Evaluation Score: 1, 2, 3, 4, 5
+Completion Time: float between 1.0 and 365.0
+Report Type: Interim, Final
+Future Initiative ID: integer between 1 and 999999
+Initiative Plan Status: Draft, Reviewed, Approved
+Init[Identify Community Needs] | |
+Precedence[Plan Development Projects, Identify Community Needs] | | |
+Response[Plan Development Projects, Engage Volunteers] | | |
+Chain Response[Engage Volunteers, Secure Funding] | | |
+Chain Succession[Implement Projects, Monitor Progress] | | |0,10,d
+Response[Evaluate Outcomes, Report Findings] | | |0,5,d
+Existence2[Monitor Progress] | |
+Absence[Celebrate Success] | |
+Not Succession[Celebrate Success, Plan Future Initiatives] | | |
+End[Plan Future Initiatives] | |

@@ -1,0 +1,48 @@
+activity Assess Water Quality
+activity Monitor Water Levels
+activity Develop Conservation Plan
+activity Implement Conservation Measures
+activity Educate Public
+activity Inspect Infrastructure
+activity Repair Infrastructure
+activity Regulate Water Usage
+activity Collect Rainwater
+activity Distribute Water
+activity Evaluate Conservation Efforts
+activity Plan Water Recycling
+activity Implement Recycling Measures
+activity Monitor Groundwater
+activity Generate Water Usage Reports
+bind Assess Water Quality: Sample ID, Water pH Level
+bind Inspect Infrastructure: Inspection ID
+bind Repair Infrastructure: Inspection ID, Repair Status
+bind Regulate Water Usage: Usage Limit ID
+bind Monitor Groundwater: Groundwater Level
+bind Educate Public: Public Education Method
+bind Generate Water Usage Reports: Report ID
+bind Distribute Water: Distribution Method
+Sample ID: integer between 1 and 999999
+Water pH Level: float between 0.0 and 14.0
+Conservation Method: Rainwater Harvesting, Drip Irrigation, Greywater Recycling, Efficient Plumbing
+Inspection ID: integer between 1 and 9999
+Repair Status: Pending, In Progress, Completed
+Usage Limit ID: integer between 1 and 10000
+Groundwater Level: float between 0.0 and 500.0
+Public Education Method: Workshops, Seminars, Campaigns, Online Courses
+Report ID: integer between 1 and 100000
+Distribution Method: Pipeline, Truck, Canal
+Init[Assess Water Quality] | |
+End[Collect Rainwater] | |
+Precedence[Develop Conservation Plan, Implement Conservation Measures] | | |
+Chain Response[Educate Public, Regulate Water Usage] | | |
+Response[Implement Conservation Measures, Evaluate Conservation Efforts] | | |
+Response[Inspect Infrastructure, Repair Infrastructure] | | |0,3,d
+Response[Assess Water Quality, Generate Water Usage Reports] | | |0,48,h
+Co-Existence[Educate Public, Monitor Groundwater] | | |
+Exactly5[Monitor Groundwater] | |
+Existence[Develop Conservation Plan] | |
+Absence2[Inspect Infrastructure] | |
+Chain Response[Develop Conservation Plan, Implement Conservation Measures] | | |0,24,h
+Chain Succession[Repair Infrastructure, Inspect Infrastructure] | | |
+Not Succession[Monitor Water Levels, Generate Water Usage Reports] | | |
+Response[Assess Water Quality, Monitor Water Levels] | | |0,5,d

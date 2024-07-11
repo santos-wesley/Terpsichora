@@ -1,0 +1,49 @@
+activity Receive Alert
+activity Perform Preliminary Assessment
+activity Form Investigation Team
+activity Collect Evidence
+activity Interview Witnesses
+activity Analyze Financial Records
+activity Review Emails and Communications
+activity Conduct Surveillance
+activity Prepare Investigation Report
+activity Review Findings
+activity Make Disciplinary Recommendation
+activity Notify Legal Department
+activity Notify Relevant Stakeholders
+activity Implement Disciplinary Action
+activity Close Investigation
+bind Receive Alert: Alert ID, Severity Level
+bind Form Investigation Team: Team Member ID
+bind Collect Evidence: Evidence ID, Severity Level
+bind Interview Witnesses: Interview Status
+bind Analyze Financial Records: Discrepancy Amount
+bind Prepare Investigation Report: Report Status
+bind Review Findings: Finding ID
+bind Make Disciplinary Recommendation: Disciplinary Action
+bind Notify Relevant Stakeholders: Stakeholder Type
+Alert ID: integer between 1 and 999999
+Severity Level: Low, Medium, High
+Team Member ID: integer between 1 and 9999
+Evidence ID: integer between 1 and 999999
+Interview Status: Completed, Pending, Cancelled
+Discrepancy Amount: float between 0.01 and 1000000.0
+Report Status: Draft, Final, Reviewed
+Finding ID: integer between 1 and 999999
+Disciplinary Action: Warning, Suspension, Termination
+Stakeholder Type: Internal, External
+Init[Receive Alert] | |
+Existence[Form Investigation Team] | |
+Response[Receive Alert, Perform Preliminary Assessment] | | |
+Precedence[Interview Witnesses, Collect Evidence] | | |
+Chain Response[Collect Evidence, Analyze Financial Records] | | |
+Precedence[Analyze Financial Records, Review Emails and Communications] | | |0,3,h
+Not Precedence[Conduct Surveillance, Review Emails and Communications] | | |
+Succession[Collect Evidence, Prepare Investigation Report] | | |
+Existence[Interview Witnesses] | |
+Response[Prepare Investigation Report, Review Findings] | | |
+Chain Response[Review Findings, Make Disciplinary Recommendation] | | |
+Chain Response[Make Disciplinary Recommendation, Notify Legal Department] | | |0,2,h
+Chain Succession[Notify Legal Department, Notify Relevant Stakeholders] | | |
+Response[Notify Relevant Stakeholders, Implement Disciplinary Action] | | |
+End[Close Investigation] | |

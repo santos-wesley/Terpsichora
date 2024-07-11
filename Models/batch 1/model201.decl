@@ -1,0 +1,38 @@
+activity Receive Crime Report
+activity Evaluate Report
+activity Assign Team
+activity Plan Investigation
+activity Conduct Operation
+activity Analyze Intelligence
+activity Interrogate Suspects
+activity Compile Evidence
+activity Submit Report
+activity Make Arrests
+bind Receive Crime Report: Report ID
+bind Evaluate Report: Severity Level
+bind Assign Team: Team Name, Team ID
+bind Plan Investigation: Planning Date
+bind Conduct Operation: Operation Details
+bind Interrogate Suspects: Suspect ID, Interrogation Outcome
+bind Submit Report: Submission Date
+bind Make Arrests: Arrest Count
+Report ID: integer between 1 and 999999
+Severity Level: Low, Medium, High, Critical
+Team Name: Team Alpha, Team Bravo, Team Charlie
+Planning Date: 2023-01-01, 2023-01-02, 2023-01-03
+Operation Details: Surveillance, Undercover, Raid
+Suspect ID: integer between 1 and 99999
+Interrogation Outcome: Cooperative, Uncooperative, Partially Cooperative
+Submission Date: 2023-02-01, 2023-02-02, 2023-02-03
+Arrest Count: integer between 1 and 100
+Team ID: integer between 1 and 9999
+Init[Receive Crime Report] | |
+Precedence[Assign Team, Evaluate Report] | | |
+Response[Evaluate Report, Plan Investigation] | | |
+Chain Response[Conduct Operation, Analyze Intelligence] | | |
+Absence5[Assign Team] | |
+Precedence[Analyze Intelligence, Submit Report] | | |0,2,d
+Response[Interrogate Suspects, Analyze Intelligence] | | |
+Alternate Response[Submit Report, Make Arrests] | | |0,48,h
+Not Co-Existence[Receive Crime Report, Plan Investigation] | | |
+End[Make Arrests] | |

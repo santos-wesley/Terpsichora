@@ -1,0 +1,40 @@
+activity Intake Assessment
+activity Develop Treatment Plan
+activity Therapy Session
+activity Progress Review
+activity Adjust Treatment Plan
+activity Administer Psychological Test
+activity Interpret Test Results
+activity Provide Feedback
+activity Finalize Treatment
+activity Follow-up Session
+bind Intake Assessment: Patient ID, Symptom Severity
+bind Develop Treatment Plan: Patient ID, Therapy Type, Adjustment Needed
+bind Therapy Session: Patient ID, Therapy Type
+bind Progress Review: Patient ID, Progress Score
+bind Adjust Treatment Plan: Patient ID, Adjustment Needed
+bind Administer Psychological Test: Patient ID, Test Type
+bind Interpret Test Results: Patient ID, Test Result 
+bind Provide Feedback: Patient ID, Feedback Type
+bind Finalize Treatment: Patient ID, Treatment Outcome
+bind Follow-up Session: Patient ID, Follow-up Need
+Patient ID: integer between 1 and 999999
+Symptom Severity: Mild, Moderate, Severe
+Test Type: MMPI, BDI, WAIS
+Therapy Type: CBT, DBT, EMDR
+Progress Score: float between 0.0 and 10.0
+Feedback Type: Positive, Neutral, Negative
+Treatment Outcome: Successful, Partially Successful, Unsuccessful
+Follow-up Need: Required, Optional, Not Needed
+Test Result : Normal, Abnormal, Critical
+Adjustment Needed: Yes, No
+Init[Intake Assessment] | |
+Precedence[Develop Treatment Plan, Intake Assessment] | | |
+Response[Develop Treatment Plan, Therapy Session] | | |
+Precedence[Progress Review, Therapy Session] | | |
+Chain Succession[Progress Review, Adjust Treatment Plan] | | |0,1,d
+Precedence[Interpret Test Results, Administer Psychological Test] | | |
+Alternate Response[Interpret Test Results, Provide Feedback] | | |0,2,d
+Response[Provide Feedback, Finalize Treatment] | | |
+Absence[Finalize Treatment] | |
+End[Follow-up Session] | |

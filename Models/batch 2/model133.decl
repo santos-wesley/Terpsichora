@@ -1,0 +1,50 @@
+activity Identify CSR Initiatives
+activity Evaluate Stakeholder Needs
+activity Propose CSR Projects
+activity Estimate Project Budget
+activity Approve CSR Projects
+activity Allocate Project Resources
+activity Implement CSR Projects
+activity Monitor Project Progress
+activity Conduct Impact Assessment
+activity Report Assessment Results
+activity Review CSR Report
+activity Publish CSR Report
+activity Gather Stakeholder Feedback
+activity Revise CSR Strategies
+activity Document Lessons Learned
+bind Identify CSR Initiatives: Project ID, Project Type
+bind Evaluate Stakeholder Needs: Stakeholder Group
+bind Propose CSR Projects: Project ID, Project Type, Budget Estimate
+bind Approve CSR Projects: Project ID, Approval Status
+bind Allocate Project Resources: Resource ID
+bind Implement CSR Projects: Project ID
+bind Conduct Impact Assessment: Project ID, Impact Score
+bind Gather Stakeholder Feedback: Feedback Type
+bind Revise CSR Strategies: Revision ID
+bind Document Lessons Learned: Lesson Category
+Project ID: integer between 1 and 99999
+Stakeholder Group: Customers, Employees, Community
+Project Type: Environmental, Social, Economic
+Budget Estimate: float between 1000.0 and 100000.0
+Approval Status: Approved, Rejected
+Resource ID: integer between 1 and 9999
+Impact Score: float between 1.0 and 10.0
+Feedback Type: Positive, Negative
+Revision ID: integer between 1 and 9999
+Lesson Category: Best Practice, Issue Identified
+Init[Identify CSR Initiatives] | |
+Precedence[Evaluate Stakeholder Needs, Identify CSR Initiatives] | | |
+Response[Propose CSR Projects, Evaluate Stakeholder Needs] | | |
+Chain Precedence[Approve CSR Projects, Propose CSR Projects] | | |
+Chain Succession[Allocate Project Resources, Approve CSR Projects] | | |
+Chain Response[Implement CSR Projects, Allocate Project Resources] | | |
+Alternate Response[Monitor Project Progress, Implement CSR Projects] | | |
+Chain Succession[Conduct Impact Assessment, Monitor Project Progress] | | |
+Precedence[Report Assessment Results, Conduct Impact Assessment] | | |
+Existence[Report Assessment Results] | |
+Chain Response[Review CSR Report, Report Assessment Results] | | |
+Succession[Publish CSR Report, Review CSR Report] | | |
+Alternate Response[Gather Stakeholder Feedback, Publish CSR Report] | | |0,5,d
+Chain Precedence[Revise CSR Strategies, Gather Stakeholder Feedback] | | |
+Chain Succession[Document Lessons Learned, Revise CSR Strategies] | | |

@@ -1,0 +1,40 @@
+activity Report Incident
+activity Assess Threat
+activity Apply Force
+activity Provide Medical Aid
+activity Secure Scene
+activity Collect Evidence
+activity Interview Witness
+activity Review Incident
+activity File Report
+activity Conduct Training
+bind Report Incident: Incident ID, Officer Name
+bind Assess Threat: Incident ID, Threat Level
+bind Apply Force: Incident ID, Force Duration
+bind Provide Medical Aid: Incident ID, Medical Aid Status
+bind Secure Scene: Incident ID, Scene Secured Status
+bind Collect Evidence: Incident ID, Evidence Count
+bind Interview Witness: Incident ID, Witness Interview Status
+bind Review Incident: Incident ID, Incident Review Status
+bind File Report: Incident ID
+bind Conduct Training: Training Hours
+Incident ID: integer between 1 and 999999
+Officer Name: Officer A, Officer B, Officer C
+Threat Level: integer between 1 and 5
+Medical Aid Status: Provided, Not Provided
+Evidence Count: integer between 0 and 100
+Force Duration: float between 0.1 and 60.0
+Scene Secured Status: Secured, Not Secured
+Witness Interview Status: Completed, Pending
+Incident Review Status: Reviewed, Not Reviewed
+Training Hours: float between 0.5 and 8.0
+Init[Report Incident] | |
+Chain Response[Report Incident, Assess Threat] | | |
+Response[Assess Threat, Apply Force] | | |
+Responded Existence[Apply Force, Provide Medical Aid] | | |
+Response[Apply Force, Secure Scene] | | |
+Response[Secure Scene, Collect Evidence] | | |0,2,h
+Response[Secure Scene, Interview Witness] | | |0,1,d
+Chain Succession[Collect Evidence, Review Incident] | | |
+Response[Review Incident, File Report] | | |0,4,h
+Existence[Conduct Training] | |

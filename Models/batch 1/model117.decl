@@ -1,0 +1,37 @@
+activity Isolate Gene
+activity Cut DNA
+activity Insert Gene
+activity Ligate DNA
+activity Transform Cells
+activity Select Transformed Cells
+activity Culture Cells
+activity Extract Protein
+activity Purify Protein
+activity Analyze Protein
+bind Isolate Gene: Gene Length
+bind Cut DNA: DNA Concentration
+bind Insert Gene: Insertion Efficiency
+bind Culture Cells: Growth Time, Cell Type
+bind Extract Protein: Protein Yield
+bind Purify Protein: Purification Method, Purity Percentage
+bind Analyze Protein: Analysis Time, Analysis Method
+Gene Length: integer between 100 and 10000
+DNA Concentration: float between 1.0 and 100.0
+Insertion Efficiency: integer between 1 and 100
+Growth Time: integer between 1 and 72
+Cell Type: E.coli, Yeast, Mammalian
+Protein Yield: float between 0.1 and 1000.0
+Purification Method: Affinity Chromatography, Ion Exchange, Gel Filtration
+Purity Percentage: integer between 10 and 99
+Analysis Time: integer between 1 and 24
+Analysis Method: SDS-PAGE, Western Blot, Mass Spectrometry
+Init[Isolate Gene] | |
+Chain Response[Isolate Gene, Cut DNA] | | |
+Chain Succession[Insert Gene, Ligate DNA] | | |
+Response[Ligate DNA, Transform Cells] | | |0,6,h
+Alternate Response[Transform Cells, Select Transformed Cells] | | |0,12,h
+Existence[Culture Cells] | |
+Precedence[Culture Cells, Extract Protein] | | |0,24,h
+Succession[Extract Protein, Purify Protein] | | |
+Chain Response[Purify Protein, Analyze Protein] | | |0,6,h
+End[Analyze Protein] | |

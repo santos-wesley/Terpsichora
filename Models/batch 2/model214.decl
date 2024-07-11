@@ -1,0 +1,55 @@
+activity Receive Complaint
+activity Acknowledge Complaint
+activity Assign Investigator
+activity Conduct Investigation
+activity Document Findings
+activity Review Findings
+activity Make Decision
+activity Communicate Decision
+activity Follow Up Action
+activity Close Case
+activity Log Appeals
+activity Review Appeal
+activity Make Appeal Decision
+activity Communicate Appeal Decision
+activity Archive Case
+bind Receive Complaint: Complaint ID, Complaint Type
+bind Acknowledge Complaint: Complaint ID, Acknowledgment Status
+bind Assign Investigator: Complaint ID, Investigator ID
+bind Conduct Investigation: Complaint ID, Investigation Duration
+bind Document Findings: Complaint ID, Investigation Findings
+bind Review Findings: Complaint ID, Review Status
+bind Make Decision: Complaint ID, Decision Type
+bind Communicate Decision: Complaint ID, Decision Type
+bind Follow Up Action: Complaint ID
+bind Close Case: Case ID
+bind Log Appeals: Complaint ID
+bind Review Appeal: Complaint ID, Investigator ID, Appeal Status
+bind Make Appeal Decision: Complaint ID, Appeal Status
+bind Communicate Appeal Decision: Complaint ID, Appeal Status
+bind Archive Case: Case ID
+Complaint ID: integer between 1 and 999999
+Complaint Type: Service Issue, Product Defect, Billing Error
+Acknowledgment Status: Acknowledged, Not Acknowledged
+Investigator ID: integer between 1 and 9999
+Investigation Findings: Substantiated, Unsubstantiated, Inconclusive
+Review Status: Approved, Rejected
+Investigation Duration: float between 0 and 24
+Decision Type: Refund, No Action, Compensation
+Appeal Status: Upheld, Dismissed
+Case ID: integer between 1 and 999999
+Init[Receive Complaint] | |
+Response[Receive Complaint, Acknowledge Complaint] | | |
+Precedence[Assign Investigator, Receive Complaint] | | |
+Exactly[Acknowledge Complaint] | |
+Chain Response[Assign Investigator, Conduct Investigation] | | |
+Precedence[Document Findings, Conduct Investigation] | | |0,24,h
+Chain Response[Document Findings, Review Findings] | | |
+Response[Review Findings, Make Decision] | | |
+Precedence[Communicate Decision, Make Decision] | | |0,48,h
+Precedence[Review Appeal, Log Appeals] | | |
+End[Archive Case] | |
+Precedence[Make Appeal Decision, Review Appeal] | | |0,5,h
+Existence[Document Findings] | |
+Alternate Response[Communicate Decision, Follow Up Action] | | |
+Exactly2[Review Findings] | |

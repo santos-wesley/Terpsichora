@@ -1,0 +1,55 @@
+activity Initiate Return
+activity Receive Product
+activity Inspect Product
+activity Process Refund
+activity Restock Item
+activity Dispose Defective Item
+activity Notify Customer
+activity Update Inventory
+activity Update Records
+activity Generate Report
+activity Audit Return
+activity Identify Cause
+activity Implement Improvement
+activity Feedback Analysis
+activity Close Return
+bind Initiate Return: Return ID, Customer ID
+bind Receive Product: Return ID, Product Condition
+bind Inspect Product: Return ID, Inspector ID, Product Condition
+bind Process Refund: Return ID, Refund Status, Refund Amount
+bind Restock Item: Return ID, Inventory Status
+bind Dispose Defective Item: Return ID, Disposed Reason
+bind Notify Customer: Return ID, Refund Status
+bind Update Inventory: Return ID, Inventory Status
+bind Update Records: Return ID
+bind Generate Report: Report ID
+bind Audit Return: Return ID, Compliance Status
+bind Identify Cause: Return ID
+bind Implement Improvement: Return ID
+bind Feedback Analysis: Return ID
+bind Close Return: Return ID
+Return ID: integer between 1 and 999999
+Customer ID: CUST001, CUST002, CUST003
+Product Condition: New, Used, Defective
+Refund Status: Pending, Completed, Failed
+Inspector ID: integer between 1 and 9999
+Refund Amount: float between 0.01 and 10000.0
+Inventory Status: Updated, Pending
+Disposed Reason: Damaged, Expired, Other
+Compliance Status: Compliant, Non-Compliant
+Report ID: integer between 1 and 999999
+Init[Initiate Return] | |
+End[Close Return] | |
+Absence[Generate Report] | |
+Existence[Inspect Product] | |
+Precedence[Receive Product, Initiate Return] | | |
+Alternate Response[Initiate Return, Receive Product] | | |
+Precedence[Process Refund, Inspect Product] | | |0,48,h
+Chain Response[Notify Customer, Process Refund] | | |
+Chain Succession[Restock Item, Inspect Product] | | |
+Responded Existence[Dispose Defective Item, Inspect Product] | | |
+Precedence[Close Return, Restock Item] | | |0,24,h
+Precedence[Audit Return, Update Records] | | |0,12,h
+Chain Response[Identify Cause, Audit Return] | | |
+Precedence[Feedback Analysis, Notify Customer] | | |0,3,d
+Response[Implement Improvement, Feedback Analysis] | | |

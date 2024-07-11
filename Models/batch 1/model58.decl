@@ -1,0 +1,40 @@
+activity File Report
+activity Review Evidence
+activity Conduct Interviews
+activity Evaluate Findings
+activity Make Recommendation
+activity Submit Report
+activity Follow-Up Investigation
+activity Close Case
+activity Archive Report
+activity Notify Parties
+bind File Report: Report ID
+bind Review Evidence: Report ID, Evidence Type
+bind Conduct Interviews: Report ID, Interview Outcome
+bind Evaluate Findings: Report ID, Evaluation Score
+bind Make Recommendation: Report ID, Recommendation
+bind Submit Report: Report ID
+bind Follow-Up Investigation: Follow-Up ID, Report ID, Follow-Up Action
+bind Close Case: Case ID
+bind Archive Report: Report ID, Archive Status
+bind Notify Parties: Report ID, Notification Status
+Report ID: integer between 1 and 99999
+Evidence Type: Document, Video, Audio, Witness Statement
+Interview Outcome: Cooperative, Non-Cooperative
+Evaluation Score: float between 0.0 and 10.0
+Recommendation: No Action, Disciplinary Action, Further Investigation
+Follow-Up ID: integer between 1 and 99999
+Case ID: integer between 1 and 99999
+Notification Status: Sent, Pending
+Archive Status: Archived, Pending
+Follow-Up Action: Scheduled, In Progress, Completed
+Init[File Report] | |
+Precedence[File Report, Review Evidence] | | |
+Chain Precedence[Review Evidence, Conduct Interviews] | | |
+Chain Response[Evaluate Findings, Make Recommendation] | | |0,2,d
+Response[Make Recommendation, Submit Report] | | |
+Chain Response[Close Case, Notify Parties] | | |0,24,h
+Precedence[Submit Report, Archive Report] | | |
+Chain Response[Review Evidence, Follow-Up Investigation] |A.Follow-Up Action == 'Scheduled' | |0,5,d
+Existence[Archive Report] | |
+Absence[File Report] | |

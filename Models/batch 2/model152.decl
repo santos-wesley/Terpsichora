@@ -1,0 +1,55 @@
+activity Conduct Research
+activity Establish Policies
+activity Promote Renewable Energy
+activity Implement Carbon Tax
+activity Enhance Public Awareness
+activity Support Reforestation
+activity Develop Green Technologies
+activity Encourage Public Transport
+activity Monitor Greenhouse Gases
+activity Fund Sustainable Projects
+activity Enforce Regulations
+activity Conduct Impact Assessments
+activity Enhance Recycling Programs
+activity Support Climate Education
+activity Collaborate Internationally
+bind Conduct Research: Budget Allocation, Project Duration
+bind Establish Policies: Policy Type, Region
+bind Promote Renewable Energy: Technology Type, Emission Reduction Target
+bind Implement Carbon Tax: Emission Reduction Target, Region
+bind Enhance Public Awareness: Awareness Level
+bind Support Reforestation: Region, Number of Participants
+bind Develop Green Technologies: Budget Allocation, Technology Type
+bind Encourage Public Transport: Number of Participants, Region
+bind Monitor Greenhouse Gases: Greenhouse Gas Level, Region
+bind Fund Sustainable Projects: Budget Allocation, Project Status
+bind Enforce Regulations: Policy Type, Region
+bind Conduct Impact Assessments: Project Duration, Region
+bind Enhance Recycling Programs: Number of Participants, Awareness Level
+bind Support Climate Education: Awareness Level, Region
+bind Collaborate Internationally: Region, Project Status
+Budget Allocation: float between 1000 and 1000000
+Emission Reduction Target: float between 1 and 100
+Project Duration: integer between 1 and 120
+Region: North America, Europe, Asia, Africa, South America
+Technology Type: Solar, Wind, Hydro, Geothermal
+Awareness Level: integer between 1 and 10
+Number of Participants: integer between 10 and 10000
+Policy Type: Tax Incentives, Regulations, Subsidies
+Greenhouse Gas Level: float between 0 and 1000
+Project Status: Planned, In Progress, Completed
+Init[Conduct Research] | |
+End[Collaborate Internationally] | |
+Precedence[Establish Policies, Develop Green Technologies] | | |
+Response[Establish Policies, Enhance Public Awareness] | | |
+Chain Succession[Promote Renewable Energy, Encourage Public Transport] | | |
+Chain Response[Implement Carbon Tax, Monitor Greenhouse Gases] | | |
+Precedence[Enforce Regulations, Support Reforestation] | | |1,6,m
+Existence5[Enhance Public Awareness] | |
+Absence10[Conduct Impact Assessments] | |
+Response[Enhance Public Awareness, Enhance Recycling Programs] | | |1,8,m
+Existence12[Support Climate Education] | |
+Succession[Establish Policies, Fund Sustainable Projects] | | |
+Co-Existence[Conduct Research, Implement Carbon Tax] | | |
+Not Co-Existence[Develop Green Technologies, Collaborate Internationally] | | |
+Chain Succession[Support Reforestation, Enhance Recycling Programs] | | |

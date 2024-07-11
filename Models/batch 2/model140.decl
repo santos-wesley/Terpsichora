@@ -1,0 +1,48 @@
+activity Monitor Facilities
+activity Authorize Access
+activity Issue ID Cards
+activity Install Surveillance
+activity Update Security Policies
+activity Conduct Emergency Drill
+activity Report Intrusion
+activity Handle Security Breach
+activity Perform Background Checks
+activity Escort Visitors
+activity Log Security Incidents
+activity Train Security Personnel
+activity Audit Security Measures
+activity Deactivate ID Cards
+activity Review Video Footage
+bind Authorize Access: Employee ID, Access Level
+bind Issue ID Cards: Employee ID, Visitor ID
+bind Report Intrusion: Employee ID, Incident Type, Incident Severity
+bind Handle Security Breach: Employee ID, Incident Type, Incident Severity
+bind Audit Security Measures: Policy ID, Audit Result
+bind Deactivate ID Cards: Employee ID
+bind Escort Visitors: Visitor ID, Visitor Purpose
+bind Conduct Emergency Drill: Drill Type
+Employee ID: integer between 1 and 999999
+Visitor ID: integer between 1 and 999999
+Access Level: Low, Medium, High
+Incident Type: Theft, Unauthorized Entry, Vandalism
+Drill Type: Fire, Earthquake, Lockdown
+Incident Severity: float between 0.1 and 10.0
+Audit Result: Pass, Fail
+Camera ID: integer between 1 and 9999
+Visitor Purpose: Business, Meeting, Maintenance, Delivery
+Policy ID: integer between 1 and 9999
+Init[Install Surveillance] | |
+Existence[Conduct Emergency Drill] | |
+Precedence[Update Security Policies, Perform Background Checks] | | |
+Chain Succession[Report Intrusion, Handle Security Breach] | | |
+Response[Handle Security Breach, Log Security Incidents] | | |
+Alternate Response[Log Security Incidents, Audit Security Measures] | | |0,48,h
+Chain Response[Report Intrusion, Deactivate ID Cards] | | |0,24,h
+Precedence[Review Video Footage, Monitor Facilities] | | |
+Existence[Perform Background Checks] | |
+Not Co-Existence[Deactivate ID Cards, Escort Visitors] | | |
+Absence3[Conduct Emergency Drill] | |
+Chain Response[Authorize Access, Train Security Personnel] | | |0,1,d
+Not Chain Succession[Install Surveillance, Handle Security Breach] | | |
+Response[Issue ID Cards, Authorize Access] | | |0,24,h
+Precedence[Audit Security Measures, Update Security Policies] | | |

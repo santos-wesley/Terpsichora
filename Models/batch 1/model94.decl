@@ -1,0 +1,40 @@
+activity Perform Security Check
+activity Verify Documents
+activity Inspect Luggage
+activity Patrol Premises
+activity Monitor Surveillance
+activity Respond to Alarm
+activity Conduct Secondary Check
+activity Clear for Boarding
+activity Report Incident
+activity Escort Out
+bind Perform Security Check: Passenger ID, Passenger Risk Score
+bind Verify Documents: Passenger ID, Document Status
+bind Inspect Luggage: Passenger ID, Luggage Status
+bind Patrol Premises: Officer ID, Premises Section
+bind Monitor Surveillance: Officer ID
+bind Respond to Alarm: Officer ID, Alarm Type
+bind Conduct Secondary Check: Passenger ID, Passenger Risk Score
+bind Clear for Boarding: Passenger ID, Boarding Status
+bind Report Incident: Report ID, Officer ID, Incident Type
+bind Escort Out: Officer ID
+Passenger ID: integer between 1 and 999999
+Document Status: Valid, Invalid
+Luggage Status: Clear, Suspicious
+Alarm Type: Fire, Intrusion, Tamper
+Officer ID: integer between 1 and 9999
+Passenger Risk Score: float between 0.0 and 10.0
+Incident Type: Minor, Major
+Report ID: integer between 1 and 999999
+Boarding Status: Authorized, Unauthorized
+Premises Section: integer between 1 and 50
+Init[Perform Security Check] | |
+Chain Response[Perform Security Check, Verify Documents] | | |
+Precedence[Inspect Luggage, Verify Documents] | | |
+Chain Succession[Monitor Surveillance, Patrol Premises] | | |2,2,h
+Alternate Response[Conduct Secondary Check, Clear for Boarding] | | |
+Existence[Respond to Alarm] | |0,3,m
+Chain Response[Monitor Surveillance, Report Incident] | | |0,5,m
+Absence3[Report Incident] |Incident Type is "Minor" |
+End[Escort Out] | |
+Not Precedence[Patrol Premises, Respond to Alarm] | | |

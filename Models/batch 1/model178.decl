@@ -1,0 +1,39 @@
+activity Prepare Soil
+activity Sow Seeds
+activity Irrigate Crops
+activity Apply Fertilizers
+activity Monitor Crop Growth
+activity Control Pests
+activity Harvest Crops
+activity Store Harvest
+activity Transport to Market
+activity Sell Crops
+bind Prepare Soil: Field Number
+bind Sow Seeds: Seed Type, Field Number
+bind Irrigate Crops: Field Number, Water Quantity
+bind Apply Fertilizers: Field Number, Fertilizer Amount
+bind Control Pests: Field Number, Pest Control Method
+bind Harvest Crops: Field Number, Harvest Quality, Crop Yield
+bind Store Harvest: Field Number, Storage Temperature, Harvest Quality
+bind Transport to Market: Field Number, Transport Method
+bind Sell Crops: Field Number, Market Price, Crop Yield
+Field Number: integer between 1 and 1000
+Seed Type: Wheat, Corn, Rice
+Water Quantity: float between 0.1 and 1000.0
+Fertilizer Amount: integer between 1 and 100
+Pest Control Method: Organic, Chemical
+Harvest Quality: High, Medium, Low
+Storage Temperature: integer between -10 and 50
+Transport Method: Truck, Cart, Van
+Market Price: integer between 1 and 100
+Crop Yield: float between 0.1 and 10.0
+Init[Prepare Soil] | |
+Precedence[Sow Seeds, Prepare Soil] | | |
+Exactly[Irrigate Crops] | |
+Existence[Control Pests] | |
+Precedence[Monitor Crop Growth, Harvest Crops] | | |
+Response[Harvest Crops, Store Harvest] | | |
+Chain Succession[Harvest Crops, Store Harvest] | | |0,1,h
+Chain Response[Store Harvest, Transport to Market] | | |0,2,d
+Not Co-Existence[Transport to Market, Transport to Market] |A.Transport Method is 'Cart' | |
+End[Sell Crops] | |

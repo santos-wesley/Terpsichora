@@ -1,0 +1,50 @@
+activity Identify Problem
+activity Analyze Data
+activity Develop Solution
+activity Implement Solution
+activity Test Solution
+activity Collect Feedback
+activity Refine Solution
+activity Document Process
+activity Train Staff
+activity Monitor Performance
+activity Review Objectives
+activity Prepare Report
+activity Present Findings
+activity Approve Solution
+activity Update Standards
+bind Identify Problem: Problem ID
+bind Analyze Data: Data Points
+bind Develop Solution: Efficiency Gain
+bind Collect Feedback: Feedback Type
+bind Train Staff: Staff Level
+bind Document Process: Document Type
+bind Develop Solution: Cost Reduction
+bind Approve Solution: Approval Status
+bind Monitor Performance: Performance Status
+bind Prepare Report: Report ID
+Problem ID: integer between 1 and 99999
+Efficiency Gain: float between 0 and 100
+Feedback Type: Positive, Negative, Neutral
+Staff Level: Junior, Mid, Senior
+Data Points: integer between 1 and 10000
+Document Type: Process, Solution, Training
+Cost Reduction: float between 0 and 100000
+Approval Status: Pending, Approved, Rejected
+Performance Status: Underperforming, Meeting Expectations, Exceeding Expectations
+Report ID: integer between 1 and 9999
+Init[Identify Problem] | |
+Precedence[Analyze Data, Identify Problem] | | |
+Response[Analyze Data, Develop Solution] | | |
+Chain Succession[Develop Solution, Implement Solution] | | |
+Chain Response[Implement Solution, Test Solution] | | |0,48,h
+Alternate Response[Test Solution, Collect Feedback] | | |
+Chain Precedence[Refine Solution, Collect Feedback] | | |
+Existence[Document Process] | |
+Chain Response[Refine Solution, Train Staff] | | |0,24,h
+Precedence[Monitor Performance, Train Staff] | | |
+Response[Monitor Performance, Review Objectives] | | |
+Chain Response[Review Objectives, Prepare Report] | | |0,24,h
+Existence[Approve Solution] | |
+Chain Precedence[Present Findings, Prepare Report] | | |
+End[Update Standards] | |

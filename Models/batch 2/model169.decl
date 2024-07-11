@@ -1,0 +1,52 @@
+activity Register Contractor
+activity Assign Project
+activity Submit Proposal
+activity Evaluate Proposal
+activity Approve Proposal
+activity Decline Proposal
+activity Sign Contract
+activity Begin Work
+activity Submit Progress Report
+activity Evaluate Progress Report
+activity Make Payment
+activity Request Revision
+activity Submit Final Report
+activity Approve Final Report
+activity Archive Project
+bind Register Contractor: Contractor ID
+bind Assign Project: Contractor ID, Project Type
+bind Submit Proposal: Contractor ID, Proposal Status
+bind Evaluate Proposal: Contractor ID, Proposal Status
+bind Sign Contract: Contractor ID, Contract Status, Contract Amount
+bind Submit Progress Report: Contractor ID, Progress Report Status
+bind Evaluate Progress Report: Contractor ID, Progress Report Status
+bind Make Payment: Contractor ID, Payment Status
+bind Request Revision: Contractor ID, Revision Status
+bind Submit Final Report: Contractor ID, Final Report Status
+bind Approve Final Report: Contractor ID, Final Report Status
+bind Archive Project: Contractor ID, Archive Status
+Contractor ID: integer between 1 and 99999
+Project Type: Development, Design, Consulting, Research
+Proposal Status: Pending, Approved, Declined
+Contract Amount: float between 0.01 and 1000000.0
+Contract Status: Signed, Not Signed
+Payment Status: Pending, Completed
+Progress Report Status: Pending, Reviewed, Require Revision
+Revision Status: Requested, Not Requested, Completed
+Final Report Status: Pending, Reviewed
+Archive Status: Archived, Not Archived
+Init[Register Contractor] | |
+Precedence[Submit Proposal, Assign Project] | | |
+Response[Submit Proposal, Evaluate Proposal] | | |
+Precedence[Approve Proposal, Evaluate Proposal] | | |
+Precedence[Decline Proposal, Evaluate Proposal] | | |
+Chain Response[Approve Proposal, Sign Contract] | | |
+Response[Sign Contract, Begin Work] | | |0,2,d
+Response[Begin Work, Submit Progress Report] | | |0,7,d
+Response[Submit Progress Report, Evaluate Progress Report] | | |
+Response[Evaluate Progress Report, Request Revision] |A.Progress Report Status is Require Revision | |
+Response[Request Revision, Submit Final Report] |A.Revision Status is Requested | |
+Response[Submit Final Report, Approve Final Report] | | |
+Response[Approve Final Report, Make Payment] | | |
+End[Archive Project] | |
+Precedence[Submit Progress Report, Sign Contract] | | |0,30,d

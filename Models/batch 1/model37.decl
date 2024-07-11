@@ -1,0 +1,40 @@
+activity Initiate Maintenance
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Complete Maintenance
+activity Inspect Vehicle
+activity Log Inspection Results
+activity Approve Vehicle
+activity Assign Vehicle
+activity Track Vehicle Usage
+activity Decommission Vehicle
+bind Initiate Maintenance: Vehicle ID, Maintenance Type
+bind Schedule Maintenance: Vehicle ID, Maintenance Type, Maintenance Cost
+bind Perform Maintenance: Vehicle ID, Maintenance Type
+bind Inspect Vehicle: Vehicle ID, Inspection Status, Inspector ID
+bind Log Inspection Results: Vehicle ID, Inspection Status, Inspector ID
+bind Approve Vehicle: Vehicle ID, Vehicle Status
+bind Assign Vehicle: Vehicle ID, Driver ID, Vehicle Status
+bind Track Vehicle Usage: Vehicle ID, Usage Status, Fuel Level
+bind Decommission Vehicle: Vehicle ID, Decommission Reason
+bind Complete Maintenance: Vehicle ID, Maintenance Type, Maintenance Cost
+Vehicle ID: integer between 1 and 999999
+Maintenance Type: Regular, Emergency
+Maintenance Cost: float between 0.0 and 10000.0
+Inspection Status: Pass, Fail
+Inspector ID: integer between 1 and 9999
+Fuel Level: float between 0.0 and 100.0
+Vehicle Status: Active, Inactive, Maintenance
+Driver ID: integer between 1 and 9999
+Decommission Reason: End of Life, Accident Damage, Upgrade
+Usage Status: In Use, Available, Unavailable
+Init[Initiate Maintenance] | |
+Precedence[Initiate Maintenance, Schedule Maintenance] | | |
+Response[Perform Maintenance, Complete Maintenance] | | |
+End[Decommission Vehicle] | |
+Chain Precedence[Complete Maintenance, Inspect Vehicle] | | |
+Chain Succession[Approve Vehicle, Assign Vehicle] | | |
+Chain Response[Log Inspection Results, Approve Vehicle] | | |
+Alternate Response[Inspect Vehicle, Log Inspection Results] | | |
+Not Co-Existence[Initiate Maintenance, Decommission Vehicle] | | |
+Precedence[Assign Vehicle, Track Vehicle Usage] | | |0,1,d

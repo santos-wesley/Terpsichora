@@ -1,0 +1,36 @@
+activity Collect Sample
+activity Label Sample
+activity Analyze DNA
+activity Record Results
+activity Store Sample
+activity Dispose Sample
+activity Prepare Report
+activity Review Report
+activity Approve Report
+activity Archive Report
+bind Collect Sample: Sample ID, Sample Type
+bind Label Sample: Sample ID
+bind Analyze DNA: Sample ID, Analysis ID, DNA Concentration
+bind Record Results: Analysis ID, Analysis Status
+bind Prepare Report: Report Accuracy, Report ID
+bind Review Report: Report ID, Review Status
+bind Approve Report: Report ID
+bind Archive Report: Report ID
+Sample ID: integer between 1 and 10000
+Analysis ID: integer between 1 and 10000
+Sample Type: Blood, Tissue, Saliva
+Analysis Status: Pending, Completed
+DNA Concentration: float between 0.0 and 1000.0
+Report Accuracy: High, Medium, Low
+Review Status: Reviewed, Not Reviewed
+Report ID: integer between 1 and 10000
+Init[Collect Sample] | |
+End[Dispose Sample] | |
+Chain Succession[Label Sample, Analyze DNA] | | |
+Response[Analyze DNA, Record Results] | | |
+Precedence[Prepare Report, Record Results] | | |
+Chain Response[Review Report, Approve Report] | | |0,48,h
+Not Precedence[Dispose Sample, Label Sample] | | |
+Chain Succession[Approve Report, Archive Report] | | |0,2,d
+Absence5[Review Report] | |
+Responded Existence[Analyze DNA, Store Sample] | | |

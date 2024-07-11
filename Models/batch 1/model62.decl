@@ -1,0 +1,38 @@
+activity Start Server
+activity Allocate Resources
+activity Install Operating System
+activity Configure Settings
+activity Deploy Application
+activity Run Diagnostics
+activity Monitor Performance
+activity Scale Resources
+activity Backup Data
+activity Shut Down Server
+bind Start Server: Server ID
+bind Allocate Resources: CPU Cores, RAM Size, Disk Space
+bind Install Operating System: Operating System
+bind Run Diagnostics: Diagnostic ID
+bind Deploy Application: Application Type
+bind Monitor Performance: Performance Metric
+bind Backup Data: Backup ID
+bind Shut Down Server: Shut Down Reason
+CPU Cores: integer between 1 and 64
+RAM Size: integer between 1 and 1024
+Operating System: Windows, Linux, macOS
+Disk Space: float between 0.1 and 100
+Diagnostic ID: integer between 1 and 999999
+Application Type: Web Server, Database, File Storage, Development Environment
+Performance Metric: CPU Usage, Memory Usage, Disk I/O, Network Throughput
+Backup ID: integer between 1 and 999999
+Server ID: integer between 1 and 999999
+Shut Down Reason: Scheduled Maintenance, Resource Reallocation, System Failure, End of Operations
+Init[Start Server] | |
+End[Shut Down Server] | |
+Existence[Run Diagnostics] | |
+Precedence[Allocate Resources, Install Operating System] | | |
+Chain Succession[Deploy Application, Run Diagnostics] | | |0,2,h
+Precedence[Backup Data, Shut Down Server] | | |0,1,d
+Co-Existence[Deploy Application, Backup Data] | | |
+Chain Response[Monitor Performance, Scale Resources] | | |
+Not Co-Existence[Start Server, Shut Down Server] | | |
+Alternate Precedence[Allocate Resources, Install Operating System] | | |

@@ -1,0 +1,35 @@
+activity Request Access
+activity Approve Access
+activity Deny Access
+activity Grant Access
+activity Revoke Access
+activity Update Access Rights
+activity Log Access Request
+activity Notify User
+activity Review Access Logs
+activity Escalate Request
+bind Request Access: Request ID, User Role, Access Level
+bind Approve Access: Request ID, Approval Decision
+bind Deny Access: Request ID, Request Status
+bind Grant Access: Request ID, Access Level, Access Duration
+bind Revoke Access: Request ID, Access Level
+bind Update Access Rights: Request ID, Access Level
+bind Log Access Request: Request ID
+bind Notify User: Request ID, Notification Type
+Request ID: integer between 1 and 999999
+User Role: Admin, Manager, Employee
+Access Level: Read, Write, Execute, Administrator
+Request Status: Pending, Approved, Denied
+Approval Decision: Approved, Denied, Escalated
+Access Duration: float between 0.5 and 72
+Notification Type: Email, SMS, Push Notification
+Init[Log Access Request] | |
+Precedence[Request Access, Approve Access] | | |
+Chain Response[Approve Access, Notify User] | | |0,30,m
+Chain Succession[Approve Access, Grant Access] | | |
+Not Succession[Approve Access, Deny Access] | | |
+Existence[Grant Access] | |
+Absence2[Escalate Request] | |
+Response[Grant Access, Revoke Access] | | |0,72,h
+Chain Response[Grant Access, Update Access Rights] | | |
+Precedence[Log Access Request, Escalate Request] | | |

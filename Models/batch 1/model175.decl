@@ -1,0 +1,33 @@
+activity Conduct Market Research
+activity Develop Marketing Strategy
+activity Create Marketing Materials
+activity Localize Content
+activity Launch Campaign
+activity Monitor Campaign
+activity Analyze Campaign Performance
+activity Adjust Strategy
+activity Report Results
+bind Conduct Market Research: Market Research Budget, Target Markets
+bind Localize Content: Content Languages
+bind Launch Campaign: Campaign Channels, Target Markets
+bind Monitor Campaign: Conversion Rate
+bind Analyze Campaign Performance: Conversion Rate, ROI
+bind Report Results: Report Frequency, Customer Feedback Score
+Market Research Budget: integer between 1000 and 100000
+Target Markets: integer between 1 and 50
+Conversion Rate: float between 0.0 and 100.0
+Content Languages: English, Spanish, French, German, Chinese
+Campaign Channels: Social Media, Email, TV, Radio
+Customer Feedback Score: integer between 1 and 10
+ROI: float between 0.0 and 10.0
+Report Frequency: Weekly, Monthly, Quarterly
+Init[Conduct Market Research] | |
+End[Report Results] | |
+Precedence[Develop Marketing Strategy, Conduct Market Research] | | |
+Response[Localize Content, Launch Campaign] | | |
+Chain Succession[Launch Campaign, Monitor Campaign] | | |
+Response[Monitor Campaign, Analyze Campaign Performance] | | |0,2,d
+Chain Response[Analyze Campaign Performance, Adjust Strategy] | | |0,24,h
+Precedence[Report Results, Analyze Campaign Performance] | | |
+Exactly[Launch Campaign] | |
+Not Succession[Develop Marketing Strategy, Launch Campaign] | | |

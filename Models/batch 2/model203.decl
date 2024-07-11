@@ -1,0 +1,50 @@
+activity Detect Suspicious Activity
+activity Classify Risk Level
+activity Alert Security Team
+activity Investigate Incident
+activity Mitigate Risk
+activity Document Incident
+activity Review Security Protocols
+activity Notify Stakeholders
+activity Perform Data Backup
+activity Perform System Audit
+activity Restrict Access
+activity Update Security Systems
+activity Train Employees
+activity Verify Mitigation Effectiveness
+activity Close Incident
+bind Detect Suspicious Activity: Incident ID, Incident Type
+bind Classify Risk Level: Incident ID, Risk Score
+bind Alert Security Team: Incident ID
+bind Investigate Incident: Incident ID, Responder ID
+bind Mitigate Risk: Incident ID, Mitigation Strategy
+bind Document Incident: Incident ID
+bind Notify Stakeholders: Incident ID, Stakeholder ID
+bind Perform Data Backup: Backup Status
+bind Restrict Access: Access Restriction Level
+bind Perform System Audit: Audit Result
+bind Train Employees: Training Type
+Incident ID: integer between 1 and 999999
+Risk Score: float between 0.0 and 10.0
+Incident Type: Phishing, Malware, Data Breach
+Responder ID: integer between 1 and 9999
+Mitigation Strategy: Block Access, Quarantine Data, Notify User
+Backup Status: Complete, Partial, Failed
+Stakeholder ID: integer between 1 and 9999
+Access Restriction Level: High, Medium, Low
+Audit Result: Passed, Failed, Needs Improvement
+Training Type: Awareness, Technical, Policy Based
+Init[Detect Suspicious Activity] | |
+End[Close Incident] | |
+Precedence[Detect Suspicious Activity, Classify Risk Level] | | |
+Alternate Response[Detect Suspicious Activity, Classify Risk Level] | | |
+Existence[Alert Security Team] | |
+Chain Response[Alert Security Team, Investigate Incident] | | |0,10,m
+Response[Investigate Incident, Mitigate Risk] | | |0,1,h
+Chain Succession[Mitigate Risk, Document Incident] | | |
+Response[Classify Risk Level, Review Security Protocols] |A.Risk Score > 7 | |
+Alternate Response[Document Incident, Notify Stakeholders] | | |0,2,h
+Precedence[Restrict Access, Perform System Audit] | | |
+Existence[Train Employees] | |
+Chain Response[Mitigate Risk, Verify Mitigation Effectiveness] | | |0,12,h
+Chain Succession[Verify Mitigation Effectiveness, Close Incident] | | |

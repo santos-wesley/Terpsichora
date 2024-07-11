@@ -1,0 +1,39 @@
+activity Draft Legislation
+activity Review Draft
+activity Solicit Feedback
+activity Revise Draft
+activity Submit Draft
+activity Approve Legislation
+activity Promulgate Law
+activity Implement Law
+activity Monitor Compliance
+activity Review Compliance
+bind Draft Legislation: Draft Version
+bind Review Draft: Reviewer Country
+bind Solicit Feedback: Feedback Count, Feedback Type
+bind Revise Draft: Revision Number
+bind Submit Draft: Approval Status
+bind Monitor Compliance: Compliance Rate
+bind Implement Law: Law Status
+bind Review Compliance: Compliance Report Count
+bind Revise Draft: Revision Necessity
+Reviewer Country: USA, UK, Germany, France, Japan
+Draft Version: integer between 1 and 50
+Feedback Count: integer between 0 and 1000
+Approval Status: Pending, Approved, Rejected
+Compliance Rate: float between 0.0 and 100.0
+Feedback Type: Legal, Technical, Other
+Revision Number: integer between 0 and 50
+Law Status: Drafting, Reviewing, Approved, Implemented
+Compliance Report Count: integer between 0 and 100
+Revision Necessity: Necessary, Not Necessary
+Init[Draft Legislation] | |
+Alternate Precedence[Review Draft, Draft Legislation] | | |
+Precedence[Revise Draft, Solicit Feedback] | | |
+Chain Response[Revise Draft, Submit Draft] | | |0,3,d
+Chain Response[Approve Legislation, Promulgate Law] | | |0,2,d
+Response[Promulgate Law, Implement Law] | | |
+Alternate Precedence[Review Compliance, Monitor Compliance] | | |
+Exactly[Draft Legislation] | |
+Precedence[Revise Draft, Review Draft] | | |0,5,d
+Existence2[Monitor Compliance] | |

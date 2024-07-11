@@ -1,0 +1,50 @@
+activity Develop Diversity Policy
+activity Conduct Diversity Training
+activity Evaluate Diversity Metrics
+activity Analyze Workforce Composition
+activity Set Diversity Goals
+activity Initiate Recruitment Drive
+activity Interview Candidates
+activity Select Candidates
+activity Onboard New Hires
+activity Monitor Progress
+activity Conduct Employee Surveys
+activity Review Diversity Policy
+activity Report Diversity Statistics
+activity Provide Continuous Learning
+activity Celebrate Diversity Events
+bind Develop Diversity Policy: Department
+bind Conduct Diversity Training: Number of Participants, Training Type
+bind Evaluate Diversity Metrics: Diversity Metric, Employee Satisfaction Score
+bind Initiate Recruitment Drive: Recruitment Budget
+bind Interview Candidates: Job Role, Years of Experience
+bind Select Candidates: Number of Hires
+bind Onboard New Hires: Years of Experience, Department
+bind Conduct Employee Surveys: Age Group
+bind Analyze Workforce Composition: Department, Diversity Metric
+bind Celebrate Diversity Events: Job Role, Training Type
+Department: HR, IT, Marketing, Sales, Finance
+Employee Satisfaction Score: float between 0 and 10
+Number of Participants: integer between 1 and 100
+Job Role: Manager, Developer, Analyst, Clerk
+Years of Experience: integer between 0 and 40
+Recruitment Budget: float between 1000 and 100000
+Number of Hires: integer between 0 and 50
+Training Type: Online, Workshop, Seminar, Course
+Age Group: integer between 18 and 65
+Diversity Metric: Gender Ratio, Ethnic Ratio, Disability Inclusion, LGBTQ+ Inclusion
+Init[Develop Diversity Policy] | |
+Response[Develop Diversity Policy, Conduct Diversity Training] | | |
+Chain Response[Conduct Diversity Training, Evaluate Diversity Metrics] | | |
+Precedence[Set Diversity Goals, Evaluate Diversity Metrics] | | |
+Response[Set Diversity Goals, Initiate Recruitment Drive] | | |
+Chain Response[Initiate Recruitment Drive, Interview Candidates] | | |0,2,d
+End[Onboard New Hires] | |
+Response[Select Candidates, Analyze Workforce Composition] | | |
+Chain Response[Analyze Workforce Composition, Report Diversity Statistics] | | |
+Precedence[Review Diversity Policy, Report Diversity Statistics] | | |
+Alternate Response[Conduct Diversity Training, Conduct Employee Surveys] | | |0,5,d
+Chain Succession[Onboard New Hires, Provide Continuous Learning] | | |0,7,d
+Existence[Celebrate Diversity Events] | |
+Response[Analyze Workforce Composition, Celebrate Diversity Events] | | |
+Chain Succession[Interview Candidates, Select Candidates] | | |

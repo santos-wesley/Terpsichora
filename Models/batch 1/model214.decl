@@ -1,0 +1,32 @@
+activity Define Backlog
+activity Sprint Planning
+activity Daily Standup
+activity Develop Features
+activity Test Features
+activity Sprint Review
+activity Sprint Retrospective
+activity Deploy Increment
+activity Gather Feedback
+activity Refine Backlog
+bind Define Backlog: Story Points
+bind Sprint Planning: Sprint Number, Feature Count
+bind Daily Standup: Task Status
+bind Gather Feedback: Feedback Type
+bind Sprint Retrospective: Meeting Outcome, Completion Rate
+Sprint Number: integer between 1 and 100
+Task Status: Not Started, In Progress, Completed
+Feedback Type: Positive, Negative, Neutral
+Story Points: integer between 1 and 20
+Meeting Outcome: Action Required, No Action, Deferred
+Completion Rate: float between 0.0 and 100.0
+Feature Count: integer between 1 and 50
+Init[Sprint Planning] | |
+Response[Sprint Planning, Develop Features] | | |
+Chain Succession[Develop Features, Test Features] | | |
+Exactly10[Daily Standup] | |
+Precedence[Sprint Review, Gather Feedback] | | |0,2,d
+End[Sprint Retrospective] | |
+Precedence[Sprint Retrospective, Sprint Review] | | |
+Chain Response[Test Features, Deploy Increment] | | |0,3,h
+Response[Gather Feedback, Refine Backlog] | | |
+Response[Sprint Retrospective, Sprint Review] |A.Completion Rate < 75 | |

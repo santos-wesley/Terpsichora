@@ -1,0 +1,46 @@
+activity Post Job Ad
+activity Screen Applications
+activity Conduct Interview
+activity Evaluate Interview
+activity Extend Offer
+activity Negotiate Terms
+activity Sign Contract
+activity Onboard Employee
+activity Train Employee
+activity Assign Tasks
+activity Monitor Performance
+activity Provide Feedback
+activity Promote Employee
+activity Terminate Employee
+activity Offboard Employee
+bind Post Job Ad: Job Role
+bind Screen Applications: Application ID, Candidate ID
+bind Conduct Interview: Candidate ID
+bind Evaluate Interview: Candidate ID, Interview Score
+bind Extend Offer: Candidate ID, Offer Status
+bind Train Employee: Candidate ID, Training Program
+bind Monitor Performance: Candidate ID, Performance Rating
+bind Promote Employee: Candidate ID, Promotion Status
+Job Role: Developer, Designer, Manager, Analyst
+Application ID: integer between 1 and 999999
+Candidate ID: integer between 1 and 99999
+Interview Score: float between 0.0 and 10.0
+Offer Status: Offered, Accepted, Declined
+Training Program: Technical, Orientation, Compliance
+Performance Rating: Excellent, Good, Average, Poor
+Promotion Status: Promoted, Not Promoted
+Init[Post Job Ad] | |
+Precedence[Screen Applications, Post Job Ad] | | |
+Response[Screen Applications, Conduct Interview] | | |
+Chain Succession[Conduct Interview, Evaluate Interview] | | |
+Precedence[Extend Offer, Evaluate Interview] | | |
+Chain Response[Extend Offer, Sign Contract] | | |0,48,h
+Chain Succession[Sign Contract, Onboard Employee] | | |
+Existence[Train Employee] | |0,14,d
+Chain Succession[Train Employee, Assign Tasks] | | |
+Existence12[Monitor Performance] | |0,720,h
+Response[Monitor Performance, Provide Feedback] | | |
+Precedence[Promote Employee, Monitor Performance] | | |
+End[Terminate Employee] | |
+Chain Succession[Terminate Employee, Offboard Employee] | | |
+Absence[Post Job Ad] | |

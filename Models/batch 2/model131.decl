@@ -1,0 +1,49 @@
+activity File Complaint
+activity Review Complaint
+activity Assign Investigator
+activity Conduct Investigation
+activity Submit Investigation Report
+activity Review Report
+activity Make Decision
+activity Communicate Decision
+activity File Appeal
+activity Review Appeal
+activity Make Appeal Decision
+activity Communicate Appeal Decision
+activity Close Case
+activity Log Resolution
+activity Archive Case
+bind File Complaint: Complaint ID, Complaint Type
+bind Assign Investigator: Complaint ID, Investigator Name
+bind Conduct Investigation: Complaint ID, Investigation Outcome
+bind Submit Investigation Report: Report ID, Complaint ID
+bind Make Decision: Report ID, Decision Type
+bind File Appeal: Complaint ID, Appeal Status
+bind Make Appeal Decision: Complaint ID, Appeal Decision
+bind Log Resolution: Case ID, Resolution Status
+bind Archive Case: Case ID
+Complaint ID: integer between 1 and 999999
+Complaint Type: Discrimination, Harassment, Wage Dispute
+Investigator Name: Investigator A, Investigator B, Investigator C
+Investigation Outcome: Substantiated, Unsubstantiated, Inconclusive
+Report ID: integer between 1 and 999999
+Decision Type: Sustained, Not Sustained
+Appeal Status: Pending, Approved, Rejected
+Appeal Decision: Upheld, Overturned
+Resolution Status: Resolved, Unresolved
+Case ID: integer between 1 and 999999
+Existence[File Complaint] | |
+Init[File Complaint] | |
+End[Close Case] | |
+Precedence[Submit Investigation Report, Review Report] | | |
+Precedence[Review Report, Make Decision] | | |
+Response[Make Decision, Communicate Decision] | | |
+Response[Assign Investigator, Conduct Investigation] | | |
+Chain Response[Conduct Investigation, Submit Investigation Report] | | |
+Precedence[Communicate Decision, File Appeal] | | |
+Response[File Appeal, Review Appeal] | | |
+Response[Make Appeal Decision, Communicate Appeal Decision] | | |
+Chain Precedence[File Appeal, Make Appeal Decision] | | |0,5,d
+Precedence[Close Case, Log Resolution] | | |0,2,d
+Precedence[Close Case, Archive Case] | | |0,3,d
+Absence3[File Appeal] | |

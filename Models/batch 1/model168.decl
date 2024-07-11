@@ -1,0 +1,38 @@
+activity Identify Problem
+activity Develop Solution
+activity Assess Impact
+activity Create Business Plan
+activity Secure Funding
+activity Execute Plan
+activity Monitor Progress
+activity Measure Impact
+activity Report Results
+activity Scale Operations
+bind Identify Problem: Problem ID
+bind Develop Solution: Problem ID, Solution Type, Estimated Impact
+bind Create Business Plan: Plan ID, Estimated Impact
+bind Secure Funding: Plan ID, Funding Amount, Funding Source
+bind Monitor Progress: Plan ID, Progress Status
+bind Measure Impact: Plan ID, Impact Score
+bind Report Results: Plan ID, Reporting Period
+bind Scale Operations: Plan ID, Scale Level
+Problem ID: integer between 1 and 100000
+Solution Type: Technical, Educational, Community-Based, Policy
+Estimated Impact: float between 0.0 and 100.0
+Plan ID: integer between 1 and 100000
+Funding Amount: integer between 1000 and 1000000
+Funding Source: Government, Private, Crowdfunding, NGO
+Progress Status: On Track, Delayed, Ahead of Schedule
+Impact Score: float between 0.0 and 100.0
+Reporting Period: Monthly, Quarterly, Yearly
+Scale Level: integer between 1 and 10
+Init[Identify Problem] | |
+End[Scale Operations] | |
+Precedence[Assess Impact, Develop Solution] | | |
+Alternate Response[Secure Funding, Create Business Plan] | | |0,48,h
+Response[Create Business Plan, Execute Plan] | | |
+Chain Response[Execute Plan, Monitor Progress] | | |
+Alternate Succession[Monitor Progress, Measure Impact] | | |0,30,d
+Precedence[Measure Impact, Report Results] | | |0,24,h
+Not Precedence[Report Results, Measure Impact] | | |
+Not Co-Existence[Develop Solution, Create Business Plan] | | |

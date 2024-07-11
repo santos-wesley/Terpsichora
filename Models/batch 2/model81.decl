@@ -1,0 +1,53 @@
+activity Post Job
+activity Screen Resumes
+activity Conduct Initial Interview
+activity Conduct Technical Interview
+activity Conduct HR Interview
+activity Send Offer Letter
+activity Receive Offer Acceptance
+activity Initiate Background Check
+activity Receive Background Check Clearance
+activity Onboard Candidate
+activity Conduct Orientation
+activity Assign Mentor
+activity Evaluate Probation
+activity Confirm Employment
+activity Close Job Posting
+bind Post Job: Job Role
+bind Screen Resumes: Job Role
+bind Conduct Initial Interview: Candidate ID, Interview Mode
+bind Conduct Technical Interview: Candidate ID, Interview Mode
+bind Conduct HR Interview: Candidate ID, Expected Salary
+bind Send Offer Letter: Candidate ID, Expected Salary
+bind Initiate Background Check: Candidate ID, Background Check Status
+bind Receive Background Check Clearance: Candidate ID, Background Check Status
+bind Onboard Candidate: Candidate ID, Onboarding Completion Date
+bind Assign Mentor: Candidate ID, Onboarding Mentor ID
+bind Evaluate Probation: Candidate ID, Probation Status
+bind Confirm Employment: Candidate ID, Probation Status
+bind Close Job Posting: Job Role
+Candidate ID: integer between 1 and 999999
+Job Role: Software Engineer, Data Scientist, Product Manager, HR Manager
+Expected Salary: float between 20000 and 200000
+Interview Mode: In-person, Video Call, Phone
+Years of Experience: integer between 0 and 40
+Background Check Status: Initiated, Cleared, Pending, Failed
+Probation Status: Passed, Failed
+Onboarding Completion Date: 2023-07-01, 2023-07-15, 2023-08-01
+Onboarding Mentor ID: integer between 1000 and 9999
+Probation Period (months): integer between 1 and 12
+Init[Post Job] | |
+Exactly[Post Job] | |
+Existence2[Screen Resumes] | |
+Precedence[Screen Resumes, Conduct Initial Interview] | | |
+Response[Conduct Technical Interview, Conduct HR Interview] | | |
+Chain Response[Conduct HR Interview, Send Offer Letter] | | |
+Response[Send Offer Letter, Receive Offer Acceptance] | | |
+Chain Precedence[Initiate Background Check, Receive Offer Acceptance] | | |0,2,d
+Chain Response[Initiate Background Check, Receive Background Check Clearance] | | |0,10,d
+Precedence[Onboard Candidate, Assign Mentor] | | |
+Precedence[Evaluate Probation, Onboard Candidate] | | |0,6,m
+Precedence[Evaluate Probation, Confirm Employment] | | |0,15,d
+Succession[Onboard Candidate, Close Job Posting] | | |
+Exactly[Assign Mentor] | |
+End[Close Job Posting] | |

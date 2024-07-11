@@ -1,0 +1,1 @@
+f"Create a process model of {selected_domain} domain with at most 15 activities, at most 10 attributes variating in integer, float and enumeration, at most 15 diverse set of constraints, using both unary and binary templates and use at most 5 time conditions."

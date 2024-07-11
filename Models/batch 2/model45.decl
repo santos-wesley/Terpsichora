@@ -1,0 +1,50 @@
+activity Extract Hydrogen
+activity Purify Hydrogen
+activity Store Hydrogen
+activity Transport Hydrogen
+activity Produce Fuel Cell Stack
+activity Assemble Fuel Cell
+activity Test Fuel Cell
+activity Distribute Fuel Cells
+activity Develop Control Software
+activity Install Control Software
+activity Test Control Software
+activity Install Fuel Cell System
+activity Charge Vehicle
+activity Monitor Performance
+activity Service Fuel Cell
+bind Extract Hydrogen: Hydrogen Purity Level
+bind Store Hydrogen: Pressure Level
+bind Transport Hydrogen: Transport Method
+bind Produce Fuel Cell Stack: Production Cost
+bind Test Fuel Cell: Test Results
+bind Install Control Software: Software Version
+bind Install Fuel Cell System: Vehicle ID
+bind Charge Vehicle: Charging Duration
+bind Service Fuel Cell: Service Technician ID, Maintenance Type
+bind Monitor Performance: Production Cost
+Hydrogen Purity Level: integer between 90 and 100
+Pressure Level: integer between 1000 and 10000
+Production Cost: float between 50.0 and 200.0
+Transport Method: Truck, Pipeline, Train
+Test Results: Pass, Fail
+Software Version: v1.0, v1.1, v2.0
+Vehicle ID: integer between 1 and 9999
+Maintenance Type: Routine, Unscheduled, Emergency
+Charging Duration: float between 30.0 and 120.0
+Service Technician ID: integer between 1 and 500
+Init[Extract Hydrogen] | |
+Existence[Store Hydrogen] | |
+Existence[Test Fuel Cell] | |
+Exactly[Develop Control Software] | |
+Absence5[Service Fuel Cell] | |
+Precedence[Store Hydrogen, Purify Hydrogen] | | |
+Chain Precedence[Transport Hydrogen, Store Hydrogen] | | |0,24,h
+Chain Response[Distribute Fuel Cells, Install Control Software] | | |0,48,h
+Precedence[Install Fuel Cell System, Test Fuel Cell] | | |
+Chain Succession[Charge Vehicle, Install Fuel Cell System] | | |
+Chain Response[Test Control Software, Install Control Software] | | |
+Succession[Monitor Performance, Charge Vehicle] | | |
+Response[Service Fuel Cell, Monitor Performance] | | |0,2,d
+Co-Existence[Service Fuel Cell, Purify Hydrogen] | | |
+End[Charge Vehicle] | |

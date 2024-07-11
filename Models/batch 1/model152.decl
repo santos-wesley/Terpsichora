@@ -1,0 +1,36 @@
+activity Request Foreign Aid
+activity Review Aid Request
+activity Approve Aid
+activity Allocate Funds
+activity Disburse Funds
+activity Monitor Fund Usage
+activity Submit Utilization Report
+activity Perform Audit
+activity Close Aid Program
+bind Request Foreign Aid: Request ID, Country, Requested Amount
+bind Review Aid Request: Request ID, Country, Requested Amount
+bind Approve Aid: Request ID, Country, Approval Status
+bind Allocate Funds: Alloc ID, Allocated Amount
+bind Disburse Funds: Alloc ID, Allocated Amount
+bind Monitor Fund Usage: Alloc ID, Allocated Amount
+bind Submit Utilization Report: Alloc ID, Allocated Amount
+bind Perform Audit: Alloc ID, Allocated Amount, Audit Status
+bind Close Aid Program: Program ID
+Request ID: integer between 1 and 999999
+Country: Country1, Country2, Country3
+Requested Amount: float between 1000.0 and 1000000.0
+Approval Status: Approved, Rejected
+Alloc ID: integer between 1 and 999999
+Allocated Amount: float between 1000.0 and 1000000.0
+Audit Status: Completed, Pending, Failed
+Program ID: integer between 1 and 999999
+Init[Request Foreign Aid] | |
+Exactly[Approve Aid] | |
+Precedence[Approve Aid, Review Aid Request] | | |
+Succession[Allocate Funds, Disburse Funds] | | |
+Chain Response[Disburse Funds, Monitor Fund Usage] | | |0,1,d
+Alternate Response[Monitor Fund Usage, Submit Utilization Report] | | |
+Chain Succession[Submit Utilization Report, Perform Audit] | | |0,2,d
+Succession[Perform Audit, Close Aid Program] | | |
+End[Close Aid Program] | |
+Existence[Perform Audit] | |

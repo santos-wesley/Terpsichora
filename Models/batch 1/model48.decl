@@ -1,0 +1,38 @@
+activity Conduct Needs Assessment
+activity Develop Project Plan
+activity Secure Funding
+activity Recruit Staff
+activity Implement Project Activities
+activity Monitor Project Progress
+activity Evaluate Project Outcomes
+activity Submit Final Report
+activity Disseminate Findings
+activity Plan Follow-Up Actions
+bind Conduct Needs Assessment: Project ID, Community Name
+bind Secure Funding: Budget Amount, Funding Source, Project ID
+bind Recruit Staff: Staff ID, Project ID
+bind Monitor Project Progress: Progress Status, Project ID
+bind Evaluate Project Outcomes: Outcome Evaluation, Project ID
+bind Submit Final Report: Report Submission Date, Project ID
+bind Disseminate Findings: Dissemination Channel, Project ID
+bind Plan Follow-Up Actions: Follow-Up Status, Project ID
+Project ID: integer between 1 and 99999
+Community Name: Community A, Community B, Community C
+Budget Amount: float between 1000.0 and 1000000.0
+Funding Source: Donor A, Donor B, Government
+Staff ID: integer between 1 and 9999
+Progress Status: On Track, Behind Schedule, Completed
+Outcome Evaluation: Successful, Partially Successful, Unsuccessful
+Report Submission Date: 2023-12-01, 2023-12-02, 2023-12-03
+Dissemination Channel: Email, Webinar, Printed Report
+Follow-Up Status: Planned, In Progress, Completed
+Init[Conduct Needs Assessment] | |
+Precedence[Conduct Needs Assessment, Develop Project Plan] | | |
+Response[Secure Funding, Recruit Staff] | | |
+Response[Develop Project Plan, Implement Project Activities] | | |
+Alternate Response[Monitor Project Progress, Evaluate Project Outcomes] | | |0,5,d
+Chain Response[Evaluate Project Outcomes, Submit Final Report] | | |
+Chain Response[Submit Final Report, Disseminate Findings] | | |
+Exactly[Plan Follow-Up Actions] | |
+Chain Precedence[Disseminate Findings, Plan Follow-Up Actions] | | |
+End[Plan Follow-Up Actions] | |

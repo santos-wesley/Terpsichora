@@ -1,0 +1,46 @@
+activity Gather Intelligence
+activity Plan Operation
+activity Deploy Units
+activity Secure Perimeter
+activity Neutralize Threat
+activity Rescue Hostages
+activity Collect Evidence
+activity Interrogate Suspects
+activity Report Status
+activity Coordinate with Allies
+activity Provide Medical Assistance
+activity Analyze Data
+activity Disarm Explosives
+activity Secure Exit
+activity Debrief Units
+bind Gather Intelligence: Intel Accuracy
+bind Neutralize Threat: Threat Level, Operation ID
+bind Rescue Hostages: Hostage Status
+bind Collect Evidence: Evidence Type
+bind Provide Medical Assistance: Medical Status
+bind Plan Operation: Operation ID
+bind Report Status: Casualty Count
+Unit ID: integer between 1 and 9999
+Operation ID: integer between 1 and 99999
+Threat Level: Low, Moderate, High, Critical
+Intel Accuracy: float between 0.0 and 1.0
+Hostage Status: Safe, Injured, Deceased
+Damage Assessment: float between 0.0 and 1000.0
+Evidence Type: Weapon, Explosive, Document, Electronic
+Interrogation Yield: float between 0.0 and 100.0
+Medical Status: Stable, Critical, Deceased
+Casualty Count: integer between 0 and 1000
+Init[Plan Operation] | |
+End[Debrief Units] | |
+Exactly[Plan Operation] | |
+Existence[Neutralize Threat] | |
+Response[Plan Operation, Deploy Units] | | |
+Chain Succession[Deploy Units, Secure Perimeter] | | |
+Precedence[Neutralize Threat, Secure Perimeter] | | |
+Response[Neutralize Threat, Rescue Hostages] | | |
+Chain Response[Rescue Hostages, Provide Medical Assistance] | | |
+Precedence[Analyze Data, Collect Evidence] | | |0,2,h
+Chain Response[Analyze Data, Report Status] | | |
+Succession[Gather Intelligence, Interrogate Suspects] | | |0,1,h
+Alternate Response[Secure Perimeter, Coordinate with Allies] | | |0,30,m
+Not Chain Succession[Disarm Explosives, Secure Exit] | | |

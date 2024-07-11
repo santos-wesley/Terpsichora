@@ -1,0 +1,56 @@
+activity Start Recording
+activity Stop Recording
+activity Upload Footage
+activity Charge Battery
+activity Assign Camera
+activity Return Camera
+activity Inspect Camera
+activity Report Malfunction
+activity Request Maintenance
+activity Complete Maintenance
+activity Verify Upload
+activity Review Footage
+activity Archive Footage
+activity Remove Footage
+activity Audit Usage
+bind Start Recording: Camera ID
+bind Stop Recording: Camera ID, Footage Quality
+bind Upload Footage: Camera ID, Upload Status
+bind Charge Battery: Camera ID, Battery Level
+bind Assign Camera: Camera ID, Officer Name
+bind Inspect Camera: Camera ID, Inspection Status
+bind Report Malfunction: Camera ID, Malfunction Type
+bind Request Maintenance: Camera ID, Maintenance Type
+bind Complete Maintenance: Camera ID, Repair Cost
+bind Verify Upload: Camera ID, Upload Status
+bind Review Footage: Camera ID, Footage Quality
+bind Archive Footage: Camera ID, Storage Duration
+bind Remove Footage: Camera ID
+bind Audit Usage: Camera ID, Audit Result
+bind Return Camera: Camera ID
+Camera ID: integer between 1 and 999999
+Officer Name: John Doe, Jane Smith, Alice Johnson
+Malfunction Type: Battery Issue, Lens Damage, Software Glitch
+Battery Level: float between 0.0 and 100.0
+Footage Quality: High, Medium, Low
+Upload Status: Pending, Completed, Failed
+Inspection Status: Passed, Failed
+Storage Duration: integer between 1 and 365
+Repair Cost: float between 0.0 and 1000.0
+Audit Result: Compliant, Non-Compliant
+Maintenance Type: Standard, Urgent
+Init[Start Recording] | |
+Response[Start Recording, Stop Recording] | | |
+Existence[Inspect Camera] | |
+Precedence[Upload Footage, Stop Recording] | | |
+Chain Response[Upload Footage, Verify Upload] | | |
+Response[Verify Upload, Review Footage] | | |0,48,h
+Response[Review Footage, Archive Footage] | | |
+Response[Report Malfunction, Request Maintenance] | | |
+Not Succession[Report Malfunction, Start Recording] | | |
+Precedence[Audit Usage, Return Camera] | | |0,24,h
+Precedence[Audit Usage, Review Footage] | | |
+Existence[Charge Battery] | |
+Absence3[Report Malfunction] | |
+Existence[Audit Usage] | |
+End[Stop Recording] | |

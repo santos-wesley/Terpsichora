@@ -1,0 +1,46 @@
+activity Receive Call
+activity Authenticate Customer
+activity Log Issue
+activity Assign Issue
+activity Provide Initial Solution
+activity Escalate Issue
+activity Schedule Follow-Up Call
+activity Follow-Up Call
+activity Resolve Issue
+activity Verify Resolution
+activity Close Call
+activity Send Satisfaction Survey
+activity Receive Survey Feedback
+activity Analyze Feedback
+activity Archive Call Information
+bind Receive Call: Customer ID, Call Duration
+bind Log Issue: Issue Type, Issue Severity
+bind Assign Issue: Agent ID
+bind Schedule Follow-Up Call: Callback Date
+bind Verify Resolution: Resolution Status
+bind Send Satisfaction Survey: Survey Response
+bind Follow-Up Call: Follow-Up Status
+Customer ID: integer between 1 and 999999
+Call Duration: float between 0.1 and 180.0
+Issue Type: Billing, Technical, Account Access, General Inquiry
+Agent ID: integer between 1 and 9999
+Issue Severity: Low, Medium, High, Critical
+Resolution Status: Resolved, Pending, Escalated
+Survey Response: Very Satisfied, Satisfied, Neutral, Dissatisfied, Very Dissatisfied
+Callback Date: 2023-07-21, 2023-07-22, 2023-07-23
+Follow-Up Status: Completed, Pending, Canceled
+Init[Receive Call] | |
+Precedence[Authenticate Customer, Receive Call] | | |
+Precedence[Log Issue, Authenticate Customer] | | |
+Response[Log Issue, Assign Issue] | | |
+Chain Response[Assign Issue, Provide Initial Solution] | | |
+Alternate Response[Provide Initial Solution, Escalate Issue] | | |
+Precedence[Schedule Follow-Up Call, Escalate Issue] | | |0,24,h
+Chain Succession[Schedule Follow-Up Call, Follow-Up Call] | | |
+Response[Follow-Up Call, Resolve Issue] | | |
+Chain Succession[Resolve Issue, Verify Resolution] | | |
+Precedence[Close Call, Verify Resolution] | | |0,2,d
+Response[Close Call, Send Satisfaction Survey] | | |
+Alternate Response[Send Satisfaction Survey, Receive Survey Feedback] | | |0,48,h
+Succession[Receive Survey Feedback, Analyze Feedback] | | |
+End[Archive Call Information] | |

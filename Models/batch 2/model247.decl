@@ -1,0 +1,46 @@
+activity Receive Cargo
+activity Inspect Cargo
+activity Document Cargo
+activity Scan Cargo
+activity Clear Cargo
+activity Hold Cargo
+activity Report Findings
+activity Notify Authorities
+activity Release Cargo
+activity Archive Documentation
+activity Dispatch Cargo
+activity Log Entry
+bind Receive Cargo: Cargo ID
+bind Inspect Cargo: Cargo ID, Inspector ID, Inspection Result
+bind Document Cargo: Cargo ID, Documentation Status
+bind Scan Cargo: Cargo ID, Cargo Weight
+bind Clear Cargo: Cargo ID
+bind Hold Cargo: Cargo ID
+bind Report Findings: Cargo ID, Prohibited Item Found
+bind Notify Authorities: Cargo ID, Prohibited Item Found, Notification Status
+bind Release Cargo: Cargo ID
+bind Archive Documentation: Cargo ID, Documentation Status
+bind Dispatch Cargo: Cargo ID
+bind Log Entry: Cargo ID
+Cargo ID: integer between 1 and 999999
+Cargo Weight: float between 0.1 and 10000
+Inspector ID: integer between 1 and 9999
+Inspection Result: Clear, Hold
+Prohibited Item Found: Yes, No
+Notification Status: Notified, Not Notified
+Documentation Status: Completed, Incomplete
+Init[Log Entry] | |
+Chain Precedence[Inspect Cargo, Log Entry] | | |
+Precedence[Document Cargo, Inspect Cargo] | | |
+Absence[Document Cargo] | |
+Precedence[Clear Cargo, Scan Cargo] | | |
+Chain Succession[Hold Cargo, Report Findings] | | |
+Chain Response[Report Findings, Notify Authorities] | | |0,1,h
+Response[Clear Cargo, Release Cargo] | | |
+Existence[Release Cargo] | |
+Chain Response[Release Cargo, Archive Documentation] | | |0,2,h
+Response[Release Cargo, Dispatch Cargo] | | |
+End[Dispatch Cargo] | |
+Existence2[Clear Cargo] | |
+Co-Existence[Scan Cargo, Inspect Cargo] | | |
+Precedence[Release Cargo, Notify Authorities] | | |

@@ -1,0 +1,50 @@
+activity Collect Data
+activity Analyze Melody
+activity Analyze Harmony
+activity Analyze Rhythm
+activity Catalog Data
+activity Generate Report
+activity Review Literature
+activity Formulate Hypothesis
+activity Test Hypothesis
+activity Refine Hypothesis
+activity Finalize Study
+activity Submit for Review
+activity Revise Study
+activity Publish Study
+activity Present Findings
+bind Collect Data: Music Style
+bind Analyze Melody: Melody Complexity
+bind Analyze Harmony: Harmony Complexity
+bind Analyze Rhythm: Rhythm Complexity
+bind Catalog Data: Report Length
+bind Submit for Review: Peer Review Status
+bind Revise Study: Reviewer Feedback
+bind Publish Study: Publication Year
+bind Test Hypothesis: Test Success Rate
+bind Present Findings: Conference Name
+Music Style: Classical, Jazz, Pop, Rock, Hip-Hop
+Melody Complexity: float between 1 and 10
+Harmony Complexity: float between 1 and 10
+Rhythm Complexity: float between 1 and 10
+Publication Year: integer between 1900 and 2100
+Peer Review Status: Pending, Accepted, Rejected
+Reviewer Feedback: Minor Revisions, Major Revisions, Accepted Without Changes, Rejected
+Conference Name: ISMIR, ICML, ISMIR, ICLR, NeurIPS
+Report Length: integer between 1 and 500
+Test Success Rate: float between 0 and 100
+Init[Collect Data] | |
+End[Present Findings] | |
+Existence[Analyze Melody] | |
+Absence2[Refine Hypothesis] | |
+Precedence[Catalog Data, Collect Data] | | |
+Response[Analyze Melody, Generate Report] | | |
+Precedence[Analyze Harmony, Generate Report] | | |
+Chain Response[Collect Data, Review Literature] | | |
+Alternate Succession[Test Hypothesis, Refine Hypothesis] | | |
+Chain Succession[Submit for Review, Revise Study] | | |
+Chain Precedence[Finalize Study, Test Hypothesis] | | |
+Not Chain Response[Collect Data, Generate Report] | | |
+Not Succession[Publish Study, Analyze Melody] | | |
+Precedence[Formulate Hypothesis, Review Literature] | | |0,2,d
+Precedence[Analyze Rhythm, Analyze Harmony] | | |0,10,h

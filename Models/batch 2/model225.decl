@@ -1,0 +1,47 @@
+activity Identify Maintenance Needs
+activity Schedule Maintenance
+activity Assign Technician
+activity Conduct Maintenance
+activity Verify Maintenance
+activity Log Maintenance Data
+activity Generate Maintenance Report
+activity Review Maintenance Report
+activity Record Inventory Usage
+activity Order Supplies
+activity Receive Supplies
+activity Update Maintenance Records
+activity Analyze Maintenance Trends
+activity Schedule Follow-up Inspection
+activity Close Maintenance Case
+bind Identify Maintenance Needs: Maintenance ID, Task Type
+bind Assign Technician: Maintenance ID, Technician Name
+bind Conduct Maintenance: Maintenance ID, Task Duration
+bind Verify Maintenance: Maintenance ID, Inspection Outcome
+bind Generate Maintenance Report: Report ID, Maintenance ID
+bind Record Inventory Usage: Inventory ID, Supply Cost
+bind Order Supplies: Supply Type, Supply Cost
+Maintenance ID: integer between 1 and 999999
+Technician Name: John Smith, Emily Johnson, Michael Brown
+Task Type: Reactive, Preventive, Predictive
+Task Duration: float between 0.1 and 100.0
+Task Status: Pending, In Progress, Completed, Verified
+Report ID: integer between 1 and 999999
+Inventory ID: integer between 1 and 999999
+Supply Type: Tools, Parts, Materials
+Supply Cost: float between 1.0 and 10000.0
+Inspection Outcome: Passed, Failed
+Init[Identify Maintenance Needs] | |
+Precedence[Identify Maintenance Needs, Schedule Maintenance] | | |
+Chain Succession[Schedule Maintenance, Assign Technician] | | |
+Precedence[Assign Technician, Conduct Maintenance] | | |
+Chain Succession[Conduct Maintenance, Verify Maintenance] | | |
+Absence[Verify Maintenance] | |
+Precedence[Verify Maintenance, Generate Maintenance Report] | | |
+Precedence[Conduct Maintenance, Record Inventory Usage] | | |0,2,h
+Response[Record Inventory Usage, Order Supplies] | | |
+Existence[Record Inventory Usage] | |
+Precedence[Conduct Maintenance, Update Maintenance Records] | | |
+End[Analyze Maintenance Trends] | |
+Precedence[Verify Maintenance, Schedule Follow-up Inspection] | | |0,2,d
+Succession[Verify Maintenance, Close Maintenance Case] | | |
+Precedence[Generate Maintenance Report, Review Maintenance Report] | | |0,1,d

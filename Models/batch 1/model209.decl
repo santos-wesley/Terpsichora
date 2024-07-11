@@ -1,0 +1,38 @@
+activity Initiate Blockchain Network
+activity Deploy Smart Contract
+activity Validate Nodes
+activity Verify Transactions
+activity Audit Smart Contract
+activity Monitor Blockchain Network
+activity Resolve Security Issues
+activity Upgrade Blockchain Protocol
+activity Conclude Audit
+activity Shut Down Network
+bind Initiate Blockchain Network: Node ID
+bind Deploy Smart Contract: Contract ID, Protocol Version
+bind Validate Nodes: Node ID, Node Status
+bind Verify Transactions: Transaction Amount, Transaction Status
+bind Audit Smart Contract: Contract ID, Audit Score
+bind Resolve Security Issues: Security Issue ID, Node Status
+bind Upgrade Blockchain Protocol: Protocol Version
+bind Monitor Blockchain Network: Node Status
+bind Conclude Audit: Audit Score
+bind Shut Down Network: Node Status
+Node ID: integer between 1 and 10000
+Transaction Amount: float between 0.01 and 100000.0
+Transaction Status: Pending, Confirmed, Failed
+Security Issue ID: integer between 1 and 1000
+Audit Score: float between 0.0 and 10.0
+Protocol Version: v1.0, v1.1, v2.0, v2.1
+Contract ID: integer between 1 and 10000
+Node Status: Active, Inactive, Compromised
+Init[Initiate Blockchain Network] | |
+Precedence[Initiate Blockchain Network, Deploy Smart Contract] | | |
+Exactly[Validate Nodes] | |
+Chain Response[Validate Nodes, Verify Transactions] | | |
+Existence[Resolve Security Issues] | |
+Response[Deploy Smart Contract, Audit Smart Contract] | | |
+Not Co-Existence[Monitor Blockchain Network, Shut Down Network] | | |
+Response[Conclude Audit, Shut Down Network] | | |0,24,h
+End[Conclude Audit] | |0,2,d
+Precedence[Audit Smart Contract, Upgrade Blockchain Protocol] | | |

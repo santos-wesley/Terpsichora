@@ -1,0 +1,35 @@
+activity Schedule Train
+activity Book Ticket
+activity Cancel Ticket
+activity Check In Passenger
+activity Board Train
+activity Depart Train
+activity Arrive at Destination
+activity Inspect Train
+activity Update Train Status
+activity Refund Ticket
+bind Book Ticket: Ticket ID, Passenger Class, Ticket Amount
+bind Cancel Ticket: Ticket ID, Refund Amount
+bind Inspect Train: Inspection Result, Inspector ID
+bind Check In Passenger: Passenger ID, Passenger Status
+bind Update Train Status: Train Status
+Ticket ID: integer between 1 and 999999
+Passenger Class: First Class, Second Class, Sleeper, General
+Passenger ID: integer between 1 and 999999
+Ticket Amount: float between 10.0 and 1000.0
+Train Status: On Time, Delayed, Cancelled
+Inspection Result: Passed, Failed
+Inspector ID: integer between 1 and 9999
+Refund Amount: integer between 10 and 1000
+Passenger Status: Checked In, Not Checked In
+Destination: City A, City B, City C, City D
+Init[Schedule Train] | |
+End[Arrive at Destination] | |
+Existence[Inspect Train] | |
+Precedence[Depart Train, Board Train] | | |
+Response[Book Ticket, Check In Passenger] | | |
+Chain Response[Depart Train, Update Train Status] | | |0,30,m
+Not Response[Cancel Ticket, Check In Passenger] | | |
+Chain Precedence[Inspect Train, Depart Train] | | |0,2,h
+Absence[Refund Ticket] | |
+Response[Update Train Status, Arrive at Destination] | | |0,5,h

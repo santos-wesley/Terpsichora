@@ -1,0 +1,48 @@
+activity Conduct Risk Assessment
+activity Develop Recovery Strategies
+activity Implement Backup Systems
+activity Create Recovery Plan
+activity Train Employees
+activity Test Recovery Plan
+activity Review Test Results
+activity Update Recovery Plan
+activity Monitor Systems
+activity Report Findings
+activity Alert Staff
+activity Activate Recovery Plan
+activity Deploy Resources
+activity Recover Data
+activity Evaluate Recovery Process
+bind Conduct Risk Assessment: Risk Level
+bind Develop Recovery Strategies: Risk Level, Recovery Strategy
+bind Train Employees: Employee ID
+bind Test Recovery Plan: Test Type, Downtime Hours
+bind Review Test Results: Test Result
+bind Alert Staff: Incident Type
+bind Recover Data: Data Restored, Recovery Time
+bind Evaluate Recovery Process: Recovery Evaluation
+Risk Level: integer between 1 and 10
+Recovery Strategy: Full Backup, Incremental Backup, Differential Backup, Hot Site, Cold Site
+Employee ID: integer between 1000 and 9999
+Test Type: Drill, Simulation, Full Test
+Downtime Hours: float between 0.0 and 48.0
+Test Result: Pass, Fail, Needs Improvement
+Incident Type: Cyber Attack, Natural Disaster, Hardware Failure, Human Error
+Data Restored: integer between 1 and 5000
+Recovery Time: float between 0.0 and 72.0
+Recovery Evaluation: Effective, Ineffective, Partially Effective
+Init[Conduct Risk Assessment] | |
+Existence[Conduct Risk Assessment] | |
+Absence3[Review Test Results] | |
+Precedence[Develop Recovery Strategies, Conduct Risk Assessment] | | |
+Response[Develop Recovery Strategies, Create Recovery Plan] | | |
+Precedence[Train Employees, Create Recovery Plan] | | |
+Response[Train Employees, Test Recovery Plan] | | |
+Precedence[Review Test Results, Test Recovery Plan] | | |
+Response[Review Test Ergebnisse, Update Recovery Plan] | | |
+Chain Response[Update Recovery Plan, Monitor Systems] | | |
+Precedence[Report Findings, Monitor Systems] | | |0,24,h
+Chain Response[Alert Staff, Report Findings] | | |0,1,h
+Response[Monitor Systems, Activate Recovery Plan] | | |
+Chain Response[Activate Recovery Plan, Deploy Resources] | | |
+Precedence[Evaluate Recovery Process, Deploy Resources] | | |0,3,h

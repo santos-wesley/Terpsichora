@@ -1,0 +1,46 @@
+activity Create Shipping Order
+activity Review Shipping Order
+activity Schedule Pickup
+activity Confirm Pickup
+activity Transport Goods
+activity Customs Clearance
+activity Load Goods
+activity Sail Vessel
+activity Unloading Goods
+activity Final Delivery
+activity Issue Invoice
+activity Receive Payment
+activity Handle Complaints
+activity Close Order
+activity Archive Order
+bind Create Shipping Order: Order ID, Shipping Status, Goods Weight, Transport Type
+bind Transport Goods: Transport Type
+bind Load Goods: Order ID, Vessel ID, Port
+bind Issue Invoice: Invoice ID, Invoice Amount, Payment Status, Order ID
+bind Handle Complaints: Complaint Type, Order ID
+bind Close Order: Order ID, Shipping Status
+Order ID: integer between 1 and 999999
+Shipping Status: Pending, In Progress, Completed, Cancelled
+Goods Weight: float between 0.1 and 10000
+Transport Type: Truck, Train, Ship
+Vessel ID: integer between 1 and 9999
+Port: Port A, Port B, Port C
+Payment Status: Pending, Paid, Overdue
+Complaint Type: Late Delivery, Damaged Goods, Incorrect Billing
+Invoice ID: integer between 1 and 999999
+Invoice Amount: float between 0.01 and 100000
+Init[Create Shipping Order] | |
+End[Close Order] | |
+Precedence[Review Shipping Order, Create Shipping Order] | | |
+Chain Succession[Schedule Pickup, Confirm Pickup] | | |
+Chain Succession[Confirm Pickup, Transport Goods] | | |
+Precedence[Load Goods, Customs Clearance] | | |
+Succession[Load Goods, Sail Vessel] | | |
+Chain Succession[Sail Vessel, Unloading Goods] | | |0,48,h
+Response[Unloading Goods, Final Delivery] | | |
+Alternate Response[Final Delivery, Issue Invoice] | | |0,2,d
+Succession[Issue Invoice, Receive Payment] | | |
+Precedence[Handle Complaints, Receive Payment] | | |
+Alternate Succession[Handle Complaints, Close Order] | | |
+Chain Response[Close Order, Archive Order] | | |
+Existence[Review Shipping Order] | |

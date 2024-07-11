@@ -1,0 +1,48 @@
+activity Book Room
+activity Check-in Guest
+activity Request Room Service
+activity Clean Room
+activity Check-out Guest
+activity Generate Bill
+activity Make Payment
+activity Arrange Airport Pickup
+activity Offer Welcome Drink
+activity Upgrade Room
+activity Fix Maintenance Issue
+activity Host Event
+activity Offer Complimentary Breakfast
+activity Provide Wi-Fi Access
+activity Conduct Feedback Survey
+bind Book Room: Room Number, Room Type, Number of Guests, Booking ID
+bind Check-in Guest: Room Number, Booking ID
+bind Generate Bill: Booking ID, Bill Amount
+bind Make Payment: Booking ID, Bill Amount, Payment Method
+bind Request Room Service: Room Number, Service Type
+bind Fix Maintenance Issue: Room Number, Maintenance Request ID
+bind Conduct Feedback Survey: Booking ID, Feedback Score
+bind Arrange Airport Pickup: Booking ID, Airport Pickup Type
+Room Number: integer between 1 and 999
+Room Type: Single, Double, Suite
+Number of Guests: integer between 1 and 10
+Payment Method: Credit Card, Cash
+Booking ID: integer between 1 and 999999
+Bill Amount: float between 1 and 10000
+Service Type: Food, Laundry
+Maintenance Request ID: integer between 1 and 99999
+Feedback Score: integer between 1 and 10
+Airport Pickup Type: Car, Van
+Init[Book Room] | |
+End[Conduct Feedback Survey] | |
+Precedence[Book Room, Check-in Guest] | | |
+Precedence[Generate Bill, Make Payment] | | |
+Exactly[Conduct Feedback Survey] | |
+Absence2[Upgrade Room] | |
+Precedence[Check-out Guest, Conduct Feedback Survey] | | |
+Response[Request Room Service, Conduct Feedback Survey] | | |0,2,d
+Response[Check-out Guest, Clean Room] | | |0,6,h
+Precedence[Arrange Airport Pickup, Check-in Guest] | | |0,1,d
+Responded Existence[Request Room Service, Clean Room] | | |
+Response[Check-in Guest, Offer Welcome Drink] | | |
+Precedence[Make Payment, Check-out Guest] | | |
+Chain Response[Fix Maintenance Issue, Fix Maintenance Issue] | | |0,12,h
+Existence[Conduct Feedback Survey] | |

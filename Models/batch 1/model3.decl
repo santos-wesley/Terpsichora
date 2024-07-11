@@ -1,0 +1,39 @@
+activity Identify Investment Opportunity
+activity Conduct Feasibility Study
+activity Prepare Investment Proposal
+activity Seek Regulatory Approvals
+activity Secure Funding
+activity Establish Local Entity
+activity Hire Local Staff
+activity Launch Operations
+activity Monitor Performance
+activity Generate Financial Reports
+bind Identify Investment Opportunity: Investment Type
+bind Conduct Feasibility Study: Investment Type, Feasibility Status
+bind Prepare Investment Proposal: Investment Type, Investment Amount
+bind Seek Regulatory Approvals: Investment Type, Approval Status
+bind Secure Funding: Investment Amount, Funding Amount
+bind Establish Local Entity: Number of Employees
+bind Launch Operations: Operation Status
+bind Monitor Performance: Performance Status
+bind Generate Financial Reports: Report ID, Report Status
+Investment Type: Greenfield, Brownfield, Joint Venture
+Feasibility Status: Pending, Approved, Rejected
+Investment Amount: float between 1000000 and 100000000
+Approval Status: Pending, Approved, Rejected
+Funding Amount: integer between 1000000 and 50000000
+Number of Employees: integer between 1 and 500
+Operation Status: Not Started, In Progress, Completed
+Performance Status: Underperforming, Meeting Expectations, Exceeding Expectations
+Report ID: integer between 1 and 999999
+Report Status: Draft, Final, Reviewed
+Init[Identify Investment Opportunity] | |
+Precedence[Conduct Feasibility Study, Identify Investment Opportunity] | | |
+Chain Response[Conduct Feasibility Study, Prepare Investment Proposal] | | |
+Response[Prepare Investment Proposal, Seek Regulatory Approvals] | | |
+Precedence[Secure Funding, Seek Regulatory Approvals] | | |0,30,d
+Existence[Establish Local Entity] | |
+Chain Succession[Establish Local Entity, Launch Operations] | | |
+Response[Launch Operations, Monitor Performance] | | |
+Precedence[Generate Financial Reports, Monitor Performance] | | |0,45,d
+End[Monitor Performance] | |

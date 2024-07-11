@@ -1,0 +1,40 @@
+activity Receive Package
+activity Inspect Package
+activity Log Inspection
+activity Schedule Delivery
+activity Assign Courier
+activity Dispatch Package
+activity Confirm Delivery
+activity Report Issues
+activity Handle Issues
+activity Close Delivery
+bind Receive Package: Package ID, Package Weight
+bind Inspect Package: Package ID, Inspection Result, Inspector ID
+bind Log Inspection: Package ID
+bind Schedule Delivery: Package ID
+bind Assign Courier: Package ID, Courier Assigned, Courier ID
+bind Dispatch Package: Package ID
+bind Confirm Delivery: Package ID, Delivery Status
+bind Report Issues: Package ID, Issue Type
+bind Handle Issues: Package ID, Handling Time, Handling Status
+bind Close Delivery: Package ID
+Package ID: integer between 1 and 100000
+Inspection Result: Clear, Suspicious, Dangerous
+Inspector ID: integer between 1 and 10000
+Courier Assigned: Courier A, Courier B, Courier C
+Courier ID: integer between 1 and 10000
+Issue Type: Damage, Lost, Delay
+Package Weight: float between 0.1 and 100.0
+Handling Time: integer between 5 and 1440
+Delivery Status: Delivered, Not Delivered
+Handling Status: Resolved, In Progress
+Init[Receive Package] | |
+End[Close Delivery] | |
+Precedence[Inspect Package, Log Inspection] | | |
+Response[Assign Courier, Dispatch Package] | | |
+Chain Response[Dispatch Package, Confirm Delivery] | | |
+Not Co-Existence[Report Issues, Confirm Delivery] | | |
+Succession[Report Issues, Handle Issues] | | |
+Chain Succession[Confirm Delivery, Close Delivery] | | |0,24,h
+Alternate Precedence[Schedule Delivery, Assign Courier] | | |
+Chain Succession[Handle Issues, Close Delivery] | | |0,2,d

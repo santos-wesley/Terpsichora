@@ -1,0 +1,49 @@
+activity Acquire Evidence
+activity Preserve Evidence
+activity Analyze Traffic
+activity Identify Anomalies
+activity Correlate Events
+activity Identify Source
+activity Document Findings
+activity Present Findings
+activity Initiate Incident Response
+activity Eradicate Threats
+activity Recover Systems
+activity Verify Recovery
+activity Conduct Post-Incident Analysis
+activity Update Security Measures
+activity Close Case
+bind Acquire Evidence: Case ID, Evidence Size
+bind Identify Anomalies: Case ID, Anomaly Type
+bind Analyze Traffic: Case ID, Traffic Volume
+bind Correlate Events: Case ID, Timestamp
+bind Identify Source: Case ID, Source IP
+bind Document Findings: Case ID, Document ID
+bind Recover Systems: Case ID, Recovery Status
+bind Update Security Measures: Case ID
+bind Acquire Evidence: Analyst ID
+Case ID: integer between 1 and 100000
+Anomaly Type: Suspicious Login, Data Exfiltration, DDoS, Malware Infection
+Evidence Size: float between 0.1 and 100.0
+Source IP: 192.168.1.1, 10.0.0.1, 172.16.0.1, 8.8.8.8
+Analyst ID: integer between 1 and 5000
+Threat Level: Low, Medium, High, Critical
+Timestamp: integer between 1 and 2147483647
+Recovery Status: In Progress, Completed, Failed
+Document ID: integer between 1 and 10000
+Traffic Volume: float between 0.01 and 1000.0
+Init[Acquire Evidence] | |
+Chain Succession[Acquire Evidence, Preserve Evidence] | | |
+Response[Preserve Evidence, Analyze Traffic] | | |
+Precedence[Analyze Traffic, Identify Anomalies] | | |0,48,h
+Response[Identify Anomalies, Correlate Events] | | |
+Response[Correlate Events, Identify Source] | | |
+Response[Identify Source, Document Findings] | | |
+Response[Document Findings, Present Findings] | | |
+Precedence[Present Findings, Initiate Incident Response] | | |0,24,h
+Chain Succession[Initiate Incident Response, Eradicate Threats] | | |
+Response[Eradicate Threats, Recover Systems] | | |
+Precedence[Recover Systems, Verify Recovery] | | |0,12,h
+Response[Verify Recovery, Conduct Post-Incident Analysis] | | |
+Response[Conduct Post-Incident Analysis, Update Security Measures] | | |
+End[Close Case] | |

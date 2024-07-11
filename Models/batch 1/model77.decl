@@ -1,0 +1,40 @@
+activity Identify Opportunity
+activity Conduct Due Diligence
+activity Evaluate Impact
+activity Develop Investment Thesis
+activity Obtain Approval
+activity Execute Investment
+activity Monitor Investment
+activity Report Impact
+activity Exit Investment
+activity Review Performance
+bind Identify Opportunity: Opportunity ID, Impact Focus
+bind Conduct Due Diligence: Opportunity ID, Due Diligence Status
+bind Evaluate Impact: Opportunity ID, Impact Score
+bind Develop Investment Thesis: Opportunity ID, Expected ROI
+bind Obtain Approval: Opportunity ID, Committee ID, Approval Status
+bind Execute Investment: Opportunity ID, Investment Amount
+bind Monitor Investment: Opportunity ID
+bind Report Impact: Opportunity ID, Impact Report Status
+bind Exit Investment: Opportunity ID, Investment Exit Status
+bind Review Performance: Opportunity ID
+Investment Amount: integer between 1000 and 10000000
+Approval Status: Pending, Approved, Rejected
+Expected ROI: float between 0.0 and 50.0
+Impact Focus: Education, Healthcare, Environment, Poverty Alleviation
+Opportunity ID: integer between 1 and 999999
+Committee ID: integer between 1 and 10000
+Due Diligence Status: In Progress, Completed, Failed
+Impact Report Status: Draft, Final, Reviewed
+Impact Score: float between 0.0 and 100.0
+Investment Exit Status: In Planning, Executed, Closed
+Init[Identify Opportunity] | |
+Precedence[Conduct Due Diligence, Identify Opportunity] | | |
+Exactly[Evaluate Impact] | |
+Chain Succession[Evaluate Impact, Develop Investment Thesis] | | |0,48,h
+End[Obtain Approval] | |
+Response[Obtain Approval, Execute Investment] | | |
+Existence2[Monitor Investment] | |
+Succession[Monitor Investment, Report Impact] | | |
+Chain Response[Exit Investment, Review Performance] | | |0,72,h
+End[Review Performance] | |

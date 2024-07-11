@@ -1,0 +1,40 @@
+activity Schedule Appointment
+activity Conduct Intake Assessment
+activity Formulate Treatment Plan
+activity Conduct Therapy Session
+activity Administer Psychological Test
+activity Review Test Results
+activity Adjust Treatment Plan
+activity Document Session Notes
+activity Conduct Follow-Up Assessment
+activity Close Case
+bind Schedule Appointment: Client ID, Appointment Type
+bind Conduct Intake Assessment: Client ID, Therapist ID
+bind Formulate Treatment Plan: Client ID, Therapist ID
+bind Conduct Therapy Session: Client ID, Therapist ID, Session Duration
+bind Administer Psychological Test: Client ID, Test Type
+bind Review Test Results: Client ID, Test Score
+bind Adjust Treatment Plan: Client ID, Treatment Adjustment Reason
+bind Document Session Notes: Client ID
+bind Conduct Follow-Up Assessment: Client ID, Progress Status
+bind Close Case: Case ID, Case Closure Reason
+Client ID: integer between 1 and 100000
+Appointment Type: Initial, Follow-Up
+Session Duration: float between 0.5 and 3.0
+Test Type: Cognitive, Behavioral, Emotional
+Therapist ID: integer between 1 and 10000
+Test Score: float between 0 and 100
+Progress Status: Improving, Stable, Deteriorating
+Treatment Adjustment Reason: Test Results, Client Feedback, Progress Evaluation
+Case ID: integer between 1 and 100000
+Case Closure Reason: Treatment Completed, Client Discontinued, Referral Made
+Init[Schedule Appointment] | |
+End[Close Case] | |
+Precedence[Conduct Intake Assessment, Formulate Treatment Plan] | | |
+Chain Response[Conduct Therapy Session, Document Session Notes] | | |
+Alternate Succession[Administer Psychological Test, Review Test Results] | | |
+Chain Succession[Review Test Results, Adjust Treatment Plan] | | |
+Response[Conduct Therapy Session, Conduct Follow-Up Assessment] | | |0,48,h
+Alternate Precedence[Document Session Notes, Conduct Therapy Session] | | |
+Existence[Administer Psychological Test] | |
+Chain Precedence[Close Case, Conduct Follow-Up Assessment] | | |0,24,h

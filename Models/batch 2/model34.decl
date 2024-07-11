@@ -1,0 +1,55 @@
+activity Enroll Employee
+activity Schedule Session
+activity Deliver Content
+activity Conduct Quiz
+activity Evaluate Quiz
+activity Provide Feedback
+activity Schedule Follow-up Session
+activity Issue Certificate
+activity Archive Training Records
+activity Send Training Material
+activity Sign Training Agreement
+activity Track Progress
+activity Notify Supervisor
+activity Verify Attendance
+activity Report Completion
+bind Enroll Employee: Employee ID, Training Module
+bind Schedule Session: Employee ID, Session ID
+bind Deliver Content: Session ID, Training Duration
+bind Conduct Quiz: Session ID, Quiz Score
+bind Evaluate Quiz: Employee ID, Quiz Score
+bind Provide Feedback: Employee ID, Training Feedback Score
+bind Schedule Follow-up Session: Employee ID, Session ID
+bind Issue Certificate: Certificate ID, Employee ID
+bind Archive Training Records: Employee ID, Session ID
+bind Send Training Material: Employee ID, Training Module
+bind Sign Training Agreement: Employee ID, Training Status
+bind Track Progress: Employee ID, Training Status
+bind Notify Supervisor: Supervisor ID, Training Status
+bind Verify Attendance: Session ID, Attendance Status
+bind Report Completion: Employee ID, Training Status
+Employee ID: integer between 1 and 99999
+Training Module: Module A, Module B, Module C
+Quiz Score: Pass, Fail
+Session ID: integer between 1 and 9999
+Training Duration: float between 0.5 and 8.0
+Certificate ID: integer between 1 and 99999
+Training Status: Not Started, In Progress, Completed
+Supervisor ID: integer between 1 and 9999
+Attendance Status: Present, Absent
+Training Feedback Score: float between 0.0 and 10.0
+Init[Enroll Employee] | |
+End[Archive Training Records] | |
+Precedence[Schedule Session, Enroll Employee] | | |
+Response[Provide Feedback, Issue Certificate] | | |
+Chain Response[Deliver Content, Conduct Quiz] | | |
+Alternate Response[Conduct Quiz, Provide Feedback] | | |0,24,h
+Chain Succession[Evaluate Quiz, Provide Feedback] | | |
+Not Succession[Provide Feedback, Schedule Follow-up Session] | | |
+Succession[Send Training Material, Deliver Content] | | |0,12,h
+Precedence[Notify Supervisor, Track Progress] | | |
+Precedence[Verify Attendance, Schedule Session] | | |
+Chain Response[Issue Certificate, Report Completion] | | |
+Alternate Succession[Track Progress, Schedule Session] | | |
+Existence[Conduct Quiz] | |
+Chain Response[Enroll Employee, Sign Training Agreement] | | |0,2,h

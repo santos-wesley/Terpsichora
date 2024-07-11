@@ -1,0 +1,46 @@
+activity Secure Crime Scene
+activity Collect Evidence
+activity Document Scene
+activity Interview Witnesses
+activity Analyze Evidence
+activity Record Evidence
+activity Generate Report
+activity Interrogate Suspect
+activity File Case
+activity Reconstruct Scene
+activity Check Alibis
+activity Conduct Surveillance
+activity Submit Evidence
+activity Receive Lab Results
+activity Close Case
+bind Collect Evidence: Evidence ID, Evidence Type, Officer ID, Evidence Weight
+bind Interview Witnesses: Witness Type, Officer ID
+bind Generate Report: Report Type
+bind Interrogate Suspect: Suspect Status, Officer ID
+bind Submit Evidence: Lab Result ID, Evidence ID
+bind Reconstruct Scene: Scene Condition
+Evidence ID: integer between 1 and 1000000
+Evidence Type: Fingerprint, DNA, Weapon, Clothing
+Witness Type: Eyewitness, Character Witness, Expert Witness
+Officer ID: integer between 1 and 10000
+Evidence Weight: float between 0.1 and 100.0
+Suspect Status: Arrested, Released, Fugitive
+Report Type: Preliminary, Interim, Final
+Case Status: Open, Cold, Closed
+Lab Result ID: integer between 1 and 100000
+Scene Condition: Disturbed, Undisturbed
+Init[Secure Crime Scene] | |
+End[Close Case] | |
+Precedence[Collect Evidence, Record Evidence] | | |
+Precedence[Interview Witnesses, Interrogate Suspect] | | |
+Chain Precedence[Submit Evidence, Receive Lab Results] | | |
+Response[Collect Evidence, Analyze Evidence] | | |
+Chain Response[Reconstruct Scene, Conduct Surveillance] | | |
+Chain Response[Submit Evidence, Receive Lab Results] | | |0,48,h
+Chain Response[Analyze Evidence, Generate Report] | | |0,24,h
+Chain Response[Generate Report, File Case] | | |0,2,d
+Co-Existence[Interview Witnesses, Check Alibis] | | |
+Absence50[Collect Evidence] | |
+Co-Existence[Record Evidence, Analyze Evidence] | | |
+Not Chain Succession[Interrogate Suspect, Conduct Surveillance] | | |
+Not Precedence[Interrogate Suspect, Record Evidence] | | |

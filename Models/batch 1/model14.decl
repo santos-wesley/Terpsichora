@@ -1,0 +1,40 @@
+activity Enroll Course
+activity Complete Assignment
+activity Attend Lecture
+activity Participate Discussion
+activity Submit Quiz
+activity Receive Grade
+activity Access Resources
+activity Provide Feedback
+activity Complete Course
+activity Issue Certificate
+bind Enroll Course: Student ID, Course Title
+bind Complete Assignment: Student ID, Assignment ID
+bind Attend Lecture: Student ID, Lecture ID
+bind Participate Discussion: Student ID, Course Title
+bind Submit Quiz: Student ID, Quiz ID, Quiz Score
+bind Receive Grade: Student ID, Grade
+bind Access Resources: Student ID, Resource Type
+bind Provide Feedback: Student ID, Feedback Type
+bind Complete Course: Student ID, Course Title
+bind Issue Certificate: Student ID, Certificate Type
+Student ID: integer between 1 and 999999
+Course Title: Math 101, Science 202, History 303
+Assignment ID: integer between 1 and 99999
+Quiz Score: float between 0.0 and 100.0
+Grade: A, B, C, D, F
+Lecture ID: integer between 1 and 9999
+Feedback Type: Positive, Neutral, Negative
+Resource Type: Video, Document, Interactive
+Quiz ID: integer between 1 and 99999
+Certificate Type: Completion, Distinction
+Init[Enroll Course] | |
+Precedence[Complete Assignment, Enroll Course] | | |
+End[Provide Feedback] | |
+Precedence[Attend Lecture, Enroll Course] | | |0,2,d
+Chain Response[Submit Quiz, Attend Lecture] | | |0,24,h
+Responded Existence[Submit Quiz, Access Resources] | | |
+Absence3[Complete Assignment] | |
+Co-Existence[Complete Course, Complete Assignment] | | |
+Chain Response[Issue Certificate, Complete Course] | | |0,24,h
+Existence[Enroll Course] | |

@@ -1,0 +1,35 @@
+activity Prepare Financial Report
+activity Organize Earnings Call
+activity Distribute Press Release
+activity Update Website
+activity Meet Analysts
+activity Respond to Investor Queries
+activity Conduct Roadshow
+activity Hold Annual General Meeting
+activity File Regulatory Documents
+activity Monitor Market Trends
+bind Prepare Financial Report: Report ID, Quarter
+bind Organize Earnings Call: Report ID, Investor ID
+bind Meet Analysts: Analyst Name, Earnings per Share
+bind File Regulatory Documents: Document ID, Quarter
+bind Distribute Press Release: Press Release Type, Market Fluctuation
+Report ID: integer between 1 and 10000
+Quarter: Q1, Q2, Q3, Q4
+Analyst Name: Jane Smith, John Doe, Alice Johnson
+Investor ID: integer between 1 and 1000
+Earnings per Share: float between 0.01 and 100.0
+Meeting Outcome: Positive, Negative, Neutral
+Press Release Type: Earnings, New Product, Management Change
+Document ID: integer between 1 and 5000
+Market Fluctuation: float between -100 and 100
+Event Location: New York, London, Sydney
+Init[Prepare Financial Report] | |
+Chain Succession[Prepare Financial Report, Organize Earnings Call] | | |
+Precedence[Organize Earnings Call, Distribute Press Release] | | |0,24,h
+Existence[Meet Analysts] | |
+Alternate Response[Distribute Press Release, Update Website] | | |0,48,h
+Response[Update Website, Respond to Investor Queries] | | |
+End[Hold Annual General Meeting] | |
+Chain Response[Meet Analysts, Conduct Roadshow] | | |0,7,d
+Response[Prepare Financial Report, File Regulatory Documents] | | |
+Not Co-Existence[Monitor Market Trends, Meet Analysts] | | |

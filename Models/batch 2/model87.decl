@@ -1,0 +1,49 @@
+activity Post Job
+activity Receive Applications
+activity Screen Applications
+activity Schedule Interview
+activity Conduct Interview
+activity Evaluate Candidates
+activity Send Offer
+activity Receive Acceptance
+activity Onboard Employee
+activity Assign Workspace
+activity Set Objectives
+activity Conduct Training
+activity Evaluate Performance
+activity Provide Feedback
+activity Adjust Compensation
+activity Terminate Employee
+bind Receive Applications: Candidate ID, Job Position, Application Status
+bind Conduct Interview: Interview ID, Candidate ID
+bind Send Offer: Candidate ID, Offer Status
+bind Conduct Training: Training Module
+bind Evaluate Performance: Candidate ID, Performance Score
+bind Provide Feedback: Candidate ID, Feedback Type
+bind Adjust Compensation: Candidate ID, Compensation Adjustment
+bind Terminate Employee: Candidate ID, Termination Reason
+Candidate ID: integer between 1 and 999999
+Job Position: Software Engineer, Data Analyst, Product Manager
+Application Status: Received, Screened, Interviewed
+Interview ID: integer between 1 and 99999
+Offer Status: Sent, Accepted, Rejected
+Training Module: Orientation, Technical Skills, Compliance
+Performance Score: float between 0.0 and 10.0
+Feedback Type: Positive, Constructive
+Compensation Adjustment: float between -10.0 and 10.0
+Termination Reason: Voluntary, Involuntary
+Init[Post Job] | |
+Existence[Evaluate Candidates] | |
+Absence[Evaluate Candidates] | |
+Init[Conduct Interview] | |
+End[Terminate Employee] | |
+Precedence[Evaluate Candidates, Send Offer] | | |
+Precedence[Schedule Interview, Conduct Interview] | | |
+Chain Succession[Onboard Employee, Evaluate Performance] | | |0,90,d
+Chain Response[Evaluate Performance, Provide Feedback] | | |0,1,d
+Chain Precedence[Adjust Compensation, Provide Feedback] | | |0,3,d
+Response[Receive Acceptance, Onboard Employee] | | |0,30,d
+Alternate Precedence[Screen Applications, Schedule Interview] | | |
+Response[Conduct Training, Evaluate Performance] | | |
+Not Co-Existence[Receive Applications, Terminate Employee] | | |
+Choice[Set Objectives, Provide Feedback] | | |

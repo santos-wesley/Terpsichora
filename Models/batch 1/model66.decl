@@ -1,0 +1,40 @@
+activity Assess Damage
+activity Deploy Resources
+activity Evacuate Civilians
+activity Set Up Shelter
+activity Provide Medical Aid
+activity Distribute Supplies
+activity Restore Utilities
+activity Monitor Situation
+activity Report Progress
+activity Conduct Debriefing
+bind Assess Damage: Damage Cost, Disaster Type
+bind Deploy Resources: Resource ID, Disaster Type
+bind Evacuate Civilians: Civilian Count, Disaster Type
+bind Set Up Shelter: Shelter Capacity, Disaster Type
+bind Provide Medical Aid: Resource ID, Medical Aid Type
+bind Distribute Supplies: Resource ID, Supply Type
+bind Restore Utilities: Resource ID, Utility Type
+bind Monitor Situation: Resource ID, Disaster Type
+bind Report Progress: Report ID, Disaster Type
+bind Conduct Debriefing: Report ID, Debriefing Outcome
+Resource ID: integer between 1 and 9999
+Civilian Count: integer between 1 and 100000
+Disaster Type: Earthquake, Flood, Hurricane, Tornado
+Medical Aid Type: First Aid, Surgery, Trauma Care
+Supply Type: Food, Water, Clothing
+Damage Cost: float between 1.0 and 1000.0
+Shelter Capacity: integer between 10 and 1000
+Utility Type: Water, Electricity, Gas
+Report ID: integer between 1 and 9999
+Debriefing Outcome: Success, Improvement Needed, Failure
+Init[Assess Damage] | |
+Precedence[Assess Damage, Deploy Resources] | | |0,2,h
+Precedence[Assess Damage, Evacuate Civilians] | | |0,5,h
+Chain Succession[Evacuate Civilians, Provide Medical Aid] | | |
+Precedence[Evacuate Civilians, Set Up Shelter] | | |0,1,h
+Precedence[Set Up Shelter, Distribute Supplies] | | |0,2,h
+Response[Deploy Resources, Restore Utilities] | | |
+Existence[Monitor Situation] | |
+Responded Existence[Report Progress, Conduct Debriefing] | | |
+End[Conduct Debriefing] | |

@@ -1,0 +1,50 @@
+activity Receive Case
+activity Assign Detective
+activity Gather Evidence
+activity Interview Witnesses
+activity Analyze Evidence
+activity Identify Suspect
+activity Conduct Surveillance
+activity Obtain Warrant
+activity Arrest Suspect
+activity Interrogate Suspect
+activity File Charges
+activity Prepare Case
+activity Testify in Court
+activity Close Case
+activity Archive Case
+bind Receive Case: Case ID
+bind Assign Detective: Case ID, Detective Name
+bind Gather Evidence: Case ID, Evidence ID, Evidence Type
+bind Interview Witnesses: Case ID, Witness Name
+bind Conduct Surveillance: Case ID, Surveillance Hours
+bind Obtain Warrant: Case ID, Warrant Status
+bind Arrest Suspect: Case ID, Suspect ID
+bind File Charges: Case ID, Charge Type
+bind Testify in Court: Case ID, Court Outcome
+bind Analyze Evidence: Case ID, Evidence ID
+Case ID: integer between 1000 and 9999
+Detective Name: Detective John, Detective Sarah, Detective Alex
+Evidence ID: integer between 1 and 999
+Evidence Type: Fingerprint, DNA, Weapon, Clothing
+Witness Name: John Doe, Jane Smith, Alice Johnson
+Surveillance Hours: float between 0.5 and 100.0
+Warrant Status: Requested, Issued, Denied
+Suspect ID: integer between 1 and 9999
+Charge Type: Murder, Theft, Assault
+Court Outcome: Guilty, Not Guilty, Mistrial
+Init[Receive Case] | |
+End[Archive Case] | |
+Existence[Arrest Suspect] | |
+Precedence[Assign Detective, Receive Case] | | |
+Response[Assign Detective, Gather Evidence] | | |
+Precedence[Identify Suspect, Analyze Evidence] | | |
+Chain Response[Identify Suspect, Conduct Surveillance] | | |
+Response[Arrest Suspect, Interrogate Suspect] | | |
+Chain Succession[Arrest Suspect, File Charges] | | |0,48,h
+Precedence[Prepare Case, File Charges] | | |
+Precedence[Testify in Court, Prepare Case] | | |
+Absence10[Interview Witnesses] | |
+Precedence[Obtain Warrant, Conduct Surveillance] | | |
+Chain Succession[File Charges, Prepare Case] | | |0,7,d
+Chain Succession[Gather Evidence, Analyze Evidence] | | |0,5,d

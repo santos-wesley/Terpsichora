@@ -1,0 +1,55 @@
+activity Collect Data
+activity Clean Data
+activity Analyze Data
+activity Generate Report
+activity Review Report
+activity Share Report
+activity Plan Intervention
+activity Implement Intervention
+activity Monitor Intervention
+activity Adjust Interventions
+activity Evaluate Outcomes
+activity Document Findings
+activity Archive Data
+activity Conduct Peer Review
+activity Publish Results
+bind Collect Data: Data Source
+bind Clean Data: Data Source, Data Quality
+bind Analyze Data: Data Quality, Analysis Method
+bind Generate Report: Analysis Method, Report Accuracy
+bind Review Report: Report Accuracy, Reviewer ID
+bind Share Report: Reviewer ID
+bind Plan Intervention: Intervention Type
+bind Implement Intervention: Intervention Type
+bind Monitor Intervention: Intervention Effectiveness
+bind Adjust Interventions: Intervention Effectiveness
+bind Evaluate Outcomes: Intervention Effectiveness, Outcome ID
+bind Document Findings: Outcome ID
+bind Archive Data: Data Source
+bind Conduct Peer Review: Outcome ID, Reviewer Feedback
+bind Publish Results: Result DOI
+Data Source: Surveys, Interviews, Observations, Sensor Data
+Data Quality: float between 0.0 and 10.0
+Analysis Method: Statistical, Qualitative, Mixed-Methods
+Report Accuracy: float between 0.0 and 10.0
+Reviewer ID: integer between 1 and 9999
+Intervention Type: Behavioral Therapy, Cognitive Training, Mindfulness, Educational Programs
+Intervention Effectiveness: float between 0.0 and 10.0
+Outcome ID: integer between 1 and 9999
+Reviewer Feedback: Positive, Negative, Neutral
+Result DOI: integer between 1 and 999999
+Init[Collect Data] | |
+End[Archive Data] | |
+Precedence[Clean Data, Collect Data] | | |
+Precedence[Analyze Data, Clean Data] | | |
+Precedence[Generate Report, Analyze Data] | | |
+Precedence[Review Report, Generate Report] | | |
+Precedence[Share Report, Review Report] | | |
+Precedence[Plan Intervention, Share Report] | | |0,24,h
+Precedence[Implement Intervention, Plan Intervention] | | |
+Precedence[Monitor Intervention, Implement Intervention] | | |
+Precedence[Adjust Interventions, Monitor Intervention] | | |
+Precedence[Evaluate Outcomes, Adjust Interventions] | | |0,7,d
+Precedence[Document Findings, Evaluate Outcomes] | | |
+Precedence[Conduct Peer Review, Document Findings] | | |
+Precedence[Publish Results, Conduct Peer Review] | | |0,48,h

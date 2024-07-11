@@ -1,0 +1,46 @@
+activity Identify Threat
+activity Gather Intelligence
+activity Analyze Data
+activity Develop Countermeasures
+activity Deploy Surveillance
+activity Intercept Communications
+activity Conduct Operations
+activity Secure Assets
+activity Evaluate Effectiveness
+activity Report Findings
+activity Adjust Strategy
+activity Neutralize Threat
+activity Retrieve Evidence
+activity Close Case
+activity Archive Records
+bind Identify Threat: Threat Level, Threat Type
+bind Gather Intelligence: Intelligence Source, Data Sensitivity, Agent ID
+bind Deploy Surveillance: Agent ID, Surveillance Type, Budget
+bind Report Findings: Agent ID, Report Type
+bind Retrieve Evidence: Evidence ID, Agent ID
+bind Close Case: Agent ID, Operation Status
+Threat Level: integer between 1 and 10
+Surveillance Type: Electronic, Physical, Cyber
+Budget: float between 10000 and 1000000
+Operation Status: Planned, In Progress, Completed
+Agent ID: integer between 1 and 9999
+Intelligence Source: Internal, External, Confidential Informant
+Threat Type: Espionage, Sabotage, Subversion
+Data Sensitivity: Low, Medium, High
+Evidence ID: integer between 1 and 999999
+Report Type: Summary, Detailed, Urgent
+Init[Identify Threat] | |
+End[Close Case] | |
+Response[Gather Intelligence, Analyze Data] | | |
+Precedence[Deploy Surveillance, Intercept Communications] | | |
+Alternate Response[Deploy Surveillance, Conduct Operations] | | |
+Alternate Succession[Conduct Operations, Secure Assets] | | |0,2,d
+Response[Neutralize Threat, Evaluate Effectiveness] | | |
+Chain Response[Analyze Data, Report Findings] | | |0,48,h
+Alternate Succession[Evaluate Effectiveness, Adjust Strategy] | | |
+Precedence[Retrieve Evidence, Neutralize Threat] | | |
+Responded Existence[Adjust Strategy, Close Case] | | |
+Exactly[Conduct Operations] | |
+Chain Succession[Close Case, Archive Records] | | |0,2,d
+Precedence[Gather Intelligence, Neutralize Threat] | | |
+Co-Existence[Identify Threat, Report Findings] | | |

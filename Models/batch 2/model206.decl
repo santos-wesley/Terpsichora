@@ -1,0 +1,47 @@
+activity Initiate Project
+activity Define Requirements
+activity Design System
+activity Develop Components
+activity Test Components
+activity Deploy System
+activity Conduct System Tests
+activity Fix Issues
+activity Conduct User Acceptance Testing
+activity Go Live
+activity Monitor System
+activity Perform Maintenance
+activity Deliver Training
+activity Collect Feedback
+activity Close Project
+bind Initiate Project: Project ID, Budget
+bind Define Requirements: Project ID, Priority Level
+bind Develop Components: Developer ID, Component Type, Task Duration
+bind Test Components: Issue Count, Developer ID
+bind Conduct User Acceptance Testing: User Feedback, Project ID
+bind Deliver Training: Training Status, Task Duration
+bind Monitor System: System Uptime
+Project ID: integer between 1 and 99999
+Priority Level: High, Medium, Low
+Component Type: Database, API, Frontend, Backend
+Developer ID: integer between 1 and 9999
+Issue Count: integer between 0 and 1000
+Budget: float between 1000 and 1000000
+User Feedback: Positive, Neutral, Negative
+Training Status: Completed, In Progress, Not Started
+Task Duration: integer between 1 and 365
+System Uptime: float between 95.0 and 100.0
+Init[Initiate Project] | |
+End[Close Project] | |
+Precedence[Define Requirements, Initiate Project] | | |
+Response[Define Requirements, Design System] | | |
+Succession[Design System, Develop Components] | | |
+Chain Succession[Develop Components, Test Components] | | |
+Alternate Response[Test Components, Deploy System] | | |
+Chain Response[Deploy System, Conduct System Tests] | | |
+Response[Conduct System Tests, Fix Issues] | | |
+Precedence[Conduct User Acceptance Testing, Go Live] | | |0,7,d
+Precedence[Deliver Training, Go Live] | | |0,2,d
+Response[Go Live, Monitor System] | | |
+Co-Existence[Monitor System, Collect Feedback] | | |
+Absence1000[Test Components] | |
+Existence[Initiate Project] | |

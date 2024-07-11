@@ -1,0 +1,47 @@
+activity Conduct Survey
+activity Analyze Data
+activity Develop Plan
+activity Seek Funding
+activity Implement Projects
+activity Monitor Progress
+activity Conduct Audit
+activity Prepare Report
+activity Submit Report
+activity Gather Feedback
+activity Revise Plan
+activity Hold Meeting
+activity Evaluate Impact
+activity Conclude Projects
+activity Celebrate Success
+bind Conduct Survey: Survey ID, Data Quality
+bind Seek Funding: Funding Source, Funds Received
+bind Implement Projects: Project ID, Project Status
+bind Prepare Report: Report ID
+bind Gather Feedback: Feedback Type
+bind Hold Meeting: Meeting Outcome
+bind Evaluate Impact: Impact Score
+Survey ID: integer between 1 and 999999
+Data Quality: High, Medium, Low
+Funding Source: Government, Private Sector, NGO
+Funds Received: float between 0.0 and 1000000.0
+Project ID: integer between 1 and 99999
+Project Status: Not Started, In Progress, Completed
+Report ID: integer between 1 and 999999
+Feedback Type: Positive, Negative, Neutral
+Meeting Outcome: Successful, Needs Improvement
+Impact Score: float between 0.0 and 10.0
+Init[Conduct Survey] | |
+Precedence[Conduct Survey, Analyze Data] | | |
+Response[Analyze Data, Develop Plan] | | |
+Precedence[Develop Plan, Seek Funding] | | |0,30,d
+Chain Succession[Seek Funding, Implement Projects] | | |
+Responded Existence[Implement Projects, Monitor Progress] | | |
+Precedence[Monitor Progress, Conduct Audit] | | |
+Response[Conduct Audit, Prepare Report] | | |0,7,d
+Chain Succession[Prepare Report, Submit Report] | | |
+Response[Submit Report, Gather Feedback] | | |0,14,d
+Precedence[Gather Feedback, Revise Plan] | | |
+Alternate Response[Implement Projects, Hold Meeting] | | |
+Response[Implement Projects, Evaluate Impact] | | |
+Response[Evaluate Impact, Conclude Projects] | | |
+End[Celebrate Success] | |

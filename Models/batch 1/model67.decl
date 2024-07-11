@@ -1,0 +1,40 @@
+activity Design Nano-Structure
+activity Synthesize Nano-Material
+activity Purify Nano-Material
+activity Characterize Nano-Material
+activity Functionalize Nano-Structure
+activity Test Nano-Material
+activity Analyze Test Results
+activity Document Findings
+activity Publish Research
+activity Present at Conference
+bind Design Nano-Structure: Sample ID, Researcher ID
+bind Synthesize Nano-Material: Sample ID, Synthesis Method
+bind Purify Nano-Material: Sample ID, Purity Level, Researcher ID
+bind Characterize Nano-Material: Sample ID, Characterization Technique
+bind Functionalize Nano-Structure: Sample ID, Functionalization Efficiency
+bind Test Nano-Material: Sample ID, Test Type
+bind Analyze Test Results: Sample ID, Result Accuracy
+bind Document Findings: Sample ID, Document Type
+bind Publish Research: Document Type
+bind Present at Conference: Conference Type
+Sample ID: integer between 1 and 1000
+Purity Level: float between 0.0 and 100.0
+Synthesis Method: Sol-Gel, Chemical Vapor Deposition, Physical Vapor Deposition
+Characterization Technique: XRD, TEM, SEM
+Functionalization Efficiency: float between 0.0 and 100.0
+Test Type: Mechanical, Electrical, Thermal
+Researcher ID: integer between 1 and 500
+Result Accuracy: float between 0.0 and 100.0
+Document Type: Internal Report, Manuscript
+Conference Type: International, National, Local
+Init[Design Nano-Structure] | |
+End[Publish Research] | |
+Precedence[Synthesize Nano-Material, Design Nano-Structure] | | |
+Precedence[Purify Nano-Material, Synthesize Nano-Material] | | |
+Precedence[Characterize Nano-Material, Purify Nano-Material] | | |
+Precedence[Functionalize Nano-Structure, Characterize Nano-Material] | | |
+Precedence[Test Nano-Material, Functionalize Nano-Structure] | | |
+Response[Test Nano-Material, Analyze Test Results] | | |
+Response[Analyze Test Results, Document Findings] | | |
+Succession[Publish Research, Present at Conference] | | |0,60,d

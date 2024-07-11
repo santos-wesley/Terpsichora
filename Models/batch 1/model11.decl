@@ -1,0 +1,37 @@
+activity Identify Critical Functions
+activity Conduct Risk Assessment
+activity Develop Recovery Strategies
+activity Implement Disaster Recovery Plan
+activity Test Recovery Strategies
+activity Train Employees
+activity Review and Update Plan
+activity Communicate Plan to Stakeholders
+activity Activate Emergency Operations
+activity Perform Post-Incident Review
+bind Conduct Risk Assessment: Risk Impact Score, Disruption Type
+bind Develop Recovery Strategies: Recovery Strategy Type
+bind Test Recovery Strategies: Test Result, Training Hours
+bind Train Employees: Employee Training Sessions
+bind Review and Update Plan: Plan Review Frequency
+bind Communicate Plan to Stakeholders: Stakeholder Count
+bind Perform Post-Incident Review: Incident Severity, Post-Incident Review Duration
+Risk Impact Score: integer between 1 and 10
+Recovery Strategy Type: Alternate Site, Cloud Backup, Data Redundancy
+Training Hours: float between 0.5 and 50.0
+Test Result: Pass, Fail
+Stakeholder Count: integer between 1 and 1000
+Disruption Type: Natural Disaster, Cyber Attack, Power Outage
+Plan Review Frequency: Monthly, Quarterly, Annually
+Incident Severity: integer between 1 and 5
+Post-Incident Review Duration: float between 1.0 and 72.0
+Employee Training Sessions: integer between 1 and 100
+Init[Identify Critical Functions] | |
+Precedence[Conduct Risk Assessment, Identify Critical Functions] | | |
+Chain Response[Conduct Risk Assessment, Develop Recovery Strategies] | | |0,7,d
+Existence[Train Employees] | |
+Response[Develop Recovery Strategies, Test Recovery Strategies] | | |
+End[Perform Post-Incident Review] | |
+Response[Train Employees, Communicate Plan to Stakeholders] | | |
+Chain Response[Conduct Risk Assessment, Activate Emergency Operations] | | |
+Chain Response[Review and Update Plan, Communicate Plan to Stakeholders] | | |0,30,d
+Co-Existence[Conduct Risk Assessment, Develop Recovery Strategies] | | |

@@ -1,0 +1,44 @@
+activity Analyze Requirements
+activity Design Architecture
+activity Select Technologies
+activity Define Components
+activity Create UML Diagrams
+activity Review Architecture
+activity Identify Risks
+activity Mitigate Risks
+activity Implement Prototype
+activity Test Prototype
+activity Collect Feedback
+activity Refine Architecture
+activity Finalize Architecture
+activity Approve Architecture
+activity Maintain Architecture
+bind Identify Risks: Risk ID, Risk Severity, Probability of Occurrence
+bind Select Technologies: Technology Stack
+bind Define Components: Component ID
+bind Collect Feedback: Stakeholder Feedback
+bind Approve Architecture: Approval Status
+bind Create UML Diagrams: Diagram Type
+bind Analyze Requirements: Requirement ID
+bind Test Prototype: Test Outcome
+Risk ID: integer between 1 and 9999
+Risk Severity: Low, Medium, High
+Probability of Occurrence: float between 0.0 and 1.0
+Technology Stack: Java, Python, C#, JavaScript
+Component ID: integer between 1 and 999
+Stakeholder Feedback: Positive, Negative, Neutral
+Approval Status: Approved, Pending, Rejected
+Diagram Type: Class Diagram, Sequence Diagram, Use Case Diagram, Activity Diagram
+Requirement ID: integer between 1 and 9999
+Test Outcome: Passed, Failed, Inconclusive
+Init[Analyze Requirements] | |
+Precedence[Design Architecture, Analyze Requirements] | | |
+Response[Design Architecture, Select Technologies] | | |
+Chain Succession[Create UML Diagrams, Review Architecture] | | |
+Not Co-Existence[Mitigate Risks, Implement Prototype] | | |
+Alternate Response[Identify Risks, Review Architecture] | | |
+Chain Response[Test Prototype, Collect Feedback] | | |0,1,h
+End[Maintain Architecture] | |
+Not Response[Implement Prototype, Approve Architecture] | | |
+Existence[Refine Architecture] | |
+Precedence[Implement Prototype, Mitigate Risks] | | |0,1,d

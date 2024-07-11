@@ -1,0 +1,38 @@
+activity Identify Needs
+activity Formulate Proposal
+activity Secure Funding
+activity Select Partners
+activity Execute Project
+activity Monitor Progress
+activity Evaluate Impact
+activity Report Results
+activity Disseminate Findings
+activity Close Project
+bind Identify Needs: Project ID, Community, Assessment Method
+bind Formulate Proposal: Project ID, Community
+bind Secure Funding: Project ID, Funding Source, Budget Amount
+bind Select Partners: Project ID, Partner Type
+bind Execute Project: Project ID, Duration in Months
+bind Monitor Progress: Project ID
+bind Evaluate Impact: Project ID, Number of Beneficiaries
+bind Report Results: Project ID
+bind Disseminate Findings: Project ID
+bind Close Project: Project ID
+Project ID: integer between 1 and 999999
+Community: Community A, Community B, Community C
+Funding Source: Government Grant, Private Donation, International Aid
+Budget Amount: float between 1000 and 1000000
+Partner Type: NGO, Government Agency, Private Sector
+Number of Beneficiaries: integer between 50 and 10000
+Assessment Method: Survey, Focus Group, Interview
+Duration in Months: integer between 1 and 60
+Init[Identify Needs] | |
+Chain Response[Identify Needs, Formulate Proposal] | | |
+Alternate Response[Formulate Proposal, Secure Funding] | | |0,15,d
+Chain Succession[Secure Funding, Select Partners] | | |
+Precedence[Select Partners, Execute Project] | | |
+Response[Execute Project, Monitor Progress] | | |
+Alternate Response[Monitor Progress, Evaluate Impact] | | |
+Chain Response[Evaluate Impact, Report Results] | | |0,30,d
+Alternate Response[Report Results, Disseminate Findings] | | |0,10,d
+End[Close Project] | |

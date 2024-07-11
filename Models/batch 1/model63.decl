@@ -1,0 +1,38 @@
+activity Receive Inquiry
+activity Log Inquiry
+activity Assign Agent
+activity Analyze Inquiry
+activity Resolve Issue
+activity Verify Solution
+activity Close Inquiry
+activity Follow Up
+activity Escalate Issue
+activity Generate Report
+bind Receive Inquiry: Customer ID, Inquiry Channel
+bind Log Inquiry: Customer ID, Issue Type, Inquiry Status
+bind Assign Agent: Agent ID, Customer ID
+bind Resolve Issue: Customer ID, Resolution Time
+bind Verify Solution: Satisfaction Level, Customer ID
+bind Close Inquiry: Customer ID, Inquiry Status
+bind Follow Up: Customer ID, Follow Up Status
+bind Escalate Issue: Customer ID, Escalation Level
+bind Generate Report: Customer ID, Report ID
+Customer ID: integer between 1 and 999999
+Inquiry Channel: Email, Phone, Web
+Issue Type: Technical, Billing, General
+Agent ID: integer between 1 and 9999
+Inquiry Status: Open, In Progress, Resolved, Closed
+Resolution Time: float between 0 and 72
+Satisfaction Level: Very Satisfied, Satisfied, Neutral, Dissatisfied, Very Dissatisfied
+Escalation Level: Level 1, Level 2, Level 3
+Report ID: integer between 1 and 9999999
+Follow Up Status: Pending, Completed
+Init[Receive Inquiry] | |
+Precedence[Log Inquiry, Receive Inquiry] | | |
+Response[Log Inquiry, Assign Agent] | | |
+Chain Response[Analyze Inquiry, Resolve Issue] | | |0,1,h
+Alternate Response[Resolve Issue, Verify Solution] | | |0,48,h
+Chain Succession[Verify Solution, Close Inquiry] | | |0,24,h
+End[Generate Report] | |
+Absence3[Escalate Issue] | |
+Exclusive Choice[Resolve Issue, Escalate Issue] | | |0,72,h

@@ -1,0 +1,47 @@
+activity Define Hypothesis
+activity Literature Review
+activity Construct Proof
+activity Validate Proof
+activity Document Findings
+activity Submit Report
+activity Address Reviewer Comments
+activity Publish Paper
+activity Present Findings
+activity Devise Counterexample
+activity Refute Hypothesis
+activity Propose Further Research
+activity Conduct Experiments
+activity Analyze Data
+activity Finalize Research
+bind Define Hypothesis: Document ID, Research Status
+bind Submit Report: Document ID, Reviewer Type
+bind Address Reviewer Comments: Document ID, Revision Round
+bind Publish Paper: Document ID, Impact Factor
+bind Present Findings: Conference ID, Conference Type
+bind Conduct Experiments: Document ID, Experiment Type, Data Accuracy
+bind Validate Proof: Document ID, Proof Status
+Document ID: integer between 1 and 100000
+Reviewer Type: Peer, Editor, Expert
+Conference Type: National, International
+Revision Round: integer between 1 and 5
+Impact Factor: float between 0.0 and 20.0
+Experiment Type: Theoretical, Empirical
+Research Status: Ongoing, Completed, Published
+Data Accuracy: float between 0.0 and 100.0
+Conference ID: integer between 1 and 10000
+Proof Status: Pending, Validated, Refuted
+Init[Define Hypothesis] | |
+End[Finalize Research] | |
+Response[Literature Review, Construct Proof] | | |
+Chain Response[Construct Proof, Validate Proof] | | |
+Precedence[Document Findings, Validate Proof] | | |
+Succession[Submit Report, Publish Paper] | | |
+Alternate Response[Publish Paper, Present Findings] | | |0,7,d
+Co-Existence[Propose Further Research, Finalize Research] | | |
+Chain Precedence[Devise Counterexample, Refute Hypothesis] | | |
+Absence2[Conduct Experiments] | |
+Chain Response[Conduct Experiments, Analyze Data] | | |0,48,h
+Alternate Succession[Submit Report, Address Reviewer Comments] | | |
+Response[Address Reviewer Comments, Publish Paper] | | |0,30,d
+Not Co-Existence[Validate Proof, Refute Hypothesis] | | |
+Not Chain Response[Analyze Data, Validate Proof] | | |

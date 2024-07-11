@@ -1,0 +1,48 @@
+activity Report Issue
+activity Assign Technician
+activity Diagnose Issue
+activity Order Parts
+activity Receive Parts
+activity Fix Issue
+activity Inspect Work
+activity Close Issue
+activity Log Maintenance
+activity Update Inventory
+activity Generate Report
+activity Approve Budget
+activity Authorize Payment
+activity Schedule Maintenance
+activity Conduct Meeting
+bind Report Issue: Issue ID, Issue Type
+bind Assign Technician: Issue ID, Technician Name
+bind Order Parts: Parts Ordered, Parts Cost
+bind Inspect Work: Issue ID, Inspection Status
+bind Authorize Payment: Parts Cost, Payment Status
+bind Approve Budget: Budget Amount
+bind Schedule Maintenance: Maintenance Type
+bind Generate Report: Report ID
+Issue ID: integer between 1 and 999999
+Technician Name: John Smith, Alex Johnson, Emily Davis
+Issue Type: Electrical, Plumbing, HVAC, Structural
+Parts Ordered: integer between 1 and 100
+Parts Cost: float between 10.0 and 1000.0
+Inspection Status: Passed, Failed
+Payment Status: Authorized, Not Authorized
+Budget Amount: integer between 100 and 5000
+Maintenance Type: Weekly, Monthly, Quarterly
+Report ID: integer between 1 and 999999
+Init[Report Issue] | |
+Precedence[Assign Technician, Report Issue] | | |
+Precedence[Diagnose Issue, Assign Technician] | | |
+Chain Response[Diagnose Issue, Order Parts] | | |0,3,h
+Precedence[Receive Parts, Order Parts] | | |
+Response[Fix Issue, Receive Parts] | | |
+Chain Succession[Fix Issue, Inspect Work] | | |
+End[Close Issue] | |
+Absence5[Inspect Work] | |
+Precedence[Inspect Work, Fix Issue] |A.Inspection Status is Passed | |
+Precedence[Order Parts, Approve Budget] | | |
+Chain Precedence[Authorize Payment, Approve Budget] | | |
+Responded Existence[Fix Issue, Update Inventory] | | |0,2,d
+Responded Existence[Log Maintenance, Close Issue] | | |
+Response[Generate Report, Log Maintenance] | | |

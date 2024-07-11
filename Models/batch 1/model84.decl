@@ -1,0 +1,34 @@
+activity Capture Sales Data
+activity Clean Data
+activity Aggregate Sales
+activity Generate Sales Report
+activity Analyze Customer Behavior
+activity Identify Trends
+activity Forecast Sales
+activity Optimize Inventory
+activity Evaluate Campaign Effectiveness
+activity Present Insights
+bind Capture Sales Data: Transaction ID, Sales Amount, Customer Segment, Store ID
+bind Clean Data: Transaction ID, Store ID, Product Category
+bind Aggregate Sales: Transaction ID, Region, Sales Amount
+bind Analyze Customer Behavior: Transaction ID, Customer Segment, Product Category, Units Sold
+bind Identify Trends: Transaction ID, Sales Amount, Region
+Transaction ID: integer between 1 and 999999
+Sales Amount: float between 0.01 and 9999.99
+Customer Segment: New, Returning, VIP
+Store ID: integer between 1 and 9999
+Product Category: Electronics, Clothing, Groceries, Furniture, Toys
+Discount Rate: float between 0.0 and 1.0
+Promotion Type: None, Percentage, BuyOneGetOne, Seasonal
+Region: North, South, East, West
+Units Sold: integer between 1 and 999
+Init[Capture Sales Data] | |
+Absence3[Capture Sales Data] | |
+Chain Succession[Capture Sales Data, Clean Data] | | |
+Precedence[Aggregate Sales, Clean Data] | | |
+Chain Response[Aggregate Sales, Generate Sales Report] | | |
+Response[Generate Sales Report, Analyze Customer Behavior] | | |
+Alternate Response[Analyze Customer Behavior, Identify Trends] | | |0,4,d
+Response[Identify Trends, Forecast Sales] | | |
+Chain Succession[Forecast Sales, Optimize Inventory] | | |
+Succession[Forecast Sales, Evaluate Campaign Effectiveness] | | |

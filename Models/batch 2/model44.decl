@@ -1,0 +1,56 @@
+activity Identify Issue
+activity Report Issue
+activity Investigate Issue
+activity Implement Solution
+activity Monitor Results
+activity Document Findings
+activity Verify Solution
+activity Update Protocols
+activity Resubmit Report
+activity Conduct Training
+activity Review Performance
+activity Approve Changes
+activity Finalize Report
+activity Archive Report
+activity Notify Staff
+bind Identify Issue: Issue ID, Issue Type, Loss Amount
+bind Report Issue: Issue ID, Supervisor ID, Report Date
+bind Investigate Issue: Issue ID, Supervisor ID
+bind Implement Solution: Issue ID, Solution Type
+bind Monitor Results: Issue ID
+bind Document Findings: Issue ID, Report ID
+bind Verify Solution: Issue ID, Verification Status
+bind Update Protocols: Issue ID
+bind Resubmit Report: Issue ID, Report ID
+bind Conduct Training: Issue ID, Training Hours
+bind Review Performance: Issue ID, Performance Status
+bind Approve Changes: Issue ID
+bind Finalize Report: Issue ID, Report ID
+bind Archive Report: Issue ID, Report ID
+bind Notify Staff: Issue ID
+Issue ID: integer between 1 and 999999
+Issue Type: Theft, Damage, Operational
+Supervisor ID: integer between 1 and 9999
+Solution Type: Technical, Organizational, Training
+Loss Amount: float between 0.01 and 100000
+Verification Status: Verified, Not Verified
+Report ID: integer between 1 and 99999
+Performance Status: Satisfactory, Unsatisfactory
+Report Date: 2023-06-01, 2023-06-15, 2023-07-01
+Training Hours: float between 0.5 and 40
+Init[Identify Issue] | |
+End[Archive Report] | |
+Precedence[Identify Issue, Report Issue] | | |
+Response[Report Issue, Investigate Issue] | | |
+Chain Succession[Investigate Issue, Implement Solution] | | |
+Alternate Response[Implement Solution, Monitor Results] | | |
+Response[Monitor Results, Document Findings] | | |
+Response[Document Findings, Verify Solution] | | |
+Precedence[Verify Solution, Update Protocols] | | |0,48,h
+Response[Update Protocols, Resubmit Report] | | |
+Chain Succession[Update Protocols, Conduct Training] | | |0,5,d
+Response[Conduct Training, Review Performance] | | |
+Absence[Approve Changes] | |
+Response[Approve Changes, Finalize Report] | | |
+Chain Succession[Finalize Report, Notify Staff] | | |0,24,h
+Response[Notify Staff, Archive Report] | | |

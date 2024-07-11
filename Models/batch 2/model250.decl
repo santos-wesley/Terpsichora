@@ -1,0 +1,55 @@
+activity Create Purchase Requisition
+activity Approve Requisition
+activity Create Purchase Order
+activity Send Purchase Order
+activity Receive Goods
+activity Inspect Goods
+activity Record Goods Receipt
+activity Generate Invoice
+activity Approve Invoice
+activity Make Payment
+activity Update Inventory
+activity Send Payment Confirmation
+activity Close Purchase Order
+activity Archive Documents
+activity Evaluate Supplier
+bind Create Purchase Requisition: Requisition ID, Requisition Status
+bind Approve Requisition: Requisition ID, Requisition Status
+bind Create Purchase Order: Order ID, Order Amount
+bind Send Purchase Order: Order ID, Supplier ID
+bind Receive Goods: Order ID, Supplier ID
+bind Inspect Goods: Order ID, Quality Status
+bind Record Goods Receipt: Order ID
+bind Generate Invoice: Order ID, Invoice Amount
+bind Approve Invoice: Order ID, Invoice Status
+bind Make Payment: Order ID, Payment ID
+bind Update Inventory: Order ID
+bind Send Payment Confirmation: Order ID, Payment Status
+bind Close Purchase Order: Order ID
+bind Archive Documents: Order ID
+bind Evaluate Supplier: Order ID, Supplier ID
+Requisition ID: integer between 1000 and 9999
+Requisition Status: Pending, Approved, Rejected
+Order ID: integer between 10000 and 99999
+Order Amount: float between 0.01 and 1000000.0
+Supplier ID: integer between 100 and 9999
+Quality Status: Accepted, Rejected
+Invoice Amount: float between 0.01 and 1000000.0
+Invoice Status: Pending, Approved, Rejected
+Payment ID: integer between 100000 and 999999
+Payment Status: Pending, Completed, Failed
+Init[Create Purchase Requisition] | |
+Response[Create Purchase Requisition, Approve Requisition] | | |
+Response[Approve Requisition, Create Purchase Order] | | |
+Response[Create Purchase Order, Send Purchase Order] | | |
+Response[Send Purchase Order, Receive Goods] | | |
+Chain Succession[Receive Goods, Inspect Goods] | | |
+Absence[Receive Goods] | |
+Chain Response[Receive Goods, Evaluate Supplier] | | |0,7,d
+Precedence[Record Goods Receipt, Inspect Goods] | | |
+Response[Inspect Goods, Generate Invoice] |A.Quality Status is Accepted | |
+Response[Generate Invoice, Approve Invoice] | | |
+Chain Response[Approve Invoice, Make Payment] | | |0,48,h
+Chain Response[Make Payment, Send Payment Confirmation] | | |0,24,h
+Precedence[Close Purchase Order, Send Payment Confirmation] | | |
+End[Archive Documents] | |

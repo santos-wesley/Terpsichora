@@ -1,0 +1,48 @@
+activity Inspect Shipment
+activity Validate Supplier
+activity Record Inspection Results
+activity Check Certification
+activity Secure Transport
+activity Monitor Transportation
+activity Inspect Goods at Destination
+activity Record Arrival Condition
+activity Validate Delivery
+activity Report Issues
+activity Initiate Security Protocol
+activity Update Inventory
+activity Evaluate Security Measures
+activity Post-Delivery Review
+activity Archive Documentation
+bind Inspect Shipment: Inspection ID, Supplier Status
+bind Record Inspection Results: Inspection ID, Certification Status
+bind Check Certification: Certification Status
+bind Inspect Goods at Destination: Inspection ID, Arrival Condition ID
+bind Record Arrival Condition: Arrival Condition ID, Arrival Status
+bind Report Issues: Issue Type, Arrival Status
+bind Initiate Security Protocol: Security Protocol ID, Issue Type
+bind Post-Delivery Review: Review Status, Goods Value
+Inspection ID: integer between 1 and 999999
+Supplier Status: Approved, Pending, Rejected
+Certification Status: Valid, Invalid, Expired
+Transport Method: Air, Sea, Road, Rail
+Arrival Condition ID: integer between 1 and 999999
+Arrival Status: Intact, Damaged, Missing Items
+Issue Type: Damage, Delay, Theft, Mixed Goods
+Security Protocol ID: integer between 1 and 999999
+Goods Value: float between 0 and 1000000
+Review Status: Complete, Incomplete, Pending
+Init[Inspect Shipment] | |
+Precedence[Inspect Shipment, Validate Supplier] | | |
+Response[Inspect Shipment, Record Inspection Results] | | |
+Precedence[Record Inspection Results, Check Certification] | | |
+Chain Response[Check Certification, Secure Transport] | | |0,24,h
+Existence[Post-Delivery Review] | |
+End[Archive Documentation] | |
+Response[Record Arrival Condition, Report Issues] |A.Arrival Status is not Intact | |
+Chain Response[Report Issues, Initiate Security Protocol] | | |
+Response[Inspect Goods at Destination, Update Inventory] | | |
+Chain Response[Update Inventory, Post-Delivery Review] | | |0,48,h
+Response[Post-Delivery Review, Evaluate Security Measures] | | |
+Chain Response[Evaluate Security Measures, Archive Documentation] | | |0,24,h
+Succession[Secure Transport, Monitor Transportation] | | |
+Precedence[Inspect Goods at Destination, Monitor Transportation] | | |

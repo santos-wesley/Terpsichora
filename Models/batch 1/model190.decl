@@ -1,0 +1,30 @@
+activity Identify Key Positions
+activity Define Competencies
+activity Identify Potential Candidates
+activity Conduct Talent Assessment
+activity Create Development Plans
+activity Implement Development Plans
+activity Monitor Progress
+activity Review and Update Plans
+activity Evaluate Outcomes
+activity Finalize Succession Plan
+bind Identify Potential Candidates: Candidate ID, Key Position
+bind Conduct Talent Assessment: Candidate ID, Competency Score
+bind Create Development Plans: Candidate ID, Development Plan Type
+bind Implement Development Plans: Candidate ID, Development Status
+bind Evaluate Outcomes: Candidate ID, Competency Score
+Candidate ID: integer between 1 and 999999
+Key Position: Manager, Director, VP
+Competency Score: float between 0.0 and 100.0
+Development Plan Type: Training, Mentorship, Job Rotation
+Development Status: Not Started, In Progress, Completed
+Init[Identify Key Positions] | |
+Response[Identify Key Positions, Define Competencies] | | |
+Precedence[Identify Potential Candidates, Define Competencies] | | |
+Chain Succession[Identify Potential Candidates, Conduct Talent Assessment] | | |
+Responded Existence[Create Development Plans, Conduct Talent Assessment] | | |
+Existence[Monitor Progress] | |
+Chain Precedence[Review and Update Plans, Monitor Progress] | | |
+Chain Response[Implement Development Plans, Monitor Progress] | | |0,6,m
+Alternate Response[Implement Development Plans, Evaluate Outcomes] | | |
+End[Finalize Succession Plan] | |

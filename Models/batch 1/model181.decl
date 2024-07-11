@@ -1,0 +1,37 @@
+activity Assess Patient
+activity Plan Treatment
+activity Start Detoxification
+activity Provide Therapy
+activity Monitor Progress
+activity Administer Medication
+activity Conduct Follow-Up
+activity Record Observations
+activity Engage Family
+activity Close Treatment
+bind Assess Patient: Patient ID, Substance Type, Severity Score
+bind Plan Treatment: Patient ID, Treatment Type, Therapist ID
+bind Start Detoxification: Patient ID, Substance Type
+bind Provide Therapy: Patient ID, Therapist ID, Appointment Date
+bind Monitor Progress: Patient ID, Severity Score
+bind Administer Medication: Patient ID, Medication ID
+bind Conduct Follow-Up: Patient ID
+bind Record Observations: Patient ID, Appointment Date
+bind Engage Family: Patient ID
+bind Close Treatment: Patient ID
+Patient ID: integer between 1 and 100000
+Substance Type: Alcohol, Opioids, Cocaine, Marijuana
+Therapist ID: integer between 1 and 1000
+Severity Score: float between 0.0 and 10.0
+Treatment Type: Inpatient, Outpatient
+Medication ID: integer between 1 and 5000
+Appointment Date: 2023-07-01, 2023-07-02, 2023-07-03
+Init[Assess Patient] | |
+Precedence[Plan Treatment, Assess Patient] | | |
+Chain Response[Plan Treatment, Start Detoxification] | | |
+Precedence[Provide Therapy, Start Detoxification] | | |0,1,d
+Response[Provide Therapy, Monitor Progress] | | |
+Precedence[Administer Medication, Start Detoxification] | | |
+Alternate Response[Conduct Follow-Up, Close Treatment] | | |0,30,d
+Existence[Record Observations] | |
+Chain Response[Monitor Progress, Engage Family] | | |
+End[Close Treatment] | |

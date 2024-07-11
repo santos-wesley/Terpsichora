@@ -1,0 +1,40 @@
+activity Identify Risk Factors
+activity Collect Data
+activity Analyze Data
+activity Categorize Risk
+activity Develop Mitigation Plan
+activity Implement Mitigations
+activity Monitor Outcomes
+activity Review and Revise Plan
+activity Report Findings
+activity Conclude Assessment
+bind Identify Risk Factors: Risk Factor ID
+bind Collect Data: Risk Factor ID, Data Collection Method
+bind Analyze Data: Risk Factor ID, Risk Score
+bind Categorize Risk: Risk Factor ID, Risk Category
+bind Develop Mitigation Plan: Mitigation Plan ID, Mitigation Strategy
+bind Implement Mitigations: Mitigation Plan ID
+bind Monitor Outcomes: Outcome ID, Outcome Effectiveness
+bind Review and Revise Plan: Review Status
+bind Report Findings: Assessment Status
+bind Conclude Assessment: Assessment Status
+Risk Factor ID: integer between 1 and 9999
+Risk Score: float between 0.0 and 1.0
+Data Collection Method: Survey, Sensor, Review
+Risk Category: High, Medium, Low
+Mitigation Plan ID: integer between 1 and 999
+Mitigation Strategy: Avoid, Reduce, Transfer, Accept
+Outcome ID: integer between 1 and 9999
+Outcome Effectiveness: float between 0.0 and 1.0
+Review Status: Reviewed, Pending
+Assessment Status: In Progress, Completed
+Init[Identify Risk Factors] | |
+End[Conclude Assessment] | |
+Existence[Monitor Outcomes] | |
+Precedence[Collect Data, Analyze Data] | | |
+Chain Response[Analyze Data, Categorize Risk] | | |
+Absence2[Review and Revise Plan] | |
+Response[Develop Mitigation Plan, Implement Mitigations] | | |
+Alternate Response[Implement Mitigations, Monitor Outcomes] | | |1,5,d
+Alternate Succession[Monitor Outcomes, Review and Revise Plan] | | |3,10,h
+Response[Report Findings, Conclude Assessment] | | |2,4,d

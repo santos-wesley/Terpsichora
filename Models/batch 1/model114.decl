@@ -1,0 +1,36 @@
+activity Collect Biomass
+activity Transport Biomass
+activity Preprocess Biomass
+activity Convert Biomass
+activity Store Biofuel
+activity Test Biofuel Quality
+activity Package Biofuel
+activity Distribute Biofuel
+activity Maintain Equipment
+activity Dispose Waste
+bind Collect Biomass: Batch ID, Biomass Weight, Biomass Type
+bind Convert Biomass: Batch ID, Biofuel Volume
+bind Test Biofuel Quality: Batch ID, Biofuel Grade
+bind Maintain Equipment: Equipment ID, Maintenance Status
+bind Dispose Waste: Waste Quantity, Waste Disposal Method
+bind Distribute Biofuel: Distribution Channel, Biofuel Volume
+Batch ID: integer between 1 and 999999
+Biomass Weight: float between 0.1 and 10000.0
+Biomass Type: Wood, Crop Residue, Algae
+Biofuel Volume: float between 0.1 and 100000.0
+Biofuel Grade: A, B, C
+Equipment ID: integer between 1 and 9999
+Maintenance Status: Completed, Pending
+Waste Quantity: integer between 1 and 1000
+Waste Disposal Method: Incineration, Recycling, Landfill
+Distribution Channel: Retail, Wholesale, Direct
+Init[Collect Biomass] | |
+Precedence[Collect Biomass, Transport Biomass] | | |
+Exactly[Test Biofuel Quality] | |
+Chain Response[Preprocess Biomass, Convert Biomass] | | |0,2,h
+Absence50[Dispose Waste] | |
+Chain Succession[Convert Biomass, Store Biofuel] | | |0,1,h
+Existence[Maintain Equipment] | |
+Alternate Response[Test Biofuel Quality, Package Biofuel] | | |
+Precedence[Package Biofuel, Distribute Biofuel] | | |0,24,h
+End[Dispose Waste] | |

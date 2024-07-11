@@ -1,0 +1,33 @@
+activity Login Security System
+activity Monitor Surveillance
+activity Patrol Premises
+activity Report Incident
+activity Review Log
+activity Communicate with Staff
+activity Inspect Entrances
+activity Log Off System
+activity Check Inventory
+bind Login Security System: Security ID, Shift
+bind Patrol Premises: Security ID, Patrol Duration
+bind Report Incident: Incident ID, Incident Type
+bind Review Log: Security ID, Log Review Outcome, Review Duration
+bind Check Inventory: Inventory Check ID, Security ID
+Shift: Morning, Afternoon, Night
+Security ID: integer between 1 and 9999
+Incident ID: integer between 1 and 999999
+Incident Type: Theft, Vandalism, Unauthorized Access
+Log Review Outcome: No Issues, Minor Issues, Serious Issues
+Inventory Check ID: integer between 1 and 99999
+Patrol Duration: float between 10 and 180
+Entrance Status: Intact, Tampered
+Review Duration: float between 10 and 60
+Init[Login Security System] | |
+Precedence[Login Security System, Patrol Premises] | | |
+Chain Response[Patrol Premises, Report Incident] | | |0,30,m
+Response[Review Log, Communicate with Staff] |A.Log Review Outcome is Serious Issues | |
+Chain Response[Report Incident, Inspect Entrances] | | |
+End[Log Off System] | |
+Response[Monitor Surveillance, Review Log] | | |0,2,h
+Existence[Review Log] | |
+Precedence[Inspect Entrances, Check Inventory] | | |
+Alternate Succession[Monitor Surveillance, Check Inventory] | | |

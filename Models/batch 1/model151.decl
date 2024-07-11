@@ -1,0 +1,37 @@
+activity Receive Fraud Report
+activity Initiate Investigation
+activity Collect Evidence
+activity Analyze Evidence
+activity Interview Witness
+activity Make Decision
+activity Document Findings
+activity Close Case
+activity Notify Stakeholders
+bind Receive Fraud Report: Report ID
+bind Initiate Investigation: Report ID, Investigation Status
+bind Collect Evidence: Report ID, Evidence Type, Fraud Amount
+bind Analyze Evidence: Report ID
+bind Interview Witness: Witness ID, Report ID
+bind Make Decision: Report ID, Fraud Decision
+bind Document Findings: Report ID, Document ID
+bind Close Case: Report ID, Investigation Status
+bind Notify Stakeholders: Report ID, Stakeholder Type
+Report ID: integer between 1 and 999999
+Investigation Status: Not Started, In Progress, Completed
+Investigator ID: integer between 1 and 9999
+Evidence Type: Document, Digital, Testimonial
+Fraud Amount: float between 0.01 and 1000000.0
+Fraud Decision: Fraud, No Fraud
+Witness ID: integer between 1 and 99999
+Document ID: integer between 1 and 999999
+Stakeholder Type: Internal, External
+Init[Receive Fraud Report] | |
+End[Close Case] | |
+Existence[Initiate Investigation] | |
+Precedence[Initiate Investigation, Receive Fraud Report] | | |
+Response[Initiate Investigation, Collect Evidence] | | |
+Chain Succession[Collect Evidence, Analyze Evidence] | | |
+Precedence[Make Decision, Analyze Evidence] | | |0,48,h
+Precedence[Notify Stakeholders, Close Case] | | |0,24,h
+Choice[Interview Witness, Collect Evidence] | | |
+Exactly[Document Findings] | |

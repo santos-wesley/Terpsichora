@@ -1,0 +1,55 @@
+activity Submit Application
+activity Validate Application
+activity Reject Application
+activity Approve Application
+activity Notify Applicant
+activity Schedule Appointment
+activity Conduct Interview
+activity Issue Document
+activity Make Payment
+activity Confirm Payment
+activity Record Feedback
+activity Analyze Feedback
+activity Archive Application
+activity Generate Report
+activity Close Application
+bind Submit Application: Application ID, Applicant ID
+bind Validate Application: Application ID, Application Status
+bind Reject Application: Application ID, Application Status
+bind Approve Application: Application ID, Application Status
+bind Notify Applicant: Application ID, Notification Type
+bind Schedule Appointment: Appointment ID, Application ID
+bind Conduct Interview: Appointment ID, Applicant ID
+bind Issue Document: Document ID, Applicant ID
+bind Make Payment: Payment Amount, Application ID
+bind Confirm Payment: Payment Amount, Application ID
+bind Record Feedback: Applicant ID, Feedback Rating
+bind Analyze Feedback: Applicant ID, Feedback Rating
+bind Archive Application: Application ID
+bind Generate Report: Report Type, Fee
+bind Close Application: Application ID
+Application ID: integer between 1 and 999999
+Application Status: Pending, Validated, Rejected, Approved
+Applicant ID: integer between 1 and 99999
+Notification Type: Email, SMS, Post
+Appointment ID: integer between 1 and 99999
+Payment Amount: float between 0.0 and 10000.0
+Feedback Rating: Excellent, Good, Average, Poor
+Document ID: integer between 1 and 999999
+Fee: float between 0.0 and 5000.0
+Report Type: Monthly, Quarterly, Yearly
+Init[Submit Application] | |
+Precedence[Submit Application, Validate Application] | | |
+Chain Succession[Validate Application, Approve Application] |A.Application Status is Validated | |
+Chain Succession[Validate Application, Reject Application] |A.Application Status is Rejected | |
+Response[Approve Application, Notify Applicant] | | |
+Response[Reject Application, Notify Applicant] | | |
+Chain Response[Make Payment, Confirm Payment] | | |
+Exactly[Reject Application] | |
+Absence2[Approve Application] | |
+Precedence[Schedule Appointment, Conduct Interview] | | |
+End[Close Application] | |
+Alternate Response[Issue Document, Record Feedback] | | |0,2,d
+Chain Response[Record Feedback, Analyze Feedback] | | |0,2,d
+Chain Succession[Analyze Feedback, Archive Application] | | |0,1,d
+Chain Response[Confirm Payment, Generate Report] | | |0,3,d

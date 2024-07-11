@@ -1,0 +1,37 @@
+activity Schedule Appointment
+activity Verify Insurance
+activity Send Appointment Reminder
+activity Conduct Telemedicine Consultation
+activity Prescribe Medication
+activity Process Payment
+activity Send Consultation Summary
+activity Follow-Up Appointment
+activity Record Feedback
+bind Schedule Appointment: Patient ID
+bind Verify Insurance: Patient ID, Insurance Status
+bind Send Appointment Reminder: Patient ID, Reminder Status
+bind Conduct Telemedicine Consultation: Patient ID, Consultation ID
+bind Prescribe Medication: Patient ID, Medication Prescribed
+bind Process Payment: Patient ID, Consultation Fee, Payment Status
+bind Send Consultation Summary: Consultation ID
+bind Follow-Up Appointment: Patient ID, Follow-Up Needed
+bind Record Feedback: Patient ID, Satisfaction Score
+Patient ID: integer between 1 and 999999
+Insurance Status: Verified, Pending, Rejected
+Reminder Status: Sent, Not Sent
+Medication Prescribed: Drug A, Drug B, Drug C
+Consultation ID: integer between 1 and 999999
+Consultation Fee: float between 0.0 and 1000.0
+Payment Status: Paid, Pending, Failed
+Follow-Up Needed: Yes, No
+Satisfaction Score: float between 0.0 and 10.0
+Init[Schedule Appointment] | |
+Precedence[Send Appointment Reminder, Schedule Appointment] | | |
+Chain Response[Conduct Telemedicine Consultation, Prescribe Medication] | | |0,30,m
+Existence[Process Payment] | |
+Chain Succession[Verify Insurance, Conduct Telemedicine Consultation] | | |0,24,h
+Alternate Response[Record Feedback, Follow-Up Appointment] | | |
+End[Record Feedback] | |
+Response[Process Payment, Send Consultation Summary] | | |0,2,d
+Not Succession[Verify Insurance, Send Appointment Reminder] | | |
+Absence3[Prescribe Medication] | |

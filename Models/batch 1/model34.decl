@@ -1,0 +1,40 @@
+activity Request Vehicle
+activity Approve Request
+activity Assign Vehicle
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Log Trip Details
+activity Refuel Vehicle
+activity Submit Report
+activity Review Report
+activity Archive Record
+bind Request Vehicle: Request ID, Vehicle Type
+bind Approve Request: Request ID, Approval Status
+bind Assign Vehicle: Vehicle ID, Request ID
+bind Schedule Maintenance: Vehicle ID, Maintenance Type
+bind Perform Maintenance: Vehicle ID, Maintenance Type
+bind Log Trip Details: Trip ID, Vehicle ID
+bind Refuel Vehicle: Vehicle ID, Fuel Amount
+bind Submit Report: Report ID, Trip ID
+bind Review Report: Report ID, Report Status
+bind Archive Record: Report ID
+Request ID: integer between 1 and 99999
+Vehicle Type: Car, Truck, Van
+Vehicle ID: integer between 1 and 9999
+Trip ID: integer between 1 and 99999
+Maintenance Type: Routine, Emergency
+Fuel Amount: float between 0.0 and 100.0
+Report ID: integer between 1 and 99999
+Report Status: Pending, Reviewed
+User ID: integer between 1 and 99999
+Approval Status: Approved, Rejected
+Init[Request Vehicle] | |
+Existence[Approve Request] | |
+Precedence[Assign Vehicle, Approve Request] | | |0,1,d
+Chain Succession[Schedule Maintenance, Perform Maintenance] | | |
+Precedence[Log Trip Details, Assign Vehicle] | | |0,2,d
+Absence[Refuel Vehicle] | |
+Response[Submit Report, Review Report] | | |
+Choice[Schedule Maintenance, Refuel Vehicle] | | |
+Succession[Review Report, Archive Record] | | |
+Precedence[Perform Maintenance, Schedule Maintenance] | | |

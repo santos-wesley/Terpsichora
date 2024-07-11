@@ -1,0 +1,39 @@
+activity Screen Passengers
+activity Inspect Baggage
+activity Pat Down Passenger
+activity Check Travel Documents
+activity Resolve Security Alert
+activity Monitor CCTV
+activity Escort Passenger
+activity Report Incident
+activity Conduct Random Checks
+activity End Security Screening
+bind Screen Passengers: Passenger ID, Passenger Weight
+bind Inspect Baggage: Passenger ID, Baggage Scan Status
+bind Pat Down Passenger: Passenger Weight, Pat Down Reason
+bind Resolve Security Alert: Alert ID, Incident Severity
+bind Monitor CCTV: CCTV Camera ID
+bind Escort Passenger: Passenger ID
+bind Conduct Random Checks: Passenger ID, Random Check Status
+bind Report Incident: Alert ID, Incident Type, Incident Severity
+bind Check Travel Documents: Passenger ID, Travel Document Type
+Passenger ID: integer between 1 and 999999
+Travel Document Type: Passport, ID Card, Visa
+Alert ID: integer between 1 and 9999
+Incident Type: Baggage Issue, Passenger Issue, Document Issue
+CCTV Camera ID: integer between 1 and 500
+Passenger Weight: float between 30 and 200
+Pat Down Reason: Random, Suspicion, Alert
+Baggage Scan Status: Clear, Suspicious, Prohibited Items Found
+Random Check Status: Clear, Further Screening Needed
+Incident Severity: Low, Medium, High
+Init[Screen Passengers] | |
+Precedence[Inspect Baggage, Screen Passengers] | | |
+Chain Precedence[Pat Down Passenger, Resolve Security Alert] | | |
+Response[Resolve Security Alert, Report Incident] | | |
+End[End Security Screening] | |
+Chain Response[Escort Passenger, Conduct Random Checks] | | |
+Precedence[Screen Passengers, Check Travel Documents] | | |
+Existence[Conduct Random Checks] | |
+Co-Existence[Screen Passengers, Monitor CCTV] | | |
+Alternate Response[Resolve Security Alert, Escort Passenger] | | |0,30,m

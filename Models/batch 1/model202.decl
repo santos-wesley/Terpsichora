@@ -1,0 +1,39 @@
+activity Inspect Cargo
+activity Seal Cargo
+activity Weigh Cargo
+activity Load Cargo
+activity Transport Cargo
+activity Unload Cargo
+activity Verify Cargo
+activity Report Issues
+activity Store Cargo
+activity Release Cargo
+bind Inspect Cargo: Cargo ID, Inspection Status
+bind Seal Cargo: Cargo ID, Seal Status
+bind Weigh Cargo: Cargo ID, Cargo Weight
+bind Load Cargo: Cargo ID
+bind Transport Cargo: Cargo ID, Transport Status
+bind Unload Cargo: Cargo ID
+bind Verify Cargo: Cargo ID, Verification Status
+bind Report Issues: Cargo ID, Issue Type
+bind Store Cargo: Cargo ID, Storage Location
+bind Release Cargo: Cargo ID, Consignee ID
+Cargo ID: integer between 1 and 999999
+Inspection Status: Passed, Failed
+Cargo Weight: float between 0.1 and 10000.0
+Seal Status: Sealed, Not Sealed
+Transport Status: In Transit, Delivered
+Verification Status: Verified, Not Verified
+Storage Location: Warehouse A, Warehouse B, Warehouse C
+Issue Type: Damage, Theft, Discrepancy
+Consignee ID: integer between 1 and 999999
+Init[Inspect Cargo] | |
+Chain Succession[Inspect Cargo, Seal Cargo] | | |
+Precedence[Seal Cargo, Weigh Cargo] | | |0,2,h
+Existence[Load Cargo] | |
+Precedence[Load Cargo, Transport Cargo] | | |
+Chain Succession[Transport Cargo, Unload Cargo] | | |
+Precedence[Unload Cargo, Verify Cargo] | | |0,4,h
+Response[Verify Cargo, Report Issues] |A.Verification Status is 'Not Verified' | |
+Exactly[Store Cargo] | |
+End[Release Cargo] | |
