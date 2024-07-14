@@ -1,0 +1,37 @@
+activity Define Problem
+activity Measure Performance
+activity Analyze Data
+activity Improve Process
+activity Control Improvements
+activity Validate Improvements
+activity Document Results
+activity Report to Management
+activity Train Team
+bind Define Problem: Project ID, Team Lead
+bind Measure Performance: Project ID, Baseline Performance
+bind Analyze Data: Project ID, Improvement Measure
+bind Improve Process: Project ID, Current Performance
+bind Control Improvements: Project ID, Implementation Date
+bind Validate Improvements: Project ID, Validation Date
+bind Document Results: Project ID
+bind Report to Management: Project ID, Reporting Date
+bind Train Team: Project ID
+Project ID: integer between 1 and 999999
+Team Lead: John Doe, Jane Smith, Alice Johnson
+Improvement Measure: Cycle Time, Defect Rate, Customer Satisfaction
+Baseline Performance: float between 0 and 100
+Current Performance: float between 0 and 100
+Target Performance: float between 0 and 100
+Implementation Date: 2023-06-01, 2023-06-02, 2023-06-03
+Validation Date: 2023-06-04, 2023-06-05, 2023-06-06
+Reporting Date: 2023-06-07, 2023-06-08, 2023-06-09
+Init[Define Problem] | |
+End[Train Team] | |
+Response[Define Problem, Measure Performance] | | |
+Chain Succession[Measure Performance, Analyze Data] | | |
+Precedence[Improve Process, Analyze Data] | | |
+Chain Succession[Improve Process, Control Improvements] | | |
+Precedence[Validate Improvements, Control Improvements] | | |0,2,d
+Alternate Response[Document Results, Report to Management] | | |0,1,d
+Chain Response[Report to Management, Train Team] | | |0,3,d
+Co-Existence[Measure Performance, Analyze Data] | | |

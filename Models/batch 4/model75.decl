@@ -1,0 +1,40 @@
+activity Launch Campaign
+activity Create Content
+activity Analyze Data
+activity Adjust Strategy
+activity Close Campaign
+activity Send Follow-Up Email
+activity Conduct Survey
+activity Process Feedback
+activity Report Results
+activity Archive Campaign Data
+bind Launch Campaign: Campaign ID, Target Audience Size, Budget Allocation, Channel
+bind Create Content: Content Type, Campaign ID
+bind Analyze Data: Campaign ID, ROI
+bind Adjust Strategy: Campaign ID, Campaign Status
+bind Close Campaign: Campaign ID, Campaign Status
+bind Send Follow-Up Email: Email Sent Count, Campaign ID
+bind Conduct Survey: Campaign ID, Survey Satisfaction Level
+bind Process Feedback: Campaign ID, Feedback Type
+bind Report Results: Campaign ID
+bind Archive Campaign Data: Campaign ID
+Campaign ID: integer between 1 and 9999
+Content Type: Video, Article, Infographic, Email
+Target Audience Size: integer between 1000 and 1000000
+Budget Allocation: float between 1000.0 and 100000.0
+Channel: Social Media, Email, Web, TV
+Feedback Type: Positive, Negative, Neutral
+ROI: float between 0.0 and 10000.0
+Email Sent Count: integer between 1 and 10000
+Survey Satisfaction Level: Very Satisfied, Satisfied, Neutral, Dissatisfied, Very Dissatisfied
+Campaign Status: Planned, Ongoing, Completed
+Init[Launch Campaign] | |
+Chain Response[Launch Campaign, Create Content] | | |0,24,h
+Existence[Analyze Data] | |
+Response[Analyze Data, Adjust Strategy] | | |
+Precedence[Close Campaign, Adjust Strategy] | | |
+Response[Launch Campaign, Send Follow-Up Email] | | |
+Chain Response[Send Follow-Up Email, Conduct Survey] | | |0,2,d
+Chain Response[Conduct Survey, Process Feedback] | | |0,48,h
+Chain Response[Process Feedback, Report Results] | | |
+End[Archive Campaign Data] | |

@@ -1,0 +1,46 @@
+activity Gather Requirements
+activity Create Wireframes
+activity Design User Interface
+activity Develop Frontend
+activity Develop Backend
+activity Integrate Frontend and Backend
+activity Test Website
+activity Fix Bugs
+activity Conduct User Acceptance Testing
+activity Deploy Website
+activity Monitor Website
+activity Gather Feedback
+activity Analyze Feedback
+activity Make Adjustments
+activity Finalize Project
+bind Gather Requirements: Requirement Type, Priority Level, Estimated Hours
+bind Design User Interface: UI Design Type, Estimated Hours, Status
+bind Develop Frontend: Frontend Technology, Estimated Hours, Status
+bind Develop Backend: Backend Technology, Estimated Hours, Status
+bind Test Website: Bug Count, Estimated Hours, Status
+bind Gather Feedback: Feedback Score, Feedback Type
+Requirement Type: Functional, Non-Functional, Performance, Security
+Priority Level: integer between 1 and 5
+Estimated Hours: float between 0.5 and 100.0
+UI Design Type: Responsive, Static, Dynamic
+Frontend Technology: React, Angular, Vue
+Backend Technology: Node.js, Django, Ruby on Rails
+Status: Not Started, In Progress, Completed
+Bug Count: integer between 0 and 500
+Feedback Score: integer between 1 and 10
+Feedback Type: Positive, Negative, Neutral
+Init[Gather Requirements] | |
+End[Finalize Project] | |
+Precedence[Create Wireframes, Gather Requirements] | | |
+Precedence[Design User Interface, Create Wireframes] | | |
+Chain Response[Develop Frontend, Design User Interface] | | |0,2,h
+Chain Response[Develop Backend, Develop Frontend] | | |0,4,h
+Co-Existence[Integrate Frontend and Backend, Develop Frontend] | | |
+Precedence[Test Website, Integrate Frontend and Backend] | | |
+Response[Fix Bugs, Test Website] | | |
+Response[Conduct User Acceptance Testing, Fix Bugs] | | |
+Response[Deploy Website, Conduct User Acceptance Testing] | | |
+Response[Monitor Website, Deploy Website] | | |
+Chain Response[Finalize Project, Gather Feedback] | | |0,3,d
+Choice[Gather Feedback, Analyze Feedback] | | |
+Absence5[Gather Feedback] | |

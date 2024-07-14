@@ -1,0 +1,49 @@
+activity Identify Donors
+activity Create Campaign
+activity Reach Out
+activity Receive Donation
+activity Send Thank You
+activity Allocate Funds
+activity Track Spending
+activity Evaluate Campaign
+activity Report Results
+activity Plan Event
+activity Hold Event
+activity Invite Guests
+activity Send Reminders
+activity Follow Up
+activity Archive Records
+bind Identify Donors: Donor ID
+bind Create Campaign: Campaign Type
+bind Receive Donation: Donor ID, Donation Amount
+bind Send Thank You: Donor ID, Thank You Sent
+bind Allocate Funds: Funds Allocated
+bind Track Spending: Spending Tracked
+bind Evaluate Campaign: Campaign Outcome
+bind Plan Event: Event ID, Event Status
+bind Invite Guests: Guest ID
+Donor ID: integer between 1 and 999999
+Donation Amount: float between 0.01 and 1000000.0
+Campaign Type: Online, Offline, Event-Based
+Event ID: integer between 1 and 9999
+Event Status: Planned, In Progress, Completed
+Funds Allocated: float between 0.01 and 1000000.0
+Campaign Outcome: Success, Failure, In Progress
+Guest ID: integer between 1 and 99999
+Thank You Sent: Yes, No
+Spending Tracked: float between 0.01 and 1000000.0
+Init[Identify Donors] | |
+Precedence[Reach Out, Receive Donation] | | |
+Existence2[Receive Donation] | |
+Existence[Evaluate Campaign] | |
+Response[Receive Donation, Send Thank You] | | |
+Existence[Allocate Funds] | |
+Absence10[Track Spending] | |
+Absence2[Hold Event] | |
+Alternate Response[Create Campaign, Reach Out] | | |
+Precedence[Plan Event, Hold Event] | | |
+Precedence[Invite Guests, Send Reminders] | | |
+Chain Response[Hold Event, Follow Up] | | |0,2,d
+Chain Response[Evaluate Campaign, Report Results] | | |0,48,h
+End[Report Results] | |
+Precedence[Send Thank You, Receive Donation] | | |0,24,h

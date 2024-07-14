@@ -1,0 +1,48 @@
+activity Sell Ticket
+activity Validate Ticket
+activity Board Transit
+activity Start Transit Journey
+activity Collect Fare
+activity Stop Transit Journey
+activity Inspect Ticket
+activity Issue Fine
+activity Alight Transit
+activity Maintain Transit
+activity Refuel Transit
+activity Record Complaint
+activity Respond to Complaint
+activity Clean Transit
+activity Report Incident
+bind Sell Ticket: Ticket ID, Fare Amount, Passenger ID
+bind Validate Ticket: Ticket ID, Ticket Status
+bind Board Transit: Passenger ID, Route Taken
+bind Record Complaint: Complaint ID, Passenger ID
+bind Respond to Complaint: Complaint ID, Complaint Response Time
+bind Report Incident: Incident Type, Route Taken
+bind Clean Transit: Maintenance Type
+bind Refuel Transit: Fuel Type
+Ticket ID: integer between 1 and 100000
+Fare Amount: float between 0.5 and 100.0
+Ticket Status: Valid, Invalid
+Passenger ID: integer between 1 and 100000
+Route Taken: Route A, Route B, Route C
+Complaint ID: integer between 1 and 10000
+Incident Type: Accident, Breakdown, Delay, Other
+Maintenance Type: Regular, Emergency
+Complaint Response Time: integer between 1 and 1440
+Fuel Type: Diesel, Electric
+Init[Sell Ticket] | |
+End[Stop Transit Journey] | |
+Response[Sell Ticket, Validate Ticket] | | |
+Precedence[Inspect Ticket, Validate Ticket] | | |
+Precedence[Board Transit, Validate Ticket] | | |
+Chain Succession[Start Transit Journey, Collect Fare] | | |0,5,m
+Chain Response[Record Complaint, Respond to Complaint] | | |0,24,h
+Alternate Response[Report Incident, Issue Fine] | | |
+Chain Succession[Stop Transit Journey, Alight Transit] | | |
+Existence[Maintain Transit] | |
+Existence3[Clean Transit] | |
+Precedence[Clean Transit, Maintain Transit] | | |
+Precedence[Board Transit, Sell Ticket] | | |
+Chain Succession[Stop Transit Journey, Maintain Transit] | | |
+Succession[Inspect Ticket, Issue Fine] | | |

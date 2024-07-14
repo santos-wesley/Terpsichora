@@ -1,0 +1,34 @@
+activity Scout Properties
+activity Evaluate Property
+activity Obtain Financing
+activity Make an Offer
+activity Negotiate Terms
+activity Conduct Inspection
+activity Close Deal
+activity Renovate Property
+activity List Property for Sale
+activity Sell Property
+bind Scout Properties: Property ID
+bind Evaluate Property: Property ID, Property Value
+bind Obtain Financing: Property ID, Financing Type
+bind Make an Offer: Property ID, Offer Amount
+bind Conduct Inspection: Property ID, Inspection Status
+bind Renovate Property: Property ID, Renovation Cost
+bind List Property for Sale: Property ID, Listing Type
+Property ID: integer between 1 and 999999
+Property Value: float between 50000 and 1000000
+Financing Type: Mortgage, Cash, Hard Money Loan
+Inspection Status: Passed, Failed
+Renovation Cost: float between 5000 and 200000
+Listing Type: Agent, Self, Auction
+Offer Amount: integer between 50000 and 1000000
+Init[Scout Properties] | |
+Precedence[Make an Offer, Obtain Financing] | | |
+Chain Response[Conduct Inspection, Renovate Property] | | |0,5,d
+Alternate Response[Close Deal, Renovate Property] | | |
+End[Sell Property] | |
+Not Chain Succession[Negotiate Terms, Close Deal] | | |
+Succession[List Property for Sale, Sell Property] | | |
+Chain Precedence[Make an Offer, Negotiate Terms] | | |
+Existence[Evaluate Property] | |
+Response[Make an Offer, Negotiate Terms] | | |0,3,d

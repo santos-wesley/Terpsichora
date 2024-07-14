@@ -1,0 +1,40 @@
+activity Generate Key
+activity Encrypt Data
+activity Decrypt Data
+activity Transmit Data
+activity Receive Data
+activity Verify Integrity
+activity Exchange Keys
+activity Store Key
+activity Destroy Key
+activity Log Event
+bind Generate Key: Key Length, Encryption Algorithm
+bind Encrypt Data: Key Length, Encryption Algorithm, Data Size
+bind Decrypt Data: Key Length, Encryption Algorithm, Data Size
+bind Transmit Data: Data Size, Transmission Time, Transmission Speed
+bind Verify Integrity: Integrity Status, Verification Attempts
+bind Exchange Keys: Key Exchange Method, Verification Attempts
+bind Store Key: Key Length, Storage Duration
+bind Destroy Key: Key Length, Verification Attempts
+bind Log Event: Log Level, Transmission Time
+bind Receive Data: Data Size, Transmission Time
+Key Length: integer between 128 and 4096
+Encryption Algorithm: AES, RSA, Blowfish
+Data Size: float between 0.1 and 1024
+Integrity Status: Verified, Tampered
+Transmission Time: integer between 1 and 3600
+Verification Attempts: integer between 1 and 5
+Key Exchange Method: Diffie-Hellman, RSA
+Storage Duration: integer between 1 and 365
+Log Level: INFO, WARNING, ERROR
+Transmission Speed: float between 0.1 and 1000
+Init[Generate Key] | |
+Response[Generate Key, Encrypt Data] | | |
+Response[Encrypt Data, Transmit Data] | | |
+Response[Receive Data, Decrypt Data] | | |0,60,s
+Response[Decrypt Data, Verify Integrity] | | |0,30,s
+Co-Existence[Store Key, Log Event] | | |
+Absence[Destroy Key] | |
+End[Log Event] | |
+Precedence[Destroy Key, Store Key] | | |0,20,s
+Chain Succession[Exchange Keys, Verify Integrity] | | |10,180,s

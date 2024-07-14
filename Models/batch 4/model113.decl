@@ -1,0 +1,38 @@
+activity Receive Complaint
+activity Assign Case
+activity Investigate Crime
+activity Gather Evidence
+activity Interrogate Suspect
+activity Make Arrest
+activity File Charges
+activity Notify Victim
+activity Submit Report
+activity Close Case
+bind Receive Complaint: Case ID, Complaint Type
+bind Assign Case: Case ID, Investigator ID
+bind Gather Evidence: Case ID, Evidence Weight, Evidence Value
+bind Interrogate Suspect: Case ID, Suspect Status
+bind Notify Victim: Case ID, Victim Status
+bind File Charges: Case ID, Charge Status
+bind Submit Report: Case ID, Report Status
+bind Close Case: Case ID, Case Status
+Case ID: integer between 1000 and 9999
+Complaint Type: Theft, Assault, Fraud, Murder
+Investigator ID: integer between 1 and 1000
+Evidence Weight: float between 0.0 and 100.0
+Suspect Status: Innocent, Suspected, Guilty
+Evidence Value: float between 0.0 and 10.0
+Victim Status: Informed, Uninformed
+Charge Status: Filed, Not Filed
+Report Status: Submitted, Not Submitted
+Case Status: Closed, Open
+Init[Receive Complaint] | |
+Precedence[Assign Case, Investigate Crime] | | |
+Succession[Investigate Crime, Gather Evidence] | | |
+Chain Response[Gather Evidence, Interrogate Suspect] | | |
+Alternate Succession[Interrogate Suspect, Make Arrest] | | |
+Response[Make Arrest, File Charges] | | |
+Chain Precedence[Notify Victim, File Charges] | | |
+Precedence[Submit Report, File Charges] | | |0,48,h
+Chain Succession[Submit Report, Close Case] | | |0,24,h
+End[Close Case] | |

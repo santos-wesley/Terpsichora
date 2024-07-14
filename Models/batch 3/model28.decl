@@ -1,0 +1,49 @@
+activity Identify Risk
+activity Assess Risk
+activity Mitigate Risk
+activity Monitor Risk
+activity Respond to Incident
+activity Recover System
+activity Review Policy
+activity Conduct Training
+activity Perform Audit
+activity Update Controls
+activity Report Incident
+activity Analyze Threat
+activity Evaluate Control
+activity Prepare Report
+activity Implement Policy
+bind Identify Risk: Risk Type, Risk Severity, Risk Likelihood
+bind Assess Risk: Risk Type, Risk Severity, Risk Likelihood
+bind Update Controls: Control ID
+bind Respond to Incident: Incident Type
+bind Perform Audit: Audit Result
+bind Conduct Training: Training Type
+bind Report Incident: Stakeholder
+bind Evaluate Control: Control Effectiveness
+bind Implement Policy: Policy ID
+Risk Type: Phishing, Malware, Ransomware, Data Breach
+Risk Severity: float between 0.0 and 10.0
+Risk Likelihood: float between 0.0 and 1.0
+Control ID: integer between 1 and 1000
+Incident Type: Unauthorized Access, Data Leak, Service Denial
+Audit Result: Pass, Fail, Needs Improvement
+Training Type: Phishing Awareness, Password Security, Incident Response
+Stakeholder: Management, IT Department, External Partner
+Control Effectiveness: float between 0.0 and 10.0
+Policy ID: integer between 1 and 500
+Init[Identify Risk] | |
+Precedence[Assess Risk, Identify Risk] | | |
+Chain Response[Mitigate Risk, Assess Risk] | | |0,48,h
+Precedence[Monitor Risk, Mitigate Risk] | | |
+Responded Existence[Respond to Incident, Identify Risk] | | |
+Chain Response[Recover System, Respond to Incident] | | |0,24,h
+Existence[Review Policy] | |
+Precedence[Conduct Training, Review Policy] | | |
+Chain Succession[Perform Audit, Conduct Training] | | |0,30,d
+Precedence[Update Controls, Perform Audit] | | |
+Co-Existence[Assess Risk, Identify Risk] | | |
+End[Prepare Report] | |
+Not Chain Succession[Monitor Risk, Update Controls] | | |
+Precedence[Report Incident, Respond to Incident] | | |
+Chain Response[Evaluate Control, Implement Policy] | | |

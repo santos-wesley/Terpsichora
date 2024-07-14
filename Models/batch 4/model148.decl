@@ -1,0 +1,55 @@
+activity Register Worker
+activity Post Job
+activity Apply Job
+activity Assign Job
+activity Start Job
+activity Complete Job
+activity Review Job
+activity Approve Job
+activity Reject Job
+activity Make Payment
+activity Request Revision
+activity Submit Revision
+activity Confirm Payment
+activity Provide Feedback
+activity Deactivate Worker
+bind Register Worker: Worker ID
+bind Post Job: Job ID, Job Type
+bind Apply Job: Worker ID, Job ID
+bind Assign Job: Worker ID, Job ID, Job Status
+bind Start Job: Worker ID, Job ID
+bind Complete Job: Worker ID, Job ID, Job Status
+bind Review Job: Job ID, Job Status
+bind Approve Job: Job ID, Job Status
+bind Reject Job: Job ID, Job Status
+bind Make Payment: Worker ID, Job ID, Payment Amount, Payment Status
+bind Request Revision: Job ID, Revision Type
+bind Submit Revision: Job ID, Revision Type, Revision ID
+bind Confirm Payment: Worker ID, Job ID, Payment Status
+bind Provide Feedback: Job ID, Feedback Type, Worker Rating
+bind Deactivate Worker: Worker ID
+Worker ID: integer between 1 and 999999
+Job Type: Delivery, Writing, Design, Programming
+Payment Amount: float between 10.0 and 10000.0
+Job Status: Pending, In Progress, Completed, Reviewed
+Job ID: integer between 1 and 999999
+Worker Rating: 1 Star, 2 Stars, 3 Stars, 4 Stars, 5 Stars
+Feedback Type: Positive, Neutral, Negative
+Revision Type: Minor, Major
+Revision ID: integer between 1 and 999999
+Payment Status: Pending, Completed
+Init[Register Worker] | |
+Absence[Register Worker] | |
+End[Make Payment] | |
+Precedence[Apply Job, Assign Job] | | |
+Chain Precedence[Apply Job, Assign Job] | | |
+Response[Start Job, Complete Job] | | |
+Chain Succession[Complete Job, Review Job] | | |
+Alternate Response[Make Payment, Confirm Payment] | | |0,48,h
+Responded Existence[Approve Job, Review Job] | |A.Job Status is Reviewed |
+Response[Approve Job, Make Payment] | | |
+Chain Succession[Request Revision, Submit Revision] | | |0,5,d
+Absence3[Request Revision] | |
+Not Succession[Reject Job, Review Job] | | |
+Not Co-Existence[Review Job, Review Job] | | |
+Precedence[Provide Feedback, Complete Job] | | |

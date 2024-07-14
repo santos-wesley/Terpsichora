@@ -34,5 +34,5 @@ End[Engage Stakeholders] | |
 Existence2[Calculate Emissions] | |
 Absence[Set Reduction Targets] | |
 Responded Existence[Evaluate Reduction Measures, Update Reduction Strategy] |A.Evaluation Score > 5 | |
-Exactly[Conduct Energy Audit] | |
+Exactly1[Conduct Energy Audit] | |
 Chain Response[Monitor Emissions, Report Emissions] | | |0,5,d

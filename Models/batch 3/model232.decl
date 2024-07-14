@@ -1,0 +1,36 @@
+activity Draft Treaty
+activity Review Treaty
+activity Sign Treaty
+activity Ratify Treaty
+activity Implement Treaty
+activity Monitor Compliance
+activity Report Compliance
+activity Address Violations
+activity Amend Treaty
+activity Withdraw from Treaty
+bind Draft Treaty: Treaty ID, Country
+bind Review Treaty: Treaty ID, Compliance Status
+bind Sign Treaty: Treaty ID, Number of Signatories
+bind Ratify Treaty: Treaty ID, Legislative Status
+bind Monitor Compliance: Treaty ID, Compliance Percentage
+bind Report Compliance: Treaty ID, Compliance Status
+bind Address Violations: Treaty ID, Violation Count
+bind Amend Treaty: Treaty ID, Amendment Status
+bind Withdraw from Treaty: Treaty ID, Number of Signatories
+Treaty ID: integer between 1 and 99999
+Compliance Status: Compliant, Non-Compliant
+Country: Country A, Country B, Country C
+Number of Signatories: integer between 1 and 195
+Compliance Percentage: float between 0.0 and 100.0
+Legislative Status: Ratified, Pending, Rejected
+Violation Count: integer between 0 and 50
+Amendment Status: Proposed, Approved, Rejected
+Init[Draft Treaty] | |
+End[Withdraw from Treaty] | |
+Precedence[Review Treaty, Draft Treaty] | | |0,7,d
+Precedence[Sign Treaty, Review Treaty] | | |
+Precedence[Ratify Treaty, Sign Treaty] | | |0,14,d
+Precedence[Monitor Compliance, Implement Treaty] | | |
+Precedence[Report Compliance, Monitor Compliance] | | |0,30,d
+Precedence[Address Violations, Report Compliance] | | |
+Choice[Address Violations, Withdraw from Treaty] | | |

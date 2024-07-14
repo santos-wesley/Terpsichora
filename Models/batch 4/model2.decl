@@ -1,0 +1,40 @@
+activity Validate Application
+activity Calculate Contributions
+activity Verify Eligibility
+activity Approve Disbursement
+activity Schedule Payment
+activity Process Payment
+activity Send Confirmation
+activity Log Transaction
+activity Audit Transaction
+activity Notify Applicant
+bind Validate Application: Application ID, Applicant Name
+bind Calculate Contributions: Application ID, Total Contributions
+bind Verify Eligibility: Application ID, Eligibility Status
+bind Approve Disbursement: Application ID, Disbursement ID
+bind Schedule Payment: Disbursement ID, Payment Schedule Date, Disbursement Amount
+bind Process Payment: Disbursement ID, Transaction ID
+bind Send Confirmation: Transaction ID, Applicant Name
+bind Log Transaction: Transaction ID
+bind Audit Transaction: Transaction ID, Audit Status
+bind Notify Applicant: Application ID, Notification Status
+Application ID: integer between 1 and 999999
+Applicant Name: Alice Smith, Bob Johnson, Charlie Lee
+Total Contributions: float between 0.0 and 1000000.0
+Eligibility Status: Eligible, Not Eligible
+Disbursement ID: integer between 1 and 999999
+Payment Schedule Date: 2023-11-01, 2023-12-01, 2024-01-01
+Disbursement Amount: float between 0.0 and 100000.0
+Transaction ID: integer between 1 and 999999
+Audit Status: Passed, Failed
+Notification Status: Sent, Failed
+Init[Validate Application] | |
+Chain Precedence[Calculate Contributions, Validate Application] | | |
+Precedence[Approve Disbursement, Verify Eligibility] | | |
+Alternate Response[Schedule Payment, Process Payment] | | |
+Chain Succession[Schedule Payment, Process Payment] | | |
+Response[Process Payment, Send Confirmation] | | |
+Chain Response[Send Confirmation, Log Transaction] | | |
+Precedence[Notify Applicant, Validate Application] | | |0,3,h
+Responded Existence[Audit Transaction, Log Transaction] | | |
+Existence[Audit Transaction] | |

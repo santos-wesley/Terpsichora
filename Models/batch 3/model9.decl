@@ -1,0 +1,55 @@
+activity Extract DNA
+activity Quantify DNA
+activity PCR Amplify
+activity Gel Electrophoresis
+activity Purify PCR Product
+activity Sanger Sequence
+activity Analyze Sequences
+activity Clone DNA
+activity Transform Cells
+activity Culture Cells
+activity Harvest Cells
+activity Extract Protein
+activity Quantify Protein
+activity Western Blot
+activity Analyze Protein Expression
+bind Extract DNA: Sample ID
+bind Quantify DNA: Sample ID, DNA Concentration
+bind PCR Amplify: Sample ID, PCR Primers
+bind Gel Electrophoresis: Sample ID, Gel Type
+bind Purify PCR Product: Sample ID
+bind Sanger Sequence: Sample ID, Sequencing Run ID
+bind Analyze Sequences: Sample ID, Sequence Quality Score
+bind Clone DNA: Sample ID, Vector Type
+bind Transform Cells: Sample ID
+bind Culture Cells: Sample ID
+bind Harvest Cells: Sample ID, Colony Count
+bind Extract Protein: Sample ID, Protein Concentration
+bind Quantify Protein: Sample ID, Protein Concentration
+bind Western Blot: Sample ID, Antibody Type
+bind Analyze Protein Expression: Sample ID
+Sample ID: integer between 1 and 99999
+DNA Concentration: float between 0.1 and 1000.0
+PCR Primers: Primer Set A, Primer Set B, Primer Set C
+Gel Type: Agarose, Polyacrylamide
+Sequencing Run ID: integer between 1 and 9999
+Sequence Quality Score: float between 0.0 and 100.0
+Vector Type: Plasmid A, Plasmid B, Plasmid C
+Colony Count: integer between 0 and 1000
+Protein Concentration: float between 0.01 and 500.0
+Antibody Type: Primary Antibody A, Primary Antibody B, Primary Antibody C
+Init[Extract DNA] | |
+Existence[Quantify DNA] | |
+Absence[Extract Protein] | |
+End[Analyze Protein Expression] | |
+Precedence[Purify PCR Product, Gel Electrophoresis] | | |
+Response[Sanger Sequence, Analyze Sequences] | | |
+Succession[Transform Cells, Culture Cells] | | |
+Chain Precedence[Quantify Protein, Extract Protein] | | |
+Chain Response[Western Blot, Analyze Protein Expression] | | |
+Co-Existence[PCR Amplify, Gel Electrophoresis] | | |
+Alternate Precedence[Quantify DNA, PCR Amplify] | | |0,30,m
+Alternate Response[Culture Cells, Harvest Cells] | | |0,1,h
+Chain Succession[PCR Amplify, Gel Electrophoresis] | | |0,15,m
+Not Co-Existence[Extract Protein, Quantify Protein] | | |
+Exclusive Choice[Clone DNA, Transform Cells] | | |

@@ -1,0 +1,50 @@
+activity Perform Analysis
+activity Prepare Sample
+activity Conduct Test
+activity Record Results
+activity Review Results
+activity Prepare Report
+activity Submit Report
+activity Approve Report
+activity Store Sample
+activity Cleanup Lab
+activity Order Supplies
+activity Receive Supplies
+activity Calibrate Equipment
+activity Dispose Waste
+activity Conduct Safety Check
+bind Prepare Sample: Sample ID
+bind Conduct Test: Sample ID, Test Type
+bind Record Results: Sample ID, Result Value
+bind Review Results: Sample ID, Review Status
+bind Prepare Report: Sample ID, Report Status
+bind Submit Report: Report Status
+bind Order Supplies: Supply Type
+bind Calibrate Equipment: Equipment ID
+bind Dispose Waste: Waste ID
+bind Conduct Safety Check: Safety Status
+Sample ID: integer between 1 and 999999
+Test Type: pH, Titration, Spectroscopy, Chromatography
+Result Value: float between 0 and 1000
+Review Status: Reviewed, Not Reviewed
+Report Status: Draft, Submitted, Approved
+Technician ID: integer between 1 and 9999
+Supply Type: Chemicals, Glassware, Instruments
+Equipment ID: integer between 1 and 99999
+Waste ID: integer between 1 and 999999
+Safety Status: Safe, Unsafe
+Init[Prepare Sample] | |
+End[Cleanup Lab] | |
+Precedence[Conduct Test, Prepare Sample] | | |
+Alternate Succession[Conduct Test, Record Results] | | |
+Existence[Order Supplies] | |
+Response[Record Results, Review Results] | | |
+Chain Succession[Review Results, Prepare Report] | | |
+Precedence[Submit Report, Prepare Report] | | |0,48,h
+Chain Succession[Submit Report, Approve Report] | | |0,24,h
+Precedence[Conduct Test, Calibrate Equipment] | | |
+Precedence[Calibrate Equipment, Conduct Safety Check] | | |
+Absence[Conduct Safety Check] | |
+Precedence[Dispose Waste, Conduct Test] | | |0,2,d
+Existence2[Conduct Test] | |
+Chain Succession[Cleanup Lab, Store Sample] | | |0,4,h

@@ -1,0 +1,38 @@
+activity Calculate Emissions
+activity Set Reduction Targets
+activity Implement Reduction Measures
+activity Monitor Emissions
+activity Report Emissions
+activity Conduct Energy Audit
+activity Optimize Energy Use
+activity Evaluate Reduction Measures
+activity Update Reduction Strategy
+activity Engage Stakeholders
+bind Calculate Emissions: Emissions Amount, Energy Source
+bind Set Reduction Targets: Reduction Target
+bind Implement Reduction Measures: Reduction Measure Type
+bind Monitor Emissions: Audit Frequency
+bind Evaluate Reduction Measures: Evaluation Score
+bind Engage Stakeholders: Stakeholder Type
+Emissions Amount: float between 0 and 10000
+Reduction Target: integer between 1 and 100
+Energy Source: Solar, Wind, Fossil Fuels, Hydro
+Audit Frequency: integer between 1 and 12
+Stakeholder Type: Government, Community, Employees
+Evaluation Score: integer between 0 and 10
+Reduction Measure Type: Technology Upgrade, Process Change, Behavioral Change
+Init[Calculate Emissions] | |
+Precedence[Set Reduction Targets, Calculate Emissions] | | |
+Response[Set Reduction Targets, Implement Reduction Measures] | | |
+Chain Succession[Implement Reduction Measures, Monitor Emissions] | | |
+Alternate Response[Monitor Emissions, Report Emissions] | | |0,2,d
+Chain Precedence[Optimize Energy Use, Conduct Energy Audit] | | |
+Response[Implement Reduction Measures, Evaluate Reduction Measures] | | |
+Alternate Succession[Update Reduction Strategy, Engage Stakeholders] | | |
+Not Succession[Calculate Emissions, Conduct Energy Audit] | | |
+End[Engage Stakeholders] | |
+Existence2[Calculate Emissions] | |
+Absence[Set Reduction Targets] | |
+Responded Existence[Evaluate Reduction Measures, Update Reduction Strategy] |A.Evaluation Score > 5 | |
+Exactly[Conduct Energy Audit] | |
+Chain Response[Monitor Emissions, Report Emissions] | | |0,5,d

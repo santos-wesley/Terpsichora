@@ -1,0 +1,48 @@
+activity Survey Area
+activity Excavate Site
+activity Record Findings
+activity Analyze Artifacts
+activity Catalog Artifacts
+activity Store Artifacts
+activity Conduct Laboratory Tests
+activity Write Report
+activity Submit Report
+activity Present Findings
+activity Archive Documentation
+activity Update Database
+activity Prepare Presentation
+activity Organize Exhibition
+activity Clean Artifacts
+bind Survey Area: Site ID, Site Area
+bind Excavate Site: Site ID, Site Area
+bind Record Findings: Artifact ID, Artifact Type, Artifact Age
+bind Analyze Artifacts: Artifact ID, Condition, Artifact Age
+bind Conduct Laboratory Tests: Artifact ID, Test Type, Artifact Age
+bind Write Report: Artifact ID, Report Status, Artifact Age
+bind Present Findings: Artifact ID, Presentation Audience
+bind Organize Exhibition: Exhibition ID, Artifact ID
+bind Clean Artifacts: Artifact ID
+Artifact ID: integer between 1 and 999999
+Artifact Type: Pottery, Tool, Bone, Jewelry
+Artifact Age: float between 1.0 and 10000.0
+Condition: Intact, Fragmented
+Site ID: integer between 1 and 9999
+Site Area: float between 0.1 and 10000.0
+Test Type: Carbon Dating, DNA Analysis, Material Analysis
+Report Status: Draft, Submitted
+Presentation Audience: Scientific Community, Public
+Exhibition ID: integer between 1 and 9999
+Init[Survey Area] | |
+Precedence[Excavate Site, Survey Area] | | |
+Response[Excavate Site, Record Findings] | | |
+Precedence[Analyze Artifacts, Record Findings] | | |
+Chain Response[Catalog Artifacts, Store Artifacts] | | |
+Absence5[Conduct Laboratory Tests] | |
+Response[Analyze Artifacts, Write Report] | | |
+Alternate Response[Write Report, Submit Report] | | |0,48,h
+Response[Submit Report, Present Findings] | | |
+End[Archive Documentation] | |
+Chain Response[Record Findings, Update Database] | | |
+Precedence[Prepare Presentation, Submit Report] | | |0,3,d
+Chain Succession[Clean Artifacts, Organize Exhibition] | | |0,7,d
+Existence[Clean Artifacts] | |

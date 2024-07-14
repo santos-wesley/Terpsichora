@@ -1,0 +1,55 @@
+activity Submit Application
+activity Review Application
+activity Request Additional Information
+activity Submit Additional Information
+activity Conduct Detailed Examination
+activity Issue Office Action
+activity Respond to Office Action
+activity Schedule Hearing
+activity Conduct Hearing
+activity Make Final Decision
+activity Notify Applicant
+activity Grant Intellectual Property Right
+activity Record Intellectual Property Right
+activity Publish Intellectual Property Right
+activity Handle Appeal
+bind Submit Application: Application ID, Application Type, Application Fee
+bind Review Application: Application ID, Review Status
+bind Request Additional Information: Application ID, Additional Information Status
+bind Submit Additional Information: Application ID
+bind Conduct Detailed Examination: Application ID
+bind Issue Office Action: Office Action ID
+bind Respond to Office Action: Office Action ID
+bind Schedule Hearing: Application ID, Hearing Status
+bind Conduct Hearing: Application ID
+bind Make Final Decision: Application ID, Decision Outcome
+bind Notify Applicant: Application ID
+bind Grant Intellectual Property Right: Applicant ID
+bind Record Intellectual Property Right: Application ID
+bind Publish Intellectual Property Right: Application ID
+bind Handle Appeal: Appeal ID
+Application ID: integer between 1 and 999999
+Application Type: Patent, Trademark, Copyright, Design
+Applicant ID: integer between 1 and 99999
+Application Fee: float between 100.0 and 10000.0
+Review Status: Pending, Approved, Rejected
+Additional Information Status: Required, Not Required
+Decision Outcome: Granted, Refused
+Office Action ID: integer between 1 and 999999
+Hearing Status: Scheduled, Conducted, Cancelled
+Appeal ID: integer between 1 and 999999
+Init[Submit Application] | |
+Precedence[Submit Application, Review Application] | | |
+Precedence[Review Application, Request Additional Information] |A.Review Status is Pending | |
+Chain Response[Submit Additional Information, Conduct Detailed Examination] | | |0,5,d
+Chain Response[Issue Office Action, Respond to Office Action] | | |0,30,d
+Exactly[Make Final Decision] | |
+Precedence[Schedule Hearing, Conduct Hearing] | | |
+Precedence[Conduct Hearing, Make Final Decision] | | |
+Chain Response[Make Final Decision, Grant Intellectual Property Right] | | |0,10,d
+Chain Response[Make Final Decision, Notify Applicant] | | |
+End[Record Intellectual Property Right] | |
+Absence3[Issue Office Action] | |
+Responded Existence[Handle Appeal, Make Final Decision] | | |
+Chain Response[Record Intellectual Property Right, Publish Intellectual Property Right] | | |0,15,d
+Chain Succession[Issue Office Action, Handle Appeal] | | |

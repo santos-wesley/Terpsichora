@@ -1,0 +1,49 @@
+activity Identify Regulatory Requirements
+activity Assign Compliance Officer
+activity Develop Compliance Plan
+activity Implement Compliance Plan
+activity Conduct Compliance Training
+activity Monitor Compliance
+activity Perform Internal Audit
+activity Document Findings
+activity Report Issues
+activity Recommend Corrective Actions
+activity Implement Corrective Actions
+activity Conduct Follow-up Audit
+activity Submit Compliance Report
+activity Address Feedback
+activity Review Compliance Process
+bind Identify Regulatory Requirements: Regulatory Requirement
+bind Assign Compliance Officer: Compliance Officer ID
+bind Conduct Compliance Training: Training Type
+bind Perform Internal Audit: Audit ID, Audit Finding
+bind Report Issues: Issue Severity
+bind Implement Corrective Actions: Corrective Action Cost
+bind Submit Compliance Report: Report Status
+bind Address Feedback: Feedback ID
+bind Review Compliance Process: Process Review Outcome
+Regulatory Requirement: GDPR, HIPAA, SOX
+Compliance Officer ID: integer between 1 and 9999
+Training Type: Initial, Refresher
+Audit ID: integer between 1 and 99999
+Audit Finding: Compliant, Non-Compliant
+Issue Severity: Low, Medium, High
+Corrective Action Cost: float between 100.0 and 100000.0
+Report Status: Draft, Submitted, Approved
+Feedback ID: integer between 1 and 999999
+Process Review Outcome: Satisfactory, Needs Improvement
+Init[Identify Regulatory Requirements] | |
+Precedence[Identify Regulatory Requirements, Assign Compliance Officer] | | |
+Response[Assign Compliance Officer, Develop Compliance Plan] | | |
+Co-Existence[Implement Compliance Plan, Monitor Compliance] | | |
+Chain Response[Develop Compliance Plan, Conduct Compliance Training] | | |0,7,d
+Existence[Perform Internal Audit] | |
+Alternate Precedence[Perform Internal Audit, Document Findings] | | |
+Response[Document Findings, Report Issues] | | |
+Chain Succession[Report Issues, Implement Corrective Actions] | | |
+Existence[Conduct Follow-up Audit] | |
+Succession[Conduct Follow-up Audit, Submit Compliance Report] | | |
+Chain Response[Submit Compliance Report, Address Feedback] | | |0,30,d
+Existence[Review Compliance Process] | |0,365,d
+Absence3[Conduct Follow-up Audit] | |
+Precedence[Conduct Compliance Training, Conduct Compliance Training] |A.Training Type is Initial |A.Training Type != T.Training Type |

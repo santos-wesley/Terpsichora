@@ -1,0 +1,38 @@
+activity Identify Risks
+activity Assess Severity
+activity Develop Plan
+activity Review Plan
+activity Implement Plan
+activity Test Plan
+activity Update Plan
+activity Communicate Plan
+activity Activate Plan
+activity Monitor Situation
+bind Identify Risks: Risk ID, Risk Severity
+bind Assess Severity: Risk ID, Risk Severity
+bind Develop Plan: Risk ID, Mitigation Cost, Plan Status
+bind Review Plan: Risk ID, Plan Status
+bind Implement Plan: Risk ID, Plan Status
+bind Test Plan: Risk ID, Test Result
+bind Update Plan: Risk ID, Plan Status
+bind Communicate Plan: Risk ID, Stakeholder ID
+bind Activate Plan: Risk ID, Incident Type
+bind Monitor Situation: Risk ID, Monitoring Status
+Risk ID: integer between 1 and 9999
+Risk Severity: Low, Medium, High
+Mitigation Cost: float between 0.0 and 1000000.0
+Plan Status: Draft, Reviewed, Approved, Implemented
+Stakeholder ID: integer between 1 and 9999
+Test Result: Pass, Fail
+Incident Type: Natural Disaster, Cyber Attack, Pandemic
+Monitoring Status: Ongoing, Resolved
+Init[Identify Risks] | |
+Precedence[Assess Severity, Identify Risks] | | |
+Precedence[Develop Plan, Assess Severity] | | |0,48,h
+Precedence[Review Plan, Develop Plan] | | |
+Chain Response[Review Plan, Implement Plan] | | |0,24,h
+Existence[Test Plan] | |
+Response[Test Plan, Update Plan] | | |
+Response[Update Plan, Communicate Plan] | | |
+Response[Communicate Plan, Activate Plan] | | |
+End[Monitor Situation] | |

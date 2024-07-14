@@ -1,0 +1,44 @@
+activity Identify Policy Issue
+activity Conduct Public Consultation
+activity Draft Policy Proposal
+activity Review Policy Proposal
+activity Conduct Impact Assessment
+activity Revise Policy Proposal
+activity Approve Policy Proposal
+activity Implement Policy
+activity Monitor Policy Implementation
+activity Evaluate Policy Effectiveness
+activity Report Findings
+activity Suggest Policy Improvements
+activity Review Suggested Improvements
+activity Amend Policy
+activity Communicate Amendments
+bind Conduct Public Consultation: Public Consultation ID, Stakeholder Type
+bind Conduct Impact Assessment: Impact Assessment ID, Impact Score
+bind Revise Policy Proposal: Policy Status
+bind Evaluate Policy Effectiveness: Evaluation ID, Evaluation Status, Effectiveness Rating
+bind Amend Policy: Amendment ID, Amendment Type
+Public Consultation ID: integer between 1 and 999999
+Stakeholder Type: Citizen, Organization, Expert
+Impact Score: float between 0.0 and 10.0
+Impact Assessment ID: integer between 1 and 999999
+Policy Status: Draft, Reviewed, Approved, Implemented, Amended
+Effectiveness Rating: float between 0.0 and 10.0
+Amendment Type: Major, Minor
+Amendment ID: integer between 1 and 999999
+Evaluation Status: Not Started, In Progress, Completed
+Evaluation ID: integer between 1 and 999999
+Init[Identify Policy Issue] | |
+Existence[Report Findings] | |
+Absence2[Conduct Impact Assessment] | |
+Response[Identify Policy Issue, Conduct Public Consultation] | | |
+Precedence[Draft Policy Proposal, Conduct Public Consultation] | | |
+Chain Succession[Draft Policy Proposal, Review Policy Proposal] | | |
+Precedence[Implement Policy, Approve Policy Proposal] | | |
+Alternate Response[Implement Policy, Monitor Policy Implementation] | | |0,7,d
+Response[Monitor Policy Implementation, Evaluate Policy Effectiveness] | | |
+Response[Report Findings, Review Suggested Improvements] | | |
+Chain Response[Review Suggested Improvements, Amend Policy] | | |0,48,h
+Precedence[Communicate Amendments, Amend Policy] | | |
+Response[Conduct Impact Assessment, Revise Policy Proposal] | | |0,5,d
+Co-Existence[Evaluate Policy Effectiveness, Review Suggested Improvements] |A.Evaluation Status is In Progress | |

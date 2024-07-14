@@ -1,0 +1,39 @@
+activity Extract DNA
+activity Amplify DNA
+activity Digest DNA
+activity Ligate DNA
+activity Transform Cells
+activity Screen Colonies
+activity Sequence DNA
+activity Express Protein
+activity Purify Protein
+activity Analyze Results
+bind Extract DNA: Sample ID, DNA Concentration
+bind Amplify DNA: Sample ID, PCR Primer
+bind Digest DNA: Sample ID, Enzyme Type
+bind Ligate DNA: Sample ID, Vector ID
+bind Transform Cells: Sample ID, Vector ID
+bind Screen Colonies: Sample ID, Colony ID
+bind Sequence DNA: Sample ID, Sequencing Method
+bind Express Protein: Sample ID, Colony ID
+bind Purify Protein: Sample ID, Protein Yield
+bind Analyze Results: Sample ID, Gel ID
+Sample ID: integer between 1 and 999999
+PCR Primer: Primer A, Primer B, Primer C
+Enzyme Type: EcoRI, BamHI, HindIII
+Vector ID: integer between 1 and 99999
+Colony ID: integer between 1 and 99999
+DNA Concentration: float between 0.1 and 100.0
+Sequencing Method: Sanger, Next-Gen
+Protein Yield: float between 0.01 and 50.0
+Gel ID: integer between 1 and 9999
+Init[Extract DNA] | |
+Precedence[Amplify DNA, Extract DNA] | | |
+Response[Amplify DNA, Digest DNA] | | |0,1,h
+Chain Response[Digest DNA, Ligate DNA] | | |0,2,h
+Response[Ligate DNA, Transform Cells] | | |
+Chain Succession[Transform Cells, Screen Colonies] | | |0,48,h
+Response[Screen Colonies, Sequence DNA] | | |
+Alternate Response[Sequence DNA, Express Protein] | | |
+Chain Succession[Express Protein, Purify Protein] | | |0,10,m
+End[Analyze Results] | |

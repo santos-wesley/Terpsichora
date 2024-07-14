@@ -1,0 +1,36 @@
+activity Register Remote Worker
+activity Verify Qualifications
+activity Assign Project
+activity Review Performance
+activity Process Payment
+activity Provide Feedback
+activity Request Extension
+activity Approve Extension
+activity Deny Extension
+activity Terminate Contract
+bind Register Remote Worker: Worker ID
+bind Verify Qualifications: Worker ID, Qualification Status
+bind Assign Project: Worker ID, Project ID
+bind Review Performance: Worker ID, Performance Score
+bind Provide Feedback: Worker ID, Feedback Type
+bind Request Extension: Project ID, Extension ID
+bind Approve Extension: Extension ID, Extension Status
+bind Deny Extension: Extension ID, Extension Status
+bind Terminate Contract: Worker ID, Project ID
+Worker ID: integer between 1 and 999999
+Qualification Status: Verified, Not Verified
+Project ID: integer between 1 and 50000
+Performance Score: float between 0.0 and 10.0
+Feedback Type: Positive, Neutral, Negative
+Extension ID: integer between 1 and 1000
+Extension Status: Approved, Denied
+Init[Register Remote Worker] | |
+Exactly[Verify Qualifications] | |
+Precedence[Assign Project, Verify Qualifications] | | |
+Precedence[Review Performance, Assign Project] | | |0,14,d
+Existence[Provide Feedback] | |
+Precedence[Provide Feedback, Review Performance] | | |0,7,d
+Chain Succession[Request Extension, Approve Extension] | | |
+Chain Succession[Request Extension, Deny Extension] | | |
+End[Terminate Contract] | |
+Not Succession[Deny Extension, Approve Extension] | | |

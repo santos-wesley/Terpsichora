@@ -1,0 +1,40 @@
+activity Identify Risk
+activity Analyze Risk
+activity Evaluate Risk
+activity Plan Mitigation
+activity Implement Mitigation
+activity Monitor Risk
+activity Review Mitigation
+activity Report Risks
+activity Conduct Risk Audit
+activity Close Risk
+bind Identify Risk: Risk ID, Risk Category, Risk Source
+bind Analyze Risk: Risk ID, Risk Score
+bind Evaluate Risk: Risk ID, Risk Score
+bind Plan Mitigation: Risk ID, Mitigation Status, Mitigation Cost
+bind Implement Mitigation: Risk ID, Mitigation Status, Mitigation Cost
+bind Monitor Risk: Risk ID, Risk Status, Review Frequency
+bind Review Mitigation: Risk ID, Mitigation Status, Review Frequency
+bind Report Risks: Risk ID, Stakeholder
+bind Conduct Risk Audit: Risk ID, Audit Result
+bind Close Risk: Risk ID, Risk Status
+Risk ID: integer between 1 and 999999
+Risk Category: Operational, Financial, Strategic, Compliance
+Risk Score: integer between 1 and 100
+Mitigation Status: Planned, In Progress, Completed
+Risk Status: Open, Closed, Monitor
+Mitigation Cost: float between 0.0 and 1000000.0
+Stakeholder: Project Manager, Risk Manager, Executive Sponsor
+Audit Result: Pass, Fail
+Review Frequency: integer between 1 and 365
+Risk Source: Internal, External
+Init[Identify Risk] | |
+Precedence[Analyze Risk, Identify Risk] | | |
+Response[Evaluate Risk, Plan Mitigation] | | |
+Chain Response[Plan Mitigation, Implement Mitigation] | | |0,1,h
+Precedence[Monitor Risk, Implement Mitigation] | | |
+Existence2[Review Mitigation] | |
+Chain Succession[Monitor Risk, Report Risks] | | |0,12,h
+Response[Report Risks, Conduct Risk Audit] | | |
+Precedence[Conduct Risk Audit, Close Risk] | | |0,24,h
+End[Close Risk] | |

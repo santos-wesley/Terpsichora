@@ -1,0 +1,38 @@
+activity Define Problem
+activity Formulate Hypothesis
+activity Design Experiment
+activity Collect Data
+activity Analyze Data
+activity Interpret Results
+activity Draw Conclusion
+activity Report Findings
+activity Review Literature
+activity Propose Further Research
+bind Define Problem: Problem Type
+bind Formulate Hypothesis: Hypothesis Type
+bind Design Experiment: Experiment ID
+bind Collect Data: Experiment ID, Data Point ID
+bind Analyze Data: Analysis ID, Uncertainty
+bind Interpret Results: Analysis ID, Result Validity
+bind Review Literature: Reference ID, Review Status
+bind Propose Further Research: Research Proposal Status
+Experiment ID: integer between 1 and 999999
+Data Point ID: integer between 1 and 999999
+Problem Type: Classical Mechanics, Quantum Mechanics, Thermodynamics, Electromagnetism
+Hypothesis Type: Null, Alternative
+Analysis ID: integer between 1 and 999999
+Uncertainty: float between 0.1 and 10.0
+Result Validity: Valid, Invalid
+Reference ID: integer between 1 and 500000
+Review Status: Reviewed, Not Reviewed
+Research Proposal Status: Proposed, Not Proposed
+Init[Define Problem] | |
+Precedence[Formulate Hypothesis, Define Problem] | | |
+Precedence[Design Experiment, Formulate Hypothesis] | | |
+Precedence[Collect Data, Design Experiment] | | |
+Chain Succession[Collect Data, Analyze Data] | | |
+Precedence[Interpret Results, Analyze Data] | | |0,48,h
+Existence[Review Literature] | |
+Precedence[Report Findings, Interpret Results] | | |0,24,h
+Chain Response[Report Findings, Propose Further Research] | | |0,3,d
+End[Draw Conclusion] | |

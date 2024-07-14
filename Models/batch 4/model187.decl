@@ -1,0 +1,49 @@
+activity Conduct Assessment
+activity Review Case Files
+activity Interview Witnesses
+activity Administer Psychological Tests
+activity Analyze Test Results
+activity Prepare Report
+activity Submit Report
+activity Testify in Court
+activity Conduct Risk Assessment
+activity Provide Treatment Recommendations
+activity Follow Up Treatment
+activity Reassess Subject
+activity Consult with Legal Team
+activity Present Findings
+activity Document Progress
+bind Conduct Assessment: Subject ID, Session Number
+bind Administer Psychological Tests: Subject ID, Test Type
+bind Analyze Test Results: Subject ID, Test Score
+bind Conduct Risk Assessment: Subject ID, Risk Level
+bind Provide Treatment Recommendations: Subject ID, Treatment Type
+bind Follow Up Treatment: Subject ID, Progress Percentage
+bind Interview Witnesses: Subject ID, Witness Type
+bind Prepare Report: Report ID, Subject ID
+bind Testify in Court: Subject ID, Court Decision
+Subject ID: integer between 1 and 9999
+Test Type: MMPI, Rorschach, WAIS
+Session Number: integer between 1 and 20
+Risk Level: Low, Medium, High
+Test Score: float between 0 and 100
+Treatment Type: Cognitive Behavioral Therapy, Medication, Counseling
+Report ID: integer between 1 and 999999
+Court Decision: Guilty, Not Guilty, Not Competent
+Progress Percentage: float between 0 and 100
+Witness Type: Eyewitness, Character Witness, Expert Witness
+Init[Review Case Files] | |
+Precedence[Conduct Assessment, Conduct Risk Assessment] | | |
+Response[Conduct Assessment, Administer Psychological Tests] | | |
+Chain Response[Analyze Test Results, Prepare Report] | | |0,2,d
+Chain Response[Prepare Report, Submit Report] | | |0,48,h
+Chain Succession[Submit Report, Testify in Court] | | |
+Precedence[Review Case Files, Consult with Legal Team] | | |
+Response[Conduct Risk Assessment, Provide Treatment Recommendations] | | |
+Chain Response[Provide Treatment Recommendations, Follow Up Treatment] | | |
+Alternate Response[Follow Up Treatment, Reassess Subject] | | |
+Chain Response[Reassess Subject, Present Findings] | | |0,2,d
+Response[Reassess Subject, Document Progress] | | |
+Existence[Interview Witnesses] | |
+Absence5[Administer Psychological Tests] | |
+End[Document Progress] | |

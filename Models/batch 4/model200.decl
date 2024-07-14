@@ -1,0 +1,45 @@
+activity Assess Current Savings
+activity Determine Retirement Goals
+activity Estimate Future Expenses
+activity Calculate Retirement Gap
+activity Develop Investment Strategy
+activity Implement Investment Plan
+activity Monitor Investment Performance
+activity Adjust Investment Strategy
+activity Review Legal Documents
+activity Plan Healthcare Costs
+activity Maximize Social Security Benefits
+activity Consider Tax Implications
+activity Set Retirement Date
+activity Review Insurance Needs
+activity Implement Withdrawal Plan
+bind Assess Current Savings: Current Savings
+bind Determine Retirement Goals: Retirement Goals
+bind Estimate Future Expenses: Annual Expenses
+bind Develop Investment Strategy: Investment Strategy Type
+bind Plan Healthcare Costs: Healthcare Costs
+Current Savings: integer between 0 and 10000000
+Expected Inflation Rate: float between 0.0 and 10.0
+Retirement Goals: Travel, Relaxation, Hobbies
+Annual Expenses: integer between 0 and 500000
+Investment Growth Rate: float between 0.0 and 15.0
+Retirement Age: integer between 50 and 70
+Investment Strategy Type: Conservative, Balanced, Aggressive
+Healthcare Costs: integer between 0 and 100000
+Insurance Types: Life Insurance, Health Insurance, Long-term Care Insurance
+Expected Return Rate: float between 0.0 and 20.0
+Init[Assess Current Savings] | |
+Response[Assess Current Savings, Determine Retirement Goals] | | |
+Chain Succession[Determine Retirement Goals, Estimate Future Expenses] | | |
+Chain Precedence[Develop Investment Strategy, Calculate Retirement Gap] | | |
+Chain Response[Develop Investment Strategy, Implement Investment Plan] | | |
+Succession[Implement Investment Plan, Monitor Investment Performance] | | |
+Chain Succession[Monitor Investment Performance, Adjust Investment Strategy] | | |
+Existence2[Review Legal Documents] | |
+Precedence[Maximize Social Security Benefits, Plan Healthcare Costs] | | |
+Exactly[Set Retirement Date] | |
+Not Succession[Set Retirement Date, Plan Healthcare Costs] | | |
+Chain Precedence[Review Insurance Needs, Implement Withdrawal Plan] | | |0,48,h
+Alternate Response[Develop Investment Strategy, Implement Withdrawal Plan] | | |1,5,d
+Response[Implement Investment Plan, Monitor Investment Performance] | | |1,10,d
+Not Co-Existence[Consider Tax Implications, Maximize Social Security Benefits] | | |

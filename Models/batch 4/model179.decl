@@ -1,0 +1,55 @@
+activity Catalog Book
+activity Remove Book
+activity Lend Book
+activity Return Book
+activity Register Member
+activity Deregister Member
+activity Reserve Book
+activity Cancel Reservation
+activity Send Reminder
+activity Receive Donation
+activity Conduct Inventory
+activity Catalog Donation
+activity Organize Event
+activity Conduct Event
+activity Evaluate Event
+bind Catalog Book: Book ID, Book Condition, Book Price
+bind Remove Book: Book ID
+bind Lend Book: Member ID, Book ID
+bind Return Book: Member ID, Book ID
+bind Register Member: Member ID
+bind Deregister Member: Member ID
+bind Reserve Book: Member ID, Book ID, Reservation Status
+bind Cancel Reservation: Member ID, Book ID, Reservation Status
+bind Send Reminder: Member ID, Reminder Type
+bind Receive Donation: Book ID, Donation Type
+bind Conduct Inventory: Inventory Status
+bind Catalog Donation: Book ID, Book Condition
+bind Organize Event: Event ID, Event Type
+bind Conduct Event: Event ID, Event Type
+bind Evaluate Event: Event ID, Event Type
+Book ID: integer between 1 and 99999
+Member ID: integer between 1 and 9999
+Book Condition: New, Good, Fair, Poor
+Book Price: float between 0.01 and 999.99
+Event Type: Author Talk, Book Club, Story Time, Workshop
+Donation Type: New, Used
+Reminder Type: Email, SMS, Phone Call
+Reservation Status: Pending, Confirmed, Canceled
+Event ID: integer between 1 and 9999
+Inventory Status: Completed, Pending, In Progress
+Init[Catalog Book] | |
+Response[Catalog Book, Lend Book] | | |
+Chain Succession[Lend Book, Return Book] | | |
+Existence[Register Member] | |
+Absence5[Catalog Book] | |
+Precedence[Reserve Book, Lend Book] | | |
+Chain Response[Lend Book, Send Reminder] | | |0,24,h
+Chain Succession[Reserve Book, Cancel Reservation] | | |
+End[Deregister Member] | |
+Not Succession[Lend Book, Remove Book] | | |
+Response[Conduct Event, Evaluate Event] | | |
+Alternate Response[Receive Donation, Catalog Donation] | | |0,2,d
+Chain Response[Send Reminder, Return Book] | | |
+Exactly[Conduct Inventory] | |
+Precedence[Catalog Book, Organize Event] | | |0,12,h

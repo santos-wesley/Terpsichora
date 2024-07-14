@@ -1,0 +1,36 @@
+activity Collect Artefacts
+activity Analyze Artefacts
+activity Document Findings
+activity Present Findings
+activity Store Artefacts
+activity Conduct Survey
+activity Obtain Permits
+activity Publish Report
+activity Review Literature
+activity Digitize Records
+bind Collect Artefacts: Artefact ID, Artefact Type
+bind Analyze Artefacts: Artefact ID, Analysis Method, Artefact Age
+bind Conduct Survey: Survey ID, Survey Type
+bind Obtain Permits: Permit ID, Permit Status
+bind Document Findings: Document Page Count
+bind Publish Report: Permit ID, Report Publication Medium
+Artefact ID: integer between 1 and 999999
+Artefact Type: Pottery, Tools, Sculpture, Jewelry
+Artefact Age: float between 0 and 100000
+Analysis Method: Carbon Dating, X-ray, Chemical Analysis
+Survey ID: integer between 1 and 9999
+Survey Type: Field Survey, Aerial Survey, Geophysical Survey
+Permit ID: integer between 1 and 9999
+Permit Status: Approved, Pending, Denied
+Document Page Count: float between 1 and 500
+Report Publication Medium: Journal, Online, Conference
+Init[Obtain Permits] | |
+End[Digitize Records] | |
+Existence[Collect Artefacts] | |
+Absence2[Conduct Survey] | |
+Chain Response[Collect Artefacts, Analyze Artefacts] | | |0,5,d
+Response[Analyze Artefacts, Document Findings] | | |
+Precedence[Publish Report, Present Findings] | | |
+Succession[Analyze Artefacts, Store Artefacts] | | |
+Alternate Succession[Conduct Survey, Review Literature] | | |
+Chain Succession[Present Findings, Publish Report] | | |0,48,h

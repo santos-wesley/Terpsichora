@@ -1,0 +1,28 @@
+activity Collect Data
+activity Analyze Data
+activity Detect Threats
+activity Validate Threats
+activity Prioritize Threats
+activity Mitigate Threats
+activity Document Threat
+activity Review Mitigation
+activity Report Threat
+bind Collect Data: Data Volume, Source Type
+bind Detect Threats: Threat Score, Threat Type
+bind Mitigate Threats: Mitigation Time, Threat Status
+Data Volume: integer between 1 and 10000
+Threat Score: float between 0.0 and 10.0
+Threat Type: Malware, Phishing, DDoS, Insider Threat
+Source Type: Network, Endpoint, Cloud, Application
+Mitigation Time: integer between 1 and 1440
+Threat Status: Mitigated, Not Mitigated
+Init[Collect Data] | |
+Precedence[Collect Data, Analyze Data] | | |
+Chain Response[Analyze Data, Detect Threats] | | |0,120,m
+Chain Succession[Detect Threats, Validate Threats] | | |
+Response[Validate Threats, Prioritize Threats] | | |
+Response[Mitigate Threats, Document Threat] | | |
+Alternate Response[Prioritize Threats, Mitigate Threats] | | |
+End[Review Mitigation] | |
+Chain Response[Mitigate Threats, Review Mitigation] | | |0,1440,m
+Chain Succession[Document Threat, Report Threat] | | |0,2880,m

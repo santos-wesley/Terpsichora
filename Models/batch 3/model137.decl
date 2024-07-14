@@ -1,0 +1,38 @@
+activity Check In Passenger
+activity Board Passenger
+activity Inspect Baggage
+activity Serve Meal
+activity Announce Arrival
+activity Clean Aircraft
+activity Refuel Aircraft
+activity Conduct Safety Check
+activity Handle Customer Complaint
+activity Provide In-Flight Entertainment
+bind Check In Passenger: Passenger ID, Flight Number
+bind Inspect Baggage: Passenger ID, Baggage Status
+bind Serve Meal: Meal Type, Passenger ID
+bind Conduct Safety Check: Safety Check Status, Crew ID
+bind Refuel Aircraft: Fuel Level, Flight Number
+bind Handle Customer Complaint: Passenger ID, Complaint ID
+bind Provide In-Flight Entertainment: Passenger ID, Entertainment Choice
+bind Clean Aircraft: Cleaning Status, Crew ID
+Passenger ID: integer between 1 and 999999
+Flight Number: integer between 1 and 99999
+Baggage Status: Cleared, Not Cleared
+Meal Type: Vegetarian, Non-Vegetarian, Vegan
+Entertainment Choice: Movies, Music, Games
+Fuel Level: float between 0 and 100000
+Complaint ID: integer between 1 and 99999
+Safety Check Status: Passed, Failed
+Crew ID: integer between 1 and 9999
+Cleaning Status: Completed, Pending
+Init[Check In Passenger] | |
+Precedence[Check In Passenger, Board Passenger] | | |0,2,h
+Precedence[Inspect Baggage, Board Passenger] | | |
+Chain Succession[Board Passenger, Serve Meal] | | |
+End[Announce Arrival] | |
+Exactly[Conduct Safety Check] | |
+Chain Response[Conduct Safety Check, Refuel Aircraft] | | |
+Response[Announce Arrival, Clean Aircraft] | | |0,3,h
+Co-Existence[Provide In-Flight Entertainment, Serve Meal] | | |
+Absence5[Handle Customer Complaint] | |

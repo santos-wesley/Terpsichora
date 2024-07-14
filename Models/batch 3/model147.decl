@@ -1,0 +1,33 @@
+activity Identify Social Issues
+activity Develop CSR Strategy
+activity Allocate Resources
+activity Implement CSR Initiative
+activity Monitor Progress
+activity Engage Employees
+activity Report Outcomes
+activity Assess Impact
+activity Revise Strategy
+activity Celebrate CSR Successes
+bind Identify Social Issues: Initiative Type
+bind Allocate Resources: CSR Budget
+bind Engage Employees: Employee Engagement Level, Number of Volunteers
+bind Monitor Progress: Progress Status
+bind Assess Impact: Impact Score
+bind Report Outcomes: Stakeholder Satisfaction
+CSR Budget: integer between 1000 and 100000
+Initiative Type: Environmental, Educational, Health
+Employee Engagement Level: Low, Medium, High
+Number of Volunteers: integer between 1 and 500
+Progress Status: Not Started, In Progress, Completed
+Impact Score: float between 0.0 and 10.0
+Stakeholder Satisfaction: Dissatisfied, Neutral, Satisfied
+Init[Identify Social Issues] | |
+Precedence[Develop CSR Strategy, Allocate Resources] | | |
+Response[Allocate Resources, Implement CSR Initiative] | | |
+Chain Succession[Implement CSR Initiative, Monitor Progress] | | |
+Chain Response[Monitor Progress, Report Outcomes] | | |0,48,h
+Alternate Response[Report Outcomes, Assess Impact] | | |0,72,h
+Precedence[Assess Impact, Revise Strategy] | | |0,24,h
+Absence5[Engage Employees] | |
+Response[Revise Strategy, Celebrate CSR Successes] | | |1,7,d
+End[Celebrate CSR Successes] | |

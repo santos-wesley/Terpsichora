@@ -1,0 +1,40 @@
+activity Receive Appraisal Request
+activity Schedule Property Inspection
+activity Conduct Property Inspection
+activity Collect Property Data
+activity Conduct Market Analysis
+activity Prepare Valuation Report
+activity Review Valuation Report
+activity Approve Valuation Report
+activity Send Report to Client
+activity Archive Appraisal Documents
+bind Receive Appraisal Request: Request ID, Client Name
+bind Schedule Property Inspection: Inspection Date
+bind Conduct Property Inspection: Request ID, Inspection Status
+bind Collect Property Data: Request ID, Property Type
+bind Conduct Market Analysis: Market Analysis ID
+bind Prepare Valuation Report: Request ID, Estimated Value
+bind Review Valuation Report: Request ID, Report Status
+bind Approve Valuation Report: Request ID, Report Approval Date
+bind Send Report to Client: Request ID, Report Status
+bind Archive Appraisal Documents: Request ID, Archive Date
+Request ID: integer between 1 and 999999
+Client Name: John Doe, Jane Smith, Alice Johnson
+Property Type: Residential, Commercial, Industrial
+Inspection Date: 2023-07-01, 2023-07-02, 2023-07-03
+Inspection Status: Scheduled, Completed, Pending
+Estimated Value: float between 50000 and 5000000
+Report Status: Draft, Reviewed, Approved
+Market Analysis ID: integer between 1 and 999999
+Report Approval Date: 2023-07-04, 2023-07-05, 2023-07-06
+Archive Date: 2023-07-07, 2023-07-08, 2023-07-09
+Init[Receive Appraisal Request] | |
+Precedence[Conduct Property Inspection, Schedule Property Inspection] | | |
+Chain Succession[Conduct Property Inspection, Collect Property Data] | | |
+Response[Collect Property Data, Conduct Market Analysis] | | |
+Chain Response[Conduct Market Analysis, Prepare Valuation Report] | | |
+Response[Prepare Valuation Report, Review Valuation Report] | | |
+Chain Response[Review Valuation Report, Approve Valuation Report] | | |
+Chain Precedence[Approve Valuation Report, Review Valuation Report] | | |0,48,h
+Alternate Response[Approve Valuation Report, Send Report to Client] | | |0,24,h
+End[Archive Appraisal Documents] | |

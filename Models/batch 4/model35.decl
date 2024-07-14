@@ -1,0 +1,30 @@
+activity Collect Employee Data
+activity Verify Employee Data
+activity Approve Employee Data
+activity Generate Employee ID
+activity Store Employee Data
+activity Update Employee Record
+activity Archive Employee Record
+activity Delete Archived Records
+bind Collect Employee Data: Employee Age, Employee Salary, Employee Department
+bind Verify Employee Data: Verification Status
+bind Approve Employee Data: Approval Status
+bind Generate Employee ID: Employee ID
+bind Update Employee Record: Update Type
+Employee Age: integer between 18 and 65
+Employee Salary: float between 2000.0 and 20000.0
+Employee Department: HR, Engineering, Marketing, Sales
+Verification Status: Verified, Not Verified
+Approval Status: Approved, Rejected
+Employee ID: integer between 1 and 999999
+Update Type: Address Change, Salary Update, Position Change
+Init[Collect Employee Data] | |
+Chain Response[Collect Employee Data, Verify Employee Data] | | |0,24,h
+Chain Response[Verify Employee Data, Approve Employee Data] | | |0,48,h
+Co-Existence[Verify Employee Data, Approve Employee Data] | | |
+Response[Approve Employee Data, Generate Employee ID] | | |
+Response[Generate Employee ID, Store Employee Data] | | |
+Response[Store Employee Data, Update Employee Record] | | |
+Chain Response[Archive Employee Record, Delete Archived Records] | | |0,2,d
+End[Delete Archived Records] | |
+Existence[Collect Employee Data] | |

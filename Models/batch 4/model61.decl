@@ -1,0 +1,32 @@
+activity Gather Data
+activity Clean Data
+activity Transform Data
+activity Analyze Data
+activity Visualize Data
+activity Present Findings
+activity Deploy Model
+activity Monitor Model
+activity Collect Feedback
+activity Retrain Model
+bind Gather Data: Data Size, Data Quality
+bind Transform Data: Transformation Steps
+bind Deploy Model: Model Type, Deployment Instances
+bind Collect Feedback: Feedback Score
+Data Size: integer between 1 and 1000
+Data Quality: Low, Medium, High
+Transformation Steps: integer between 1 and 20
+Accuracy Rate: float between 0.0 and 1.0
+Model Type: Linear Regression, Decision Tree, Neural Network
+Visualization Tool: Tableau, Power BI, Matplotlib
+Feedback Score: float between 0.0 and 10.0
+Deployment Instances: integer between 1 and 100
+Init[Gather Data] | |
+Response[Gather Data, Clean Data] | | |
+Chain Succession[Clean Data, Transform Data] | | |
+Precedence[Analyze Data, Transform Data] | | |
+Succession[Analyze Data, Visualize Data] | | |
+Existence[Deploy Model] | |
+Chain Response[Deploy Model, Monitor Model] | | |0,24,h
+Absence3[Collect Feedback] | |
+Alternate Response[Collect Feedback, Retrain Model] | | |
+End[Retrain Model] | |

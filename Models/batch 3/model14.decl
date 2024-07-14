@@ -1,0 +1,55 @@
+activity Report Threat
+activity Assess Situation
+activity Issue Verbal Warning
+activity Request Backup
+activity Use Non-lethal Force
+activity Draw Firearm
+activity Use Lethal Force
+activity Provide Medical Aid
+activity Secure Suspect
+activity Document Incident
+activity Notify Supervisor
+activity Review Incident
+activity File Report
+activity Analyze Incident
+activity Conduct Training
+bind Report Threat: Officer ID, Suspect ID, Incident Type
+bind Assess Situation: Officer ID, Incident Severity
+bind Issue Verbal Warning: Officer ID, Force Type
+bind Request Backup: Officer ID, Backup Units
+bind Use Non-lethal Force: Officer ID, Suspect ID, Force Type, Force Duration
+bind Draw Firearm: Officer ID, Force Type, Incident Severity
+bind Use Lethal Force: Officer ID, Suspect ID, Force Type, Force Duration
+bind Provide Medical Aid: Officer ID, Medical Aid Needed
+bind Secure Suspect: Officer ID, Suspect ID
+bind Document Incident: Officer ID, Incident Type, Incident Severity
+bind Notify Supervisor: Officer ID
+bind Review Incident: Officer ID, Report Status
+bind File Report: Officer ID, Report Status
+bind Analyze Incident: Officer ID
+bind Conduct Training: Training Session ID
+Officer ID: integer between 1 and 9999
+Suspect ID: integer between 1 and 9999
+Incident Type: Threat, Attack, Assault, Other
+Force Type: Verbal Warning, Non-lethal, Lethal
+Medical Aid Needed: Yes, No
+Force Duration: float between 0.1 and 60
+Backup Units: integer between 0 and 10
+Incident Severity: Low, Medium, High
+Report Status: Draft, Submitted, Reviewed
+Training Session ID: integer between 1 and 9999
+Init[Report Threat] | |
+End[Conduct Training] | |
+Precedence[Assess Situation, Report Threat] | | |
+Alternate Response[Issue Verbal Warning, Use Non-lethal Force] | | |
+Alternate Response[Issue Verbal Warning, Use Lethal Force] | | |
+Response[Request Backup, Backup Arrives] | | |
+Chain Succession[Use Non-lethal Force, Secure Suspect] | | |0,10,m
+Chain Succession[Use Lethal Force, Provide Medical Aid] | | |0,5,m
+Precedence[Secure Suspect, Document Incident] | | |
+Chain Response[Review Incident, File Report] | | |0,24,h
+Responded Existence[Use Non-lethal Force, Document Incident] | | |
+Responded Existence[Use Lethal Force, Document Incident] | | |
+Succession[Notify Supervisor, Review Incident] | | |
+Not Co-Existence[Use Lethal Force, Use Non-lethal Force] | | |
+Choice[Request Backup, Handle Threat Solo] | | |

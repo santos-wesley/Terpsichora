@@ -1,0 +1,40 @@
+activity Plan Event
+activity Create Campaign
+activity Promote Event
+activity Send Invitations
+activity Receive Donations
+activity Host Event
+activity Thank Donors
+activity Report Results
+activity Analyze Feedback
+activity Close Campaign
+bind Plan Event: Event ID, Event Status
+bind Create Campaign: Campaign ID
+bind Promote Event: Event ID, Channel
+bind Send Invitations: Event ID, Response Status
+bind Receive Donations: Event ID, Donation Amount
+bind Host Event: Event ID, Event Status
+bind Thank Donors: Donor ID
+bind Report Results: Event ID, Average Donation
+bind Analyze Feedback: Event ID, Feedback
+bind Close Campaign: Campaign ID, Archive Status
+Event ID: integer between 1 and 999999
+Channel: Email, Social Media, Flyers, Word of Mouth
+Donation Amount: integer between 1 and 100000
+Feedback: Excellent, Good, Average, Poor
+Campaign ID: integer between 1 and 999999
+Average Donation: float between 0.01 and 100000.0
+Response Status: Accepted, Declined
+Donor ID: integer between 1 and 999999
+Event Status: Planned, Ongoing, Completed, Cancelled
+Archive Status: Archived, Pending
+Init[Create Campaign] | |
+Precedence[Create Campaign, Plan Event] | | |
+Response[Plan Event, Promote Event] | | |
+Existence[Receive Donations] | |
+Alternate Response[Promote Event, Send Invitations] | | |0,48,h
+Chain Succession[Send Invitations, Host Event] | | |
+Chain Response[Receive Donations, Thank Donors] | | |0,48,h
+Response[Host Event, Report Results] | | |
+Precedence[Report Results, Analyze Feedback] | | |0,2,d
+End[Close Campaign] | |

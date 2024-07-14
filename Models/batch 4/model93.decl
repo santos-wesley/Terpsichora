@@ -1,0 +1,40 @@
+activity Inspect Road
+activity Plan Maintenance
+activity Allocate Budget
+activity Get Approvals
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Monitor Progress
+activity Perform Final Inspection
+activity Document Completion
+activity Close Project
+bind Inspect Road: Road ID, Road Condition, Inspector ID
+bind Plan Maintenance: Road ID, Road Condition, Inspection Score
+bind Allocate Budget: Project ID, Allocated Budget
+bind Get Approvals: Approval ID, Approval Status, Project ID
+bind Schedule Maintenance: Project ID, Maintenance Status
+bind Perform Maintenance: Project ID, Maintenance Status
+bind Monitor Progress: Project ID, Maintenance Status
+bind Perform Final Inspection: Project ID, Completion Status
+bind Document Completion: Project ID, Completion Status
+bind Close Project: Project ID
+Road ID: integer between 1 and 99999
+Road Condition: Good, Fair, Poor
+Allocated Budget: float between 1000.0 and 1000000.0
+Approval ID: integer between 1 and 9999
+Approval Status: Approved, Pending, Rejected
+Inspector ID: integer between 1 and 9999
+Maintenance Status: Scheduled, In Progress, Completed
+Inspection Score: float between 0.0 and 10.0
+Completion Status: Complete, Incomplete
+Project ID: integer between 1 and 99999
+Init[Inspect Road] | |
+End[Close Project] | |
+Precedence[Plan Maintenance, Inspect Road] | | |
+Precedence[Allocate Budget, Plan Maintenance] | | |
+Precedence[Get Approvals, Schedule Maintenance] | | |0,7,d
+Precedence[Perform Maintenance, Schedule Maintenance] | | |
+Chain Succession[Monitor Progress, Perform Maintenance] | | |
+Precedence[Perform Final Inspection, Monitor Progress] | | |
+Chain Response[Document Completion, Perform Final Inspection] | | |0,2,d
+Chain Response[Close Project, Document Completion] | | |0,5,d

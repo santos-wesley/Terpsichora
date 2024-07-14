@@ -1,0 +1,49 @@
+activity Check School Gate
+activity Monitor CCTV Cameras
+activity Patrol School Premises
+activity Inspect Visitors Identifications
+activity Lock School Facilities
+activity Unlock School Facilities
+activity Emergency Drill
+activity Check Emergency Exits
+activity Escort Visitors
+activity Monitor Metal Detectors
+activity Respond to Alarms
+activity Inspect Suspicious Items
+activity Review Security Logs
+activity Conduct Security Training
+activity Update Security Software
+bind Inspect Visitors Identifications: Visitor ID, Visitor Type
+bind Monitor CCTV Cameras: Camera ID
+bind Conduct Security Training: Security Guard ID, Training Type
+bind Emergency Drill: Emergency Drill Type
+bind Lock School Facilities: Facility Status
+bind Unlock School Facilities: Facility Status
+bind Respond to Alarms: Alarm Type, Security Guard ID
+bind Review Security Logs: Log ID
+bind Monitor Metal Detectors: Temperature
+Visitor ID: integer between 1 and 999999
+Visitor Type: Parent, Vendor, Other
+Temperature: float between 95 and 105
+Security Guard ID: integer between 1 and 9999
+Emergency Drill Type: Fire, Earthquake, Lockdown
+Facility Status: Locked, Unlocked
+Camera ID: integer between 1 and 999
+Alarm Type: Fire, Intruder, Medical
+Log ID: integer between 1 and 999999
+Training Type: Basic, Advanced
+Init[Check School Gate] | |
+Existence2[Monitor CCTV Cameras] | |
+Existence[Conduct Security Training] | |
+Absence10[Inspect Visitors Identifications] | |
+Precedence[Lock School Facilities, Unlock School Facilities] | | |
+Chain Succession[Check Emergency Exits, Emergency Drill] | | |0,1,h
+Response[Monitor CCTV Cameras, Respond to Alarms] | | |
+Response[Inspect Visitors Identifications, Escort Visitors] | | |
+Chain Response[Check School Gate, Monitor CCTV Cameras] | | |0,15,m
+Response[Respond to Alarms, Inspect Suspicious Items] |A.Alarm Type is Intruder | |
+Absence7[Patrol School Premises] | |
+Existence3[Patrol School Premises] | |
+Chain Response[Patrol School Premises, Review Security Logs] | | |0,2,h
+Chain Succession[Update Security Software, Monitor CCTV Cameras] | | |0,30,m
+End[Check School Gate] | |

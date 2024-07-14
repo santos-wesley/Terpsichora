@@ -1,0 +1,38 @@
+activity Identify Target Market
+activity Conduct Market Research
+activity Define Sales Goals
+activity Develop Sales Strategy
+activity Allocate Budget
+activity Train Sales Team
+activity Launch Sales Campaign
+activity Monitor Campaign Performance
+activity Adjust Strategy
+activity Evaluate Strategy Effectiveness
+bind Identify Target Market: Market Segment
+bind Conduct Market Research: Market Research ID
+bind Define Sales Goals: Sales Goal ID
+bind Allocate Budget: Budget Amount
+bind Train Sales Team: Sales Team Member, Training Session ID, Training Duration
+bind Monitor Campaign Performance: Campaign Performance Score
+bind Adjust Strategy: Strategy Adjustment ID
+bind Evaluate Strategy Effectiveness: Strategy Effectiveness
+Market Research ID: integer between 1 and 1000
+Budget Amount: float between 10000.0 and 1000000.0
+Sales Team Member: John Doe, Jane Smith, Alice Johnson
+Sales Goal ID: integer between 1 and 500
+Market Segment: Retail, Wholesale, E-commerce
+Campaign Performance Score: float between 0.0 and 100.0
+Strategy Adjustment ID: integer between 1 and 100
+Strategy Effectiveness: Effective, Ineffective
+Training Session ID: integer between 1 and 50
+Training Duration: float between 1.0 and 8.0
+Init[Identify Target Market] | |
+Absence3[Conduct Market Research] | |
+Precedence[Develop Sales Strategy, Define Sales Goals] | | |
+Exactly[Launch Sales Campaign] | |
+Response[Train Sales Team, Launch Sales Campaign] | | |
+Chain Response[Launch Sales Campaign, Monitor Campaign Performance] | | |0,2,d
+Response[Monitor Campaign Performance, Adjust Strategy] | | |
+Alternate Response[Adjust Strategy, Evaluate Strategy Effectiveness] | | |0,3,d
+End[Evaluate Strategy Effectiveness] | |
+Choice[Conduct Market Research, Develop Sales Strategy] | | |

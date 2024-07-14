@@ -1,0 +1,37 @@
+activity Identify Hazards
+activity Assess Impact
+activity Gather Data
+activity Conduct Field Study
+activity Analyze Data
+activity Prepare Report
+activity Review Report
+activity Recommend Measures
+activity Conduct Public Consultation
+activity Finalize Assessment
+bind Identify Hazards: Hazard Type
+bind Assess Impact: Impact Severity, Risk Level
+bind Gather Data: Data Source
+bind Conduct Field Study: Study Method
+bind Conduct Public Consultation: Public Response Count
+bind Recommend Measures: Mitigation Measure Type, Budget Allocation
+bind Review Report: Approval Status
+Risk Level: integer between 1 and 10
+Area Size: float between 0.1 and 5000.0
+Hazard Type: Chemical Spill, Wildfire, Flood, Erosion, Storm, Earthquake
+Impact Severity: Low, Medium, High, Critical
+Data Source: Satellite, Ground Survey, Historical Records, Simulations
+Study Method: Visual Inspection, Sampling, Remote Sensing
+Public Response Count: integer between 1 and 1000
+Budget Allocation: float between 0.5 and 100.0
+Approval Status: Approved, Rejected, Pending
+Mitigation Measure Type: Engineering, Administrative, Emergency Response, Environment-Friendly
+Init[Identify Hazards] | |
+Precedence[Assess Impact, Identify Hazards] | | |
+Precedence[Conduct Field Study, Gather Data] | | |
+Exactly[Gather Data] | |
+Existence2[Assess Impact] | |
+Responded Existence[Finalize Assessment, Conduct Public Consultation] | | |0,10,d
+Response[Review Report, Recommend Measures] | | |
+Chain Succession[Conduct Field Study, Prepare Report] | | |
+Not Co-Existence[Conduct Public Consultation, Recommend Measures] | | |
+End[Finalize Assessment] | |

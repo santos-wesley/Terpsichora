@@ -1,0 +1,40 @@
+activity Initiate Investigation
+activity Conduct Surveillance
+activity Analyze Evidence
+activity Obtain Warrant
+activity Execute Search
+activity Conduct Interrogation
+activity Arrest Suspects
+activity File Charges
+activity Present Case
+activity Conclude Investigation
+bind Initiate Investigation: Investigation ID, Investigation Type
+bind Conduct Surveillance: Investigation ID, Officer Badge Number
+bind Analyze Evidence: Investigation ID, Evidence Weight
+bind Obtain Warrant: Investigation ID, Warrant Type
+bind Execute Search: Investigation ID, Suspect ID
+bind Conduct Interrogation: Investigation ID, Suspect ID, Interrogation Outcome
+bind Arrest Suspects: Investigation ID, Suspect ID
+bind File Charges: Investigation ID, Charge Type
+bind Present Case: Investigation ID, Case Outcome, Sentence Duration
+bind Conclude Investigation: Investigation ID
+Investigation ID: integer between 1000 and 9999
+Investigation Type: Drug Trafficking, Human Trafficking, Money Laundering
+Officer Badge Number: integer between 1000 and 9999
+Evidence Weight: float between 0.1 and 100.0
+Warrant Type: Search, Arrest
+Suspect ID: integer between 1000 and 9999
+Interrogation Outcome: Confession, Denial, Partial Confession
+Charge Type: Felony, Misdemeanor
+Sentence Duration: float between 0.5 and 50.0
+Case Outcome: Guilty, Not Guilty, Hung Jury
+Init[Initiate Investigation] | |
+End[Conclude Investigation] | |
+Precedence[Conduct Surveillance, Initiate Investigation] | | |
+Response[Conduct Surveillance, Analyze Evidence] | | |
+Response[Analyze Evidence, Obtain Warrant] | | |
+Chain Succession[Obtain Warrant, Execute Search] | | |0,48,h
+Response[Execute Search, Conduct Interrogation] | | |
+Precedence[Arrest Suspects, Obtain Warrant] | | |
+Precedence[File Charges, Arrest Suspects] | | |
+Response[File Charges, Present Case] | | |

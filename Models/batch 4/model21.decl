@@ -1,0 +1,39 @@
+activity Deploy Middleware
+activity Monitor Middleware
+activity Configure Middleware
+activity Update Middleware
+activity Backup Middleware
+activity Restore Middleware
+activity Scale Middleware
+activity Audit Middleware
+activity Decommission Middleware
+activity Document Middleware
+bind Deploy Middleware: Middleware Version, Environment, Deployment Time
+bind Monitor Middleware: CPU Usage, Memory Usage
+bind Update Middleware: Middleware Version
+bind Backup Middleware: Backup ID, Environment
+bind Restore Middleware: Restore ID, Backup ID
+bind Audit Middleware: Compliance Status, Audit Finding
+bind Scale Middleware: Scaling Policy, CPU Usage, Memory Usage
+bind Decommission Middleware: Middleware Version
+bind Document Middleware: Middleware Version, Environment, Deployment Time
+Middleware Version: integer between 1 and 9999
+CPU Usage: float between 0.0 and 100.0
+Environment: Development, Testing, Production
+Backup ID: integer between 1 and 999999
+Restore ID: integer between 1 and 999999
+Compliance Status: Compliant, Non-Compliant
+Audit Finding: No Issues, Minor Issues, Major Issues
+Deployment Time: integer between 1 and 1440
+Memory Usage: float between 0.0 and 100.0
+Scaling Policy: Auto-Scaling, Manual-Scaling
+Init[Deploy Middleware] | |
+End[Document Middleware] | |
+Existence[Audit Middleware] | |
+Absence[Backup Middleware] | |
+Precedence[Configure Middleware, Monitor Middleware] | | |
+Response[Deploy Middleware, Backup Middleware] | | |
+Chain Succession[Backup Middleware, Restore Middleware] | | |
+Response[Audit Middleware, Document Middleware] |A.Audit Finding in ('Minor Issues','Major Issues') | |
+Chain Response[Monitor Middleware, Scale Middleware] | | |0,1,h
+Precedence[Audit Middleware, Decommission Middleware] |A.Compliance Status is 'Non-Compliant' | |0,48,h

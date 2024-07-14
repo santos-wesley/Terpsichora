@@ -1,0 +1,37 @@
+activity Draft Press Release
+activity Review Press Release
+activity Approve Press Release
+activity Distribute Press Release
+activity Plan Media Event
+activity Invite Media Contacts
+activity Host Media Event
+activity Follow-up with Media
+activity Monitor Media Coverage
+activity Analyze Campaign Effectiveness
+bind Draft Press Release: Press Release ID
+bind Review Press Release: Press Release ID, Reviewer Name, Review Score
+bind Invite Media Contacts: Media Contact ID, Event Type
+bind Host Media Event: Event Type, Attendance Count
+bind Follow-up with Media: Media Contact ID, Follow-up Method
+bind Monitor Media Coverage: Media Coverage Type
+bind Analyze Campaign Effectiveness: Engagement Rate, Campaign Outcome
+Press Release ID: integer between 1 and 100000
+Reviewer Name: John Doe, Alice Smith, Mark Lee
+Review Score: float between 0.0 and 10.0
+Media Contact ID: integer between 1 and 100000
+Event Type: Press Conference, Interview, Workshop
+Media Coverage Type: Print, Online, Broadcast
+Attendance Count: integer between 1 and 500
+Engagement Rate: float between 0.0 and 100.0
+Campaign Outcome: Successful, Moderate, Unsuccessful
+Follow-up Method: Email, Phone, Social Media
+Init[Draft Press Release] | |
+End[Monitor Media Coverage] | |
+Exactly[Review Press Release] | |
+Exactly[Host Media Event] | |
+Response[Draft Press Release, Review Press Release] | | |
+Response[Review Press Release, Approve Press Release] | | |
+Response[Approve Press Release, Distribute Press Release] | | |
+Not Co-Existence[Invite Media Contacts, Plan Media Event] | | |
+Chain Response[Host Media Event, Follow-up with Media] | | |0,48,h
+Chain Response[Monitor Media Coverage, Analyze Campaign Effectiveness] | | |0,2,d

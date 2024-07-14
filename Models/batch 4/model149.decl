@@ -1,0 +1,34 @@
+activity Formulate Hypothesis
+activity Design Experiment
+activity Collect Data
+activity Analyze Data
+activity Interpret Results
+activity Conduct Peer Review
+activity Revise Study
+activity Publish Findings
+activity Present at Conference
+activity Archive Data
+activity Develop Research Proposal
+bind Formulate Hypothesis: Funding Status
+bind Collect Data: Sample Size
+bind Analyze Data: Significance Level
+bind Conduct Peer Review: Review Status
+bind Present at Conference: Conference Type
+bind Publish Findings: Citations Count
+Sample Size: integer between 1 and 1000
+Significance Level: float between 0.01 and 0.05
+Review Status: Accepted, Minor Revisions, Major Revisions, Rejected
+Funding Status: Approved, Pending, Denied
+Conference Type: National, International
+Citations Count: integer between 0 and 10000
+Init[Develop Research Proposal] | |
+Precedence[Design Experiment, Formulate Hypothesis] | | |
+Succession[Design Experiment, Collect Data] | | |
+Chain Succession[Collect Data, Analyze Data] | | |0,2,d
+Response[Analyze Data, Interpret Results] | | |0,1,d
+Response[Interpret Results, Conduct Peer Review] | | |
+Chain Response[Conduct Peer Review, Publish Findings] |A.Review Status is Accepted | |0,7,d
+Response[Conduct Peer Review, Revise Study] |A.Review Status is Major Revisions | |0,14,d
+Response[Revise Study, Publish Findings] | | |
+End[Archive Data] | |
+Response[Publish Findings, Present at Conference] | | |

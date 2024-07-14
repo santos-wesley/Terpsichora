@@ -1,0 +1,49 @@
+activity Identify Threat
+activity Assess Risk
+activity Initiate Response
+activity Notify Stakeholders
+activity Implement Mitigation
+activity Monitor Network
+activity Update Security Protocols
+activity Close Incident
+activity Review Incident
+activity Conduct Audit
+activity Provide Training
+activity Perform Penetration Test
+activity Document Incident
+activity Analyze Data
+activity Develop Security Plan
+bind Identify Threat: Threat ID, Threat Type
+bind Assess Risk: Threat ID, Risk Level
+bind Initiate Response: Threat ID, Response Status
+bind Notify Stakeholders: Threat ID, Stakeholder ID
+bind Implement Mitigation: Threat ID, Mitigation Type
+bind Conduct Audit: Audit Result
+bind Provide Training: Training Session ID
+bind Analyze Data: Data Analysis Outcome
+bind Develop Security Plan: Security Plan ID
+Threat ID: integer between 1 and 100000
+Threat Type: Malware, Phishing, DDoS, Unauthorized Access
+Risk Level: float between 1 and 10
+Response Status: Initiated, In Progress, Completed
+Stakeholder ID: integer between 1 and 10000
+Mitigation Type: Firewall Update, Patch Deployment, Traffic Filtering
+Audit Result: Pass, Fail, Needs Improvement
+Training Session ID: integer between 1 and 1000
+Data Analysis Outcome: Patterns Identified, No Significant Patterns, Further Analysis Needed
+Security Plan ID: integer between 1 and 5000
+Init[Identify Threat] | |
+Precedence[Identify Threat, Assess Risk] | | |
+Existence[Notify Stakeholders] | |
+Precedence[Assess Risk, Initiate Response] | | |0,2,h
+Existence[Implement Mitigation] | |
+Precedence[Implement Mitigation, Close Incident] | | |
+End[Review Incident] | |
+Co-Existence[Monitor Network, Analyze Data] | | |
+Chain Response[Monitor Network, Analyze Data] | | |
+Existence[Conduct Audit] | |0,3,d
+Not Chain Succession[Review Incident, Document Incident] | | |
+Alternate Response[Update Security Protocols, Provide Training] | | |0,24,h
+Not Co-Existence[Provide Training, Conduct Audit] | | |
+Chain Succession[Develop Security Plan, Perform Penetration Test] | | |0,10,h
+Exactly[Assess Risk] | |

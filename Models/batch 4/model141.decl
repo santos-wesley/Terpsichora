@@ -1,0 +1,49 @@
+activity Inspect Vessel
+activity Authorize Entry
+activity Conduct Safety Drill
+activity Load Cargo
+activity Unload Cargo
+activity Check Documentation
+activity Monitor Security Cameras
+activity Perform Background Check
+activity Conduct Fire Drill
+activity Initiate Emergency Protocols
+activity Provide Safety Briefing
+activity Escort Vessel
+activity Verify Cargo Manifests
+activity Inspect Cargo
+activity Release Vessel
+bind Inspect Vessel: Vessel ID, Inspection Outcome, Inspection ID
+bind Perform Background Check: Vessel ID, Crew Member Status
+bind Check Documentation: Vessel ID, Documentation Status
+bind Load Cargo: Cargo Manifest ID, Cargo Weight
+bind Monitor Security Cameras: Security Camera ID
+bind Conduct Safety Drill: Drill Type
+bind Initiate Emergency Protocols: Emergency Type
+bind Unload Cargo: Cargo Manifest ID, Cargo Weight
+bind Verify Cargo Manifests: Cargo Manifest ID
+Vessel ID: integer between 1 and 999999
+Crew Member Status: Cleared, Pending, Flagged
+Inspection Outcome: Pass, Fail
+Inspection ID: integer between 1 and 999999
+Cargo Weight: float between 0.1 and 100000.0
+Emergency Type: Fire, Medical, Security Breach
+Cargo Manifest ID: integer between 1 and 999999
+Documentation Status: Verified, Incomplete, Fraudulent
+Security Camera ID: integer between 1 and 99999
+Drill Type: Safety, Fire, Emergency
+Init[Inspect Vessel] | |
+Precedence[Authorize Entry, Inspect Vessel] | | |
+Precedence[Authorize Entry, Perform Background Check] | | |
+Precedence[Load Cargo, Authorize Entry] | | |
+Chain Response[Perform Background Check, Load Cargo] | | |
+Precedence[Conduct Safety Drill, Load Cargo] | | |0,2,h
+Precedence[Unload Cargo, Check Documentation] | | |
+Precedence[Verify Cargo Manifests, Unload Cargo] | | |0,30,m
+Chain Response[Conduct Safety Drill, Initiate Emergency Protocols] | | |
+End[Release Vessel] | |
+Precedence[Escort Vessel, Authorize Entry] | | |
+Response[Unload Cargo, Inspect Cargo] | | |
+Co-Existence[Inspect Vessel, Monitor Security Cameras] | | |
+Absence3[Conduct Safety Drill] | |
+Precedence[Verify Cargo Manifests, Inspect Vessel] | | |0,6,h

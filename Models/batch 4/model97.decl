@@ -1,0 +1,40 @@
+activity Collect Water Sample
+activity Analyze Water Sample
+activity Report Analysis Results
+activity Archive Results
+activity Deploy Ocean Buoy
+activity Retrieve Ocean Buoy
+activity Analyze Buoy Data
+activity Report Buoy Data
+activity Conduct Fish Survey
+activity Report Fish Survey
+bind Collect Water Sample: Sample ID, Researcher ID
+bind Analyze Water Sample: Sample ID, Salinity, Temperature
+bind Report Analysis Results: Sample ID, Report Type
+bind Deploy Ocean Buoy: Buoy ID, Researcher ID
+bind Retrieve Ocean Buoy: Buoy ID
+bind Analyze Buoy Data: Buoy ID, pH Level
+bind Report Buoy Data: Buoy ID, Report Type
+bind Conduct Fish Survey: Survey ID, Fish Count
+bind Report Fish Survey: Survey ID, Report Type
+bind Archive Results: Sample ID
+Sample ID: integer between 1 and 999999
+Salinity: float between 0.0 and 37.0
+Temperature: float between -2.0 and 35.0
+Buoy ID: Buoy1, Buoy2, Buoy3
+Fish Count: integer between 0 and 10000
+Analysis Status: Pending, Completed
+Report Type: Water Sample, Buoy Data, Fish Survey
+Survey ID: integer between 1 and 999999
+pH Level: float between 0.0 and 14.0
+Researcher ID: Res1, Res2, Res3
+Init[Collect Water Sample] | |
+End[Collect Water Sample] | |
+Precedence[Deploy Ocean Buoy, Retrieve Ocean Buoy] | | |
+Chain Succession[Collect Water Sample, Analyze Water Sample] | | |
+Chain Response[Analyze Buoy Data, Report Buoy Data] | | |0,48,h
+Chain Response[Conduct Fish Survey, Report Fish Survey] | | |0,5,d
+Response[Analyze Water Sample, Report Analysis Results] | | |
+Precedence[Retrieve Ocean Buoy, Analyze Buoy Data] | | |
+Chain Succession[Report Analysis Results, Archive Results] | | |
+Not Co-Existence[Report Fish Survey, Report Buoy Data] | | |

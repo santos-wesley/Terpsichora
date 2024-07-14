@@ -1,0 +1,54 @@
+activity Initiate Case
+activity Collect Evidence
+activity Interview Witnesses
+activity Profile Suspect
+activity Analyze Evidence
+activity Record Findings
+activity Compare with Database
+activity Prepare Report
+activity Submit Report
+activity Review Report
+activity Make Decision
+activity Close Case
+activity Reopen Case
+activity Archive Case
+activity Update Database
+bind Initiate Case: Case ID
+bind Collect Evidence: Case ID, Evidence Type
+bind Interview Witnesses: Case ID, Witness Cooperation
+bind Profile Suspect: Case ID, Suspect Age, Profile Accuracy
+bind Analyze Evidence: Case ID, DNA Match Percentage
+bind Record Findings: Case ID
+bind Prepare Report: Case ID, Report ID
+bind Review Report: Case ID, Report ID, Reviewer ID
+bind Make Decision: Case ID, Case Outcome
+bind Close Case: Case ID
+bind Reopen Case: Case ID
+bind Archive Case: Case ID
+bind Update Database: Case ID
+bind Compare with Database: Case ID
+Case ID: integer between 1 and 999999
+Crime Type: Theft, Assault, Fraud, Murder
+Witness Cooperation: High, Medium, Low
+Suspect Age: integer between 18 and 99
+Evidence Type: Physical, Digital, Testimonial
+DNA Match Percentage: float between 0.0 and 100.0
+Profile Accuracy: High, Medium, Low
+Report ID: integer between 1 and 999999
+Reviewer ID: integer between 1 and 99999
+Case Outcome: Solved, Unsolved, Pending
+Init[Initiate Case] | |
+Existence[Collect Evidence] | |
+Precedence[Collect Evidence, Interview Witnesses] | | |
+Response[Interview Witnesses, Profile Suspect] | | |
+Chain Succession[Profile Suspect, Analyze Evidence] | | |
+Alternate Response[Record Findings, Compare with Database] | | |
+Chain Precedence[Prepare Report, Compare with Database] | | |
+Chain Response[Prepare Report, Submit Report] | | |
+Precedence[Submit Report, Review Report] | | |
+Chain Succession[Review Report, Make Decision] | | |
+Existence[Close Case] | |
+Alternate Response[Archive Case, Update Database] | | |
+Chain Succession[Make Decision, Close Case] | | |0,1,d
+Precedence[Close Case, Reopen Case] | | |
+End[Archive Case] | |

@@ -1,0 +1,34 @@
+activity Identify Market
+activity Conduct Survey
+activity Analyze Survey Results
+activity Develop Marketing Strategy
+activity Create Content
+activity Launch Campaign
+activity Monitor Campaign
+activity Collect Feedback
+activity Analyze Feedback
+activity Report Results
+bind Conduct Survey: Survey ID, Customer Segment
+bind Launch Campaign: Marketing Channel, Campaign ID, Budget Allocation
+bind Analyze Feedback: Feedback Metric, Satisfaction Score, Feedback Sentiment
+bind Report Results: Report ID, Report Status
+Survey ID: integer between 1 and 999999
+Customer Segment: Eco-friendly, Budget Conscious, Health-focused
+Budget Allocation: float between 1000 and 1000000
+Marketing Channel: Social Media, Email, Television
+Feedback Metric: Satisfaction, Engagement, Conversion
+Campaign ID: integer between 1 and 999999
+Satisfaction Score: float between 0 and 10
+Feedback Sentiment: Positive, Neutral, Negative
+Report ID: integer between 1 and 999999
+Report Status: Draft, Finalized
+Init[Identify Market] | |
+Precedence[Analyze Survey Results, Develop Marketing Strategy] | | |
+Chain Succession[Create Content, Launch Campaign] | | |0,24,h
+Response[Launch Campaign, Monitor Campaign] | | |
+Chain Succession[Monitor Campaign, Collect Feedback] | | |0,48,h
+Precedence[Collect Feedback, Analyze Feedback] | | |
+Chain Precedence[Analyze Feedback, Report Results] | | |0,24,h
+Existence3[Monitor Campaign] | |
+Alternate Response[Analyze Survey Results, Report Results] | | |0,72,h
+End[Report Results] | |

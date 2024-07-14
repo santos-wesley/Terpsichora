@@ -1,0 +1,40 @@
+activity Identify Incident
+activity Assess Incident
+activity Contain Incident
+activity Eradicate Incident
+activity Recover Systems
+activity Analyze Incident
+activity Report Incident
+activity Review Response
+activity Implement Improvements
+activity Conduct Training
+bind Identify Incident: Incident ID, Incident Type
+bind Assess Incident: Incident ID, Impact Score, Affected Systems
+bind Contain Incident: Incident ID, Containment Strategy
+bind Eradicate Incident: Incident ID
+bind Recover Systems: Incident ID, Downtime Duration
+bind Analyze Incident: Incident ID, Resolution Time
+bind Report Incident: Incident ID, Stakeholder Notified
+bind Review Response: Incident ID, Review Outcome
+bind Implement Improvements: Incident ID
+bind Conduct Training: Incident ID, Training Type
+Incident ID: integer between 1 and 999999
+Impact Score: float between 0.0 and 10.0
+Incident Type: Phishing, Malware, DDoS, Insider Threat
+Affected Systems: integer between 1 and 1000
+Containment Strategy: Isolation, Quarantine, Blocking
+Downtime Duration: integer between 0 and 1440
+Stakeholder Notified: Yes, No
+Training Type: Workshop, Webinar, Simulation
+Resolution Time: float between 0.0 and 48.0
+Review Outcome: Effective, Needs Improvement
+Init[Identify Incident] | |
+Precedence[Identify Incident, Assess Incident] | | |
+Chain Response[Assess Incident, Contain Incident] | | |0,60,m
+Chain Succession[Contain Incident, Eradicate Incident] | | |
+Response[Eradicate Incident, Recover Systems] | | |
+Precedence[Recover Systems, Analyze Incident] | | |0,2,h
+Alternate Response[Analyze Incident, Report Incident] | | |0,48,h
+Precedence[Report Incident, Review Response] | | |0,24,h
+Response[Review Response, Implement Improvements] | | |
+End[Conduct Training] | |

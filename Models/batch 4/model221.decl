@@ -1,0 +1,48 @@
+activity Analyze International Market
+activity Identify Business Opportunities
+activity Conduct Feasibility Study
+activity Develop Business Plan
+activity Acquire Necessary Permits
+activity Set Up International Office
+activity Hire Local Staff
+activity Initiate Marketing Campaign
+activity Establish Supply Chain
+activity Negotiate with Local Vendors
+activity Monitor Market Response
+activity Adjust Strategy
+activity Manage International Logistics
+activity Assess Performance
+activity Report to Headquarters
+bind Analyze International Market: Market Size, Market Attractiveness
+bind Conduct Feasibility Study: Investment Amount, Feasibility Status
+bind Acquire Necessary Permits: Permit Status
+bind Hire Local Staff: Staffing Level
+bind Initiate Marketing Campaign: Marketing Budget
+bind Monitor Market Response: Market Response
+bind Adjust Strategy: Strategy Adjustment
+bind Assess Performance: Performance Evaluation
+Market Size: integer between 1000 and 1000000
+Investment Amount: float between 10000.0 and 1000000.0
+Market Attractiveness: High, Medium, Low
+Feasibility Status: Positive, Negative
+Permit Status: Approved, Pending, Rejected
+Staffing Level: High, Medium, Low
+Marketing Budget: float between 5000.0 and 500000.0
+Market Response: Positive, Neutral, Negative
+Strategy Adjustment: Yes, No
+Performance Evaluation: Excellent, Good, Fair, Poor
+Init[Analyze International Market] | |
+Response[Analyze International Market, Identify Business Opportunities] | | |
+Response[Conduct Feasibility Study, Develop Business Plan] |A.Feasibility Status is Positive | |
+Response[Develop Business Plan, Acquire Necessary Permits] | | |
+Chain Response[Acquire Necessary Permits, Set Up International Office] | | |0,5,d
+Response[Set Up International Office, Hire Local Staff] | | |
+Existence[Initiate Marketing Campaign] | |
+Response[Hire Local Staff, Negotiate with Local Vendors] | | |
+Response[Initiate Marketing Campaign, Monitor Market Response] | | |
+Chain Response[Monitor Market Response, Adjust Strategy] |A.Market Response is Negative | |0,7,d
+Response[Adjust Strategy, Assess Performance] | | |
+Chain Response[Assess Performance, Report to Headquarters] | | |0,48,h
+Exactly[Report to Headquarters] | |
+Existence[Manage International Logistics] | |
+End[Report to Headquarters] | |

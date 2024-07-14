@@ -1,0 +1,50 @@
+activity Identify Stakeholders
+activity Gather Financial Reports
+activity Schedule Meetings
+activity Present Financial Performance
+activity Address Queries
+activity Distribute Financial Statements
+activity Publish Press Release
+activity Prepare Investor Presentation
+activity Conduct Investor Call
+activity Gather Feedback
+activity Analyze Feedback
+activity Revise Strategy
+activity File Regulatory Reports
+activity Monitor Market Trends
+activity Update Corporate Website
+bind Identify Stakeholders: Stakeholder Type
+bind Schedule Meetings: Meeting ID, Stakeholder Type
+bind Gather Financial Reports: Report ID
+bind Address Queries: Query Type
+bind Conduct Investor Call: Call ID
+bind Gather Feedback: Feedback Type
+bind File Regulatory Reports: Report ID, Regulatory Body
+bind Publish Press Release: Press Release ID
+bind Monitor Market Trends: Market Trend
+bind Present Financial Performance: Stock Price
+Meeting ID: integer between 1 and 10000
+Stock Price: float between 1.0 and 10000.0
+Stakeholder Type: Investor, Analyst, Regulator, Media
+Report ID: integer between 1 and 100000
+Query Type: Financial, Operational, Regulatory, Others
+Call ID: integer between 1 and 5000
+Feedback Type: Positive, Negative, Neutral
+Regulatory Body: SEC, FINRA, FCA, Others
+Press Release ID: integer between 1 and 1000
+Market Trend: Bullish, Bearish, Stable, Volatile
+Init[Identify Stakeholders] | |
+End[Monitor Market Trends] | |
+Exactly[Conduct Investor Call] | |
+Existence[Publish Press Release] | |
+Absence3[Gather Feedback] | |
+Precedence[Gather Financial Reports, Schedule Meetings] | | |
+Response[Schedule Meetings, Present Financial Performance] | | |
+Succession[Present Financial Performance, Address Queries] | | |
+Chain Response[Present Financial Performance, Distribute Financial Statements] | | |
+Chain Succession[Analyze Feedback, Revise Strategy] | | |0,2,d
+Precedence[Address Queries, File Regulatory Reports] | | |0,48,h
+Chain Response[Publish Press Release, Update Corporate Website] | | |0,24,h
+Not Chain Succession[Monitor Market Trends, Update Corporate Website] | | |
+Choice[Analyze Feedback, Conduct Investor Call] | | |
+Exclusive Choice[Update Corporate Website, Publish Press Release] | | |0,24,h

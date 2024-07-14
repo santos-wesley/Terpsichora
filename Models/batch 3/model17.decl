@@ -1,0 +1,50 @@
+activity Initiate Diplomacy
+activity Schedule Talks
+activity Exchange Documents
+activity Hold Meeting
+activity Draft Agreement
+activity Review Agreement
+activity Sign Agreement
+activity Ratify Agreement
+activity Implement Measures
+activity Monitor Compliance
+activity Report Compliance
+activity Address Issues
+activity Schedule Follow-Up
+activity Hold Follow-Up Meeting
+activity Conclude Diplomacy
+bind Initiate Diplomacy: Country ID
+bind Schedule Talks: Country ID
+bind Exchange Documents: Country ID, Document Type
+bind Hold Meeting: Country ID, Meeting Number, Meeting Type
+bind Draft Agreement: Country ID, Agreement Value
+bind Review Agreement: Country ID, Agreement Status
+bind Sign Agreement: Country ID, Diplomat ID, Agreement Status
+bind Ratify Agreement: Country ID, Agreement Status
+bind Implement Measures: Country ID
+bind Monitor Compliance: Country ID, Compliance Status
+bind Report Compliance: Country ID, Report ID
+bind Address Issues: Country ID, Issue Severity
+Country ID: integer between 1 and 999
+Document Type: Treaty, Memorandum, Contract
+Diplomat ID: integer between 1 and 9999
+Meeting Number: integer between 1 and 99
+Agreement Value: float between 0.1 and 1000.0
+Agreement Status: Drafted, Reviewed, Signed, Ratified
+Compliance Status: Compliant, Non-Compliant
+Issue Severity: Low, Medium, High
+Report ID: integer between 1 and 999999
+Meeting Type: Initial, Follow-Up
+Init[Initiate Diplomacy] | |
+Exactly3[Hold Meeting] | |
+Existence[Report Compliance] | |
+End[Monitor Compliance] | |
+Absence2[Address Issues] | |
+Precedence[Exchange Documents, Hold Meeting] | | |
+Response[Review Agreement, Sign Agreement] | | |
+Chain Succession[Sign Agreement, Ratify Agreement] | | |
+Precedence[Ratify Agreement, Implement Measures] | | |0,5,d
+Alternate Response[Initiate Diplomacy, Schedule Talks] | | |0,2,d
+Chain Response[Schedule Follow-Up, Hold Follow-Up Meeting] | | |0,48,h
+Not Chain Precedence[Address Issues, Monitor Compliance] | | |10,0,d
+Precedence[Initiate Diplomacy, Draft Agreement] | | |

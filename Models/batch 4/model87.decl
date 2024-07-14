@@ -1,0 +1,40 @@
+activity Irrigate Field
+activity Plant Seeds
+activity Harvest Crops
+activity Fertilize Soil
+activity Weed Field
+activity Inspect Crop Health
+activity Pest Control
+activity Sell Produce
+activity Record Weather Data
+activity Maintain Equipment
+bind Irrigate Field: Field ID, Irrigation Method
+bind Plant Seeds: Field ID, Crop Type
+bind Harvest Crops: Field ID, Harvest Quantity
+bind Fertilize Soil: Field ID, Fertilizer Amount
+bind Weed Field: Field ID
+bind Inspect Crop Health: Field ID, Crop Health Score
+bind Pest Control: Field ID, Pest Control Treatment
+bind Sell Produce: Field ID, Harvest Quantity, Market Price
+bind Record Weather Data: Field ID, Weather Condition
+bind Maintain Equipment: Field ID, Equipment Status
+Field ID: integer between 1 and 999999
+Crop Health Score: integer between 0 and 100
+Crop Type: Wheat, Corn, Rice
+Weather Condition: Sunny, Rainy, Cloudy, Stormy
+Fertilizer Amount: float between 0.0 and 50.0
+Pest Control Treatment: Chemical, Organic
+Equipment Status: Operational, Broken, Under Maintenance
+Harvest Quantity: integer between 0 and 10000
+Market Price: integer between 1 and 200
+Irrigation Method: Drip, Sprinkler, Flood
+Init[Plant Seeds] | |
+End[Harvest Crops] | |
+Chain Response[Fertilize Soil, Irrigate Field] | | |0,3,h
+Precedence[Pest Control, Inspect Crop Health] | | |
+Precedence[Plant Seeds, Weed Field] | | |
+Responded Existence[Sell Produce, Harvest Crops] | | |0,2,d
+Co-Existence[Plant Seeds, Inspect Crop Health] | |Plant Seeds.Field ID == Inspect Crop Health.Field ID |
+Precedence[Record Weather Data, Plant Seeds] | | |
+Chain Succession[Irrigate Field, Maintain Equipment] | | |0,6,h
+Exactly3[Inspect Crop Health] | |

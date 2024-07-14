@@ -1,0 +1,48 @@
+activity Initiate Investigation
+activity Gather Intelligence
+activity Analyze Data
+activity Conduct Surveillance
+activity Interrogate Suspects
+activity Execute Search Warrants
+activity Collect Evidence
+activity Analyze Evidence
+activity Make Arrests
+activity Prepare Reports
+activity Submit Reports
+activity Prosecute Suspects
+activity Conduct Trials
+activity Secure Convictions
+activity Close Investigation
+bind Initiate Investigation: Crime Type
+bind Gather Intelligence: Suspect ID, Investigation Status
+bind Execute Search Warrants: Suspect ID, Crime Type, Surveillance Date
+bind Collect Evidence: Evidence Weight, Evidence Type
+bind Interrogate Suspects: Suspect ID, Interrogation Result
+bind Prepare Reports: Report Submission Date
+bind Submit Reports: Report Submission Date
+bind Secure Convictions: Conviction Date, Court Verdict
+Suspect ID: integer between 1 and 99999
+Evidence Weight: float between 0.1 and 100.0
+Crime Type: Drug Trafficking, Money Laundering, Human Trafficking, Arms Smuggling, Cybercrime
+Surveillance Date: 2023-07-01, 2023-07-02, 2023-07-03
+Investigation Status: Open, Ongoing, Closed
+Evidence Type: Documents, Drugs, Weapons, Electronics, Money
+Interrogation Result: Confession, No Cooperation, Partial Cooperation
+Court Verdict: Guilty, Not Guilty
+Report Submission Date: 2023-08-01, 2023-08-02, 2023-08-03
+Conviction Date: 2023-09-01, 2023-09-02, 2023-09-03
+Init[Initiate Investigation] | |
+Precedence[Initiate Investigation, Gather Intelligence] | | |0,7,d
+Response[Gather Intelligence, Analyze Data] | | |
+Precedence[Conduct Surveillance, Interrogate Suspects] | | |
+Chain Succession[Execute Search Warrants, Collect Evidence] | | |
+Response[Analyze Evidence, Make Arrests] | | |
+Exactly[Prepare Reports] | |
+Chain Response[Prepare Reports, Submit Reports] | | |0,24,h
+Response[Make Arrests, Prosecute Suspects] | | |
+Response[Prosecute Suspects, Conduct Trials] | | |
+Chain Response[Conduct Trials, Secure Convictions] | | |0,3,d
+Response[Secure Convictions, Close Investigation] | | |
+Existence[Close Investigation] | |0,180,d
+Absence5[Conduct Surveillance] | |
+Co-Existence[Analyze Data, Make Arrests] | | |

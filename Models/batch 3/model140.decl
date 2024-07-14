@@ -1,0 +1,38 @@
+activity Receive Customer Order
+activity Check Inventory
+activity Schedule Production
+activity Procure Materials
+activity Start Production
+activity Monitor Production
+activity Perform Quality Check
+activity Pack Products
+activity Ship Products
+activity Archive Order Details
+bind Receive Customer Order: Order ID, Product Type, Quantity
+bind Check Inventory: Inventory Status
+bind Schedule Production: Employee ID
+bind Procure Materials: Raw Material Cost
+bind Perform Quality Check: Quality Status, Batch Number
+bind Pack Products: Packing Status
+bind Ship Products: Shipment Status
+bind Start Production: Batch Number
+Order ID: integer between 1 and 99999
+Product Type: Type A, Type B, Type C
+Quantity: integer between 1 and 1000
+Raw Material Cost: float between 0.0 and 10000.0
+Inventory Status: Sufficient, Insufficient
+Employee ID: integer between 1 and 9999
+Quality Status: Pass, Fail
+Batch Number: integer between 1 and 9999
+Packing Status: Completed, Pending
+Shipment Status: Shipped, Pending
+Init[Receive Customer Order] | |
+Precedence[Receive Customer Order, Check Inventory] | | |
+Chain Succession[Check Inventory, Schedule Production] | | |
+Chain Succession[Check Inventory, Procure Materials] |A.Inventory Status == "Insufficient" | |
+Exactly[Monitor Production] | |
+Response[Start Production, Perform Quality Check] | | |
+Chain Succession[Perform Quality Check, Pack Products] | | |0,1,h
+Chain Succession[Pack Products, Ship Products] | | |0,2,h
+End[Archive Order Details] | |
+Chain Succession[Ship Products, Archive Order Details] | | |0,1,d

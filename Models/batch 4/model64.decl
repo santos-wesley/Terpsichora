@@ -1,0 +1,30 @@
+activity Conduct Survey
+activity Analyze Data
+activity Draft Proposal
+activity Review Proposal
+activity Revise Proposal
+activity Submit Proposal
+activity Approve Project
+activity Initiate Project
+activity Monitor Progress
+activity Complete Project
+bind Conduct Survey: Survey ID, Feedback Type
+bind Review Proposal: Proposal ID, Stakeholder Type
+bind Revise Proposal: Proposal ID, Revision Type
+bind Approve Project: Proposal ID, Budget Allocation
+Survey ID: integer between 1 and 999999
+Feedback Type: Positive, Negative, Neutral
+Stakeholder Type: Government, Community, Business
+Budget Allocation: float between 1000.0 and 1000000.0
+Revision Type: Minor, Major
+Proposal ID: integer between 1 and 999999
+Init[Conduct Survey] | |
+End[Complete Project] | |
+Chain Response[Conduct Survey, Analyze Data] | | |0,7,d
+Response[Review Proposal, Revise Proposal] | | |0,15,d
+Chain Succession[Revise Proposal, Submit Proposal] | | |
+Precedence[Approve Project, Submit Proposal] | | |
+Succession[Approve Project, Initiate Project] | | |
+Existence[Monitor Progress] | |
+Alternate Succession[Initiate Project, Complete Project] | | |0,365,d
+Absence3[Revise Proposal] | |

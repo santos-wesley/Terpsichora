@@ -1,0 +1,40 @@
+activity Create Exam
+activity Assign Exam
+activity Complete Exam
+activity Grade Exam
+activity Review Grades
+activity Publish Results
+activity Request Reassessment
+activity Reassess Exam
+activity Finalize Grades
+activity Generate Report
+bind Create Exam: Exam ID, Course Name, Exam Date
+bind Assign Exam: Exam ID, Student ID
+bind Complete Exam: Exam ID, Student ID
+bind Grade Exam: Exam ID, Student ID, Grade
+bind Review Grades: Exam ID, Instructor ID
+bind Publish Results: Exam ID, Student ID
+bind Request Reassessment: Reassessment ID, Student ID, Reassessment Status
+bind Reassess Exam: Exam ID, Student ID, Reassessment ID, Grade
+bind Finalize Grades: Exam ID, Student ID, Grade, GPA
+bind Generate Report: Exam ID, Report Date
+Exam ID: integer between 1 and 99999
+Student ID: S001, S002, S003
+Grade: integer between 0 and 100
+Reassessment Status: Requested, Not Requested
+GPA: float between 0.0 and 4.0
+Course Name: Math, Science, History
+Exam Date: 2023-09-01, 2023-09-02, 2023-09-03
+Reassessment ID: integer between 1 and 99999
+Instructor ID: I001, I002, I003
+Report Date: 2023-10-01, 2023-10-02, 2023-10-03
+Init[Create Exam] | |
+Exactly[Generate Report] | |
+Precedence[Create Exam, Assign Exam] | | |
+Chain Response[Complete Exam, Grade Exam] | | |
+Response[Review Grades, Publish Results] | | |
+Alternate Response[Publish Results, Request Reassessment] | | |0,3,d
+Precedence[Request Reassessment, Reassess Exam] | | |0,2,d
+Response[Reassess Exam, Finalize Grades] | | |
+End[Finalize Grades] | |
+Precedence[Finalize Grades, Generate Report] | | |0,1,d

@@ -1,0 +1,54 @@
+activity Enroll Student
+activity Assign Instructor
+activity Schedule Classes
+activity Conduct Class
+activity Track Attendance
+activity Submit Assignment
+activity Evaluate Assignment
+activity Provide Feedback
+activity Organize Workshop
+activity Enroll Workshop
+activity Conduct Workshop
+activity Complete Course
+activity Issue Certificate
+activity Gather Feedback
+activity Analyze Feedback
+bind Enroll Student: Student ID
+bind Assign Instructor: Student ID, Instructor Name
+bind Schedule Classes: Student ID, Dance Style
+bind Conduct Class: Class ID, Class Date
+bind Track Attendance: Student ID, Class ID
+bind Submit Assignment: Student ID
+bind Evaluate Assignment: Student ID, Assignment Score
+bind Provide Feedback: Student ID
+bind Organize Workshop: Workshop Date
+bind Enroll Workshop: Student ID
+bind Conduct Workshop: Student ID, Workshop Date
+bind Complete Course: Student ID
+bind Issue Certificate: Student ID, Certificate ID
+bind Gather Feedback: Student ID, Feedback Rating
+bind Analyze Feedback: Feedback Score
+Student ID: integer between 1 and 99999
+Instructor Name: John Smith, Emily Brown, Sophia Johnson
+Dance Style: Ballet, Hip-Hop, Salsa, Contemporary
+Class ID: integer between 1 and 9999
+Class Date: 2023-10-01, 2023-10-02, 2023-10-03
+Assignment Score: float between 0.0 and 100.0
+Workshop Date: 2023-11-01, 2023-11-02, 2023-11-03
+Feedback Rating: Excellent, Good, Fair, Poor
+Certificate ID: integer between 1 and 99999
+Feedback Score: float between 0.0 and 10.0
+Init[Enroll Student] | |
+End[Complete Course] | |
+Existence[Gather Feedback] | |
+Absence2[Conduct Workshop] | |
+Precedence[Schedule Classes, Assign Instructor] | | |
+Chain Response[Submit Assignment, Evaluate Assignment] | | |
+Response[Evaluate Assignment, Provide Feedback] | | |
+Precedence[Schedule Classes, Enroll Student] | | |0,1,d
+Precedence[Issue Certificate, Complete Course] | | |
+Chain Response[Complete Course, Gather Feedback] | | |
+Precedence[Conduct Class, Schedule Classes] | | |
+Precedence[Gather Feedback, Conduct Workshop] | | |
+Precedence[Analyze Feedback, Gather Feedback] | | |0,2,d
+Succession[Submit Assignment, Evaluate Assignment] | | |0,1,d

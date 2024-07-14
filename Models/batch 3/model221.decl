@@ -1,0 +1,39 @@
+activity Identify Property
+activity Evaluate Property
+activity Negotiate Price
+activity Secure Financing
+activity Purchase Property
+activity Inspect Property
+activity Renovate Property
+activity Market Property
+activity Lease Property
+activity Sell Property
+bind Identify Property: Property ID, Property Type
+bind Evaluate Property: Property ID, Market Value
+bind Secure Financing: Property ID, Financing Type
+bind Purchase Property: Property ID, Purchase Price
+bind Inspect Property: Property ID, Inspection Status
+bind Renovate Property: Property ID, Renovation Status
+bind Market Property: Property ID, Market Value
+bind Lease Property: Property ID, Lease Status
+bind Sell Property: Property ID, Sale Price
+Property ID: integer between 1 and 999999
+Property Type: Residential, Commercial, Industrial
+Agent ID: integer between 1 and 9999
+Financing Type: Mortgage, Cash, Loan
+Purchase Price: float between 0.0 and 100000000.0
+Inspection Status: Pending, Completed, Failed
+Renovation Status: Not Started, In Progress, Completed
+Market Value: float between 0.0 and 100000000.0
+Lease Status: Available, Leased
+Sale Price: float between 0.0 and 100000000.0
+Init[Identify Property] | |
+End[Sell Property] | |
+Precedence[Evaluate Property, Negotiate Price] | | |
+Chain Response[Secure Financing, Purchase Property] | | |
+Precedence[Inspect Property, Renovate Property] | | |
+Response[Renovate Property, Market Property] | | |
+Alternate Response[Identify Property, Evaluate Property] | | |
+Existence[Purchase Property] | |
+Chain Succession[Market Property, Lease Property] | | |0,15,d
+Chain Precedence[Market Property, Renovate Property] | | |0,30,d

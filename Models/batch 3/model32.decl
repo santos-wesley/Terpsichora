@@ -1,0 +1,50 @@
+activity Verify User
+activity Check License
+activity Decrypt Content
+activity Encrypt Content
+activity Fetch Content
+activity Log Activity
+activity Monitor Usage
+activity Check Subscription
+activity Generate License
+activity Terminate Session
+activity Renew License
+activity Notify User
+activity Track Anomalies
+activity Update Content Metadata
+activity Verify Payment
+bind Verify User: User ID
+bind Check License: User ID, License Status
+bind Decrypt Content: User ID, Content ID
+bind Fetch Content: User ID, Content ID, Content Type
+bind Notify User: User ID
+bind Verify Payment: User ID, Payment Status
+bind Track Anomalies: User ID, Anomaly Type
+bind Check Subscription: User ID, Subscription Status
+bind Generate License: License ID, User ID
+bind Log Activity: Activity ID, User ID
+bind Renew License: License ID, License Status
+User ID: integer between 1 and 999999
+Subscription Price: float between 0.0 and 1000.0
+Content Type: Ebook, Music, Video, Software
+License Status: Valid, Expired, Revoked
+License ID: integer between 1 and 999999
+Content ID: integer between 1 and 999999
+Activity ID: integer between 1 and 999999
+Anomaly Type: Unauthorized Access, Multiple Logins, Rapid Requests
+Subscription Status: Active, Inactive, Pending
+Payment Status: Paid, Unpaid, Pending
+Init[Verify User] | |
+Chain Response[Verify User, Check License] | | |
+Precedence[Verify Payment, Decrypt Content] |A.Payment Status is Paid | |
+Response[Decrypt Content, Fetch Content] | | |
+Existence[Monitor Usage] | |
+Alternate Response[Check License, Notify User] |A.License Status is Revoked | |0,1,h
+Chain Response[Log Activity, Track Anomalies] | | |
+Precedence[Check Subscription, Fetch Content] | | |
+End[Terminate Session] | |
+Chain Response[Verify Payment, Generate License] | | |0,10,m
+Precedence[Renew License, Check License] |A.License Status is Expired | |0,1,d
+Response[Fetch Content, Update Content Metadata] | | |
+Response[Track Anomalies, Check License] |A.Anomaly Type in (Unauthorized Access, Multiple Logins, Rapid Requests) | |
+Chain Response[Update Content Metadata, Encrypt Content] | | |0,5,m

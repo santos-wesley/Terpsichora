@@ -1,0 +1,36 @@
+activity Collect Data
+activity Preprocess Data
+activity Conduct Experiment
+activity Analyze Data
+activity Visualize Results
+activity Report Findings
+activity Validate Findings
+activity Publish Paper
+activity Prepare Presentation
+activity Submit Grant Proposal
+bind Collect Data: Participant ID, Experiment Type
+bind Preprocess Data: Participant ID, Preprocessing Method, Preprocessing Time
+bind Analyze Data: Analysis ID, Visualization Type
+bind Validate Findings: Analysis ID, Validation Method
+bind Publish Paper: Paper ID, Conference Type
+bind Submit Grant Proposal: Grant Amount
+Participant ID: integer between 1 and 1000
+Experiment Type: Behavioral, EEG, fMRI
+Preprocessing Method: Filtering, Normalization, Artefact Removal
+Preprocessing Time: float between 0.5 and 10.0
+Analysis ID: integer between 1 and 1000
+Visualization Type: Graph, Chart, Table
+Validation Method: Replication, Cross-Validation, Peer Review
+Paper ID: integer between 1 and 1000
+Conference Type: Neuroscience, Psychology, Engineering
+Grant Amount: float between 10.0 and 500.0
+Init[Collect Data] | |
+Precedence[Preprocess Data, Collect Data] | | |
+Chain Response[Preprocess Data, Analyze Data] | | |0,2,h
+Response[Analyze Data, Visualize Results] | | |
+Response[Visualize Results, Validate Findings] | | |
+Response[Validate Findings, Publish Paper] | | |
+Existence[Report Findings] | |
+Precedence[Prepare Presentation, Publish Paper] | | |0,7,d
+Responded Existence[Collect Data, Submit Grant Proposal] | | |
+End[Prepare Presentation] | |

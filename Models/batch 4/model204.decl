@@ -1,0 +1,50 @@
+activity Receive Application
+activity Review Application
+activity Schedule Interview
+activity Conduct Interview
+activity Evaluate Eligibility
+activity Notify Applicant
+activity Provide Services
+activity Monitor Progress
+activity Conduct Follow-up
+activity Reassess Eligibility
+activity Terminate Services
+activity Update Records
+activity Close Case
+activity Archive Records
+activity Send Satisfaction Survey
+bind Receive Application: Application ID
+bind Review Application: Application ID
+bind Schedule Interview: Application ID, Interview Date
+bind Evaluate Eligibility: Application ID, Eligibility Status
+bind Provide Services: Application ID, Service ID, Service Type, Service Cost
+bind Conduct Follow-up: Application ID, Follow-up ID
+bind Reassess Eligibility: Application ID, Reassessment Date
+bind Terminate Services: Application ID, Service ID
+bind Close Case: Application ID, Case Closure Date
+bind Send Satisfaction Survey: Application ID, Satisfaction Score
+Application ID: integer between 1 and 999999
+Eligibility Status: Eligible, Not Eligible
+Interview Date: 2023-07-01, 2023-07-05, 2023-07-10
+Service ID: integer between 1 and 99999
+Follow-up ID: integer between 1 and 9999
+Service Type: Financial Assistance, Counseling, Training
+Service Cost: float between 50.0 and 1000.0
+Reassessment Date: 2023-08-01, 2023-08-05, 2023-08-10
+Case Closure Date: 2023-09-01, 2023-09-05, 2023-09-10
+Satisfaction Score: 1, 2, 3, 4, 5
+Init[Receive Application] | |
+Precedence[Review Application, Receive Application] | | |
+Precedence[Schedule Interview, Review Application] | | |0,7,d
+Alternate Response[Conduct Interview, Evaluate Eligibility] | | |
+Chain Response[Evaluate Eligibility, Notify Applicant] | | |
+Response[Evaluate Eligibility, Provide Services] | | |
+Precedence[Conduct Follow-up, Provide Services] | | |0,30,d
+Response[Conduct Follow-up, Reassess Eligibility] | | |
+Precedence[Close Case, Terminate Services] | | |
+Precedence[Close Case, Terminate Services] | | |0,7,d
+Precedence[Archive Records, Close Case] | | |
+Exactly[Review Application] | |
+Precedence[Send Satisfaction Survey, Close Case] | | |0,7,d
+End[Archive Records] | |
+Existence2[Conduct Follow-up] | |

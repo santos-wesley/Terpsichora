@@ -1,0 +1,39 @@
+activity Post Job Opening
+activity Review Applications
+activity Conduct Initial Screening
+activity Schedule Interview
+activity Conduct Interview
+activity Evaluate Candidates
+activity Make Offer
+activity Negotiate Terms
+activity Onboard Employee
+activity Close Job Opening
+bind Post Job Opening: Job ID
+bind Review Applications: Job ID, Application Status
+bind Conduct Initial Screening: Job ID, Candidate Name
+bind Schedule Interview: Job ID, Interview Date
+bind Conduct Interview: Job ID, Interview Date, Candidate Name
+bind Evaluate Candidates: Job ID, Candidate Score, Interview Result
+bind Make Offer: Job ID, Offer Status
+bind Onboard Employee: Employee ID, Onboarding Date
+bind Close Job Opening: Job ID, Closing Date
+Job ID: integer between 1 and 9999
+Candidate Name: John Doe, Jane Smith, Alice Johnson
+Application Status: Received, Reviewed, Shortlisted, Rejected
+Candidate Score: float between 0 and 10
+Interview Date: 2023-07-01, 2023-07-02, 2023-07-03
+Offer Status: Accepted, Rejected, Pending
+Employee ID: integer between 1 and 99999
+Onboarding Date: 2023-08-01, 2023-08-02, 2023-08-03
+Closing Date: 2023-09-01, 2023-09-02, 2023-09-03
+Interview Result: Pass, Fail, Hold
+Init[Post Job Opening] | |
+End[Close Job Opening] | |
+Precedence[Review Applications, Post Job Opening] | | |
+Precedence[Conduct Initial Screening, Review Applications] | | |0,2,d
+Response[Schedule Interview, Conduct Initial Screening] | | |
+Chain Succession[Conduct Interview, Schedule Interview] | | |0,1,d
+Response[Evaluate Candidates, Conduct Interview] | | |
+Response[Make Offer, Evaluate Candidates] | | |
+Chain Response[Onboard Employee, Make Offer] | | |0,5,d
+Alternate Response[Close Job Opening, Onboard Employee] | | |0,2,d

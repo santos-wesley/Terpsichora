@@ -1,0 +1,53 @@
+activity Identify Risks
+activity Assess Risk Probability
+activity Assess Risk Impact
+activity Document Risks
+activity Prioritize Risks
+activity Develop Risk Response Plans
+activity Assign Risk Owners
+activity Monitor Risks
+activity Review Risk Plans
+activity Communicate Risks
+activity Implement Risk Responses
+activity Review Risk Responses
+activity Log Risk Events
+activity Close Risk
+activity Archive Risk Information
+bind Identify Risks: Risk ID, Risk Status
+bind Assess Risk Probability: Risk ID, Risk Probability
+bind Assess Risk Impact: Risk ID, Risk Impact
+bind Document Risks: Risk ID, Risk Status, Risk Probability, Risk Impact
+bind Prioritize Risks: Risk ID, Risk Score
+bind Develop Risk Response Plans: Risk ID, Plan ID
+bind Assign Risk Owners: Risk ID, Owner ID
+bind Monitor Risks: Risk ID, Risk Status
+bind Review Risk Plans: Plan ID, Review Frequency
+bind Communicate Risks: Risk ID, Risk Status
+bind Implement Risk Responses: Plan ID, Risk ID
+bind Review Risk Responses: Plan ID, Risk ID
+bind Log Risk Events: Event ID, Risk ID
+bind Close Risk: Risk ID, Risk Status
+bind Archive Risk Information: Risk ID
+Risk ID: integer between 1 and 99999
+Owner ID: integer between 1 and 9999
+Risk Status: Identified, Assessed, Prioritized, Mitigated, Closed
+Risk Probability: Low, Medium, High
+Risk Impact: Minor, Moderate, Severe
+Risk Score: float between 0.0 and 1.0
+Plan ID: integer between 1 and 99999
+Review Frequency: Monthly, Quarterly, Yearly
+Event ID: integer between 1 and 99999
+Init[Identify Risks] | |
+Precedence[Identify Risks, Assess Risk Probability] | | |0,48,h
+Precedence[Assess Risk Probability, Assess Risk Impact] | | |0,48,h
+Existence[Document Risks] | |
+Precedence[Document Risks, Prioritize Risks] | | |
+Precedence[Prioritize Risks, Develop Risk Response Plans] | | |
+Precedence[Develop Risk Response Plans, Assign Risk Owners] | | |
+Chain Response[Assign Risk Owners, Implement Risk Responses] | | |
+Response[Implement Risk Responses, Monitor Risks] | | |
+Precedence[Implement Risk Responses, Review Risk Responses] | | |0,7,d
+Precedence[Review Risk Responses, Close Risk] | | |
+Response[Close Risk, Archive Risk Information] | | |
+End[Archive Risk Information] | |
+Existence[Close Risk] | |

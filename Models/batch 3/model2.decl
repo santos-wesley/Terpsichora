@@ -1,0 +1,54 @@
+activity Submit Application
+activity Review Application
+activity Approve Application
+activity Reject Application
+activity Issue Credits
+activity Submit Emission Report
+activity Review Emission Report
+activity Verify Emission Report
+activity Approve Emission Report
+activity Reject Emission Report
+activity Sell Credits
+activity Buy Credits
+activity Transfer Credits
+activity Revoke Credits
+activity Generate Certificate
+bind Submit Application: Application ID, Application Status
+bind Review Application: Application ID, Application Status
+bind Approve Application: Participant ID, Application Status
+bind Reject Application: Application ID, Application Status
+bind Issue Credits: Participant ID, Credits Issued
+bind Submit Emission Report: Participant ID, Emission Amount, Emission Report Status
+bind Review Emission Report: Participant ID, Emission Report Status
+bind Approve Emission Report: Participant ID, Emission Report Status
+bind Reject Emission Report: Participant ID, Emission Report Status
+bind Sell Credits: Credits Sold, Participant ID
+bind Buy Credits: Credits Bought, Participant ID
+bind Transfer Credits: Credits Transferred, Participant ID
+bind Revoke Credits: Credits Revoked, Participant ID
+bind Generate Certificate: Participant ID
+Application ID: integer between 1 and 999999
+Participant ID: integer between 1 and 999999
+Application Status: Submitted, Reviewed, Approved, Rejected
+Emission Amount: float between 0.1 and 10000.0
+Emission Report Status: Submitted, Reviewed, Verified, Approved, Rejected
+Credits Issued: integer between 1 and 1000000
+Credits Sold: integer between 1 and 1000000
+Credits Bought: integer between 1 and 1000000
+Credits Transferred: integer between 1 and 1000000
+Credits Revoked: integer between 1 and 1000000
+Init[Submit Application] | |
+Response[Submit Application, Review Application] | | |
+Chain Succession[Review Application, Approve Application] | | |
+Chain Succession[Review Application, Reject Application] | | |
+Response[Approve Application, Issue Credits] | | |
+Response[Submit Emission Report, Review Emission Report] | | |
+Chain Succession[Review Emission Report, Verify Emission Report] | | |
+Chain Response[Verify Emission Report, Approve Emission Report] | | |
+Chain Response[Verify Emission Report, Reject Emission Report] | | |
+Response[Issue Credits, Sell Credits] | | |
+Existence[Submit Emission Report] | |
+Not Succession[Buy Credits, Sell Credits] | | |
+Succession[Buy Credits, Transfer Credits] | | |
+End[Generate Certificate] | |
+Chain Response[Issue Credits, Revoke Credits] | | |0,2,d

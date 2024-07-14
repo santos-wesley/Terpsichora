@@ -1,0 +1,49 @@
+activity Monitor Energy Usage
+activity Analyze Energy Data
+activity Predict Energy Demand
+activity Optimize Energy Distribution
+activity Manage Energy Storage
+activity Control Renewable Sources
+activity Balance Grid Load
+activity Maintain Grid Infrastructure
+activity Detect Anomalies
+activity Send Alerts
+activity Generate Reports
+activity Implement Demand Response
+activity Upgrade Grid Technology
+activity Conduct Energy Audit
+activity Resolve Grid Issues
+bind Monitor Energy Usage: Device ID, Home ID, Energy Consumption
+bind Analyze Energy Data: Energy Source, Energy Consumption
+bind Optimize Energy Distribution: Energy Cost, Home ID
+bind Manage Energy Storage: Storage Capacity, Device ID
+bind Detect Anomalies: Alert Level, Home ID
+bind Send Alerts: Alert Level, Home ID
+bind Generate Reports: Device ID, Report Type
+bind Conduct Energy Audit: Energy Cost, Energy Source
+bind Resolve Grid Issues: Issue Type, Response Time
+Device ID: integer between 1 and 99999
+Home ID: integer between 1 and 99999
+Energy Source: Solar, Wind, Hydro, Nuclear
+Energy Consumption: float between 0.1 and 10000.0
+Energy Cost: float between 0.01 and 1000.0
+Alert Level: integer between 1 and 5
+Report Type: Daily, Weekly, Monthly
+Issue Type: Overload, Outage, Maintenance
+Response Time: integer between 1 and 1440
+Storage Capacity: float between 0.1 and 100000.0
+Init[Monitor Energy Usage] | |
+End[Resolve Grid Issues] | |
+Precedence[Analyze Energy Data, Predict Energy Demand] | | |
+Chain Succession[Detect Anomalies, Send Alerts] | | |
+Alternate Response[Monitor Energy Usage, Generate Reports] | | |
+Existence[Optimize Energy Distribution] | |
+Absence2[Upgrade Grid Technology] | |
+Chain Response[Maintain Grid Infrastructure, Upgrade Grid Technology] | | |
+Choice[Analyze Energy Data, Conduct Energy Audit] | | |
+Not Succession[Monitor Energy Usage, Resolve Grid Issues] | | |
+Chain Succession[Generate Reports, Implement Demand Response] | | |0,2,d
+Alternate Response[Balance Grid Load, Detect Anomalies] | | |0,24,h
+Precedence[Control Renewable Sources, Manage Energy Storage] | | |0,48,h
+Responded Existence[Send Alerts, Resolve Grid Issues] | | |0,24,h
+Chain Response[Predict Energy Demand, Optimize Energy Distribution] | | |0,24,h

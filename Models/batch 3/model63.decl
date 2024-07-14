@@ -1,0 +1,50 @@
+activity Receive Alert
+activity Assess Situation
+activity Deploy Units
+activity Evacuate Area
+activity Provide Medical Care
+activity Rescue Individuals
+activity Secure Area
+activity Coordinate with Authorities
+activity Provide Shelter
+activity Distribute Supplies
+activity Restore Utilities
+activity Assess Damage
+activity Conduct Debriefing
+activity Document Response
+activity Review and Improve
+bind Receive Alert: Alert ID, Emergency Type
+bind Deploy Units: Unit ID
+bind Evacuate Area: Individual ID
+bind Provide Medical Care: Individual ID, Medical Condition
+bind Provide Shelter: Shelter ID, Individual ID
+bind Distribute Supplies: Supply Type
+bind Restore Utilities: Utility Type
+bind Assess Damage: Alert ID, Damage Estimate
+bind Coordinate with Authorities: Authority ID
+bind Rescue Individuals: Individual ID
+Alert ID: integer between 1 and 999999
+Unit ID: integer between 1 and 9999
+Damage Estimate: float between 1000.0 and 1000000.0
+Emergency Type: Fire, Flood, Earthquake, Tornado
+Individual ID: integer between 1 and 999999
+Medical Condition: Minor, Major, Critical
+Shelter ID: integer between 1 and 9999
+Supply Type: Food, Water, Medical Supplies
+Authority ID: integer between 1 and 9999
+Utility Type: Electricity, Water, Gas
+Init[Receive Alert] | |
+Existence[Assess Situation] | |
+Precedence[Deploy Units, Assess Situation] | | |
+Response[Deploy Units, Evacuate Area] | | |
+Chain Response[Evacuate Area, Provide Medical Care] | | |0,2,h
+Precedence[Secure Area, Provide Medical Care] | | |
+Precedence[Secure Area, Coordinate with Authorities] | | |
+Chain Succession[Provide Shelter, Distribute Supplies] | | |
+Precedence[Restore Utilities, Assess Damage] | | |
+Existence[Conduct Debriefing] | |
+Chain Precedence[Document Response, Conduct Debriefing] | | |
+Succession[Document Response, Review and Improve] | | |
+End[Review and Improve] | |
+Absence10[Rescue Individuals] | |
+Chain Succession[Document Response, Review and Improve] | | |0,5,h

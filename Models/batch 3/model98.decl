@@ -1,0 +1,55 @@
+activity Reserving Workspace
+activity Check-In Workspace
+activity Check-Out Workspace
+activity Maintenance Request
+activity Approve Maintenance
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Feedback on Maintenance
+activity Register New Member
+activity Activate Membership
+activity Renew Membership
+activity Cancel Membership
+activity Record Payment
+activity Initiate Booking Payment
+activity Generate Invoice
+bind Reserving Workspace: Member ID, Workspace Type, Booking ID
+bind Check-In Workspace: Member ID, Booking ID
+bind Check-Out Workspace: Member ID, Booking ID
+bind Maintenance Request: Booking ID, Maintenance Type, Maintenance ID
+bind Approve Maintenance: Maintenance ID
+bind Schedule Maintenance: Maintenance ID, Maintenance Type
+bind Perform Maintenance: Maintenance ID
+bind Feedback on Maintenance: Maintenance ID, Feedback Rating
+bind Register New Member: Member ID
+bind Activate Membership: Member ID
+bind Renew Membership: Member ID
+bind Cancel Membership: Member ID
+bind Record Payment: Member ID, Payment Amount, Payment Method
+bind Initiate Booking Payment: Booking ID, Payment Amount, Payment Method
+bind Generate Invoice: Booking ID, Invoice Status, Payment Amount
+Member ID: integer between 1 and 999999
+Payment Amount: float between 0.01 and 10000.0
+Workspace Type: Private Office, Dedicated Desk, Hot Desk
+Payment Method: Credit Card, Debit Card, PayPal, Bank Transfer
+Maintenance Type: Electricity, Plumbing, Cleaning, Furniture Repair
+Feedback Rating: Poor, Average, Good, Excellent
+Booking ID: integer between 1 and 999999
+Membership Status: Active, Inactive
+Invoice Status: Paid, Unpaid
+Maintenance ID: integer between 1 and 99999
+Init[Register New Member] | |
+Existence[Reserving Workspace] | |
+Absence3[Feedback on Maintenance] | |
+Precedence[Check-In Workspace, Reserving Workspace] | | |
+Chain Succession[Check-In Workspace, Check-Out Workspace] | | |
+Precedence[Initiate Booking Payment, Reserving Workspace] | | |0,10,m
+Chain Response[Initiate Booking Payment, Generate Invoice] | | |0,5,m
+Precedence[Renew Membership, Activate Membership] | | |
+Response[Cancel Membership, Record Payment] | | |0,7,d
+Response[Schedule Maintenance, Approve Maintenance] | | |0,1,d
+Precedence[Perform Maintenance, Schedule Maintenance] | | |
+Response[Perform Maintenance, Feedback on Maintenance] | | |
+Choice[Activate Membership, Cancel Membership] | | |
+Not Co-Existence[Approve Maintenance, Feedback on Maintenance] | | |
+End[Record Payment] | |

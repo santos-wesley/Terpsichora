@@ -1,0 +1,51 @@
+activity Receive Alert
+activity Dispatch Team
+activity Assess Situation
+activity Set Up Command Center
+activity Search for Survivors
+activity Provide Medical Aid
+activity Evacuate Injured
+activity Communicate with Hospital
+activity Transport to Hospital
+activity Debrief Team
+activity Document Incident
+activity Refuel Vehicles
+activity Conduct Equipment Check
+activity Analyze Operation
+activity Archive Operation Details
+bind Receive Alert: Incident ID, Alert Type
+bind Dispatch Team: Incident ID, Team ID
+bind Assess Situation: Incident ID
+bind Search for Survivors: Incident ID, Survivor Count
+bind Provide Medical Aid: Incident ID, Medical Aid Provided
+bind Communicate with Hospital: Incident ID, Hospital Notified
+bind Transport to Hospital: Incident ID, Distance to Hospital
+bind Conduct Equipment Check: Incident ID, Equipment Status
+bind Refuel Vehicles: Incident ID, Vehicle Status
+bind Analyze Operation: Incident ID, Analysis Score
+Incident ID: integer between 1 and 10000
+Alert Type: Fire, Accident, Natural Disaster, Other
+Team ID: integer between 1 and 100
+Medical Aid Provided: First Aid, Advanced Life Support, None
+Survivor Count: integer between 0 and 100
+Hospital Notified: Yes, No
+Distance to Hospital: float between 0 and 500
+Equipment Status: Operational, Damaged, Lost
+Vehicle Status: Operational, Refuel Needed, Maintenance Needed
+Analysis Score: integer between 0 and 10
+Init[Receive Alert] | |
+Exactly[Analyze Operation] | |
+Absence2[Assess Situation] | |
+Existence[Refuel Vehicles] | |
+End[Archive Operation Details] | |
+Response[Receive Alert, Dispatch Team] | | |
+Precedence[Search for Survivors, Assess Situation] | | |0,2,h
+Chain Succession[Search for Survivors, Provide Medical Aid] | | |
+Chain Response[Provide Medical Aid, Communicate with Hospital] | | |0,30,m
+Chain Succession[Communicate with Hospital, Transport to Hospital] | | |0,1,h
+Response[Transport to Hospital, Debrief Team] | | |
+Alternate Response[Refuel Vehicles, Conduct Equipment Check] | | |
+Not Co-Existence[Communicate with Hospital, Transport to Hospital] | | |
+Precedence[Archive Operation Details, Debrief Team] | | |
+Chain Succession[Debrief Team, Document Incident] | | |0,2,d
+Precedence[Conduct Equipment Check, Analyze Operation] | | |

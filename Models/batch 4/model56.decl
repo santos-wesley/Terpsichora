@@ -1,0 +1,38 @@
+activity Identify Potential Threat
+activity Assess Threat Level
+activity Alert Security Team
+activity Initiate Security Protocol
+activity Perform Background Check
+activity Secure Sensitive Data
+activity Conduct Security Drill
+activity Review Security Measures
+activity Upgrade Security Systems
+activity Report Incident
+bind Identify Potential Threat: Threat ID, Threat Level
+bind Assess Threat Level: Threat ID, Impact Assessment Score
+bind Alert Security Team: Security Team ID, Threat Level
+bind Perform Background Check: Background Check ID, Threat ID
+bind Secure Sensitive Data: Data Sensitivity Level
+bind Conduct Security Drill: Drill Type
+bind Report Incident: Incident ID
+bind Upgrade Security Systems: Upgrade Type
+Threat ID: integer between 1 and 99999
+Security Team ID: integer between 1 and 9999
+Threat Level: Low, Medium, High
+Response Type: Immediate, Delayed, None
+Background Check ID: integer between 1 and 99999
+Data Sensitivity Level: Public, Restricted, Confidential, Secret
+Drill Type: Fire, Intrusion, Natural Disaster
+Incident ID: integer between 1 and 99999
+Upgrade Type: Software, Hardware, Personnel Training
+Impact Assessment Score: float between 0.0 and 10.0
+Init[Identify Potential Threat] | |
+End[Report Incident] | |
+Precedence[Alert Security Team, Assess Threat Level] | | |
+Chain Response[Alert Security Team, Initiate Security Protocol] | | |0,10,m
+Precedence[Initiate Security Protocol, Perform Background Check] | | |
+Alternate Succession[Identify Potential Threat, Assess Threat Level] | | |
+Not Responded Existence[Identify Potential Threat, Perform Background Check] | | |
+Existence[Conduct Security Drill] | |
+Absence[Assess Threat Level] |A.Impact Assessment Score > 10 |
+Chain Succession[Secure Sensitive Data, Upgrade Security Systems] | | |0,40,d

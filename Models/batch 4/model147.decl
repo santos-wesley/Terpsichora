@@ -1,0 +1,47 @@
+activity Log Service Request
+activity Assign Technician
+activity Perform Initial Diagnosis
+activity Order Replacement Parts
+activity Perform Repair
+activity Test Repaired System
+activity Log Test Results
+activity Inform Customer
+activity Close Service Request
+activity Review Service Request
+activity Archive Service Request
+bind Log Service Request: Request ID, Service Type, Request Priority
+bind Assign Technician: Request ID, Technician ID
+bind Perform Initial Diagnosis: Request ID, Diagnosis Status
+bind Order Replacement Parts: Request ID, Replacement Part Status, Cost Estimate
+bind Perform Repair: Request ID, Repair Status
+bind Test Repaired System: Request ID, Test Status
+bind Log Test Results: Request ID, Test Status
+bind Inform Customer: Request ID, Repair Status
+bind Close Service Request: Request ID
+bind Review Service Request: Request ID, Review Status
+bind Archive Service Request: Request ID
+Request ID: integer between 1 and 999999
+Technician ID: integer between 1 and 9999
+Cost Estimate: float between 0.0 and 10000.0
+Service Type: Repair, Maintenance, Upgrade
+Request Priority: Low, Medium, High
+Replacement Part Status: Ordered, Received, Not Required
+Diagnosis Status: Pending, Completed
+Repair Status: In Progress, Completed, Failed
+Test Status: Passed, Failed
+Review Status: Approved, Rejected
+Init[Log Service Request] | |
+Precedence[Log Service Request, Assign Technician] | | |
+Precedence[Assign Technician, Perform Initial Diagnosis] | | |
+Precedence[Perform Initial Diagnosis, Perform Repair] | | |
+Chain Succession[Perform Repair, Test Repaired System] | | |0,1,h
+End[Close Service Request] | |
+Precedence[Close Service Request, Review Service Request] | | |0,24,h
+Succession[Inform Customer, Close Service Request] | | |
+Succession[Review Service Request, Archive Service Request] | | |
+Precedence[Test Repaired System, Inform Customer] | | |0,48,h
+Existence[Perform Initial Diagnosis] | |
+Absence3[Order Replacement Parts] | |
+Co-Existence[Review Service Request, Close Service Request] | | |
+Response[Test Repaired System, Perform Repair] |A.Test Status is Failed | |
+Precedence[Perform Initial Diagnosis, Order Replacement Parts] | | |0,3,h

@@ -1,0 +1,40 @@
+activity Register Account
+activity Enroll Course
+activity Start Course
+activity Complete Lesson
+activity Submit Assignment
+activity Take Quiz
+activity Discuss in Forum
+activity Receive Grade
+activity Finish Course
+activity Download Certificate
+bind Register Account: Student ID
+bind Enroll Course: Student ID, Course Name
+bind Start Course: Student ID, Course Name, Course Duration
+bind Complete Lesson: Student ID, Lesson Topic, Assignment ID
+bind Submit Assignment: Student ID, Assignment ID
+bind Take Quiz: Student ID, Quiz ID, Lesson Topic
+bind Discuss in Forum: Student ID, Forum Topic
+bind Receive Grade: Student ID, Assignment ID, Quiz ID, Grade, Quiz Score
+bind Finish Course: Student ID, Course Name, Course Duration
+bind Download Certificate: Student ID, Certificate Type
+Student ID: integer between 1 and 999999
+Course Name: Math 101, Science 202, History 303
+Lesson Topic: Algebra, Biology, Ancient Rome
+Assignment ID: integer between 1 and 9999
+Quiz Score: float between 0.0 and 100.0
+Quiz ID: integer between 1 and 9999
+Grade: A, B, C, D, F
+Forum Topic: Homework Help, Exam Tips, General Discussion
+Certificate Type: Completion, Excellence
+Course Duration: float between 1.0 and 200.0
+Init[Register Account] | |
+Precedence[Start Course, Enroll Course] | | |
+Response[Complete Lesson, Submit Assignment] | | |
+Chain Response[Complete Lesson, Take Quiz] | | |
+Existence[Discuss in Forum] | |
+Response[Take Quiz, Receive Grade] | | |0,1,d
+End[Finish Course] | |
+Chain Response[Finish Course, Download Certificate] | | |
+Not Precedence[Discuss in Forum, Enroll Course] | | |
+Response[Start Course, Complete Lesson] | | |0,10,h

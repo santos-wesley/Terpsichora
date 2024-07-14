@@ -1,0 +1,36 @@
+activity Plan Trip
+activity Book Flight
+activity Confirm Booking
+activity Check Travel Documents
+activity Pack Luggage
+activity Arrive Airport
+activity Pass Security Check
+activity Board Flight
+activity Reach Destination
+activity Clear Customs
+bind Plan Trip: Destination, Accommodations Confirmed
+bind Book Flight: Flight Number, Destination
+bind Pack Luggage: Luggage Weight, Packing Status
+bind Arrive Airport: Time to Departure, Boarding Gate
+bind Check Travel Documents: Travel Document Status
+bind Pass Security Check: Security Clearance
+bind Clear Customs: Customs Status
+Flight Number: integer between 1 and 99999
+Destination: New York, Paris, Tokyo, Sydney, Cairo
+Travel Document Status: Valid, Expired, Missing
+Luggage Weight: integer between 1 and 50
+Security Clearance: Cleared, Flagged
+Time to Departure: float between 1.0 and 24.0
+Customs Status: Cleared, Not Cleared
+Accommodations Confirmed: Confirmed, Not Confirmed
+Boarding Gate: integer between 1 and 100
+Packing Status: Completed, Pending
+Init[Plan Trip] | |
+End[Clear Customs] | |
+Exactly[Check Travel Documents] | |
+Response[Book Flight, Confirm Booking] | | |
+Precedence[Arrive Airport, Pack Luggage] | | |
+Chain Response[Pass Security Check, Board Flight] | | |0,30,m
+Precedence[Arrive Airport, Pack Luggage] | | |0,24,h
+Response[Pack Luggage, Board Flight] | | |
+Chain Response[Reach Destination, Clear Customs] | | |0,1,h

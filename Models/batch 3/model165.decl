@@ -1,0 +1,40 @@
+activity Install Endpoint Protection
+activity Update Virus Definitions
+activity Perform Full Scan
+activity Handle Detected Threats
+activity Generate Scan Report
+activity Quarantine Threats
+activity Remove Threats
+activity Update Software
+activity Backup Data
+activity Restore Data
+bind Install Endpoint Protection: Device ID, Protection Status
+bind Update Virus Definitions: Device ID, Update Type
+bind Perform Full Scan: Scan ID, Scan Duration, Scan Result
+bind Handle Detected Threats: Threat ID, Threat Type
+bind Generate Scan Report: Scan ID, Scan Result
+bind Quarantine Threats: Threat ID
+bind Remove Threats: Threat ID
+bind Update Software: Device ID, Update Type
+bind Backup Data: Backup ID, Device ID
+bind Restore Data: Restore ID, Device ID, Backup ID
+Threat ID: integer between 1 and 1000000
+Threat Type: Virus, Malware, Spyware
+Scan ID: integer between 1 and 100000
+Protection Status: Active, Inactive
+Scan Result: Clean, Infected
+Scan Duration: float between 0.1 and 1440.0
+Device ID: integer between 1 and 100000
+Update Type: Definitions, Software
+Backup ID: integer between 1 and 100000
+Restore ID: integer between 1 and 100000
+Init[Install Endpoint Protection] | |
+Precedence[Update Virus Definitions, Perform Full Scan] | | |0,24,h
+Chain Succession[Perform Full Scan, Handle Detected Threats] | | |0,30,m
+Chain Succession[Handle Detected Threats, Quarantine Threats] | | |0,60,m
+Chain Succession[Quarantine Threats, Remove Threats] | | |0,24,h
+Chain Response[Generate Scan Report, Backup Data] | | |0,2,h
+Alternate Response[Backup Data, Restore Data] | | |0,48,h
+Exactly2[Perform Full Scan] | |
+End[Restore Data] | |
+Not Co-Existence[Remove Threats, Update Software] | | |

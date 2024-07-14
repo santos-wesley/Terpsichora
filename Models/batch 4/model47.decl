@@ -1,0 +1,35 @@
+activity Identify Talent
+activity Screen Candidate
+activity Interview Candidate
+activity Offer Job
+activity Onboard Talent
+activity Evaluate Performance
+activity Promote Talent
+activity Identify Training Needs
+activity Conduct Training
+activity Exit Process
+bind Identify Talent: Candidate ID
+bind Interview Candidate: Candidate ID, Interview Status, Interview Rating
+bind Offer Job: Job Offer ID, Job Offer Status, Candidate ID
+bind Evaluate Performance: Candidate ID, Performance Score
+bind Identify Training Needs: Candidate ID
+bind Conduct Training: Candidate ID, Training Type
+bind Exit Process: Candidate ID, Exit Reason
+Candidate ID: integer between 1 and 999999
+Interview Status: Scheduled, Completed, Cancelled
+Performance Score: float between 0.0 and 10.0
+Job Offer ID: integer between 1 and 999999
+Job Offer Status: Accepted, Rejected, Pending
+Training Type: Technical, Managerial, Soft Skills
+Exit Reason: Resigned, Terminated, Retired
+Interview Rating: float between 0.0 and 10.0
+Init[Identify Talent] | |
+Precedence[Identify Talent, Screen Candidate] | | |
+Exactly[Offer Job] | |
+Response[Screen Candidate, Interview Candidate] | | |
+Chain Succession[Onboard Talent, Evaluate Performance] | | |0,48,h
+Chain Response[Identify Training Needs, Conduct Training] | | |0,2,d
+Precedence[Offer Job, Exit Process] |A.Job Offer Status == 'Rejected' | |0,24,h
+Precedence[Promote Talent, Evaluate Performance] | | |
+End[Exit Process] | |
+Existence2[Evaluate Performance] | |

@@ -1,0 +1,38 @@
+activity Collect Samples
+activity Record Observations
+activity Analyze Samples
+activity Log Data
+activity Review Data
+activity Report Findings
+activity Schedule Dive
+activity Conduct Dive
+activity Maintain Equipment
+activity Publish Research
+bind Collect Samples: Sample ID, Site Location
+bind Record Observations: Observation ID, Marine Species
+bind Analyze Samples: Sample ID, Water Temperature, Salinity Level, Oxygen Level
+bind Log Data: Sample ID, Observation ID
+bind Report Findings: Report ID, Oxygen Level, Site Location
+bind Schedule Dive: Diver Name, Site Location
+bind Conduct Dive: Diver Name, Equipment Status
+bind Maintain Equipment: Equipment Status
+Sample ID: integer between 1 and 100000
+Water Temperature: float between -2.0 and 30.0
+Diver Name: Dr. Smith, Prof. Brown, Ms. Taylor
+Marine Species: Coral, Fish, Crustacean
+Observation ID: integer between 1 and 50000
+Salinity Level: float between 0.0 and 40.0
+Equipment Status: Operational, In Repair, Needs Replacement
+Site Location: Barrier Reef, Kelp Forest, Open Ocean
+Report ID: integer between 1 and 500000
+Oxygen Level: float between 0.0 and 10.0
+Init[Collect Samples] | |
+Chain Response[Collect Samples, Record Observations] | | |
+Response[Record Observations, Analyze Samples] | | |
+Existence[Maintain Equipment] | |
+Precedence[Log Data, Analyze Samples] | | |0,48,h
+Response[Log Data, Review Data] | | |
+Chain Succession[Schedule Dive, Conduct Dive] | |A.Diver Name == T.Diver Name |
+Alternate Precedence[Review Data, Report Findings] | | |
+Precedence[Report Findings, Analyze Samples] | | |
+End[Publish Research] | |

@@ -1,0 +1,40 @@
+activity Enroll Course
+activity Complete Online Module
+activity Attend Classroom Session
+activity Participate Discussion
+activity Submit Assignment
+activity Receive Feedback
+activity Complete Evaluation
+activity Record Grades
+activity Issue Certificate
+activity Close Course
+bind Enroll Course: Course ID, Student ID
+bind Complete Online Module: Course ID, Student ID, Module ID
+bind Attend Classroom Session: Course ID, Student ID, Classroom Type
+bind Participate Discussion: Course ID, Student ID, Discussion Type
+bind Submit Assignment: Course ID, Student ID, Assignment ID
+bind Receive Feedback: Course ID, Student ID, Assignment ID, Feedback ID
+bind Complete Evaluation: Course ID, Student ID, Evaluation Score
+bind Record Grades: Course ID, Student ID, Final Grade
+bind Issue Certificate: Course ID, Student ID, Certificate Type
+bind Close Course: Course ID
+Course ID: integer between 1 and 9999
+Student ID: integer between 1 and 999999
+Module ID: integer between 1 and 999
+Assignment ID: integer between 1 and 9999
+Discussion Type: Online, Offline
+Classroom Type: Theory, Practical
+Evaluation Score: float between 0.0 and 100.0
+Feedback ID: integer between 1 and 99999
+Certificate Type: Participation, Excellence
+Final Grade: float between 0.0 and 100.0
+Init[Enroll Course] | |
+End[Close Course] | |
+Precedence[Enroll Course, Attend Classroom Session] | | |
+Chain Response[Submit Assignment, Receive Feedback] | | |
+Chain Succession[Complete Evaluation, Record Grades] | | |
+Alternate Succession[Participate Discussion, Submit Assignment] | | |
+Response[Record Grades, Issue Certificate] | | |
+Precedence[Attend Classroom Session, Complete Evaluation] | | |0,7,d
+Chain Response[Issue Certificate, Close Course] | | |0,48,h
+Existence[Complete Online Module] | |

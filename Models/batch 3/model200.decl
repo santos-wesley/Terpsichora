@@ -1,0 +1,32 @@
+activity Identify Threat
+activity Collect Data
+activity Analyze Data
+activity Report Threat
+activity Mitigate Threat
+activity Monitor Systems
+activity Update Threat Intelligence
+activity Conduct Training
+activity Perform Incident Response
+bind Identify Threat: Threat ID, Threat Type
+bind Collect Data: Threat ID, Data Source ID
+bind Analyze Data: Threat ID, Analysis Result
+bind Report Threat: Threat ID, Report ID
+bind Mitigate Threat: Threat ID, Mitigation Success Rate
+bind Monitor Systems: Threat ID, Monitoring Status
+bind Update Threat Intelligence: Update ID, Threat ID
+Threat ID: integer between 1 and 999999
+Threat Type: Phishing, Malware, DDoS, Ransomware
+Data Source ID: integer between 1 and 9999
+Analysis Result: Confirmed, False Positive, Inconclusive
+Report ID: integer between 1 and 999999
+Mitigation Success Rate: float between 0.0 and 100.0
+Monitoring Status: Ongoing, Completed
+Update ID: integer between 1 and 999999
+Init[Identify Threat] | |
+Chain Response[Identify Threat, Collect Data] | | |0,10,m
+Chain Response[Collect Data, Analyze Data] | | |0,30,m
+Chain Response[Analyze Data, Report Threat] |A.Analysis Result is Confirmed | |0,1,h
+Chain Response[Report Threat, Mitigate Threat] | | |0,2,h
+Chain Response[Mitigate Threat, Monitor Systems] | | |
+End[Monitor Systems] | |
+Chain Response[Mitigate Threat, Update Threat Intelligence] |A.Mitigation Success Rate > 90.0 | |

@@ -1,0 +1,40 @@
+activity Generate Alert
+activity Correlate Events
+activity Analyze Threat
+activity Investigate Incident
+activity Mitigate Threat
+activity Update Incident Status
+activity Generate Report
+activity Review Report
+activity Escalate Incident
+activity Close Incident
+bind Generate Alert: Alert ID, Alert Type
+bind Correlate Events: Event ID
+bind Analyze Threat: Threat Score
+bind Investigate Incident: Incident ID
+bind Mitigate Threat: Mitigation Time
+bind Update Incident Status: Incident Status
+bind Generate Report: Report Type
+bind Review Report: Review ID
+bind Escalate Incident: Escalation Level
+bind Close Incident: Incident ID
+Alert ID: integer between 1 and 999999
+Alert Type: Suspicious Login, Malware Detected, Unauthorized Access
+Event ID: integer between 1 and 999999
+Threat Score: float between 0.0 and 10.0
+Incident ID: integer between 1 and 999999
+Incident Status: Open, In Progress, Closed
+Mitigation Time: float between 0.0 and 24.0
+Report Type: Daily, Weekly, Monthly
+Review ID: integer between 1 and 9999
+Escalation Level: integer between 1 and 5
+Init[Generate Alert] | |
+Precedence[Correlate Events, Generate Alert] | | |
+Response[Analyze Threat, Correlate Events] | | |
+Chain Response[Analyze Threat, Investigate Incident] | | |
+Succession[Investigate Incident, Mitigate Threat] | | |
+Existence[Update Incident Status] | |
+Responded Existence[Generate Report, Review Report] | | |
+Precedence[Close Incident, Escalate Incident] | | |0,24,h
+Response[Review Report, Generate Report] | | |
+End[Close Incident] | |

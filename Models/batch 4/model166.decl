@@ -1,0 +1,50 @@
+activity Develop Campaign Strategy
+activity Conduct Survey
+activity Analyze Survey Results
+activity Design Campaign Materials
+activity Plan Campaign Events
+activity Train Campaign Staff
+activity Launch Social Media Campaign
+activity Monitor Social Media Engagement
+activity Coordinate Volunteer Efforts
+activity Execute Fundraising Events
+activity Update Campaign Strategy
+activity Conduct Debate Preparation
+activity Organize Voter Outreach
+activity Analyze Voter Data
+activity Report Campaign Progress
+bind Develop Campaign Strategy: Campaign Phase
+bind Conduct Survey: Voter Demographic, Survey Size
+bind Analyze Survey Results: Survey Size
+bind Design Campaign Materials: Material Type, Completion Date
+bind Plan Campaign Events: Event Date
+bind Monitor Social Media Engagement: Engagement Score
+bind Execute Fundraising Events: Fund Raised
+bind Coordinate Volunteer Efforts: Volunteer Count
+bind Conduct Debate Preparation: Debate Topic
+bind Report Campaign Progress: Completion Date
+Voter Demographic: Youth, Adults, Seniors
+Survey Size: integer between 50 and 10000
+Engagement Score: float between 0.0 and 100.0
+Event Date: 2023-10-01, 2023-10-05, 2023-10-10
+Material Type: Flyer, Poster, Digital
+Fund Raised: float between 0 and 100000
+Volunteer Count: integer between 1 and 1000
+Debate Topic: Economy, Healthcare, Education
+Campaign Phase: Initial, Mid, Final
+Completion Date: 2023-09-01, 2023-10-01, 2023-11-01
+Init[Develop Campaign Strategy] | |
+Response[Conduct Survey, Analyze Survey Results] | | |
+Precedence[Design Campaign Materials, Plan Campaign Events] | | |0,15,d
+Co-Existence[Conduct Survey, Analyze Survey Results] | | |
+Alternate Succession[Launch Social Media Campaign, Monitor Social Media Engagement] | | |
+Existence3[Plan Campaign Events] | |
+Chain Precedence[Execute Fundraising Events, Report Campaign Progress] | | |0,10,d
+Response[Develop Campaign Strategy, Update Campaign Strategy] | | |
+Succession[Update Campaign Strategy, Conduct Debate Preparation] | | |
+Precedence[Organize Voter Outreach, Conduct Survey] | | |
+Absence2[Execute Fundraising Events] | |
+Not Co-Existence[Train Campaign Staff, Coordinate Volunteer Efforts] | | |
+Alternate Response[Update Campaign Strategy, Report Campaign Progress] | | |0,7,d
+End[Report Campaign Progress] | |
+Chain Succession[Organize Voter Outreach, Analyze Voter Data] | | |

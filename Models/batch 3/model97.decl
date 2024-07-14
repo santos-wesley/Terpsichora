@@ -1,0 +1,49 @@
+activity Identify Needs
+activity Coordinate Response
+activity Deploy Volunteers
+activity Distribute Supplies
+activity Set Up Shelters
+activity Provide Medical Care
+activity Assess Damage
+activity Submit Report
+activity Document Activities
+activity Monitor Health
+activity Evaluate Response
+activity Restock Supplies
+activity Conduct Debriefing
+activity Engage with Media
+activity Close Operations
+bind Deploy Volunteers: Volunteer ID
+bind Distribute Supplies: Supply Weight
+bind Assess Damage: Damage Severity
+bind Setup Shelters: Shelter ID
+bind Monitor Health: Health Status
+bind Provide Medical Care: Medical Supplies Cost
+bind Submit Report: Report Type, Response Time
+bind Engage with Media: Media Type
+bind Restock Supplies: Restocking Cost
+Volunteer ID: integer between 1 and 9999
+Supply Weight: float between 0 and 1000
+Damage Severity: Low, Medium, High
+Shelter ID: integer between 1 and 999
+Health Status: Healthy, Injured, Critical
+Medical Supplies Cost: float between 0 and 10000
+Report Type: Initial, Progress, Final
+Response Time: float between 0 and 72
+Media Type: Print, Television, Online
+Restocking Cost: float between 0 and 5000
+Init[Identify Needs] | |
+Response[Identify Needs, Coordinate Response] | | |
+Chain Response[Coordinate Response, Deploy Volunteers] | | |
+Response[Deploy Volunteers, Distribute Supplies] | | |
+Existence[Set Up Shelters] | |
+Precedence[Set Up Shelters, Provide Medical Care] | | |
+Existence[Assess Damage] | |
+Absence3[Submit Report] | |
+Chain Succession[Provide Medical Care, Monitor Health] | | |0,48,h
+Existence[Evaluate Response] | |
+Response[Evaluate Response, Conduct Debriefing] | | |
+Alternate Response[Distribute Supplies, Restock Supplies] | | |
+End[Close Operations] | |
+Response[Monitor Health, Engage with Media] | | |
+Chain Succession[Document Activities, Submit Report] | | |0,24,h

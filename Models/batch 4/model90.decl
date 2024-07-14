@@ -1,0 +1,40 @@
+activity Log Complaint
+activity Process Complaint
+activity Offer Compensation
+activity Confirm Satisfaction
+activity Update Account
+activity Close Complaint
+activity Send Satisfaction Survey
+activity Receive Survey Feedback
+activity Analyze Feedback
+activity Implement Improvements
+bind Log Complaint: Complaint ID, Customer ID, Complaint Type
+bind Process Complaint: Complaint ID
+bind Offer Compensation: Complaint ID, Compensation Type, Compensation Amount
+bind Confirm Satisfaction: Complaint ID, Satisfaction Status
+bind Update Account: Customer ID, Account Status
+bind Close Complaint: Complaint ID
+bind Send Satisfaction Survey: Survey ID, Complaint ID
+bind Receive Survey Feedback: Survey ID, Feedback Score
+bind Analyze Feedback: Survey ID
+bind Implement Improvements: Improvement Area, Feedback Score
+Complaint ID: integer between 1 and 999999
+Complaint Type: Service Issue, Product Issue, Billing Issue
+Customer ID: integer between 1 and 999999
+Compensation Type: Refund, Discount, Gift Card
+Satisfaction Status: Satisfied, Not Satisfied
+Survey ID: integer between 1 and 999999
+Compensation Amount: float between 0.01 and 10000.0
+Account Status: Active, Inactive, Suspended
+Feedback Score: 1, 2, 3, 4, 5
+Improvement Area: Service, Product, Billing
+Init[Log Complaint] | |
+Precedence[Process Complaint, Log Complaint] | | |
+Chain Response[Process Complaint, Offer Compensation] | | |
+Response[Offer Compensation, Confirm Satisfaction] | | |0,24,h
+Chain Succession[Confirm Satisfaction, Update Account] | | |0,12,h
+Precedence[Close Complaint, Update Account] | | |0,2,d
+Chain Response[Close Complaint, Send Satisfaction Survey] | | |
+Chain Succession[Receive Survey Feedback, Analyze Feedback] | | |0,48,h
+Exactly[Log Complaint] | |
+End[Implement Improvements] | |

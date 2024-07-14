@@ -1,0 +1,54 @@
+activity Record Transaction
+activity Verify Transaction
+activity Post Transaction
+activity Reconcile Accounts
+activity Prepare Financial Statement
+activity Review Financial Statement
+activity Approve Financial Statement
+activity Process Payroll
+activity Disburse Salary
+activity Record Invoice
+activity Approve Invoice
+activity Process Invoice Payment
+activity Record Payment
+activity Process Tax Return
+activity File Tax Return
+bind Record Transaction: Transaction ID, Transaction Type, Transaction Amount, Account Type
+bind Verify Transaction: Transaction ID, Transaction Type
+bind Post Transaction: Transaction ID, Transaction Amount
+bind Reconcile Accounts: Transaction ID, Reconciliation Status
+bind Prepare Financial Statement: Transaction ID
+bind Review Financial Statement: Transaction ID
+bind Approve Financial Statement: Transaction ID
+bind Process Payroll: Employee ID, Salary Amount
+bind Disburse Salary: Employee ID, Salary Amount
+bind Record Invoice: Transaction ID, Invoice Status, Transaction Amount
+bind Approve Invoice: Transaction ID, Invoice Status
+bind Process Invoice Payment: Transaction ID, Transaction Amount
+bind Record Payment: Transaction ID, Invoice Status
+bind Process Tax Return: Transaction ID, Tax Return Status
+bind File Tax Return: Transaction ID, Tax Return Status
+Transaction ID: integer between 1 and 999999
+Transaction Type: Credit, Debit
+Employee ID: integer between 1 and 9999
+Transaction Amount: float between 0.01 and 1000000.0
+Account Type: Checking, Savings, Credit
+Invoice Status: Pending, Approved, Paid
+Salary Amount: float between 0.01 and 100000.0
+Reconciliation Status: Reconciled, Discrepancy
+Tax Return Status: Draft, Filed
+Init[Record Transaction] | |
+Precedence[Verify Transaction, Post Transaction] | | |
+Chain Precedence[Verify Transaction, Post Transaction] | | |0,2,d
+Alternate Response[Post Transaction, Reconcile Accounts] | | |0,24,h
+Response[Reconcile Accounts, Prepare Financial Statement] | | |
+Response[Prepare Financial Statement, Review Financial Statement] | | |
+Alternate Succession[Review Financial Statement, Approve Financial Statement] | | |
+Response[Record Transaction, Verify Transaction] | | |
+Existence[Approve Financial Statement] | |
+Responded Existence[Approve Invoice, Process Invoice Payment] | | |
+Alternate Precedence[Process Invoice Payment, Approve Invoice] | | |
+Chain Response[Process Invoice Payment, Record Payment] | | |
+Succession[Process Payroll, Disburse Salary] | | |
+Response[Process Tax Return, File Tax Return] | | |0,5,d
+End[File Tax Return] | |

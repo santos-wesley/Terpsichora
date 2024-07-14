@@ -1,0 +1,55 @@
+activity Initiate Financial Review
+activity Collect Financial Data
+activity Analyze Revenue
+activity Analyze Expenses
+activity Forecast Revenue
+activity Forecast Expenses
+activity Create Financial Report
+activity Review Financial Report
+activity Approve Financial Report
+activity Distribute Financial Report
+activity Conduct Variance Analysis
+activity Update Financial Plan
+activity Prepare Budget Proposal
+activity Submit Budget Proposal
+activity Approve Budget
+bind Initiate Financial Review: Fiscal Year
+bind Collect Financial Data: Fiscal Year, Department
+bind Analyze Revenue: Fiscal Year, Revenue Amount
+bind Analyze Expenses: Fiscal Year, Expense Amount
+bind Forecast Revenue: Fiscal Year, Forecast Growth Rate
+bind Forecast Expenses: Fiscal Year, Forecast Growth Rate
+bind Create Financial Report: Fiscal Year, Department
+bind Review Financial Report: Fiscal Year, Approval Status
+bind Approve Financial Report: Fiscal Year, Approval Status
+bind Distribute Financial Report: Fiscal Year, Stakeholder Group
+bind Conduct Variance Analysis: Fiscal Year, Variance Amount
+bind Update Financial Plan: Fiscal Year, Variance Amount
+bind Prepare Budget Proposal: Fiscal Year, Proposal Status
+bind Submit Budget Proposal: Fiscal Year, Proposal Status
+bind Approve Budget: Fiscal Year, Proposal Status
+Fiscal Year: integer between 2000 and 2100
+Department: Sales, Marketing, HR, IT, Finance
+Revenue Amount: float between 0 and 100000000
+Expense Amount: float between 0 and 100000000
+Approval Status: Pending, Approved, Rejected
+Review Cycle: integer between 1 and 12
+Variance Amount: float between -100000000 and 100000000
+Stakeholder Group: Executive, Management, Team, External
+Forecast Growth Rate: float between -100 and 100
+Proposal Status: Draft, Submitted, Approved, Rejected
+Init[Initiate Financial Review] | |
+Exactly[Review Financial Report] | |
+Precedence[Analyze Revenue, Collect Financial Data] | | |
+Precedence[Analyze Expenses, Collect Financial Data] | | |
+Response[Analyze Revenue, Forecast Revenue] | | |
+Response[Analyze Expenses, Forecast Expenses] | | |
+Chain Succession[Create Financial Report, Review Financial Report] | | |
+Precedence[Approve Financial Report, Review Financial Report] | | |
+Alternate Response[Approve Financial Report, Distribute Financial Report] | | |0,48,h
+Precedence[Conduct Variance Analysis, Distribute Financial Report] | | |0,24,h
+Existence[Update Financial Plan] | |
+Response[Prepare Budget Proposal, Submit Budget Proposal] | | |
+Alternate Response[Submit Budget Proposal, Approve Budget] | | |0,72,h
+End[Approve Budget] | |
+Exactly[Initiate Financial Review] | |

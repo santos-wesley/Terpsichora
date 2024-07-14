@@ -1,0 +1,40 @@
+activity Draft Legislation
+activity Review Legislation
+activity Approve Legislation
+activity Ratify Treaty
+activity Implement Law
+activity Monitor Compliance
+activity Report Non-Compliance
+activity Investigate Violation
+activity Adjudicate Dispute
+activity Enforce Ruling
+bind Draft Legislation: Legislation ID, Legislation Status
+bind Review Legislation: Legislation ID, Legislation Status
+bind Approve Legislation: Legislation ID, Legislation Status
+bind Ratify Treaty: Treaty ID
+bind Implement Law: Legislation ID, Legislation Status
+bind Monitor Compliance: Compliance Rate, Compliance Status
+bind Report Non-Compliance: Legislation ID, Compliance Status
+bind Investigate Violation: Legislation ID, Violation Type
+bind Adjudicate Dispute: Dispute ID, Violation Penalty, Ruling ID, Legislation ID
+bind Enforce Ruling: Ruling ID, Ruling Status
+Legislation ID: integer between 1 and 1000000
+Compliance Rate: float between 0 and 100
+Legislation Status: Drafted, Reviewed, Approved, Implemented
+Treaty ID: integer between 1 and 100000
+Compliance Status: Compliant, Non-Compliant
+Violation Type: Minor, Moderate, Severe
+Violation Penalty: float between 0 and 100000
+Ruling ID: integer between 1 and 100000
+Dispute ID: integer between 1 and 100000
+Ruling Status: Pending, Enforced
+Init[Draft Legislation] | |
+Absence[Approve Legislation] | |
+Precedence[Review Legislation, Approve Legislation] | | |
+Response[Approve Legislation, Ratify Treaty] | | |
+Chain Succession[Approve Legislation, Implement Law] | | |
+Chain Response[Implement Law, Monitor Compliance] | | |
+Alternate Response[Monitor Compliance, Report Non-Compliance] | | |0,2,d
+Chain Response[Report Non-Compliance, Investigate Violation] | | |0,24,h
+Alternate Response[Investigate Violation, Adjudicate Dispute] | | |0,48,h
+Chain Succession[Adjudicate Dispute, Enforce Ruling] | | |0,2,d

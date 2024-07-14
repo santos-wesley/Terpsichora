@@ -1,0 +1,53 @@
+activity Identify Threat
+activity Assess Threat
+activity Develop Strategy
+activity Assign Team
+activity Prepare Equipment
+activity Deploy Team
+activity Engage Suspects
+activity Secure Area
+activity Collect Evidence
+activity Interrogate Suspects
+activity Analyze Evidence
+activity Disarm Devices
+activity Assess Casualties
+activity Generate Report
+activity Debrief Team
+bind Identify Threat: Threat Level
+bind Assign Team: Team Type
+bind Engage Suspects: Number of Suspects, Engagement Outcome
+bind Prepare Equipment: Equipment Type
+bind Disarm Devices: Number of Devices
+bind Assess Casualties: Number of Injuries
+bind Analyze Evidence: Evidence Type
+bind Generate Report: Report Status
+bind Assess Threat: Threat Level
+bind Deploy Team: Team Type
+bind Interrogate Suspects: Number of Suspects
+bind Analyze Evidence: Number of Devices
+bind Secure Area: Number of Devices
+Threat Level: integer between 1 and 10
+Team Type: SWAT, Bomb Squad, Recon, Intel
+Number of Suspects: integer between 1 and 50
+Equipment Type: Firearms, Explosives, Recon Gear, Medical Kit
+Engagement Outcome: Neutralized, Captured, Escaped
+Number of Injuries: integer between 0 and 50
+Number of Devices: integer between 0 and 10
+Operation Duration: float between 1 and 72
+Evidence Type: Forensic, Digital, Weaponry
+Report Status: Draft, Finalized
+Init[Identify Threat] | |
+End[Debrief Team] | |
+Exactly[Assess Threat] | |
+Existence[Analyze Evidence] | |
+Absence3[Assess Threat] | |
+Precedence[Engage Suspects, Deploy Team] | | |
+Chain Succession[Secure Area, Collect Evidence] | | |
+Response[Engage Suspects, Interrogate Suspects] | | |0,2,h
+Alternate Response[Analyze Evidence, Generate Report] | | |0,48,h
+Precedence[Disarm Devices, Engage Suspects] | | |
+Chain Precedence[Secure Area, Engage Suspects] | | |
+Alternate Response[Generate Report, Debrief Team] | | |0,24,h
+Precedence[Assign Team, Assess Threat] | | |
+Response[Engage Suspects, Secure Area] | | |
+Chain Succession[Engage Suspects, Secure Area] | | |

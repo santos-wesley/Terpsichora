@@ -1,0 +1,55 @@
+activity Receive Order
+activity Schedule Delivery
+activity Pick Items
+activity Pack Items
+activity Generate Invoice
+activity Dispatch Shipment
+activity Track Shipment
+activity Notify Customer
+activity Deliver Order
+activity Receive Payment
+activity Receive Return
+activity Inspect Return
+activity Restock Items
+activity Process Refund
+activity Close Order
+bind Receive Order: Order ID, Customer ID, Delivery Method
+bind Schedule Delivery: Order ID, Shipment ID
+bind Pick Items: Order ID, Item ID
+bind Pack Items: Order ID, Item ID, Item Weight
+bind Generate Invoice: Order ID
+bind Dispatch Shipment: Order ID, Shipment ID
+bind Track Shipment: Shipment ID
+bind Notify Customer: Order ID, Order Status
+bind Deliver Order: Order ID
+bind Receive Payment: Order ID, Payment Status
+bind Receive Return: Order ID, Return Reason
+bind Inspect Return: Order ID, Inspection Status
+bind Restock Items: Order ID, Item ID
+bind Process Refund: Order ID
+bind Close Order: Order ID, Order Status
+Order ID: integer between 1 and 999999
+Delivery Method: Standard, Express, Same Day
+Customer ID: integer between 1 and 99999
+Shipment ID: integer between 1 and 999999
+Item ID: integer between 1 and 999999
+Item Weight: float between 0.1 and 100.0
+Payment Status: Pending, Completed, Failed
+Return Reason: Damaged, Not as Described, Incorrect Item, Other
+Inspection Status: Passed, Failed
+Order Status: Open, Closed, Cancelled
+Init[Receive Order] | |
+Precedence[Receive Order, Schedule Delivery] | | |
+Precedence[Schedule Delivery, Pick Items] | | |
+Chain Succession[Pick Items, Pack Items] | | |
+Chain Response[Pack Items, Generate Invoice] | | |0,1,h
+Precedence[Pack Items, Dispatch Shipment] | | |
+Response[Generate Invoice, Dispatch Shipment] | | |
+Chain Succession[Dispatch Shipment, Track Shipment] | | |
+Chain Response[Track Shipment, Notify Customer] | | |0,30,m
+Precedence[Dispatch Shipment, Deliver Order] | | |
+Precedence[Deliver Order, Receive Payment] | | |
+Precedence[Deliver Order, Receive Return] | | |
+Chain Succession[Receive Return, Inspect Return] | | |
+Chain Response[Inspect Return, Process Refund] |A.Inspection Status is Failed | |0,1,h
+End[Close Order] | |

@@ -1,0 +1,34 @@
+activity Identify Threat
+activity Analyze Threat
+activity Classify Threat
+activity Notify Team
+activity Mitigate Threat
+activity Validate Mitigation
+activity Document Threat
+activity Archive Threat
+bind Identify Threat: Threat ID, Threat Type
+bind Analyze Threat: Threat ID, Analyst ID
+bind Classify Threat: Threat ID, Severity Level
+bind Notify Team: Threat ID, Notification Method, Notification ID
+bind Mitigate Threat: Threat ID, Mitigation Cost
+bind Validate Mitigation: Threat ID, Mitigation Status
+bind Document Threat: Threat ID
+bind Archive Threat: Threat ID
+Threat ID: integer between 1 and 9999
+Threat Type: Malware, Phishing, DDoS, Ransomware
+Severity Level: Low, Medium, High, Critical
+Analyst ID: integer between 1 and 999
+Mitigation Cost: float between 0.0 and 10000.0
+Mitigation Status: Successful, Failed
+Notification Method: Email, SMS, Call
+Notification ID: integer between 1 and 9999
+Init[Identify Threat] | |
+End[Archive Threat] | |
+Precedence[Analyze Threat, Identify Threat] | | |
+Precedence[Classify Threat, Analyze Threat] | | |
+Precedence[Notify Team, Classify Threat] | | |
+Chain Succession[Validate Mitigation, Mitigate Threat] | | |
+Precedence[Document Threat, Validate Mitigation] | | |0,2,h
+Precedence[Archive Threat, Document Threat] | | |0,1,h
+Alternate Response[Notify Team, Mitigate Threat] | | |0,24,h
+Exactly[Mitigate Threat] | |

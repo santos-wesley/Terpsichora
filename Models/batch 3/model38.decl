@@ -1,0 +1,54 @@
+activity Register Cargo
+activity Inspect Cargo
+activity Scan Cargo
+activity Load Cargo
+activity Seal Cargo
+activity Monitor Transit
+activity Unload Cargo
+activity Final Check
+activity Release Cargo
+activity Report Issue
+activity Resolve Issue
+activity Update Security Log
+activity Archive Record
+activity Notify Recipient
+activity Conduct Security Drill
+bind Register Cargo: Cargo ID, Cargo Weight, Cargo Type
+bind Inspect Cargo: Cargo ID, Inspector ID, Inspection Status
+bind Scan Cargo: Cargo ID, Scan Status
+bind Seal Cargo: Cargo ID, Seal ID
+bind Monitor Transit: Cargo ID, Transit Status
+bind Unload Cargo: Cargo ID
+bind Final Check: Cargo ID, Final Check Status
+bind Release Cargo: Cargo ID
+bind Report Issue: Cargo ID, Final Check Status
+bind Resolve Issue: Cargo ID
+bind Update Security Log: Cargo ID
+bind Archive Record: Cargo ID
+bind Notify Recipient: Cargo ID
+bind Conduct Security Drill: Inspector ID
+Cargo ID: integer between 1 and 100000
+Cargo Weight: float between 0.1 and 5000.0
+Cargo Type: Electronics, Furniture, Clothing, Perishables, Machinery
+Risk Level: Low, Medium, High
+Inspection Status: Pending, Completed
+Inspector ID: integer between 1 and 5000
+Scan Status: Pending, Completed
+Seal ID: integer between 1 and 10000
+Transit Status: Secure, Breach Detected
+Final Check Status: Pending, Approved, Rejected
+Init[Register Cargo] | |
+Absence2[Inspect Cargo] | |
+Existence[Inspect Cargo] | |
+Exactly[Conduct Security Drill] | |
+Precedence[Inspect Cargo, Seal Cargo] | | |
+Response[Register Cargo, Scan Cargo] | | |
+Response[Seal Cargo, Load Cargo] | | |
+Chain Response[Load Cargo, Monitor Transit] | | |
+Response[Release Cargo, Notify Recipient] | | |
+Precedence[Register Cargo, Inspect Cargo] | | |
+End[Archive Record] | |
+Response[Report Issue, Resolve Issue] | | |
+Not Co-Existence[Conduct Security Drill, Release Cargo] | | |
+Precedence[Final Check, Release Cargo] | | |0,24,h
+Chain Succession[Resolve Issue, Update Security Log] | | |

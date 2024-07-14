@@ -1,0 +1,55 @@
+activity Define Problem
+activity Measure Performance
+activity Analyze Data
+activity Improve Process
+activity Control Process
+activity Plan DMAIC Phases
+activity Identify Root Cause
+activity Implement Solution
+activity Verify Improvement
+activity Standardize Process
+activity Train Staff
+activity Monitor Process
+activity Document Results
+activity Celebrate Success
+activity Review Project
+bind Define Problem: Process Step ID
+bind Measure Performance: Process Step ID, Baseline Performance
+bind Analyze Data: Process Step ID
+bind Improve Process: Process Step ID, Solution Type
+bind Control Process: Process Step ID
+bind Plan DMAIC Phases: Process Step ID
+bind Identify Root Cause: Process Step ID, Root Cause Type
+bind Implement Solution: Process Step ID, Solution Type
+bind Verify Improvement: Process Step ID, Improvement Performance, Verification Status
+bind Standardize Process: Process Step ID
+bind Train Staff: Process Step ID, Staff Trained
+bind Monitor Process: Process Step ID
+bind Document Results: Document ID
+bind Celebrate Success: Process Step ID, Celebration Type
+bind Review Project: Process Step ID, Review Status
+Process Step ID: integer between 1 and 100
+Baseline Performance: float between 0.0 and 100.0
+Improvement Performance: float between 0.0 and 100.0
+Root Cause Type: Human Error, Machine Fault, Material Defect, Method Flaw
+Solution Type: Process Change, Training, Equipment Upgrade, Material Change
+Verification Status: Improved, Not Improved
+Staff Trained: Yes, No
+Document ID: integer between 1 and 10000
+Celebration Type: Team Lunch, Award Ceremony, Bonus
+Review Status: Completed, Pending
+Init[Define Problem] | |
+Response[Define Problem, Measure Performance] | | |
+Chain Response[Measure Performance, Analyze Data] | | |0,12,h
+Response[Analyze Data, Identify Root Cause] | | |
+Chain Response[Identify Root Cause, Improve Process] | | |0,24,h
+Response[Improve Process, Control Process] | | |
+Response[Improve Process, Verify Improvement] | | |
+Response[Verify Improvement, Standardize Process] | | |
+Response[Standardize Process, Train Staff] | | |
+Response[Control Process, Monitor Process] | | |
+Response[Verify Improvement, Document Results] | | |
+Chain Response[Document Results, Celebrate Success] | | |0,7,d
+Response[Celebrate Success, Review Project] | | |
+Absence5[Review Project] | |
+End[Review Project] | |

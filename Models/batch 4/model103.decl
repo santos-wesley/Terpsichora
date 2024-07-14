@@ -1,0 +1,38 @@
+activity Initiate Compliance Review
+activity Assign Reviewer
+activity Conduct Preliminary Analysis
+activity Draft Compliance Report
+activity Review Draft Report
+activity Finalize Compliance Report
+activity Submit Report for Approval
+activity Approve Compliance Report
+activity Archive Compliance Documents
+activity Send Compliance Feedback
+bind Initiate Compliance Review: Case ID, Document Type
+bind Assign Reviewer: Case ID, Reviewer Name
+bind Conduct Preliminary Analysis: Case ID, Issue Severity
+bind Draft Compliance Report: Case ID, Report Status
+bind Review Draft Report: Case ID, Report Status
+bind Approve Compliance Report: Case ID, Approval Status, Score
+bind Archive Compliance Documents: Case ID, Archive ID
+bind Send Compliance Feedback: Case ID, Feedback Status, Department
+Case ID: integer between 1 and 999999
+Reviewer Name: Alice Brown, John Doe, Jane Smith
+Issue Severity: Low, Medium, High
+Report Status: Draft, Reviewed, Finalized
+Approval Status: Pending, Approved, Rejected
+Score: float between 0.0 and 10.0
+Feedback Status: Sent, Not Sent
+Department: HR, Finance, Operations
+Document Type: Policy, Procedure, Standard
+Archive ID: integer between 1 and 999999
+Init[Initiate Compliance Review] | |
+End[Archive Compliance Documents] | |
+Precedence[Initiate Compliance Review, Assign Reviewer] | | |
+Precedence[Assign Reviewer, Conduct Preliminary Analysis] | | |
+Chain Succession[Conduct Preliminary Analysis, Draft Compliance Report] | | |
+Chain Precedence[Finalize Compliance Report, Submit Report for Approval] | | |
+Chain Response[Finalize Compliance Report, Submit Report for Approval] | | |0,24,h
+Existence[Finalize Compliance Report] | |
+Co-Existence[Review Draft Report, Finalize Compliance Report] | | |
+Alternate Precedence[Send Compliance Feedback, Approve Compliance Report] | | |

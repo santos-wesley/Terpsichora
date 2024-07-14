@@ -1,0 +1,47 @@
+activity Formulate Hypothesis
+activity Conduct Literature Review
+activity Identify Philosophical Positions
+activity Construct Argument
+activity Analyze Counterarguments
+activity Revise Hypothesis
+activity Present Argument
+activity Engage in Debate
+activity Gather Feedback
+activity Incorporate Feedback
+activity Publish Findings
+activity Reflect on Implications
+activity Teach Philosophy
+activity Apply Philosophical Ideas
+activity Document Process
+bind Formulate Hypothesis: Philosophical Branch
+bind Conduct Literature Review: Source Type
+bind Construct Argument: Argument Strength, Time Spent
+bind Gather Feedback: Feedback Score, Feedback Type
+bind Present Argument: Audience
+bind Publish Findings: Publication Type
+bind Apply Philosophical Ideas: Application Field
+Philosophical Branch: Metaphysics, Epistemology, Ethics, Logic, Aesthetics
+Source Type: Book, Journal Article, Web Resource, Lecture Note
+Argument Strength: integer between 1 and 10
+Feedback Score: integer between 1 and 5
+Audience: Scholars, Students, General Public
+Time Spent: float between 0.1 and 100.0
+Publication Type: Journal Paper, Conference Proceeding, Book Chapter
+Feedback Type: Constructive, Critical, Neutral
+Application Field: Technology, Health, Education, Politics
+Revisions Count: integer between 0 and 10
+Init[Formulate Hypothesis] | |
+Precedence[Conduct Literature Review, Formulate Hypothesis] | | |
+Response[Conduct Literature Review, Construct Argument] | | |
+Chain Succession[Construct Argument, Analyze Counterarguments] | | |
+Alternate Response[Present Argument, Engage in Debate] | | |0,48,h
+End[Publish Findings] | |
+Precedence[Revise Hypothesis, Present Argument] | | |
+Chain Response[Gather Feedback, Incorporate Feedback] | | |
+Response[Publish Findings, Reflect on Implications] | | |
+Chain Succession[Reflect on Implications, Teach Philosophy] | | |0,10,d
+Precedence[Document Process, Apply Philosophical Ideas] | | |
+Alternate Response[Teach Philosophy, Apply Philosophical Ideas] | | |0,7,d
+Existence3[Engage in Debate] | |
+Absence2[Revise Hypothesis] | |
+Exactly[Gather Feedback] | |

@@ -1,0 +1,40 @@
+activity Review Art Piece
+activity Document Art Piece
+activity Authenticate Art Piece
+activity Analyze Artist Background
+activity Publish Art Review
+activity Curate Exhibition
+activity Insert Exhibition Info
+activity Archive Art Piece
+activity Research Art Movement
+activity Contact Art Owner
+bind Review Art Piece: Art Piece ID, Art Style
+bind Document Art Piece: Art Piece ID
+bind Authenticate Art Piece: Art Piece ID, Authenticity Status
+bind Analyze Artist Background: Artist Name
+bind Publish Art Review: Review ID, Publication Status
+bind Curate Exhibition: Exhibition ID, Exhibition Type
+bind Insert Exhibition Info: Exhibition ID
+bind Archive Art Piece: Art Piece ID
+bind Research Art Movement: Art Style
+bind Contact Art Owner: Art Piece ID, Contact Status
+Art Piece ID: integer between 1000 and 9999
+Art Style: Renaissance, Baroque, Impressionism, Cubism, Surrealism
+Authenticity Status: Authentic, Forgery, Unknown
+Artist Name: Leonardo da Vinci, Pablo Picasso, Vincent van Gogh, Salvador Dali, Claude Monet
+Exhibition ID: integer between 1 and 999
+Estimated Value: float between 0.1 and 100.0
+Publication Status: Draft, Published, Rejected
+Review ID: integer between 10 and 999
+Exhibition Type: Solo, Group, Virtual, Traveling
+Contact Status: Not Contacted, Contacted, Follow-up Required
+Existence[Review Art Piece] | |
+Precedence[Authenticate Art Piece, Review Art Piece] | | |
+Init[Analyze Artist Background] | |
+Response[Review Art Piece, Publish Art Review] | | |
+Chain Response[Curate Exhibition, Insert Exhibition Info] | | |
+Exactly[Archive Art Piece] | |
+Precedence[Research Art Movement, Review Art Piece] | | |
+End[Contact Art Owner] | |
+Alternate Response[Review Art Piece, Document Art Piece] | | |0,48,h
+Chain Succession[Research Art Movement, Review Art Piece] | | |0,5,d

@@ -1,0 +1,38 @@
+activity Monitor Surveillance
+activity Analyze Threat
+activity Issue Alert
+activity Deploy Patrol
+activity Inspect Vessel
+activity Interdict Vessel
+activity Detain Crew
+activity Gather Evidence
+activity Provide Report
+activity Stand Down
+bind Monitor Surveillance: Exact Coordinates
+bind Analyze Threat: Threat Level
+bind Deploy Patrol: Patrol Unit ID, Unit Response Time
+bind Inspect Vessel: Vessel Type, Inspection Outcome
+bind Detain Crew: Crew Status
+bind Gather Evidence: Evidence ID
+bind Provide Report: Report Status
+bind Stand Down: Stand Down Status
+Threat Level: integer between 1 and 10
+Exact Coordinates: float between 0.0 and 180.0
+Vessel Type: Cargo, Passenger, Fishing, Unknown
+Patrol Unit ID: integer between 1 and 9999
+Inspection Outcome: Clear, Suspicious, Threat
+Crew Status: Released, Under Investigation
+Evidence ID: integer between 1 and 999999
+Report Status: Draft, Submitted, Reviewed
+Unit Response Time: integer between 0 and 60
+Stand Down Status: Complete, Incomplete
+Init[Monitor Surveillance] | |
+Existence[Deploy Patrol] | |
+Absence5[Inspect Vessel] | |
+End[Stand Down] | |
+Chain Response[Monitor Surveillance, Analyze Threat] | | |0,30,m
+Response[Analyze Threat, Issue Alert] | | |
+Precedence[Deploy Patrol, Inspect Vessel] | | |
+Chain Succession[Interdict Vessel, Detain Crew] | | |
+Precedence[Detain Crew, Gather Evidence] | | |
+Chain Response[Gather Evidence, Provide Report] | | |0,24,h

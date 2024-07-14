@@ -1,0 +1,55 @@
+activity Receive Package
+activity Inspect Package
+activity Log Inspection
+activity Notify Recipient
+activity Secure Package
+activity Release Package
+activity Verify Identity
+activity Record Release
+activity Update Inventory
+activity Alarm Triggered
+activity Send Alert
+activity Hold Package
+activity Scan Package
+activity Check Documentation
+activity Authorize Release
+bind Receive Package: Package ID, Package Status, Package Weight
+bind Inspect Package: Inspector ID, Inspection Result, Inspection Time
+bind Log Inspection: Inspector ID, Package ID, Inspection Result
+bind Notify Recipient: Recipient Name, Package ID, Package Status
+bind Secure Package: Package ID, Package Status, Inspector ID
+bind Release Package: Recipient ID, Package ID, Package Status
+bind Verify Identity: Recipient ID, Recipient Name, Release Authorization ID
+bind Record Release: Recipient ID, Package ID, Package Weight
+bind Update Inventory: Recipient ID, Package ID, Package Status
+bind Alarm Triggered: Package ID, Alarm Status, Inspection Time
+bind Send Alert: Package ID, Alarm Status, Inspector ID
+bind Hold Package: Package ID, Package Status, Inspector ID
+bind Scan Package: Package ID, Package Weight, Inspection Result
+bind Check Documentation: Package ID, Package Status, Package Weight
+bind Authorize Release: Release Authorization ID, Package ID
+Package ID: integer between 1 and 999999
+Package Weight: float between 0.1 and 100.0
+Package Status: Pending, Inspected, Released, Held
+Inspection Result: Clear, Prohibited Items Detected
+Recipient Name: Alice Johnson, Bob Smith, Charlie Brown
+Alarm Status: Triggered, Not Triggered
+Inspector ID: integer between 1 and 9999
+Recipient ID: integer between 1 and 99999
+Inspection Time: float between 0.1 and 60.0
+Release Authorization ID: integer between 1 and 999999
+Init[Receive Package] | |
+Absence[Receive Package] | |
+Precedence[Inspect Package, Receive Package] | | |
+Chain Response[Inspect Package, Log Inspection] | | |
+Response[Inspect Package, Notify Recipient] | | |0,15,m
+Responded Existence[Inspect Package, Alarm Triggered] |A.Inspection Result is Prohibited Items Detected | |
+Precedence[Secure Package, Log Inspection] | | |
+Succession[Verify Identity, Release Package] | | |
+Chain Succession[Release Package, Update Inventory] | | |
+Response[Secure Package, Record Release] | | |
+Absence[Alarm Triggered] | |
+Chain Response[Alarm Triggered, Send Alert] | | |0,5,m
+Precedence[Hold Package, Send Alert] | | |
+Chain Succession[Check Documentation, Authorize Release] | | |
+Alternate Precedence[Scan Package, Receive Package] | | |

@@ -1,0 +1,40 @@
+activity Monitor Radar
+activity Scan Ships
+activity Patrol Waters
+activity Maintain Equipment
+activity Interrogate Suspects
+activity Inspect Cargo
+activity Verify Credentials
+activity Report Incident
+activity Detain Suspects
+activity Release Suspects
+bind Monitor Radar: Radar Anomalies Count
+bind Scan Ships: Ship ID, Ship Type, Cargo Weight
+bind Patrol Waters: Crew Nationality, Crew Size
+bind Maintain Equipment: Equipment Status
+bind Interrogate Suspects: Suspect ID
+bind Inspect Cargo: Inspection Duration
+bind Verify Credentials: Crew Size
+bind Report Incident: Incident Type
+bind Detain Suspects: Suspect ID
+bind Release Suspects: Suspect ID
+Ship ID: integer between 1 and 999999
+Ship Type: Cargo, Passenger, Military, Fishing
+Cargo Weight: integer between 0 and 100000
+Crew Nationality: American, British, Chinese, Indian, Russian
+Crew Size: integer between 1 and 1000
+Incident Type: Theft, Contraband, Unauthorized Entry, Other
+Inspection Duration: float between 0.1 and 24.0
+Suspect ID: integer between 1 and 99999
+Equipment Status: Operational, Maintenance Needed, Out of Order
+Radar Anomalies Count: integer between 0 and 100
+Init[Monitor Radar] | |
+Response[Patrol Waters, Scan Ships] | | |0,3,h
+Chain Response[Scan Ships, Inspect Cargo] | | |
+Response[Inspect Cargo, Verify Credentials] | | |0,2,h
+Existence[Maintain Equipment] | |3,12,h
+Response[Interrogate Suspects, Report Incident] | | |0,1,h
+Absence5[Detain Suspects] | |
+Succession[Detain Suspects, Release Suspects] | | |
+Existence2[Monitor Radar] | |
+End[Release Suspects] | |

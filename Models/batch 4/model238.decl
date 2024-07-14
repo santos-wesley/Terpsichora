@@ -1,0 +1,48 @@
+activity Collect Data
+activity Clean Data
+activity Analyze Descriptive Statistics
+activity Visualize Data
+activity Hypothesis Testing
+activity Build Model
+activity Validate Model
+activity Predict Outcomes
+activity Interpret Results
+activity Report Findings
+activity Peer Review
+activity Revise Analysis
+activity Publish Findings
+activity Archive Data
+activity Update Data
+bind Collect Data: Data Source
+bind Clean Data: Sample Size
+bind Analyze Descriptive Statistics: Sample Size, Chart Type
+bind Hypothesis Testing: P-Value, Test Type
+bind Build Model: Model Type, Iteration Number
+bind Validate Model: Accuracy Rate, Iteration Number
+bind Visualize Data: Chart Type
+bind Peer Review: Review Score
+Sample Size: integer between 30 and 10000
+P-Value: float between 0.0 and 1.0
+Data Source: Survey, Experiment, Database
+Iteration Number: integer between 1 and 100
+Model Type: Linear Regression, Logistic Regression, Time Series, ANOVA
+Accuracy Rate: float between 0.0 and 100.0
+Test Type: T-Test, Chi-Square, ANOVA, Manova
+Confidence Interval: float between 0.0 and 100.0
+Review Score: integer between 0 and 10
+Chart Type: Bar Chart, Line Chart, Pie Chart, Histogram
+Init[Collect Data] | |
+Precedence[Collect Data, Clean Data] | | |
+Precedence[Clean Data, Analyze Descriptive Statistics] | | |
+Precedence[Analyze Descriptive Statistics, Visualize Data] | | |
+Precedence[Visualize Data, Hypothesis Testing] | | |
+Precedence[Hypothesis Testing, Build Model] | | |0,48,h
+Precedence[Build Model, Validate Model] | | |
+Precedence[Validate Model, Predict Outcomes] | | |
+Precedence[Predict Outcomes, Interpret Results] | | |
+Precedence[Interpret Results, Report Findings] | | |
+Precedence[Report Findings, Peer Review] | | |
+Precedence[Peer Review, Revise Analysis] | | |0,72,h
+Precedence[Revise Analysis, Publish Findings] | | |
+Precedence[Publish Findings, Archive Data] | | |
+End[Archive Data] | |

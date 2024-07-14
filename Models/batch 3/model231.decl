@@ -1,0 +1,39 @@
+activity Define Problem
+activity Formulate Hypotheses
+activity Conduct Literature Review
+activity Choose Methodology
+activity Derive Equations
+activity Solve Equations
+activity Verify Solutions
+activity Discuss Implications
+activity Write Paper
+activity Submit Paper
+bind Define Problem: Problem ID
+bind Formulate Hypotheses: Problem ID, Hypothesis Type
+bind Conduct Literature Review: Literature Source, Problem ID
+bind Choose Methodology: Methodology ID
+bind Derive Equations: Problem ID, Equation Type
+bind Solve Equations: Problem ID, Methodology ID, Solution Value
+bind Verify Solutions: Problem ID, Solution Value, Verification Status
+bind Write Paper: Problem ID, Paper Section
+bind Submit Paper: Submission ID, Reviewer ID
+Problem ID: integer between 1 and 999999
+Hypothesis Type: Null Hypothesis, Alternative Hypothesis
+Literature Source: Journal Article, Book, Conference Paper, Thesis
+Methodology ID: integer between 1 and 9999
+Equation Type: Linear, Non-linear, Differential, Integral
+Solution Value: float between 0.0 and 1000.0
+Verification Status: Verified, Not Verified
+Paper Section: Introduction, Methodology, Results, Discussion, Conclusion
+Reviewer ID: integer between 1 and 9999
+Submission ID: integer between 1 and 999999
+Init[Define Problem] | |
+Response[Define Problem, Formulate Hypotheses] | | |
+Precedence[Conduct Literature Review, Formulate Hypotheses] | | |
+Alternate Succession[Conduct Literature Review, Choose Methodology] | | |
+Alternate Response[Choose Methodology, Derive Equations] | | |0,24,h
+Chain Response[Solve Equations, Verify Solutions] | | |0,48,h
+Chain Precedence[Verify Solutions, Write Paper] | | |
+Chain Succession[Write Paper, Submit Paper] | | |
+End[Submit Paper] | |
+Absence2[Formulate Hypotheses] | |

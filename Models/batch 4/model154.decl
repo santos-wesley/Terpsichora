@@ -1,0 +1,49 @@
+activity Book Tour
+activity Make Payment
+activity Send Confirmation
+activity Arrange Transportation
+activity Select Accommodation
+activity Assign Guide
+activity Plan Itinerary
+activity Conduct Pre-Tour Briefing
+activity Monitor Tour Activities
+activity Collect Feedback
+activity Analyze Feedback
+activity Donate to Conservation
+activity Send Thank You Note
+activity Prepare Tour Report
+activity Verify Accommodation Standards
+bind Book Tour: Customer ID, Tour ID
+bind Make Payment: Payment Amount, Tour ID
+bind Arrange Transportation: Transportation Type, Tour ID
+bind Select Accommodation: Accommodation Type, Tour ID
+bind Assign Guide: Guide Language, Tour ID
+bind Plan Itinerary: Sustainable Activity, Tour ID
+bind Collect Feedback: Feedback Rating, Tour ID
+bind Prepare Tour Report: Report ID, Tour ID
+bind Donate to Conservation: Donation Amount, Tour ID
+Customer ID: integer between 1 and 999999
+Tour ID: integer between 1 and 999999
+Payment Amount: float between 0.01 and 10000.0
+Transportation Type: Electric Car, Bike, Public Transport, Walking
+Accommodation Type: Eco-Lodge, Tent, Homestay, Treehouse
+Guide Language: English, Spanish, French, German
+Sustainable Activity: Tree Planting, Beach Clean-Up, Wildlife Watching, Local Craft Workshop
+Feedback Rating: 1, 2, 3, 4, 5
+Report ID: integer between 1 and 999999
+Donation Amount: integer between 1 and 10000
+Init[Book Tour] | |
+Response[Book Tour, Make Payment] | | |
+Precedence[Assign Guide, Select Accommodation] | | |
+Exactly[Collect Feedback] | |
+Existence[Collect Feedback] | |
+Response[Collect Feedback, Send Thank You Note] | | |
+Precedence[Prepare Tour Report, Collect Feedback] | | |
+Chain Succession[Conduct Pre-Tour Briefing, Monitor Tour Activities] | | |0,30,m
+Chain Response[Prepare Tour Report, Donate to Conservation] | | |0,2,d
+Alternate Response[Book Tour, Plan Itinerary] | | |
+Exactly[Arrange Transportation] | |
+Succession[Conduct Pre-Tour Briefing, Monitor Tour Activities] | | |
+End[Send Thank You Note] | |
+Co-Existence[Book Tour, Make Payment] | | |
+Absence5[Collect Feedback] | |

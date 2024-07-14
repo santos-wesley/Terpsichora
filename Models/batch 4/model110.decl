@@ -1,0 +1,40 @@
+activity Report Suspicious Activity
+activity Customer Due Diligence
+activity Review Large Transactions
+activity Verify Source of Funds
+activity File SAR
+activity Conduct Enhanced Due Diligence
+activity Close Account
+activity Share Information with Authorities
+activity Audit Internal Controls
+activity Provide Training
+bind Report Suspicious Activity: Transaction Amount, Suspicion Level
+bind Customer Due Diligence: Customer ID, Customer Risk Level
+bind Review Large Transactions: Transaction Amount, Customer ID
+bind Verify Source of Funds: Transaction Amount, Verification Result
+bind File SAR: SAR Status, Suspicion Level
+bind Conduct Enhanced Due Diligence: Customer ID, Customer Risk Level
+bind Close Account: Customer ID, Suspicion Level
+bind Share Information with Authorities: Customer ID, Suspicion Level
+bind Audit Internal Controls: Staff ID, Audit Result
+bind Provide Training: Staff ID, Training Completeness
+Transaction Amount: integer between 1 and 1000000
+Customer Risk Level: Low, Medium, High
+Customer ID: integer between 1 and 100000
+Suspicion Level: Low, Medium, High
+Transaction Volume: float between 0.0 and 1000000.0
+Audit Result: Pass, Fail
+Staff ID: integer between 1 and 10000
+Training Completeness: Completed, Not Completed
+SAR Status: Submitted, Pending, Rejected
+Verification Result: Verified, Not Verified
+Init[Customer Due Diligence] | |
+Existence[Provide Training] | |
+Response[Verify Source of Funds, Report Suspicious Activity] | | |
+Exactly[Audit Internal Controls] | |
+Chain Response[Customer Due Diligence, Conduct Enhanced Due Diligence] | | |0,7,d
+Precedence[File SAR, Share Information with Authorities] | | |
+Precedence[Report Suspicious Activity, Close Account] | | |0,2,d
+End[File SAR] | |
+Response[Customer Due Diligence, Review Large Transactions] | | |
+Precedence[Customer Due Diligence, Conduct Enhanced Due Diligence] | | |

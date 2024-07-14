@@ -1,0 +1,46 @@
+activity Assess Current Financial Situation
+activity Review Retirement Goals
+activity Calculate Retirement Needs
+activity Evaluate Investment Options
+activity Create Retirement Budget
+activity Develop Retirement Plan
+activity Implement Investment Strategy
+activity Monitor Investment Performance
+activity Adjust Investment Strategy
+activity Plan Healthcare Coverage
+activity Review Estate Plan
+activity Prepare for Tax Implications
+activity Create Withdrawal Strategy
+activity Review Social Security Benefits
+activity Finalize Retirement Plan
+bind Assess Current Financial Situation: Current Savings, Monthly Expenses
+bind Evaluate Investment Options: Investment Type, Risk Tolerance
+bind Implement Investment Strategy: Investment Type, Annual ROI, Risk Tolerance
+bind Plan Healthcare Coverage: Healthcare Cost, Retirement Age
+bind Review Estate Plan: Estate Plan Status
+bind Review Social Security Benefits: Social Security Eligibility, Retirement Age
+bind Create Withdrawal Strategy: Current Savings, Withdrawals Per Year, Monthly Expenses
+Current Savings: integer between 0 and 1000000
+Annual ROI: float between 0.0 and 100.0
+Investment Type: Stocks, Bonds, Mutual Funds, Real Estate
+Retirement Age: integer between 50 and 70
+Risk Tolerance: Low, Medium, High
+Monthly Expenses: integer between 0 and 10000
+Healthcare Cost: float between 0.0 and 50000.0
+Estate Plan Status: Not Started, In Progress, Completed
+Social Security Eligibility: Eligible, Not Eligible
+Withdrawals Per Year: integer between 1 and 12
+Init[Assess Current Financial Situation] | |
+End[Finalize Retirement Plan] | |
+Existence[Review Retirement Goals] | |
+Absence3[Adjust Investment Strategy] | |
+Response[Evaluate Investment Options, Implement Investment Strategy] | | |
+Chain Succession[Assess Current Financial Situation, Review Retirement Goals] | | |
+Chain Response[Create Retirement Budget, Develop Retirement Plan] | | |
+Precedence[Create Withdrawal Strategy, Monitor Investment Performance] | | |
+Precedence[Review Social Security Benefits, Create Withdrawal Strategy] | | |
+Alternate Response[Monitor Investment Performance, Adjust Investment Strategy] | | |0,24,h
+Chain Response[Plan Healthcare Coverage, Review Estate Plan] | | |0,48,h
+Chain Succession[Review Estate Plan, Prepare for Tax Implications] | | |0,72,h
+Alternate Succession[Adjust Investment Strategy, Monitor Investment Performance] | | |0,7,d
+Choice[Evaluate Investment Options, Plan Healthcare Coverage] | | |

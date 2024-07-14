@@ -1,0 +1,40 @@
+activity Receive Call
+activity Dispatch Team
+activity Establish Perimeter
+activity Initiate Contact
+activity Gather Information
+activity Negotiate Terms
+activity Ensure Safety
+activity Arrange Release
+activity Apprehend Suspect
+activity Debrief Team
+bind Receive Call: Call ID
+bind Dispatch Team: Team ID
+bind Establish Perimeter: Perimeter Status
+bind Initiate Contact: Contact Status
+bind Gather Information: Hostage Count
+bind Negotiate Terms: Negotiation Time
+bind Ensure Safety: Safety Status
+bind Arrange Release: Release Status
+bind Apprehend Suspect: Outcome Status
+bind Debrief Team: Debrief Status
+Call ID: integer between 1 and 999999
+Team ID: integer between 1 and 9999
+Perimeter Status: Established, Not Established
+Contact Status: Established, Not Established
+Hostage Count: integer between 1 and 100
+Negotiation Time: float between 0.1 and 48.0
+Outcome Status: Success, Failure
+Safety Status: Safe, Not Safe
+Release Status: Released, Not Released
+Debrief Status: Completed, Not Completed
+Init[Receive Call] | |
+Response[Receive Call, Dispatch Team] | | |
+Response[Dispatch Team, Establish Perimeter] | | |0,30,m
+Response[Establish Perimeter, Initiate Contact] | | |0,15,m
+Response[Initiate Contact, Gather Information] | | |0,30,m
+Response[Gather Information, Negotiate Terms] | | |0,60,m
+Response[Negotiate Terms, Ensure Safety] | | |0,60,m
+Response[Ensure Safety, Arrange Release] | | |0,60,m
+Chain Response[Arrange Release, Apprehend Suspect] | | |
+End[Debrief Team] | |

@@ -1,0 +1,38 @@
+activity Assess Needs
+activity Plan Initiative
+activity Allocate Budget
+activity Engage Stakeholders
+activity Implement Initiative
+activity Monitor Progress
+activity Evaluate Impact
+activity Report Findings
+activity Recognize Contributions
+activity Review and Improve
+bind Assess Needs: Stakeholder Type
+bind Allocate Budget: Budget Amount
+bind Implement Initiative: Progress Status
+bind Monitor Progress: Progress Status
+bind Evaluate Impact: Impact Score, Evaluation Method
+bind Report Findings: Report Status
+bind Recognize Contributions: Contribution Type
+bind Review and Improve: Improvement Suggestions, Review Frequency
+Budget Amount: integer between 1000 and 1000000
+Stakeholder Type: Community, Employee, Partner, Government
+Progress Status: Not Started, In Progress, Completed
+Impact Score: integer between 1 and 10
+Report Status: Draft, Finalized, Published
+Contribution Type: Financial, Volunteer, Material, Expertise
+Improvement Suggestions: integer between 0 and 50
+Satisfaction Rating: float between 0.0 and 5.0
+Evaluation Method: Surveys, Interviews, Data Analysis
+Review Frequency: integer between 0 and 12
+Init[Assess Needs] | |
+Existence[Implement Initiative] | |
+Precedence[Allocate Budget, Plan Initiative] | | |
+Precedence[Engage Stakeholders, Plan Initiative] | | |0,7,d
+Chain Succession[Implement Initiative, Monitor Progress] | | |
+Response[Monitor Progress, Evaluate Impact] | | |
+Precedence[Report Findings, Evaluate Impact] | | |0,14,d
+Chain Response[Report Findings, Recognize Contributions] | | |
+Alternate Response[Recognize Contributions, Review and Improve] | | |0,30,d
+End[Review and Improve] | |

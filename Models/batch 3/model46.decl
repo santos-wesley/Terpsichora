@@ -1,0 +1,50 @@
+activity Scan Attachments
+activity Check Sender Reputation
+activity Analyze Email Content
+activity Encrypt Email
+activity Decrypt Email
+activity Check Email Headers
+activity Filter Spam
+activity Log Email Event
+activity Notify Recipient
+activity Quarantine Email
+activity Release Email
+activity Block Email
+activity Analyze Links
+activity Monitor Network Traffic
+activity Generate Report
+bind Scan Attachments: Number of Attachments, Scan Result
+bind Check Sender Reputation: Sender Reputation
+bind Analyze Email Content: Spam Score, Email Priority
+bind Encrypt Email: Encryption Status
+bind Decrypt Email: Encryption Status
+bind Check Email Headers: Header Anomaly
+bind Filter Spam: Spam Score
+bind Log Email Event: Email Size
+bind Quarantine Email: Quarantine Duration
+bind Analyze Links: Link Trust Score
+Email Size: integer between 1 and 51200
+Sender Reputation: High, Medium, Low
+Number of Attachments: integer between 0 and 10
+Email Priority: High, Normal, Low
+Spam Score: integer between 0 and 100
+Scan Result: Clean, Infected
+Encryption Status: Encrypted, Not Encrypted
+Quarantine Duration: integer between 0 and 1440
+Header Anomaly: None, Suspicious, Malicious
+Link Trust Score: float between 0.0 and 100.0
+Init[Scan Attachments] | |
+Chain Response[Analyze Email Content, Check Sender Reputation] | | |0,10,m
+Response[Filter Spam, Notify Recipient] |A.Spam Score > 80 | |
+Precedence[Encrypt Email, Log Email Event] | | |
+Existence[Log Email Event] | |
+End[Decrypt Email] | |
+Chain Succession[Analyze Email Content, Quarantine Email] |A.Email Priority is High | |0,5,m
+Not Succession[Quarantine Email, Release Email] | | |
+Not Response[Scan Attachments, Decrypt Email] |A.Scan Result is Infected | |
+Exactly[Encrypt Email] | |
+Alternate Response[Monitor Network Traffic, Generate Report] | | |0,1,h
+Chain Response[Quarantine Email, Notify Recipient] | | |0,2,m
+Choice[Quarantine Email, Block Email] | | |
+Co-Existence[Encrypt Email, Decrypt Email] | | |
+Not Succession[Block Email, Analyze Links] | | |

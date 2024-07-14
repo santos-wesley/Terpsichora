@@ -1,0 +1,48 @@
+activity Plan Infrastructure
+activity Conduct Survey
+activity Design Blueprint
+activity Submit Proposal
+activity Approve Proposal
+activity Secure Funding
+activity Hire Contractors
+activity Start Construction
+activity Monitor Progress
+activity Conduct Quality Check
+activity Complete Construction
+activity Review Project
+activity Report Completion
+activity Inaugurate Infrastructure
+activity Gather Feedback
+bind Conduct Survey: Survey ID, Survey Date
+bind Submit Proposal: Proposal ID, Proposal Status
+bind Secure Funding: Funding Amount
+bind Hire Contractors: Contractor ID
+bind Start Construction: Construction Start Date
+bind Conduct Quality Check: Quality Check ID, Quality Check Status
+bind Gather Feedback: Feedback Rating
+Survey ID: integer between 1 and 999999
+Survey Date: 2023-07-01, 2023-07-02, 2023-07-03
+Proposal ID: integer between 1 and 999999
+Proposal Status: Pending, Approved, Rejected
+Funding Amount: float between 10000 and 1000000
+Contractor ID: integer between 1 and 9999
+Construction Start Date: 2023-08-01, 2023-08-02, 2023-08-03
+Quality Check ID: integer between 1 and 999999
+Quality Check Status: Passed, Failed
+Feedback Rating: Excellent, Good, Average, Poor
+Init[Approve Proposal] | |
+End[Complete Construction] | |
+Precedence[Design Blueprint, Submit Proposal] | | |
+Response[Submit Proposal, Approve Proposal] | | |
+Existence[Conduct Survey] | |
+Chain Response[Secure Funding, Hire Contractors] | | |
+Chain Succession[Hire Contractors, Start Construction] | | |
+Alternate Response[Monitor Progress, Conduct Quality Check] | | |
+Absence3[Conduct Quality Check] | |
+Chain Precedence[Inaugurate Infrastructure, Report Completion] | | |
+Response[Report Completion, Inaugurate Infrastructure] | | |
+Existence[Gather Feedback] | |
+Chain Response[Secure Funding, Hire Contractors] | | |0,30,d
+Chain Response[Inaugurate Infrastructure, Gather Feedback] | | |0,3,d
+Response[Complete Construction, Review Project] | | |0,10,d
+Alternate Succession[Approve Proposal, Hire Contractors] | | |

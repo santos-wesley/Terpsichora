@@ -1,0 +1,40 @@
+activity Initiate Test Plan
+activity Conduct Reconnaissance
+activity Scan Vulnerabilities
+activity Exploit Vulnerabilities
+activity Document Findings
+activity Report Results
+activity Review Report
+activity Present Findings
+activity Remediate Issues
+activity Close Test Plan
+bind Initiate Test Plan: Test ID, Target System, Test Date
+bind Conduct Reconnaissance: Test ID, Tester ID
+bind Scan Vulnerabilities: Test ID, Tester ID, Total Vulnerabilities
+bind Exploit Vulnerabilities: Test ID, Severity Level
+bind Document Findings: Test ID, Issue ID, Total Vulnerabilities
+bind Report Results: Test ID, Report Status
+bind Review Report: Test ID, Report Status
+bind Present Findings: Test ID, Severity Level
+bind Remediate Issues: Test ID, Remediation Status
+bind Close Test Plan: Test ID, Closure Date
+Test ID: integer between 1 and 999999
+Target System: Web Application, Mobile Application, Network
+Severity Level: Low, Medium, High, Critical
+Tester ID: integer between 1 and 9999
+Test Date: 2023-10-01, 2023-10-02, 2023-10-03
+Report Status: Draft, Reviewed, Final
+Issue ID: integer between 1 and 9999
+Remediation Status: Not Started, In Progress, Completed
+Total Vulnerabilities: float between 0.0 and 1000.0
+Closure Date: 2023-10-15, 2023-10-16, 2023-10-17
+Init[Initiate Test Plan] | |
+Precedence[Conduct Reconnaissance, Scan Vulnerabilities] | | |
+Chain Succession[Exploit Vulnerabilities, Document Findings] | | |
+Response[Document Findings, Report Results] | | |
+Precedence[Report Results, Review Report] | | |
+Absence[Report Results] | |
+Precedence[Present Findings, Remediate Issues] | | |0,5,d
+Precedence[Remediate Issues, Close Test Plan] | | |0,2,d
+Not Succession[Present Findings, Review Report] | | |
+End[Close Test Plan] | |

@@ -1,0 +1,46 @@
+activity Observe Child
+activity Conduct Interview
+activity Administer Test
+activity Evaluate Test Results
+activity Develop Intervention Plan
+activity Implement Intervention
+activity Monitor Progress
+activity Adjust Intervention
+activity Provide Counseling
+activity Review Case
+activity File Report
+activity Close Case
+activity Gather Parental Feedback
+activity Schedule Follow-up
+bind Observe Child: Child Age, Behavior Status
+bind Administer Test: Test Type, Child Age
+bind Evaluate Test Results: Test Type, Test Score
+bind Develop Intervention Plan: Intervention Type, Child Age
+bind Implement Intervention: Intervention Type, Progress Status
+bind Provide Counseling: Counseling Type, Sessions Count
+bind Gather Parental Feedback: Parent Satisfaction, Follow-Up Required
+Child Age: integer between 1 and 18
+Test Score: float between 0.0 and 100.0
+Intervention Type: Behavioral, Cognitive, Social
+Test Type: IQ Test, Personality Test, Achievement Test
+Counseling Type: Individual, Group
+Parent Satisfaction: integer between 1 and 10
+Follow-Up Required: Yes, No
+Behavior Status: Normal, Concern, Critical
+Progress Status: Improved, No Change, Worsened
+Sessions Count: integer between 1 and 20
+Init[Observe Child] | |
+Response[Observe Child, Administer Test] | | |0,2,d
+Chain Response[Administer Test, Evaluate Test Results] | | |
+Precedence[Develop Intervention Plan, Evaluate Test Results] | | |
+Chain Succession[Implement Intervention, Monitor Progress] | | |0,10,d
+Alternate Response[Monitor Progress, Adjust Intervention] | | |
+Chain Response[Provide Counseling, Gather Parental Feedback] | | |
+Chain Response[Evaluate Test Results, Develop Intervention Plan] | | |
+Response[Review Case, File Report] | | |2,10,h
+Absence10[Monitor Progress] | |
+Precedence[Schedule Follow-up, Close Case] | | |
+End[Close Case] | |
+Not Co-Existence[Monitor Progress, Close Case] | | |
+Existence[Provide Counseling] | |
+Precedence[Adjust Intervention, Gather Parental Feedback] | | |

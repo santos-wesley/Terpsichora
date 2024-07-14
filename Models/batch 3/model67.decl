@@ -1,0 +1,51 @@
+activity Enroll Course
+activity Complete Course
+activity Take Exam
+activity Submit Assignment
+activity Attend Workshop
+activity Earn Certification
+activity Receive Feedback
+activity Update Profile
+activity Attend Webinar
+activity Log CPD Hours
+activity Plan Career Path
+activity Conduct Self-Assessment
+activity Join Networking Event
+activity Apply New Skills
+activity Mentor Peers
+bind Enroll Course: Course ID, Course Type
+bind Complete Course: Course ID
+bind Take Exam: Course ID, Exam Score
+bind Submit Assignment: Course ID, Assignment Status
+bind Attend Workshop: Workshop Topic
+bind Earn Certification: Certification ID
+bind Receive Feedback: Feedback Type
+bind Update Profile: Profile ID
+bind Log CPD Hours: CPD Hours
+bind Mentor Peers: Mentorship ID
+Course ID: integer between 1000 and 9999
+Course Type: Online, Offline, Hybrid
+Exam Score: float between 0.0 and 100.0
+Assignment Status: Submitted, Not Submitted, Pending
+Feedback Type: Positive, Negative, Neutral
+Certification ID: integer between 10000 and 99999
+Workshop Topic: Leadership, Technical Skills, Soft Skills
+Profile ID: integer between 1000 and 9999
+CPD Hours: float between 0.0 and 500.0
+Mentorship ID: integer between 1 and 999
+Init[Enroll Course] | |
+Precedence[Complete Course, Take Exam] | | |
+Response[Submit Assignment, Receive Feedback] | | |
+Response[Complete Course, Earn Certification] | | |
+Chain Response[Earn Certification, Update Profile] | | |
+Exactly[Enroll Course] | |
+Absence[Attend Workshop] | |
+Existence[Complete Course] | |
+Precedence[Attend Workshop, Enroll Course] | | |
+Alternate Response[Join Networking Event, Apply New Skills] | | |
+Precedence[Apply New Skills, Conduct Self-Assessment] | | |
+Chain Response[Receive Feedback, Update Profile] | | |0,24,h
+Alternate Response[Attend Workshop, Log CPD Hours] | | |0,48,h
+Chain Succession[Conduct Self-Assessment, Apply New Skills] | | |0,7,d
+Alternate Succession[Apply New Skills, Mentor Peers] | | |0,72,h
+End[Conduct Self-Assessment] | |

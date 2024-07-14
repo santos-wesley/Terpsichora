@@ -1,0 +1,40 @@
+activity Negotiate Contract
+activity Sign Agreement
+activity Ship Products
+activity Conduct Quality Inspection
+activity Process Payment
+activity Customs Clearance
+activity Deliver Products
+activity Receive Payment
+activity Send Invoice
+activity Provide Customer Support
+bind Negotiate Contract: Contract ID, Contract Value, Client Country
+bind Sign Agreement: Contract ID
+bind Ship Products: Contract ID, Shipment Weight
+bind Conduct Quality Inspection: Contract ID, Product Condition
+bind Process Payment: Contract ID, Payment Status, Invoice Number
+bind Customs Clearance: Contract ID, Customs Declaration Number
+bind Deliver Products: Contract ID
+bind Receive Payment: Contract ID, Payment Status, Invoice Number
+bind Send Invoice: Contract ID, Invoice Number
+bind Provide Customer Support: Contract ID, Support Ticket ID, Support Issue Type
+Contract ID: integer between 1 and 999999
+Client Country: USA, China, Germany, India, Brazil
+Shipment Weight: float between 0.1 and 10000
+Invoice Number: integer between 1 and 999999
+Payment Status: Pending, Completed, Failed
+Support Ticket ID: integer between 1 and 999999
+Contract Value: float between 1000 and 1000000
+Product Condition: Approved, Rejected
+Customs Declaration Number: integer between 1 and 999999
+Support Issue Type: Damage, Late Delivery, Other
+Init[Negotiate Contract] | |
+Precedence[Negotiate Contract, Sign Agreement] | | |0,10,h
+Precedence[Conduct Quality Inspection, Ship Products] |A.Product Condition is Approved | |
+Absence2[Conduct Quality Inspection] | |
+Chain Succession[Ship Products, Customs Clearance] | | |
+Precedence[Customs Clearance, Deliver Products] | | |0,5,d
+Precedence[Deliver Products, Send Invoice] | | |
+Precedence[Send Invoice, Process Payment] | | |0,24,h
+Precedence[Process Payment, Receive Payment] | | |0,12,h
+Response[Deliver Products, Provide Customer Support] | | |0,48,h

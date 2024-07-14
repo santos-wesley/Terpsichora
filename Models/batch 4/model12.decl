@@ -1,0 +1,40 @@
+activity Define Assessment Scope
+activity Conduct Baseline Studies
+activity Identify Potential Impacts
+activity Analyze Alternatives
+activity Develop Mitigation Plans
+activity Prepare Draft Report
+activity Review Draft Report
+activity Public Consultation
+activity Finalize Report
+activity Submit Final Report
+bind Define Assessment Scope: Project ID, Assessment Area
+bind Conduct Baseline Studies: Project ID, Baseline Data
+bind Identify Potential Impacts: Impact ID, Impact Probability
+bind Analyze Alternatives: Impact ID
+bind Develop Mitigation Plans: Impact ID, Mitigation Measure
+bind Prepare Draft Report: Project ID, Report Status
+bind Review Draft Report: Project ID, Report Status
+bind Public Consultation: Project ID, Public Comments
+bind Finalize Report: Project ID, Report Status
+bind Submit Final Report: Final Report ID, Authority Approval Status
+Project ID: integer between 1 and 999999
+Assessment Area: Area A, Area B, Area C
+Baseline Data: Data Set 1, Data Set 2, Data Set 3
+Impact ID: integer between 1 and 9999
+Impact Probability: float between 0.0 and 1.0
+Mitigation Measure: Measure A, Measure B, Measure C
+Report Status: Draft, Reviewed, Final
+Public Comments: integer between 0 and 9999
+Authority Approval Status: Approved, Rejected, Pending
+Final Report ID: integer between 1 and 999999
+Init[Define Assessment Scope] | |
+End[Submit Final Report] | |
+Response[Define Assessment Scope, Conduct Baseline Studies] | | |
+Response[Develop Mitigation Plans, Prepare Draft Report] | | |
+Chain Response[Prepare Draft Report, Review Draft Report] | | |0,48,h
+Chain Response[Review Draft Report, Public Consultation] | | |0,72,h
+Response[Public Consultation, Finalize Report] | | |
+Chain Response[Finalize Report, Submit Final Report] | | |0,7,d
+Existence3[Identify Potential Impacts] | |
+Absence5[Develop Mitigation Plans] | |

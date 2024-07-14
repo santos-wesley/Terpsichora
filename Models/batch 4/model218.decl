@@ -1,0 +1,54 @@
+activity Extract DNA
+activity Quantify DNA
+activity Perform PCR
+activity Run Gel Electrophoresis
+activity Stain Gel
+activity Photograph Gel
+activity Purify PCR Product
+activity Sequence DNA
+activity Analyze Sequence
+activity Prepare Library
+activity Quantify Library
+activity Perform Cloning
+activity Transform Cells
+activity Grow Bacterial Cultures
+activity Extract Plasmid DNA
+bind Extract DNA: Sample ID, DNA Concentration
+bind Quantify DNA: Sample ID, DNA Concentration
+bind Perform PCR: PCR Reagent Lot, Sample ID
+bind Run Gel Electrophoresis: Gel ID
+bind Stain Gel: Gel ID, Stain Type
+bind Photograph Gel: Gel ID
+bind Purify PCR Product: Sample ID
+bind Sequence DNA: Sample ID, Sequencing Platform
+bind Analyze Sequence: Sample ID
+bind Prepare Library: Sample ID, Library Concentration
+bind Perform Cloning: Plate ID, Sample ID
+bind Transform Cells: Plate ID, Sample ID, Bacterial Strain
+bind Grow Bacterial Cultures: Sample ID, Experiment Batch
+bind Extract Plasmid DNA: Sample ID
+Sample ID: integer between 1 and 999999
+DNA Concentration: float between 0.0 and 10000.0
+PCR Reagent Lot: Lot1, Lot2, Lot3
+Gel ID: integer between 1 and 9999
+Stain Type: Ethidium Bromide, SYBR Green, GelRed
+Sequencing Platform: Illumina, Oxford Nanopore, PacBio
+Library Concentration: float between 0.0 and 10000.0
+Plate ID: integer between 1 and 99999
+Bacterial Strain: E.coli DH5α, E.coli BL21, E.coli Top10
+Experiment Batch: integer between 1 and 99999
+Init[Extract DNA] | |
+Response[Extract DNA, Quantify DNA] | | |
+Chain Response[Quantify DNA, Perform PCR] | | |
+Alternate Response[Perform PCR, Run Gel Electrophoresis] | | |
+Succession[Run Gel Electrophoresis, Stain Gel] | | |
+Existence[Photograph Gel] | |
+Precedence[Sequence DNA, Purify PCR Product] | | |
+Existence[Analyze Sequence] | |
+Chain Response[Analyze Sequence, Prepare Library] | | |
+Response[Prepare Library, Quantify Library] | | |
+Chain Succession[Quantify Library, Perform Cloning] | | |
+Response[Perform Cloning, Transform Cells] | | |
+Response[Transform Cells, Grow Bacterial Cultures] | | |
+Response[Grow Bacterial Cultures, Extract Plasmid DNA] | | |
+End[Extract Plasmid DNA] | |

@@ -1,0 +1,36 @@
+activity Receive Sample
+activity Prepare Sample
+activity Conduct Test
+activity Analyze Results
+activity Generate Report
+activity Review Report
+activity Approve Report
+activity Store Report
+activity Notify Client
+bind Receive Sample: Sample ID, Sample Type
+bind Prepare Sample: Sample ID, Technician ID
+bind Conduct Test: Sample ID, Test Type
+bind Analyze Results: Sample ID, Test Result, Result Value
+bind Generate Report: Sample ID, Test Result, Report ID
+bind Review Report: Report ID, Review Status
+bind Approve Report: Report ID
+bind Store Report: Report ID
+bind Notify Client: Report ID
+Sample ID: integer between 1 and 999999
+Sample Type: Blood, Tissue, Urine, Saliva
+Technician ID: integer between 1 and 9999
+Test Type: PCR, ELISA, Western Blot
+Test Result: Positive, Negative, Inconclusive
+Result Value: float between 0.0 and 100.0
+Review Status: Approved, Rejected
+Report ID: integer between 1 and 999999
+Init[Receive Sample] | |
+End[Notify Client] | |
+Chain Response[Receive Sample, Prepare Sample] | | |
+Chain Succession[Conduct Test, Analyze Results] | | |
+Response[Analyze Results, Generate Report] | | |
+Precedence[Approve Report, Review Report] | | |
+Chain Response[Approve Report, Store Report] | | |0,1,h
+Precedence[Notify Client, Store Report] | | |0,30,m
+Alternate Response[Analyze Results, Generate Report] | | |
+Existence[Conduct Test] | |

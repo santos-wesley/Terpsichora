@@ -1,0 +1,50 @@
+activity Collect Evidence
+activity Document Scene
+activity Secure Scene
+activity Analyze Evidence
+activity Interview Witnesses
+activity Prepare Report
+activity Present Findings
+activity Conduct Autopsy
+activity Compare Samples
+activity Submit Evidence
+activity Verify Evidence
+activity Store Evidence
+activity Identify Suspects
+activity File Charges
+activity Close Case
+bind Collect Evidence: Evidence ID, Evidence Type, Crime Scene ID
+bind Document Scene: Crime Scene ID
+bind Interview Witnesses: Crime Scene ID, Witness Status
+bind Analyze Evidence: Evidence ID, Evidence Weight, Analysis Result
+bind Prepare Report: Report ID
+bind Conduct Autopsy: Crime Scene ID, Autopsy Result
+bind Compare Samples: Sample ID, Analysis Result
+bind Identify Suspects: Suspect ID, Crime Scene ID
+bind File Charges: Suspect ID
+bind Submit Evidence: Evidence ID
+Evidence ID: integer between 1 and 100000
+Evidence Type: Blood, Hair, Fiber, Weapon
+Crime Scene ID: integer between 1 and 1000
+Witness Status: Available, Unavailable
+Evidence Weight: float between 0.1 and 5000
+Analysis Result: Match, No Match
+Report ID: integer between 1 and 5000
+Autopsy Result: Homicide, Accidental
+Sample ID: integer between 1 and 10000
+Suspect ID: integer between 1 and 10000
+Init[Document Scene] | |
+End[Close Case] | |
+Precedence[Collect Evidence, Submit Evidence] | | |0,2,d
+Precedence[Collect Evidence, Analyze Evidence] | | |
+Co-Existence[Conduct Autopsy, Analyze Evidence] | | |
+Precedence[Analyze Evidence, Identify Suspects] | | |
+Response[Analyze Evidence, Prepare Report] | | |
+Precedence[Interview Witnesses, Identify Suspects] | | |
+Succession[Identify Suspects, File Charges] | | |
+Existence[Collect Evidence] | |
+Chain Response[Submit Evidence, Verify Evidence] | | |
+Alternate Succession[Analyze Evidence, Verify Evidence] | | |
+Not Co-Existence[Interview Witnesses, Prepare Report] | | |
+Response[File Charges, Close Case] | | |0,24,h
+Chain Response[Document Scene, Secure Scene] | | |0,30,m

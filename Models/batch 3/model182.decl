@@ -1,0 +1,31 @@
+activity Identify Stakeholders
+activity Analyze Stakeholders
+activity Develop Engagement Plan
+activity Conduct Initial Meeting
+activity Secure Stakeholder Commitment
+activity Execute Engagement Plan
+activity Monitor Engagement
+activity Conduct Feedback Survey
+activity Evaluate Engagement Effectiveness
+activity Report Findings
+bind Identify Stakeholders: Stakeholder Type, Stakeholder ID
+bind Analyze Stakeholders: Stakeholder Type, Stakeholder ID, Influence Score
+bind Develop Engagement Plan: Engagement Level
+bind Secure Stakeholder Commitment: Commitment Level
+bind Conduct Feedback Survey: Feedback Rating
+Stakeholder Type: Internal, External
+Stakeholder ID: integer between 1 and 9999
+Influence Score: float between 0.0 and 10.0
+Engagement Level: Low, Medium, High
+Commitment Level: integer between 1 and 5
+Feedback Rating: Poor, Average, Good, Excellent
+Init[Identify Stakeholders] | |
+Chain Succession[Identify Stakeholders, Analyze Stakeholders] | | |
+Existence[Develop Engagement Plan] | |
+Precedence[Secure Stakeholder Commitment, Conduct Initial Meeting] | | |
+Response[Develop Engagement Plan, Execute Engagement Plan] | | |
+Alternate Precedence[Monitor Engagement, Execute Engagement Plan] | | |
+Chain Response[Monitor Engagement, Conduct Feedback Survey] | | |
+Precedence[Evaluate Engagement Effectiveness, Conduct Feedback Survey] | | |0,30,d
+Succession[Evaluate Engagement Effectiveness, Report Findings] | | |
+End[Report Findings] | |

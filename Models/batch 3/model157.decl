@@ -1,0 +1,40 @@
+activity Design Circuit
+activity Develop Software
+activity Assemble Hardware
+activity Integrate System
+activity Test System
+activity Deploy System
+activity Monitor Performance
+activity Maintain System
+activity Upgrade System
+activity Document System
+bind Design Circuit: Design ID
+bind Develop Software: Software Version
+bind Assemble Hardware: Component Type
+bind Integrate System: Design ID, Software Version
+bind Test System: Test Result
+bind Deploy System: Deployment Site ID
+bind Monitor Performance: Performance Metric
+bind Maintain System: Maintenance Cycle
+bind Upgrade System: Upgrade ID
+bind Document System: Documentation Type
+Design ID: integer between 1 and 99999
+Software Version: float between 0.1 and 10.0
+Component Type: Sensor, Actuator, Controller
+Test Result: Pass, Fail
+Deployment Site ID: integer between 1 and 9999
+Performance Metric: float between 0.0 and 100.0
+Maintenance Cycle: integer between 1 and 365
+Upgrade ID: integer between 1 and 99999
+Documentation Type: Configuration, Change Log, Maintenance Report
+System Status: Operational, Non-Operational
+Init[Design Circuit] | |
+Response[Design Circuit, Develop Software] | | |
+Chain Response[Develop Software, Assemble Hardware] | | |
+Response[Assemble Hardware, Integrate System] | | |
+Existence2[Test System] | |
+Precedence[Test System, Deploy System] |A.Test Result is Pass | |0,12,h
+Response[Deploy System, Monitor Performance] | | |0,24,h
+Existence[Maintain System] | |30,60,d
+Alternate Response[Upgrade System, Document System] | | |0,48,h
+End[Monitor Performance] | |

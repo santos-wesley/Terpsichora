@@ -1,0 +1,37 @@
+activity Gather Requirements
+activity Design System
+activity Develop Code
+activity Test Software
+activity Deploy Application
+activity Monitor Performance
+activity Conduct Code Review
+activity Fix Bugs
+activity Update Documentation
+activity Provide Support
+bind Gather Requirements: Requirement ID, Estimated Effort, Priority
+bind Test Software: Bug ID, Test Status
+bind Conduct Code Review: Review Status, Estimated Effort
+bind Deploy Application: Deployment Environment
+bind Provide Support: Support Ticket ID
+bind Update Documentation: Documentation Type
+bind Fix Bugs: Bug ID, Bug Fix Time
+Requirement ID: integer between 1 and 1000
+Estimated Effort: float between 0.0 and 500.0
+Priority: High, Medium, Low
+Bug ID: integer between 1 and 10000
+Test Status: Passed, Failed, In Progress
+Review Status: Approved, Changes Requested, Pending
+Deployment Environment: Development, Staging, Production
+Support Ticket ID: integer between 1 and 100000
+Documentation Type: Requirements, Design, User Guide
+Bug Fix Time: float between 0.0 and 100.0
+Init[Gather Requirements] | |
+Response[Gather Requirements, Design System] | | |
+Succession[Design System, Develop Code] | | |
+Chain Succession[Develop Code, Test Software] | | |0,48,h
+Precedence[Conduct Code Review, Develop Code] | | |
+Existence[Fix Bugs] | |
+Alternate Response[Test Software, Deploy Application] | | |
+Alternate Response[Deploy Application, Provide Support] | | |0,7,d
+End[Monitor Performance] | |
+Responded Existence[Develop Code, Update Documentation] | | |

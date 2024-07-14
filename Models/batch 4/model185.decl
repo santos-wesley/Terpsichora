@@ -1,0 +1,52 @@
+activity Report Crime
+activity Dispatch Officer
+activity Investigate Scene
+activity Collect Evidence
+activity Interview Witness
+activity Arrest Suspect
+activity Transport Suspect
+activity File Report
+activity Interrogate Suspect
+activity Analyze Evidence
+activity Submit Evidence
+activity Process Results
+activity Prepare Case
+activity Testify in Court
+activity Close Case
+bind Report Crime: Case ID, Crime Type, Report Date
+bind Dispatch Officer: Officer ID, Case ID
+bind Investigate Scene: Officer ID, Case ID
+bind Collect Evidence: Officer ID, Case ID, Evidence Weight
+bind Interview Witness: Officer ID, Case ID, Witness Type
+bind Arrest Suspect: Officer ID, Case ID, Suspect ID
+bind Transport Suspect: Officer ID, Case ID, Suspect ID
+bind File Report: Officer ID, Case ID
+bind Interrogate Suspect: Officer ID, Case ID, Suspect ID
+bind Analyze Evidence: Case ID, Evidence Weight
+bind Submit Evidence: Case ID, Evidence Weight
+bind Process Results: Case ID
+bind Prepare Case: Officer ID, Case ID
+bind Testify in Court: Officer ID, Case ID
+bind Close Case: Case ID
+Officer ID: integer between 1 and 9999
+Case ID: integer between 100000 and 999999
+Suspect ID: integer between 1 and 9999
+Crime Type: Theft, Assault, Murder, Fraud, Vandalism
+Report Date: 2023-01-01, 2023-01-02, 2023-01-03
+Witness Type: Victim, Bystander, None
+Evidence Weight: float between 0.1 and 100
+Init[Report Crime] | |
+End[Close Case] | |
+Precedence[Dispatch Officer, Report Crime] | | |
+Response[Dispatch Officer, Investigate Scene] | | |
+Response[Investigate Scene, Collect Evidence] | | |
+Succession[Collect Evidence, Interview Witness] | | |
+Chain Succession[Transport Suspect, Interrogate Suspect] | | |
+Alternate Response[Submit Evidence, Analyze Evidence] | | |0,2,d
+Chain Response[Prepare Case, Testify in Court] | | |0,30,d
+Not Co-Existence[Arrest Suspect, Close Case] | | |
+Not Precedence[Collect Evidence, Close Case] | | |
+Absence2[Arrest Suspect] | |
+Existence[Collect Evidence] | |
+Choice[Collect Evidence, Interview Witness] | | |
+Exclusive Choice[Prepare Case, Close Case] | | |

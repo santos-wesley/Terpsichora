@@ -1,0 +1,54 @@
+activity File Patent
+activity Review Application
+activity Request Revisions
+activity Resubmit Application
+activity Approve Patent
+activity Publish Patent
+activity Register Trademark
+activity Examine Trademark
+activity Request Additional Info
+activity Resubmit Trademark
+activity Approve Trademark
+activity Issue Certificate
+activity Monitor Usage
+activity Renew Registration
+activity Invalidate Registration
+bind File Patent: Application ID, Status
+bind Review Application: Application ID, Reviewer ID, Status
+bind Request Revisions: Application ID, Revision Required
+bind Resubmit Application: Application ID, Revision Required
+bind Approve Patent: Application ID, Status
+bind Publish Patent: Application ID
+bind Register Trademark: Trademark Application ID, Status
+bind Examine Trademark: Trademark Application ID, Reviewer ID, Status
+bind Request Additional Info: Trademark Application ID, Additional Info Required
+bind Resubmit Trademark: Trademark Application ID, Additional Info Required
+bind Approve Trademark: Trademark Application ID, Status
+bind Issue Certificate: Certificate ID
+bind Monitor Usage: Usage Status, Violation Count
+bind Renew Registration: Renewal Fee
+bind Invalidate Registration: Trademark Application ID, Status
+Application ID: integer between 1 and 1000000
+Status: Pending, Approved, Rejected, In-Process
+Reviewer ID: integer between 1 and 10000
+Revision Required: Yes, No
+Trademark Application ID: integer between 1 and 1000000
+Additional Info Required: Yes, No
+Renewal Fee: float between 100.0 and 10000.0
+Certificate ID: integer between 1 and 100000
+Usage Status: No Violations, Violations Found
+Violation Count: integer between 0 and 1000
+Init[File Patent] | |
+Response[File Patent, Review Application] | | |
+Chain Response[Request Revisions, Resubmit Application] | | |0,30,d
+Response[Review Application, Approve Patent] | | |
+Chain Response[Approve Patent, Publish Patent] | | |0,5,d
+Existence[Register Trademark] | |
+Chain Response[Register Trademark, Examine Trademark] | | |
+Response[Request Additional Info, Resubmit Trademark] | | |
+Response[Examine Trademark, Approve Trademark] | | |
+Chain Response[Approve Trademark, Issue Certificate] | | |0,2,d
+Existence[Monitor Usage] | |
+Response[Monitor Usage, Invalidate Registration] |A.Usage Status is Violations Found | |
+End[Invalidate Registration] | |
+Chain Response[Renew Registration, Renew Registration] |A.Renewal Fee >= 100 | |

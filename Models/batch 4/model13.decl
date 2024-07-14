@@ -1,0 +1,40 @@
+activity Submit Proposal
+activity Review Proposal
+activity Submit Feedback
+activity Revise Proposal
+activity Approve Proposal
+activity Conduct Research
+activity Submit Progress Report
+activity Review Progress Report
+activity Submit Final Report
+activity Review Final Report
+bind Submit Proposal: Proposal ID, Reviewer ID
+bind Review Proposal: Proposal ID, Reviewer ID, Review Status
+bind Submit Feedback: Proposal ID, Feedback Type
+bind Revise Proposal: Proposal ID, Feedback Type
+bind Approve Proposal: Proposal ID, Review Status
+bind Submit Progress Report: Progress Report ID, Research Phase
+bind Review Progress Report: Progress Report ID, Progress Status
+bind Submit Final Report: Final Report ID
+bind Review Final Report: Final Report ID, Final Review Status
+bind Conduct Research: Budget
+Proposal ID: integer between 1 and 999999
+Reviewer ID: integer between 1 and 9999
+Review Status: Pending, Approved, Rejected
+Feedback Type: Minor, Major, None
+Research Phase: Initial, Midterm, Final
+Budget: float between 1000.0 and 1000000.0
+Progress Report ID: integer between 1 and 999999
+Progress Status: Pending, Reviewed, Approved
+Final Report ID: integer between 1 and 999999
+Final Review Status: Pending, Reviewed, Approved
+Init[Submit Proposal] | |
+Chain Response[Submit Proposal, Review Proposal] | | |0,2,d
+Response[Review Proposal, Submit Feedback] | | |
+Response[Submit Feedback, Revise Proposal] | | |
+Precedence[Approve Proposal, Revise Proposal] | | |
+Precedence[Conduct Research, Approve Proposal] | | |
+Chain Response[Submit Progress Report, Review Progress Report] | | |0,7,d
+Chain Response[Submit Final Report, Review Final Report] | | |0,30,d
+Existence[Submit Progress Report] | |
+End[Review Final Report] | |

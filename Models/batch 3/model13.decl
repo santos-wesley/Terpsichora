@@ -1,0 +1,48 @@
+activity Define Research Question
+activity Conduct Literature Review
+activity Develop Hypothesis
+activity Design Experiment
+activity Collect Data
+activity Analyze Data
+activity Interpret Results
+activity Draw Conclusions
+activity Write Research Paper
+activity Submit Paper for Review
+activity Revise Paper
+activity Submit Final Paper
+activity Present Findings
+activity Archive Research Data
+activity Apply for Funding
+bind Define Research Question: Research Field
+bind Collect Data: Sample Size, Data Type
+bind Analyze Data: Significance Level
+bind Apply for Funding: Funding Status, Funding Amount
+bind Submit Paper for Review: Review Decision
+bind Revise Paper: Reviewer Feedback
+bind Present Findings: Conference Type
+bind Write Research Paper: Publication Status
+Sample Size: integer between 1 and 10000
+Significance Level: float between 0.0 and 1.0
+Research Field: Physics, Chemistry, Biology, Mathematics, Engineering, Social Sciences
+Funding Status: Approved, Pending, Rejected
+Review Decision: Accepted, Minor Revisions, Major Revisions, Rejected
+Conference Type: National, International
+Reviewer Feedback: Positive, Negative
+Publication Status: Published, In Review, Rejected
+Funding Amount: integer between 0 and 1000000
+Data Type: Quantitative, Qualitative
+Init[Define Research Question] | |
+End[Archive Research Data] | |
+Precedence[Collect Data, Analyze Data] | | |
+Response[Analyze Data, Interpret Results] | | |
+Chain Succession[Submit Paper for Review, Revise Paper] | | |
+Alternate Response[Revise Paper, Submit Final Paper] | | |
+Existence[Apply for Funding] | |
+Absence2[Major Revisions] | |
+Exactly[Write Research Paper] | |
+Not Co-Existence[Submit Paper for Review, Submit Final Paper] | | |
+Precedence[Draw Conclusions, Write Research Paper] | | |
+Chain Response[Collect Data, Analyze Data] | | |0,1,d
+Chain Response[Analyze Data, Interpret Results] | | |0,2,d
+Precedence[Present Findings, Write Research Paper] | | |0,5,d
+Precedence[Apply for Funding, Define Research Question] | | |0,7,d

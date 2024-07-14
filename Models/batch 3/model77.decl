@@ -1,0 +1,55 @@
+activity Attend Town Hall
+activity Sign Petition
+activity Volunteer at Event
+activity Donate to Cause
+activity Organize Cleanup
+activity Vote in Election
+activity Join Civic Group
+activity Write to Official
+activity Attend Workshop
+activity Host Fundraiser
+activity Participate in Protest
+activity Submit Public Comment
+activity Run for Office
+activity Survey Community
+activity Share Information
+bind Attend Town Hall: Event ID, Participant Type
+bind Sign Petition: Event ID, Cause Type
+bind Volunteer at Event: Participant Type, Volunteer Hours
+bind Donate to Cause: Event ID, Donation Amount, Cause Type
+bind Organize Cleanup: Event ID, Cause Type
+bind Vote in Election: Participant Type, Cause Type
+bind Join Civic Group: Event ID, Participant Type
+bind Write to Official: Official Type
+bind Attend Workshop: Event ID, Workshop Topic
+bind Host Fundraiser: Fundraiser Goal
+bind Participate in Protest: Protest Type
+bind Submit Public Comment: Event ID
+bind Run for Office: Event ID
+bind Survey Community: Survey Method
+bind Share Information: Participant Type
+Event ID: integer between 1 and 999999
+Participant Type: Individual, Group, Organization
+Donation Amount: integer between 1 and 10000
+Cause Type: Environmental, Social, Political
+Volunteer Hours: float between 0.5 and 24.0
+Workshop Topic: Voter Education, Community Leadership, Advocacy Skills
+Official Type: Local, State, National
+Protest Type: Peaceful, Demonstration, Sit-in
+Fundraiser Goal: integer between 100 and 50000
+Survey Method: Online, In-person, Telephone
+Init[Attend Town Hall] | |
+Precedence[Attend Town Hall, Sign Petition] | | |
+Chain Succession[Attend Town Hall, Volunteer at Event] | | |
+Response[Organize Cleanup, Donate to Cause] | | |
+Existence[Survey Community] | |
+End[Share Information] | |
+Alternate Response[Attend Workshop, Write to Official] | | |0,48,h
+Chain Succession[Sign Petition, Volunteer at Event] | | |
+Alternate Precedence[Vote in Election, Host Fundraiser] | | |
+Responded Existence[Participate in Protest, Submit Public Comment] | | |
+Absence3[Host Fundraiser] | |
+Not Responded Existence[Run for Office, Join Civic Group] | | |
+Chain Response[Attend Town Hall, Organize Cleanup] | | |0,24,h
+Chain Precedence[Write to Official, Sign Petition] | | |
+Precedence[Survey Community, Share Information] | | |0,5,d

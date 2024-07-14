@@ -1,0 +1,55 @@
+activity Study Scripture
+activity Attend Worship Service
+activity Perform Meditation
+activity Participate in Community Service
+activity Conduct Prayer
+activity Discuss Religious Doctrine
+activity Prepare Sermon
+activity Deliver Sermon
+activity Celebrate Religious Festival
+activity Attend Religious Lecture
+activity Receive Spiritual Guidance
+activity Teach Religious Class
+activity Construct Religious Artifact
+activity Participate in Pilgrimage
+activity Perform Ritual Cleanse
+bind Study Scripture: Text Studied, Duration
+bind Attend Worship Service: Service Type, Duration
+bind Perform Meditation: Meditation Type, Duration
+bind Participate in Community Service: Donation Amount
+bind Conduct Prayer: Prayer Type, Duration
+bind Discuss Religious Doctrine: Duration
+bind Prepare Sermon: Duration
+bind Deliver Sermon: Duration
+bind Celebrate Religious Festival: Festival Celebrated, Duration
+bind Attend Religious Lecture: Duration
+bind Receive Spiritual Guidance: Spiritual Leader, Duration
+bind Teach Religious Class: Duration
+bind Construct Religious Artifact: Artifact Type
+bind Participate in Pilgrimage: Pilgrimage Distance
+bind Perform Ritual Cleanse: Duration
+Duration: integer between 1 and 1440
+Donation Amount: float between 0.0 and 10000.0
+Text Studied: Bible, Quran, Torah, Vedas
+Service Type: Morning Service, Evening Service, Special Service
+Meditation Type: Mindfulness, Transcendental, Guided
+Festival Celebrated: Christmas, Eid, Passover, Diwali
+Prayer Type: Personal, Communal, Intercessory
+Artifact Type: Rosary, Menorah, Prayer Mat, Mandala
+Pilgrimage Distance: integer between 1 and 10000
+Spiritual Leader: Pastor, Imam, Rabbi, Guru
+Init[Study Scripture] | |
+End[Celebrate Religious Festival] | |
+Response[Perform Meditation, Conduct Prayer] | | |
+Precedence[Deliver Sermon, Prepare Sermon] | | |
+Co-Existence[Discuss Religious Doctrine, Deliver Sermon] | | |
+Alternate Succession[Attend Worship Service, Teach Religious Class] | | |
+Chain Response[Participate in Community Service, Receive Spiritual Guidance] | | |0,2,d
+Not Chain Succession[Perform Meditation, Attend Worship Service] | | |
+Precedence[Attend Religious Lecture, Study Scripture] | | |0,24,h
+Exactly[Construct Religious Artifact] | |
+Existence2[Teach Religious Class] | |
+Absence5[Perform Meditation] | |
+Succession[Perform Ritual Cleanse, Participate in Pilgrimage] | | |0,3,d
+Exclusive Choice[Attend Worship Service, Celebrate Religious Festival] | | |
+Not Co-Existence[Discuss Religious Doctrine, Perform Meditation] | | |

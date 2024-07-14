@@ -1,0 +1,36 @@
+activity Assess Emergency
+activity Coordinate Services
+activity Draft Plan
+activity Deploy Resources
+activity Execute Plan
+activity Medical Treatment
+activity Search and Rescue
+activity Monitor Situation
+activity Document Actions
+activity Evaluate Response
+bind Assess Emergency: Emergency ID, Emergency Type
+bind Coordinate Services: Emergency ID, Response Status
+bind Deploy Resources: Emergency ID, Resource Quantity, Time to Deploy
+bind Medical Treatment: Emergency ID, Medical Severity
+bind Monitor Situation: Emergency ID, Adjustment Type
+bind Evaluate Response: Emergency ID, Evaluation Score
+Emergency ID: integer between 1 and 999999
+Emergency Type: Fire, Flood, Earthquake, Tornado, Chemical Spill
+Resource Quantity: float between 0.1 and 1000.0
+Response Status: Not Started, In Progress, Completed
+Medical Severity: Minor, Moderate, Severe
+Rescue Team ID: integer between 1 and 10000
+Report ID: integer between 1 and 999999
+Adjustment Type: Resource Allocation, Personnel Allocation, Strategy Change
+Evaluation Score: integer between 1 and 10
+Time to Deploy: float between 0.1 and 48.0
+Init[Assess Emergency] | |
+Precedence[Assess Emergency, Coordinate Services] | | |
+Succession[Draft Plan, Deploy Resources] | | |
+Existence[Medical Treatment] | |
+Response[Monitor Situation, Document Actions] | | |
+Chain Response[Deploy Resources, Execute Plan] | | |0,48,h
+Absence3[Search and Rescue] | |
+Chain Succession[Search and Rescue, Medical Treatment] | | |
+Response[Document Actions, Evaluate Response] | | |
+End[Evaluate Response] | |

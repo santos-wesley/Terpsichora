@@ -1,0 +1,57 @@
+activity Receive Item
+activity Inspect Item
+activity Store Item
+activity Update Inventory
+activity Pick Item
+activity Pack Item
+activity Ship Item
+activity Restock Item
+activity Dispose Item
+activity Perform Inventory Count
+activity Record Discrepancy
+activity Generate Report
+activity Order Replacement
+activity Receive Return
+activity Verify Return
+activity Close Inventory Record
+bind Receive Item: Item ID, Item Weight
+bind Inspect Item: Item ID, Item Condition
+bind Store Item: Item ID, Warehouse Location ID, Quantity
+bind Update Inventory: Item ID, Quantity
+bind Pick Item: Item ID, Order ID, Quantity
+bind Pack Item: Item ID, Packaging Type
+bind Ship Item: Item ID, Shipment Method, Order ID
+bind Restock Item: Item ID, Warehouse Location ID, Quantity
+bind Dispose Item: Item ID, Item Condition
+bind Perform Inventory Count: Item ID, Quantity
+bind Record Discrepancy: Item ID, Discrepancy Type
+bind Generate Report: Item ID
+bind Order Replacement: Item ID, Order ID
+bind Receive Return: Item ID, Order ID, Item Condition
+bind Verify Return: Item ID, Order ID, Item Condition
+bind Close Inventory Record: Item ID
+Item ID: integer between 1 and 999999
+Item Weight: float between 0.1 and 100.0
+Quantity: integer between 1 and 10000
+Item Condition: New, Used, Damaged
+Warehouse Location ID: integer between 1 and 9999
+Order ID: integer between 1 and 999999
+Shipment Method: Standard, Express, Overnight
+Item Price: float between 0.01 and 10000.0
+Discrepancy Type: Missing, Extra, Damaged
+Packaging Type: Box, Envelope, Crate
+Init[Receive Item] | |
+Exactly2[Perform Inventory Count] | |
+End[Generate Report] | |
+Precedence[Inspect Item, Receive Item] | | |
+Precedence[Store Item, Inspect Item] | | |
+Precedence[Pack Item, Pick Item] | | |
+Chain Succession[Pack Item, Ship Item] | | |0,1,d
+Response[Store Item, Update Inventory] | | |
+Chain Response[Verify Return, Dispose Item] | | |0,6,h
+Absence[Order Replacement] | |
+Chain Succession[Receive Item, Restock Item] | | |0,2,d
+Chain Succession[Receive Return, Verify Return] | | |0,24,h
+Alternate Response[Inspect Item, Update Inventory] | | |
+Exclusive Choice[Pick Item, Order Replacement] | | |
+Not Co-Existence[Perform Inventory Count, Record Discrepancy] | | |

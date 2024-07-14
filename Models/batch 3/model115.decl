@@ -1,0 +1,50 @@
+activity Attach Camera
+activity Power On Camera
+activity Start Shift
+activity Record Incident
+activity Tag Footage
+activity Stop Recording
+activity Power Off Camera
+activity Transfer Footage
+activity Charge Battery
+activity Inspect Camera
+activity Update Firmware
+activity Send Notification
+activity Review Footage
+activity Archive Footage
+activity Delete Footage
+bind Attach Camera: Camera ID, Officer Name
+bind Power On Camera: Camera ID, Camera Status
+bind Record Incident: Camera ID, Incident Type
+bind Tag Footage: Camera ID, Tag Type
+bind Charge Battery: Camera ID, Battery Level
+bind Update Firmware: Camera ID, Firmware Version
+bind Send Notification: Notification ID, Notification Type, Camera ID
+bind Transfer Footage: Storage ID, Camera ID
+bind Inspect Camera: Camera ID, Camera Status
+bind Review Footage: Camera ID, Incident Type
+Camera ID: integer between 1 and 1000
+Officer Name: John Doe, Jane Smith, Alice Johnson
+Incident Type: Traffic Stop, Arrest, Patrol
+Firmware Version: v1.0, v1.1, v1.2
+Battery Level: float between 0.0 and 100.0
+Tag Type: Important, Evidence, Review
+Storage ID: integer between 1 and 500
+Camera Status: Active, Inactive, Charging
+Notification Type: Low Battery, Footage Transfer Complete, Firmware Update Available
+Notification ID: integer between 1 and 5000
+Init[Attach Camera] | |
+Chain Response[Attach Camera, Power On Camera] | | |
+Response[Power On Camera, Start Shift] | | |
+Precedence[Record Incident, Start Shift] | | |
+Chain Succession[Record Incident, Tag Footage] | | |
+Precedence[Stop Recording, Tag Footage] | | |
+Chain Response[Stop Recording, Power Off Camera] | | |
+Response[Power Off Camera, Transfer Footage] | | |
+End[Transfer Footage] | |
+Alternate Response[Transfer Footage, Send Notification] | | |0,30,m
+Precedence[Update Firmware, Inspect Camera] | | |
+Chain Succession[Power Off Camera, Charge Battery] | | |0,2,h
+Responded Existence[Record Incident, Review Footage] | | |
+Existence[Inspect Camera] | |
+Not Co-Existence[Archive Footage, Delete Footage] | | |
