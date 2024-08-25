@@ -1,0 +1,40 @@
+@startuml
+actor User
+participant Terpsichora
+participant "Large Language Model" as LLM
+participant MetaModel
+participant "Validator\n(Pydantic)" as Validator
+participant "OutputHandler\n(Try)" as OutputHandler
+
+User -> Terpsichora: Request MP-Declare model generation\nwith parameters
+note right of User
+  User sets:
+  - Number of constructs
+  - Domain
+  - Other parameters
+end note
+
+Terpsichora -> Terpsichora: Apply prompt engineering techniques
+note right of Terpsichora
+  Techniques include:
+  - Role prompting
+  - Knowledge injection
+  - Few-shot learning
+end note
+
+Terpsichora -> LLM: Send engineered generation prompt
+LLM -> Terpsichora: Generate initial model
+Terpsichora -> MetaModel: Apply metamodel structure
+MetaModel -> Validator: Validate model against rules
+
+alt Model is valid
+    Validator -> OutputHandler: Pass validated model
+    OutputHandler -> Terpsichora: Format model (JSON, DECL)
+    Terpsichora -> User: Return generated MP-Declare model
+else Model is invalid
+    Validator -> Terpsichora: Return validation errors
+    Terpsichora -> LLM: Request another model generation
+    LLM -> Terpsichora: Provide another request
+    note right of Terpsichora: Repeat validation process
+end
+@enduml
