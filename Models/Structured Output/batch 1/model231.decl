@@ -1,0 +1,40 @@
+activity Receive Child Abuse Report
+activity Conduct Initial Assessment
+activity Develop Safety Plan
+activity Initiate Investigation
+activity Conduct Home Visit
+activity Interview Child
+activity Interview Family Members
+activity Evaluate Risk Factors
+activity Make Case Decision
+activity Close Case
+bind Receive Child Abuse Report: Report ID
+bind Conduct Initial Assessment: Assessment Urgency
+bind Develop Safety Plan: Safety Plan Status
+bind Initiate Investigation: Investigation ID
+bind Conduct Home Visit: Home Visit Outcome
+bind Interview Child: Interview Status
+bind Interview Family Members: Family Cooperation Level
+bind Evaluate Risk Factors: Risk Score
+bind Make Case Decision: Case Decision
+bind Close Case: Case ID
+Report ID: integer between 1 and 10000
+Assessment Urgency: Low, Medium, High
+Risk Score: float between 0.0 and 10.0
+Safety Plan Status: Not Started, In Progress, Completed
+Investigation ID: integer between 1 and 10000
+Home Visit Outcome: Satisfactory, Unsatisfactory
+Interview Status: Pending, Completed
+Family Cooperation Level: float between 0.0 and 5.0
+Case Decision: Close, Continue Monitoring, Escalate
+Case ID: integer between 1 and 10000
+Init[Receive Child Abuse Report] | |
+End[Close Case] | |
+Response[Conduct Initial Assessment, Initiate Investigation] | | |0,2,d
+Response[Initiate Investigation, Conduct Home Visit] | | |
+Chain Response[Conduct Home Visit, Interview Child] | | |0,48,h
+Response[Interview Child, Evaluate Risk Factors] | | |
+Response[Evaluate Risk Factors, Develop Safety Plan] |A.Risk Score > 5 | |
+Response[Evaluate Risk Factors, Make Case Decision] | | |
+Precedence[Close Case, Make Case Decision] | |T.Case Decision is Close |
+Chain Succession[Interview Family Members, Evaluate Risk Factors] | | |0,1,d

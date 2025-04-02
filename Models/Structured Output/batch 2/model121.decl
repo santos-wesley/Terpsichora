@@ -1,0 +1,48 @@
+activity Plan Security Measures
+activity Conduct Risk Assessment
+activity Hire Security Personnel
+activity Install Surveillance Equipment
+activity Perform Background Checks
+activity Coordinate with Local Authorities
+activity Set Up Access Control
+activity Conduct Security Drills
+activity Monitor Event Activities
+activity Respond to Security Incidents
+activity Evaluate Security Performance
+activity Dismantle Security Setup
+activity Review Incident Reports
+activity Update Security Protocols
+activity Conduct Post-Event Debrief
+bind Hire Security Personnel: Personnel Count
+bind Plan Security Measures: Budget Allocation
+bind Conduct Risk Assessment: Risk Level
+bind Install Surveillance Equipment: Equipment Status, Equipment Count
+bind Respond to Security Incidents: Incident Count, Response Time
+bind Set Up Access Control: Access Level
+bind Conduct Security Drills: Drill Outcome
+bind Update Security Protocols: Protocol Update Status
+Personnel Count: integer between 10 and 1000
+Budget Allocation: float between 1000.0 and 100000.0
+Risk Level: Low, Medium, High
+Equipment Status: Operational, Non-Operational
+Incident Count: integer between 0 and 100
+Access Level: General, Restricted, VIP
+Response Time: float between 0.1 and 60.0
+Drill Outcome: Successful, Needs Improvement
+Equipment Count: integer between 1 and 500
+Protocol Update Status: Completed, Pending
+Init[Plan Security Measures] | |
+End[Conduct Post-Event Debrief] | |
+Existence[Conduct Risk Assessment] | |
+Absence3[Perform Background Checks] | |
+Chain Response[Hire Security Personnel, Perform Background Checks] | | |
+Response[Install Surveillance Equipment, Monitor Event Activities] | | |0,48,h
+Succession[Set Up Access Control, Respond to Security Incidents] | | |0,2,d
+Co-Existence[Conduct Security Drills, Evaluate Security Performance] | | |
+Not Chain Succession[Respond to Security Incidents, Dismantle Security Setup] | | |
+Precedence[Update Security Protocols, Review Incident Reports] | | |
+Responded Existence[Conduct Risk Assessment, Coordinate with Local Authorities] |A.Risk Level is High | |
+Not Co-Existence[Plan Security Measures, Conduct Risk Assessment] | | |
+Not Response[Monitor Event Activities, Respond to Security Incidents] | | |0,30,m
+Exclusive Choice[Conduct Security Drills, Evaluate Security Performance] | | |
+Response[Review Incident Reports, Update Security Protocols] | | |0,2,d

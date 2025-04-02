@@ -1,0 +1,50 @@
+activity Request Maintenance
+activity Approve Request
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Inspect Work
+activity Close Request
+activity Log Incident
+activity Review Budget
+activity Order Supplies
+activity Receive Supplies
+activity Assign Technician
+activity Evaluate Performance
+activity Update Records
+activity Notify Stakeholders
+activity Conduct Training
+bind Request Maintenance: Request ID, Priority Level
+bind Approve Request: Request Status
+bind Schedule Maintenance: Technician ID
+bind Perform Maintenance: Technician ID
+bind Inspect Work: Inspection Result
+bind Log Incident: Incident Count
+bind Review Budget: Budget Amount
+bind Order Supplies: Supply Cost
+bind Conduct Training: Training Type
+bind Evaluate Performance: Performance Score
+Request ID: integer between 1 and 10000
+Budget Amount: float between 100.0 and 10000.0
+Request Status: Pending, Approved, Rejected
+Priority Level: Low, Medium, High
+Technician ID: integer between 1 and 500
+Supply Cost: float between 10.0 and 5000.0
+Inspection Result: Pass, Fail
+Incident Count: integer between 0 and 50
+Training Type: Safety, Technical, Operational
+Performance Score: float between 0.0 and 10.0
+Init[Request Maintenance] | |
+End[Close Request] | |
+Existence[Approve Request] | |
+Absence3[Log Incident] | |
+Exactly2[Conduct Training] | |
+Response[Request Maintenance, Approve Request] | | |0,2,d
+Chain Response[Inspect Work, Close Request] | | |0,1,d
+Succession[Schedule Maintenance, Perform Maintenance] | |A.Technician ID == T.Technician ID |0,3,d
+Succession[Order Supplies, Receive Supplies] |A.Supply Cost > 100 | |0,5,d
+Co-Existence[Review Budget, Notify Stakeholders] | | |
+Not Chain Succession[Perform Maintenance, Inspect Work] | | |
+Not Precedence[Approve Request, Request Maintenance] | | |
+Exclusive Choice[Evaluate Performance, Conduct Training] | | |
+Not Co-Existence[Log Incident, Notify Stakeholders] | | |
+Response[Notify Stakeholders, Update Records] | | |0,1,d

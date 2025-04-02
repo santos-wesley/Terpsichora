@@ -1,0 +1,29 @@
+activity Initiate Probation
+activity Conduct Risk Assessment
+activity Develop Supervision Plan
+activity Monitor Compliance
+activity Provide Counseling
+activity Conduct Drug Test
+activity Review Progress
+activity Report Violation
+activity Terminate Probation
+bind Conduct Risk Assessment: Risk Level
+bind Monitor Compliance: Compliance Rate
+bind Provide Counseling: Counseling Status
+bind Conduct Drug Test: Drug Test Result
+bind Terminate Probation: Probation Status
+Risk Level: integer between 1 and 10
+Compliance Rate: float between 0.0 and 100.0
+Counseling Status: Scheduled, Completed, Missed
+Drug Test Result: Positive, Negative
+Probation Status: Active, Completed, Revoked
+Init[Initiate Probation] | |
+End[Terminate Probation] | |
+Chain Succession[Conduct Risk Assessment, Develop Supervision Plan] | | |0,2,d
+Response[Monitor Compliance, Provide Counseling] |A.Compliance Rate < 50 | |0,7,d
+Alternate Response[Provide Counseling, Conduct Drug Test] |A.Counseling Status is Completed | |0,1,d
+Response[Conduct Drug Test, Report Violation] |A.Drug Test Result is Positive | |0,1,d
+Alternate Succession[Monitor Compliance, Review Progress] | | |0,30,d
+Not Co-Existence[Report Violation, Terminate Probation] | | |
+Existence[Conduct Risk Assessment] | |
+Exclusive Choice[Report Violation, Terminate Probation] | | |

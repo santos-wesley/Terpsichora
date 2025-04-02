@@ -1,0 +1,36 @@
+activity Plan Merchandise
+activity Select Suppliers
+activity Negotiate Contracts
+activity Order Merchandise
+activity Receive Merchandise
+activity Inspect Merchandise
+activity Display Merchandise
+activity Promote Merchandise
+activity Sell Merchandise
+activity Review Sales Performance
+bind Negotiate Contracts: Contract Duration, Supplier Rating
+bind Order Merchandise: Order Value, Quantity Ordered
+bind Inspect Merchandise: Inspection Result
+bind Promote Merchandise: Discount Rate, Promotion Type
+bind Sell Merchandise: Sales Target, Sales Revenue
+bind Review Sales Performance: Sales Performance
+Contract Duration: integer between 1 and 24
+Order Value: float between 100.0 and 100000.0
+Supplier Rating: Excellent, Good, Average, Poor
+Quantity Ordered: integer between 1 and 1000
+Inspection Result: Pass, Fail
+Discount Rate: float between 0.0 and 50.0
+Sales Target: integer between 10 and 10000
+Promotion Type: Online, In-Store, Both
+Sales Revenue: float between 0.0 and 1000000.0
+Sales Performance: Excellent, Good, Satisfactory, Poor
+Init[Plan Merchandise] | |
+End[Review Sales Performance] | |
+Existence[Inspect Merchandise] | |
+Response[Receive Merchandise, Display Merchandise] | | |0,48,h
+Precedence[Order Merchandise, Negotiate Contracts] | | |
+Chain Response[Promote Merchandise, Sell Merchandise] |A.Promotion Type is Online | |0,2,d
+Not Co-Existence[Inspect Merchandise, Review Sales Performance] | | |
+Responded Existence[Negotiate Contracts, Order Merchandise] |A.Supplier Rating is Excellent |T.Contract Duration >= 12 |
+Precedence[Sell Merchandise, Promote Merchandise] | | |
+Chain Response[Inspect Merchandise, Display Merchandise] |A.Inspection Result is Pass | |0,15,m

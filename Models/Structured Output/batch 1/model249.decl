@@ -1,0 +1,31 @@
+activity Collect Data
+activity Clean Data
+activity Explore Data
+activity Feature Engineering
+activity Train Model
+activity Evaluate Model
+activity Deploy Model
+activity Monitor Model
+activity Update Model
+bind Collect Data: Data Size, Data Quality
+bind Train Model: Model Type, Feature Count
+bind Evaluate Model: Accuracy
+bind Deploy Model: Deployment Status
+bind Clean Data: Processing Time
+Data Size: integer between 100 and 10000
+Accuracy: float between 0.0 and 100.0
+Data Quality: High, Medium, Low
+Model Type: Regression, Classification, Clustering
+Feature Count: integer between 1 and 100
+Deployment Status: Pending, Completed, Failed
+Processing Time: float between 0.1 and 48.0
+Init[Collect Data] | |
+Existence[Clean Data] | |
+Chain Succession[Clean Data, Explore Data] | | |0,2,h
+Precedence[Feature Engineering, Explore Data] | | |
+Co-Existence[Train Model, Evaluate Model] | | |
+Not Chain Succession[Evaluate Model, Deploy Model] | | |
+Response[Deploy Model, Monitor Model] | | |0,1,d
+Responded Existence[Monitor Model, Update Model] |A.Deployment Status is Completed | |
+Chain Precedence[Evaluate Model, Train Model] | |A.Model Type == T.Model Type |
+End[Deploy Model] | |

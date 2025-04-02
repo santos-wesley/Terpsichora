@@ -1,0 +1,45 @@
+activity Enroll Course
+activity Submit Assignment
+activity Grade Assignment
+activity Attend Lecture
+activity Participate in Discussion
+activity Take Quiz
+activity Receive Feedback
+activity Access Course Material
+activity Complete Course
+activity Evaluate Course
+bind Enroll Course: Student ID, Course Status
+bind Submit Assignment: Student ID, Assignment Type
+bind Grade Assignment: Student ID, Assignment Score
+bind Attend Lecture: Student ID, Lecture Type
+bind Participate in Discussion: Student ID, Discussion Participation
+bind Take Quiz: Student ID, Quiz Score
+bind Receive Feedback: Student ID, Feedback Type
+bind Access Course Material: Student ID, Material Access Type
+bind Complete Course: Student ID, Course Status
+bind Evaluate Course: Student ID, Course Rating
+Student ID: integer between 1 and 10000
+Assignment Score: float between 0.0 and 100.0
+Course Status: Enrolled, Completed, In Progress
+Feedback Type: Positive, Negative, Neutral
+Quiz Score: integer between 0 and 10
+Lecture Type: Live, Recorded
+Course Rating: float between 1.0 and 5.0
+Assignment Type: Essay, Project, Quiz
+Discussion Participation: integer between 0 and 50
+Material Access Type: Video, Document, Presentation
+Init[Enroll Course] | |
+End[Complete Course] | |
+Existence[Attend Lecture] | |
+Existence2[Submit Assignment] | |
+Absence4[Receive Feedback] |A.Feedback Type is Negative |
+Response[Submit Assignment, Grade Assignment] | |A.Student ID == T.Student ID |0,7,d
+Chain Response[Attend Lecture, Participate in Discussion] |A.Lecture Type is Live |A.Student ID == T.Student ID |0,2,d
+Precedence[Take Quiz, Access Course Material] | |A.Student ID == T.Student ID |
+Response[Complete Course, Evaluate Course] | |A.Student ID == T.Student ID |0,7,d
+Responded Existence[Receive Feedback, Participate in Discussion] |A.Feedback Type is Positive |A.Student ID == T.Student ID |
+Not Co-Existence[Submit Assignment, Receive Feedback] | |A.Student ID == T.Student ID AND T.Feedback Type is Negative |
+Exclusive Choice[Attend Lecture, Participate in Discussion] |A.Lecture Type is Live |A.Student ID == T.Student ID |
+Chain Response[Take Quiz, Receive Feedback] | |A.Student ID == T.Student ID |0,48,h
+Precedence[Submit Assignment, Access Course Material] | |A.Student ID == T.Student ID |
+Precedence[Take Quiz, Access Course Material] |A.Quiz Score == 10 |A.Student ID == T.Student ID AND T.Material Access Type is Video |

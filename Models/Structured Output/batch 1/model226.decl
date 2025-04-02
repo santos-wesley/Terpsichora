@@ -1,0 +1,28 @@
+activity Define Target Audience
+activity Select Media Channels
+activity Create Content Plan
+activity Allocate Budget
+activity Launch Campaign
+activity Monitor Performance
+activity Adjust Strategy
+activity Evaluate Results
+bind Define Target Audience: Audience Type
+bind Select Media Channels: Media Channel
+bind Allocate Budget: Budget Amount
+bind Create Content Plan: Content Quality Score
+bind Launch Campaign: Campaign Status
+Audience Type: Youth, Adults, Seniors
+Budget Amount: integer between 1000 and 1000000
+Media Channel: Social Media, Television, Radio, Print
+Content Quality Score: float between 0.0 and 10.0
+Campaign Status: Planned, Active, Completed
+Init[Define Target Audience] | |
+End[Evaluate Results] | |
+Existence[Create Content Plan] | |
+Precedence[Launch Campaign, Allocate Budget] | | |
+Chain Response[Select Media Channels, Create Content Plan] | | |0,2,d
+Response[Launch Campaign, Monitor Performance] | | |
+Co-Existence[Adjust Strategy, Evaluate Results] | | |
+Not Chain Succession[Monitor Performance, Adjust Strategy] | | |
+Not Responded Existence[Select Media Channels, Define Target Audience] |A.Media Channel is Social Media |A.Audience Type != T.Audience Type |
+Precedence[Launch Campaign, Create Content Plan] | |T.Content Quality Score > 7 |

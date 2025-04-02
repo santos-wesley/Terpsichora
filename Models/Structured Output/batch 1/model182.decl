@@ -1,0 +1,35 @@
+activity Collect Water Sample
+activity Analyze Salinity
+activity Measure Temperature
+activity Identify Marine Species
+activity Record Weather Conditions
+activity Assess Pollution Levels
+activity Map Ocean Currents
+activity Evaluate pH Levels
+activity Document Findings
+bind Collect Water Sample: Sample Depth, Weather Condition
+bind Analyze Salinity: Salinity Level
+bind Identify Marine Species: Marine Species
+bind Record Weather Conditions: Weather Condition
+bind Assess Pollution Levels: Pollution Index
+bind Measure Temperature: Temperature
+bind Map Ocean Currents: Current Direction
+bind Evaluate pH Levels: pH Level
+Sample Depth: integer between 1 and 10000
+Salinity Level: float between 0.0 and 40.0
+Marine Species: Fish, Plankton, Coral, Crustacean
+Weather Condition: Sunny, Cloudy, Rainy, Stormy
+Pollution Index: float between 0.0 and 100.0
+Temperature: float between -2.0 and 40.0
+Current Direction: North, South, East, West
+pH Level: float between 0.0 and 14.0
+Init[Collect Water Sample] | |
+End[Document Findings] | |
+Chain Response[Collect Water Sample, Analyze Salinity] | | |2,4,h
+Response[Identify Marine Species, Assess Pollution Levels] | | |1,3,d
+Precedence[Map Ocean Currents, Measure Temperature] | | |
+Co-Existence[Evaluate pH Levels, Assess Pollution Levels] | | |
+Not Chain Succession[Record Weather Conditions, Identify Marine Species] | | |
+Existence[Measure Temperature] | |
+Exclusive Choice[Collect Water Sample, Record Weather Conditions] | | |
+Not Responded Existence[Analyze Salinity, Assess Pollution Levels] |A.Salinity Level > 35 |T.Pollution Index < 50 |

@@ -1,0 +1,32 @@
+activity Initiate Grievance
+activity Review Grievance
+activity Conduct Mediation
+activity Draft Agreement
+activity Approve Agreement
+activity Reject Agreement
+activity Schedule Arbitration
+activity Conduct Arbitration
+activity Issue Arbitration Decision
+activity Close Grievance
+bind Initiate Grievance: Grievance ID, Grievance Status
+bind Draft Agreement: Settlement Amount, Agreement Outcome
+bind Schedule Arbitration: Arbitration ID, Grievance Status
+Grievance ID: integer between 1 and 10000
+Grievance Status: Open, In Review, Mediated, Arbitrated, Closed
+Settlement Amount: float between 0.0 and 100000.0
+Agreement Outcome: Approved, Rejected
+Arbitration ID: integer between 1 and 5000
+Init[Initiate Grievance] | |
+End[Close Grievance] | |
+Existence[Review Grievance] | |
+Choice[Conduct Mediation, Draft Agreement] | | |
+Exclusive Choice[Draft Agreement, Approve Agreement] | | |
+Response[Approve Agreement, Close Grievance] | | |0,2,d
+Response[Reject Agreement, Schedule Arbitration] | | |0,3,d
+Succession[Schedule Arbitration, Conduct Arbitration] | | |1,5,d
+Chain Response[Conduct Arbitration, Issue Arbitration Decision] | | |0,48,h
+Response[Issue Arbitration Decision, Close Grievance] | | |0,2,d
+Response[Initiate Grievance, Review Grievance] | | |
+Not Co-Existence[Conduct Mediation, Schedule Arbitration] | | |
+Not Co-Existence[Draft Agreement, Issue Arbitration Decision] | | |
+Not Succession[Conduct Mediation, Conduct Arbitration] | | |

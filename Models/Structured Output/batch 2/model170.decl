@@ -1,0 +1,50 @@
+activity Identify Community Needs
+activity Develop Business Plan
+activity Secure Funding
+activity Hire Staff
+activity Launch Marketing Campaign
+activity Implement Project
+activity Monitor Progress
+activity Evaluate Impact
+activity Report Results
+activity Conduct Training
+activity Engage Stakeholders
+activity Adjust Strategy
+activity Celebrate Success
+activity Renew Funding
+activity Close Project
+bind Secure Funding: Funding Amount
+bind Evaluate Impact: Impact Score
+bind Implement Project: Project Status
+bind Engage Stakeholders: Stakeholder Feedback
+bind Hire Staff: Staff Count
+bind Monitor Progress: Budget Utilization
+bind Conduct Training: Training Type
+bind Identify Community Needs: Community Reach
+bind Launch Marketing Campaign: Marketing Channel
+bind Report Results: Satisfaction Level
+Funding Amount: integer between 1000 and 1000000
+Impact Score: float between 0.0 and 10.0
+Project Status: Planned, In Progress, Completed
+Stakeholder Feedback: Positive, Neutral, Negative
+Staff Count: integer between 1 and 100
+Budget Utilization: float between 0.0 and 100.0
+Training Type: Technical, Soft Skills, Leadership
+Community Reach: integer between 0 and 10000
+Marketing Channel: Online, Print, Event
+Satisfaction Level: float between 0.0 and 5.0
+Init[Identify Community Needs] | |
+End[Close Project] | |
+Existence[Implement Project] | |
+Chain Response[Secure Funding, Hire Staff] | | |0,2,d
+Response[Develop Business Plan, Launch Marketing Campaign] | | |0,5,d
+Succession[Implement Project, Monitor Progress] | | |0,10,d
+Co-Existence[Evaluate Impact, Report Results] | | |
+Precedence[Engage Stakeholders, Conduct Training] | | |0,7,d
+Response[Engage Stakeholders, Adjust Strategy] | | |0,5,d
+Exclusive Choice[Celebrate Success, Renew Funding] | | |
+Responded Existence[Implement Project, Evaluate Impact] |A.Project Status is Completed |T.Impact Score > 7 |
+Responded Existence[Engage Stakeholders, Report Results] |A.Stakeholder Feedback is Positive |T.Satisfaction Level >= 4 |
+Responded Existence[Identify Community Needs, Launch Marketing Campaign] |A.Community Reach > 5000 |T.Marketing Channel is Online |
+Responded Existence[Monitor Progress, Adjust Strategy] |A.Budget Utilization > 80 | |
+Not Response[Conduct Training, Engage Stakeholders] |A.Training Type is Leadership | |

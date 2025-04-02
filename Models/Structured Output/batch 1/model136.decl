@@ -1,0 +1,40 @@
+activity Capture Network Traffic
+activity Analyze Packet Content
+activity Identify Anomalies
+activity Log Incident
+activity Generate Report
+activity Review Security Policies
+activity Update Security Measures
+activity Archive Data
+activity Notify Stakeholders
+activity Conduct Follow-up Audit
+bind Capture Network Traffic: Packet Size, Traffic Volume
+bind Analyze Packet Content: Anomaly Score
+bind Identify Anomalies: Incident Severity
+bind Log Incident: Incident Severity
+bind Generate Report: Report Status
+bind Review Security Policies: Policy Version
+bind Update Security Measures: Response Time
+bind Archive Data: Data Archived
+bind Notify Stakeholders: Stakeholder Notified
+bind Conduct Follow-up Audit: Audit Frequency
+Packet Size: integer between 64 and 1500
+Anomaly Score: float between 0.0 and 1.0
+Incident Severity: Low, Medium, High
+Report Status: Draft, Final
+Policy Version: integer between 1 and 10
+Response Time: float between 0.1 and 48.0
+Stakeholder Notified: Yes, No
+Audit Frequency: integer between 7 and 365
+Data Archived: Completed, Pending
+Traffic Volume: float between 0.1 and 1000.0
+Init[Capture Network Traffic] | |
+End[Conduct Follow-up Audit] | |
+Chain Response[Capture Network Traffic, Analyze Packet Content] | | |0,5,m
+Response[Identify Anomalies, Log Incident] |A.Anomaly Score > 0.7 | |0,1,h
+Succession[Log Incident, Generate Report] | | |0,2,h
+Precedence[Update Security Measures, Review Security Policies] | | |
+Chain Succession[Generate Report, Archive Data] | | |0,1,d
+Response[Archive Data, Notify Stakeholders] |A.Data Archived is Completed | |0,1,d
+Precedence[Conduct Follow-up Audit, Notify Stakeholders] | | |
+Existence[Identify Anomalies] | |

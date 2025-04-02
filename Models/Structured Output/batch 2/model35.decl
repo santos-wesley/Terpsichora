@@ -1,0 +1,51 @@
+activity Conduct Employee Survey
+activity Analyze Survey Results
+activity Develop Action Plan
+activity Implement Action Plan
+activity Evaluate Action Plan Effectiveness
+activity Conduct Training Session
+activity Review Training Feedback
+activity Update Organizational Policies
+activity Hold Team Meeting
+activity Recognize Employee Achievement
+activity Conduct Performance Review
+activity Set Performance Goals
+activity Monitor Employee Progress
+activity Provide Employee Feedback
+activity Conduct Exit Interview
+bind Conduct Employee Survey: Survey Score
+bind Analyze Survey Results: Survey Score
+bind Develop Action Plan: Action Plan Budget
+bind Conduct Training Session: Training Feedback
+bind Update Organizational Policies: Policy Update Status
+bind Hold Team Meeting: Meeting Duration
+bind Recognize Employee Achievement: Achievement Level
+bind Conduct Performance Review: Performance Score
+bind Set Performance Goals: Goal Achievement Rate
+bind Conduct Exit Interview: Exit Reason
+bind Provide Employee Feedback: Feedback Rating
+Survey Score: integer between 1 and 10
+Action Plan Budget: float between 1000.0 and 100000.0
+Training Feedback: Positive, Neutral, Negative
+Policy Update Status: Pending, In Progress, Completed
+Meeting Duration: integer between 30 and 180
+Achievement Level: Bronze, Silver, Gold
+Performance Score: integer between 1 and 5
+Goal Achievement Rate: float between 0.0 and 100.0
+Exit Reason: Personal, Career Growth, Work Environment
+Feedback Rating: float between 1.0 and 5.0
+Existence[Conduct Employee Survey] | |
+Existence[Evaluate Action Plan Effectiveness] | |
+Precedence[Develop Action Plan, Analyze Survey Results] | | |
+Response[Develop Action Plan, Implement Action Plan] | | |
+Response[Conduct Training Session, Review Training Feedback] | | |0,2,d
+Response[Review Training Feedback, Update Organizational Policies] | | |0,5,d
+Exactly[Hold Team Meeting] | |
+Response[Conduct Performance Review, Recognize Employee Achievement] | | |0,10,d
+Response[Conduct Performance Review, Set Performance Goals] | | |0,3,d
+Response[Set Performance Goals, Monitor Employee Progress] | | |0,30,d
+Response[Monitor Employee Progress, Provide Employee Feedback] | | |
+Responded Existence[Conduct Exit Interview, Conduct Employee Survey] | | |
+Precedence[Develop Action Plan, Conduct Employee Survey] |A.Survey Score < 5 |A.Action Plan Budget <= 50000 |
+Precedence[Review Training Feedback, Hold Team Meeting] |A.Meeting Duration > 60 |A.Training Feedback is Positive |
+Not Precedence[Conduct Exit Interview, Provide Employee Feedback] |A.Feedback Rating < 3 |A.Exit Reason is Work Environment |

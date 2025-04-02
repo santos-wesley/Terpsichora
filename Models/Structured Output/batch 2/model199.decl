@@ -1,0 +1,50 @@
+activity Collect Data
+activity Analyze Data
+activity Draft Report
+activity Review Report
+activity Approve Report
+activity Publish Report
+activity Gather Feedback
+activity Revise Report
+activity Conduct Training
+activity Set Objectives
+activity Monitor Progress
+activity Engage Stakeholders
+activity Evaluate Impact
+activity Prepare Budget
+activity Conduct Audit
+bind Collect Data: Data Points
+bind Draft Report: Report Status
+bind Gather Feedback: Feedback Type
+bind Conduct Training: Training Sessions
+bind Evaluate Impact: Impact Score
+bind Set Objectives: Objective Status
+bind Engage Stakeholders: Stakeholder Engagements
+bind Conduct Audit: Audit Result
+bind Monitor Progress: Progress Percentage
+bind Prepare Budget: Budget Allocation
+Data Points: integer between 100 and 10000
+Budget Allocation: float between 1000.0 and 1000000.0
+Report Status: Draft, Reviewed, Approved, Published
+Feedback Type: Positive, Negative, Neutral
+Training Sessions: integer between 1 and 50
+Impact Score: float between 0.0 and 10.0
+Objective Status: Set, In Progress, Achieved
+Stakeholder Engagements: integer between 1 and 100
+Audit Result: Compliant, Non-Compliant
+Progress Percentage: float between 0.0 and 100.0
+Init[Collect Data] | |
+End[Publish Report] | |
+Existence[Review Report] | |
+Exactly[Approve Report] | |
+Chain Response[Draft Report, Review Report] | |A.Report Status is Draft |0,1,d
+Response[Publish Report, Gather Feedback] | | |0,7,d
+Alternate Response[Gather Feedback, Revise Report] |A.Feedback Type is Negative | |0,14,d
+Precedence[Set Objectives, Conduct Training] | | |
+Response[Set Objectives, Monitor Progress] | | |0,30,d
+Co-Existence[Engage Stakeholders, Collect Data] | | |
+Response[Monitor Progress, Evaluate Impact] | | |0,60,d
+Precedence[Conduct Audit, Prepare Budget] | | |
+Responded Existence[Evaluate Impact, Conduct Audit] |A.Impact Score > 8.0 |T.Audit Result is Compliant |
+Not Precedence[Publish Report, Approve Report] | | |
+Precedence[Publish Report, Set Objectives] | |T.Objective Status is Achieved |

@@ -1,0 +1,31 @@
+activity Draft Policy Document
+activity Review Policy Document
+activity Approve Policy Document
+activity Publish Policy Document
+activity Consult Stakeholders
+activity Revise Policy Document
+activity Conduct Impact Analysis
+activity Hold Public Consultation
+activity Finalize Policy Document
+bind Draft Policy Document: Document Version
+bind Review Policy Document: Approval Status
+bind Consult Stakeholders: Stakeholder Satisfaction, Feedback Count
+bind Revise Policy Document: Revision Status
+bind Conduct Impact Analysis: Impact Score
+Document Version: integer between 1 and 10
+Stakeholder Satisfaction: float between 0.0 and 100.0
+Approval Status: Pending, Approved, Rejected
+Consultation Type: Public, Private
+Feedback Count: integer between 0 and 1000
+Impact Score: float between 0.0 and 10.0
+Revision Status: Not Revised, Revised
+Existence[Draft Policy Document] | |
+End[Publish Policy Document] | |
+Response[Draft Policy Document, Review Policy Document] | | |0,2,d
+Precedence[Approve Policy Document, Review Policy Document] | | |
+Response[Revise Policy Document, Finalize Policy Document] | | |0,5,d
+Co-Existence[Consult Stakeholders, Hold Public Consultation] | | |
+Chain Response[Consult Stakeholders, Conduct Impact Analysis] | | |0,48,h
+Precedence[Publish Policy Document, Approve Policy Document] | | |
+Not Succession[Revise Policy Document, Finalize Policy Document] | | |
+Exclusive Choice[Consult Stakeholders, Hold Public Consultation] | | |

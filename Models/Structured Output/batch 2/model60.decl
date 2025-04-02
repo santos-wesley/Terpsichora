@@ -1,0 +1,46 @@
+activity Check Passenger ID
+activity Scan Baggage
+activity Perform Body Scan
+activity Inspect Baggage
+activity Clear Passenger
+activity Detain Passenger
+activity Alert Security
+activity Verify Boarding Pass
+activity Conduct Random Check
+activity Confiscate Item
+activity Issue Boarding Pass
+activity Escort Passenger
+activity Perform Secondary Screening
+activity Log Security Incident
+activity Provide Security Briefing
+bind Check Passenger ID: Passenger ID
+bind Scan Baggage: Baggage Status, Baggage Weight
+bind Perform Body Scan: Scan Result, Scan Duration
+bind Inspect Baggage: Inspection Outcome
+bind Verify Boarding Pass: Boarding Pass Number
+bind Log Security Incident: Incident Report ID, Security Level
+Passenger ID: integer between 1000 and 9999
+Baggage Status: Clear, Suspicious
+Scan Result: Clear, Alert
+Baggage Weight: float between 0.1 and 50.0
+Security Level: Low, Medium, High
+Boarding Pass Number: integer between 1 and 5000
+Inspection Outcome: Pass, Fail
+Scan Duration: float between 5.0 and 120.0
+Random Check Status: Selected, Not Selected
+Incident Report ID: integer between 1 and 10000
+Init[Check Passenger ID] | |
+End[Clear Passenger] | |
+Response[Scan Baggage, Inspect Baggage] |A.Baggage Status is Suspicious | |0,30,m
+Response[Perform Body Scan, Detain Passenger] |A.Scan Result is Alert | |0,15,m
+Precedence[Issue Boarding Pass, Verify Boarding Pass] | |A.Boarding Pass Number == T.Boarding Pass Number |
+Co-Existence[Conduct Random Check, Perform Secondary Screening] |A.Random Check Status is Selected | |
+Not Chain Succession[Alert Security, Clear Passenger] | | |
+Not Co-Existence[Confiscate Item, Clear Passenger] | | |
+Not Precedence[Escort Passenger, Clear Passenger] | | |
+Responded Existence[Alert Security, Log Security Incident] | |A.Incident Report ID == T.Incident Report ID |
+Choice[Check Passenger ID, Verify Boarding Pass] | |A.Passenger ID == T.Boarding Pass Number |
+Precedence[Provide Security Briefing, Verify Boarding Pass] | |A.Boarding Pass Number == T.Boarding Pass Number |0,10,m
+Existence[Perform Body Scan] | |
+Absence3[Conduct Random Check] | |
+Chain Response[Perform Secondary Screening, Escort Passenger] | | |0,5,m

@@ -1,0 +1,50 @@
+activity Define IT Strategy
+activity Assess IT Risks
+activity Develop IT Policies
+activity Implement IT Solutions
+activity Monitor IT Performance
+activity Conduct IT Audits
+activity Review IT Policies
+activity Manage IT Budget
+activity Train IT Staff
+activity Evaluate IT Vendors
+activity Approve IT Projects
+activity Report IT Performance
+activity Upgrade IT Infrastructure
+activity Ensure Data Security
+activity Align IT with Business
+bind Define IT Strategy: Compliance Status
+bind Assess IT Risks: Risk Level
+bind Develop IT Policies: Compliance Status
+bind Implement IT Solutions: Budget Allocation
+bind Monitor IT Performance: Performance Score
+bind Conduct IT Audits: Audit Frequency
+bind Train IT Staff: Training Type
+bind Evaluate IT Vendors: Vendor Rating
+bind Upgrade IT Infrastructure: Infrastructure Cost
+bind Ensure Data Security: Security Level
+Risk Level: integer between 1 and 5
+Budget Allocation: float between 1000.0 and 1000000.0
+Compliance Status: Compliant, Non-Compliant
+Training Type: Technical, Managerial, Security
+Vendor Rating: integer between 1 and 10
+Performance Score: float between 0.0 and 100.0
+Project Status: Initiated, In Progress, Completed
+Audit Frequency: integer between 1 and 12
+Infrastructure Cost: float between 5000.0 and 500000.0
+Security Level: Low, Medium, High
+Init[Define IT Strategy] | |
+End[Align IT with Business] | |
+Existence4[Conduct IT Audits] | |
+Absence3[Develop IT Policies] | |
+Precedence[Implement IT Solutions, Assess IT Risks] | | |
+Chain Response[Approve IT Projects, Manage IT Budget] | | |0,2,d
+Chain Response[Train IT Staff, Report IT Performance] | | |0,1,d
+Response[Monitor IT Performance, Report IT Performance] | | |
+Co-Existence[Develop IT Policies, Conduct IT Audits] | | |
+Not Chain Succession[Implement IT Solutions, Upgrade IT Infrastructure] | | |
+Precedence[Approve IT Projects, Ensure Data Security] | | |
+Precedence[Upgrade IT Infrastructure, Evaluate IT Vendors] | | |
+Not Co-Existence[Define IT Strategy, Assess IT Risks] | | |
+Chain Succession[Monitor IT Performance, Report IT Performance] | | |0,48,h
+Exclusive Choice[Train IT Staff, Evaluate IT Vendors] | | |

@@ -1,0 +1,40 @@
+activity Monitor Wildlife
+activity Conduct Habitat Assessment
+activity Implement Conservation Measures
+activity Evaluate Conservation Impact
+activity Report Findings
+activity Engage Community
+activity Secure Funding
+activity Train Personnel
+activity Conduct Research
+activity Review Policies
+bind Monitor Wildlife: Population Count, Conservation Status
+bind Conduct Habitat Assessment: Habitat Quality Index
+bind Implement Conservation Measures: Conservation Status, Impact Score
+bind Evaluate Conservation Impact: Impact Score
+bind Report Findings: Report Type
+bind Engage Community: Community Engagement Level
+bind Secure Funding: Funding Amount
+bind Train Personnel: Training Hours
+bind Conduct Research: Research Type
+bind Review Policies: Policy Review Frequency
+Population Count: integer between 0 and 10000
+Habitat Quality Index: float between 0.0 and 10.0
+Conservation Status: Endangered, Vulnerable, Least Concern
+Funding Amount: integer between 0 and 1000000
+Community Engagement Level: Low, Medium, High
+Training Hours: float between 0.0 and 100.0
+Research Type: Field Study, Laboratory Analysis
+Policy Review Frequency: integer between 1 and 12
+Impact Score: float between 0.0 and 100.0
+Report Type: Annual, Quarterly, Monthly
+Init[Monitor Wildlife] | |
+End[Report Findings] | |
+Chain Succession[Conduct Habitat Assessment, Implement Conservation Measures] | | |0,2,d
+Exclusive Choice[Engage Community, Secure Funding] | | |
+Precedence[Conduct Research, Train Personnel] | | |
+Response[Implement Conservation Measures, Evaluate Conservation Impact] | | |
+Existence[Conduct Research] | |
+Not Co-Existence[Review Policies, Conduct Research] | | |
+Alternate Succession[Monitor Wildlife, Conduct Habitat Assessment] | | |
+Chain Response[Monitor Wildlife, Implement Conservation Measures] |A.Conservation Status is Endangered | |0,48,h

@@ -1,0 +1,45 @@
+activity Conduct Field Survey
+activity Analyze Data
+activity Develop Conservation Plan
+activity Monitor Species
+activity Assess Threats
+activity Implement Conservation Actions
+activity Evaluate Conservation Efforts
+activity Report Findings
+activity Engage Community
+activity Secure Funding
+bind Conduct Field Survey: Species Count, Data Quality
+bind Analyze Data: Data Quality
+bind Develop Conservation Plan: Threat Level
+bind Monitor Species: Species Health Index
+bind Assess Threats: Threat Level
+bind Implement Conservation Actions: Action Count
+bind Evaluate Conservation Efforts: Impact Score
+bind Report Findings: Data Quality
+bind Engage Community: Community Engagement Score
+bind Secure Funding: Budget, Funding Status
+Species Count: integer between 1 and 1000
+Budget: float between 1000.0 and 1000000.0
+Threat Level: Low, Medium, High
+Conservation Status: Endangered, Vulnerable, Least Concern
+Community Engagement Score: integer between 0 and 100
+Species Health Index: float between 0.0 and 10.0
+Funding Status: Secured, Pending, Not Secured
+Data Quality: High, Medium, Low
+Action Count: integer between 0 and 50
+Impact Score: float between 0.0 and 100.0
+Existence[Conduct Field Survey] | |
+Exactly[Develop Conservation Plan] | |
+Existence[Evaluate Conservation Efforts] | |
+Response[Conduct Field Survey, Analyze Data] | | |0,2,d
+Response[Develop Conservation Plan, Implement Conservation Actions] | | |0,5,d
+Response[Implement Conservation Actions, Monitor Species] | | |0,10,d
+Precedence[Develop Conservation Plan, Assess Threats] | | |
+Exclusive Choice[Engage Community, Secure Funding] | | |
+Response[Evaluate Conservation Efforts, Report Findings] | | |0,7,d
+Co-Existence[Analyze Data, Report Findings] | | |
+Precedence[Implement Conservation Actions, Monitor Species] |A.Species Health Index > 5 | |
+Responded Existence[Assess Threats, Implement Conservation Actions] |A.Threat Level is High | |
+Responded Existence[Secure Funding, Engage Community] |A.Budget < 5000 | |
+Response[Analyze Data, Conduct Field Survey] |A.Data Quality is Low | |0,3,d
+Response[Evaluate Conservation Efforts, Evaluate Conservation Efforts] |A.Impact Score < 50 | |0,10,d

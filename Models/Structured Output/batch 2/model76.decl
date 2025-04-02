@@ -1,0 +1,50 @@
+activity Receive Shipment
+activity Inspect Goods
+activity Store Goods
+activity Update Inventory
+activity Process Order
+activity Pick Goods
+activity Pack Goods
+activity Ship Order
+activity Perform Stock Count
+activity Adjust Inventory
+activity Return Goods
+activity Dispose Goods
+activity Reorder Stock
+activity Approve Reorder
+activity Receive Return
+bind Receive Shipment: Quantity, Price
+bind Inspect Goods: Condition
+bind Store Goods: Stock Level
+bind Process Order: Order Status
+bind Return Goods: Return Reason
+bind Dispose Goods: Disposal Method
+bind Reorder Stock: Reorder Status
+bind Perform Stock Count: Stock Level
+bind Adjust Inventory: Stock Level
+bind Receive Return: Return Reason
+Quantity: integer between 1 and 1000
+Price: float between 0.01 and 10000.0
+Condition: New, Used, Damaged
+Order Status: Pending, Processed, Shipped, Delivered
+Reorder Status: Pending, Approved, Rejected
+Stock Level: integer between 0 and 5000
+Return Reason: Defective, Unwanted, Wrong Item
+Weight: float between 0.1 and 100.0
+Days in Inventory: integer between 0 and 365
+Disposal Method: Recycle, Landfill, Incinerate
+Init[Receive Shipment] | |
+End[Ship Order] | |
+Existence[Perform Stock Count] | |
+Absence2[Dispose Goods] | |
+Chain Succession[Receive Shipment, Inspect Goods] | | |0,5,m
+Succession[Inspect Goods, Store Goods] | | |0,1,h
+Precedence[Pick Goods, Process Order] | | |
+Chain Response[Pick Goods, Pack Goods] | | |0,10,m
+Response[Pack Goods, Ship Order] | | |0,2,h
+Precedence[Inspect Goods, Receive Return] | | |
+Precedence[Reorder Stock, Approve Reorder] | | |
+Response[Process Order, Ship Order] | | |
+Not Co-Existence[Dispose Goods, Return Goods] | | |
+Succession[Perform Stock Count, Adjust Inventory] | | |0,1,d
+Exclusive Choice[Return Goods, Dispose Goods] | | |

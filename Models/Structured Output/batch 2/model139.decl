@@ -1,0 +1,50 @@
+activity Assess Aid Request
+activity Approve Aid Package
+activity Allocate Funds
+activity Dispatch Aid
+activity Monitor Aid Usage
+activity Report Aid Impact
+activity Review Aid Policy
+activity Negotiate Terms
+activity Conduct Site Visit
+activity Evaluate Aid Effectiveness
+activity Submit Aid Proposal
+activity Verify Aid Delivery
+activity Request Additional Aid
+activity Audit Aid Process
+activity Finalize Aid Agreement
+bind Assess Aid Request: Request ID, Country
+bind Approve Aid Package: Aid Status
+bind Allocate Funds: Funds Allocated
+bind Dispatch Aid: Aid Status
+bind Monitor Aid Usage: Impact Score
+bind Report Aid Impact: Impact Score
+bind Review Aid Policy: Policy Type
+bind Conduct Site Visit: Visit Outcome
+bind Submit Aid Proposal: Proposal ID
+bind Audit Aid Process: Audit Result
+Request ID: integer between 1 and 10000
+Aid Amount: float between 1000.0 and 1000000.0
+Aid Status: Pending, Approved, Dispatched, Delivered
+Country: Country A, Country B, Country C
+Impact Score: integer between 1 and 10
+Policy Type: Emergency, Development, Military
+Funds Allocated: float between 500.0 and 500000.0
+Visit Outcome: Positive, Negative, Neutral
+Proposal ID: integer between 1 and 5000
+Audit Result: Compliant, Non-Compliant
+Init[Assess Aid Request] | |
+End[Report Aid Impact] | |
+Chain Response[Approve Aid Package, Allocate Funds] |A.Aid Status is Approved | |0,2,d
+Chain Succession[Allocate Funds, Dispatch Aid] | | |
+Response[Dispatch Aid, Monitor Aid Usage] |A.Aid Status is Dispatched | |
+Succession[Monitor Aid Usage, Evaluate Aid Effectiveness] |A.Impact Score > 5 | |
+Precedence[Approve Aid Package, Conduct Site Visit] | |A.Country == T.Country |
+Exclusive Choice[Submit Aid Proposal, Assess Aid Request] | | |
+Precedence[Approve Aid Package, Review Aid Policy] | |A.Policy Type == T.Policy Type |
+Chain Succession[Negotiate Terms, Finalize Aid Agreement] | | |0,48,h
+Response[Dispatch Aid, Verify Aid Delivery] | | |0,2,d
+Succession[Verify Aid Delivery, Audit Aid Process] | | |
+Precedence[Request Additional Aid, Evaluate Aid Effectiveness] | | |
+Existence[Assess Aid Request] | |
+Absence2[Approve Aid Package] | |

@@ -1,0 +1,50 @@
+activity Conduct Initial Assessment
+activity Develop Treatment Plan
+activity Provide Individual Counseling
+activity Facilitate Group Therapy
+activity Conduct Family Counseling
+activity Monitor Progress
+activity Adjust Treatment Plan
+activity Conduct Drug Testing
+activity Provide Relapse Prevention Education
+activity Coordinate with Healthcare Providers
+activity Conduct Discharge Planning
+activity Follow Up Post-Discharge
+activity Provide Crisis Intervention
+activity Evaluate Treatment Outcomes
+activity Conduct Intake Interview
+bind Conduct Initial Assessment: Crisis Level
+bind Develop Treatment Plan: Treatment Status
+bind Provide Individual Counseling: Session Count
+bind Facilitate Group Therapy: Group Sessions Attended
+bind Conduct Family Counseling: Family Involvement
+bind Monitor Progress: Progress Score
+bind Conduct Drug Testing: Drug Test Result
+bind Provide Relapse Prevention Education: Relapse Count
+bind Evaluate Treatment Outcomes: Satisfaction Score
+bind Conduct Discharge Planning: Treatment Duration
+Session Count: integer between 0 and 1000
+Progress Score: float between 0.0 and 100.0
+Treatment Status: Active, Completed, Discharged
+Drug Test Result: Positive, Negative
+Relapse Count: integer between 0 and 50
+Crisis Level: Low, Medium, High
+Treatment Duration: float between 0.0 and 52.0
+Family Involvement: None, Partial, Full
+Group Sessions Attended: integer between 0 and 100
+Satisfaction Score: float between 0.0 and 10.0
+Init[Conduct Initial Assessment] | |
+End[Conduct Discharge Planning] | |
+Response[Provide Individual Counseling, Monitor Progress] | | |0,7,d
+Chain Response[Conduct Drug Testing, Monitor Progress] | | |0,1,d
+Responded Existence[Conduct Family Counseling, Conduct Initial Assessment] |A.Family Involvement is Full | |
+Succession[Provide Crisis Intervention, Provide Individual Counseling] | | |0,1,d
+Precedence[Provide Individual Counseling, Develop Treatment Plan] | | |
+Response[Conduct Drug Testing, Provide Relapse Prevention Education] |A.Drug Test Result is Positive | |0,3,d
+Existence5[Monitor Progress] | |
+Co-Existence[Facilitate Group Therapy, Provide Individual Counseling] | | |
+Not Chain Precedence[Conduct Discharge Planning, Provide Crisis Intervention] | | |
+Precedence[Evaluate Treatment Outcomes, Develop Treatment Plan] | | |
+Response[Evaluate Treatment Outcomes, Adjust Treatment Plan] |A.Satisfaction Score < 5 | |0,14,d
+Chain Succession[Conduct Intake Interview, Conduct Initial Assessment] | | |0,1,d
+Not Co-Existence[Provide Crisis Intervention, Conduct Family Counseling] | | |

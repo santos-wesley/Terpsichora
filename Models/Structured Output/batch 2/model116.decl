@@ -1,0 +1,50 @@
+activity Define Learning Objectives
+activity Select Course Materials
+activity Design Assessment Methods
+activity Develop Lesson Plans
+activity Review Curriculum Draft
+activity Approve Final Curriculum
+activity Implement Curriculum
+activity Evaluate Curriculum Effectiveness
+activity Revise Curriculum
+activity Conduct Teacher Training
+activity Gather Stakeholder Feedback
+activity Align Curriculum with Standards
+activity Integrate Technology
+activity Plan Curriculum Rollout
+activity Monitor Curriculum Implementation
+bind Define Learning Objectives: Number of Objectives
+bind Select Course Materials: Budget Allocation
+bind Approve Final Curriculum: Approval Status
+bind Integrate Technology: Technology Integration Level
+bind Design Assessment Methods: Number of Assessments
+bind Gather Stakeholder Feedback: Feedback Type
+bind Conduct Teacher Training: Training Duration
+bind Develop Lesson Plans: Number of Lessons
+bind Align Curriculum with Standards: Alignment Status
+bind Evaluate Curriculum Effectiveness: Effectiveness Score
+Number of Objectives: integer between 1 and 50
+Budget Allocation: float between 1000.0 and 100000.0
+Approval Status: Pending, Approved, Rejected
+Technology Integration Level: None, Basic, Advanced
+Number of Assessments: integer between 1 and 20
+Feedback Type: Positive, Negative, Neutral
+Training Duration: float between 1.0 and 40.0
+Number of Lessons: integer between 1 and 100
+Alignment Status: Aligned, Not Aligned
+Effectiveness Score: float between 0.0 and 100.0
+Init[Define Learning Objectives] | |
+Existence[Evaluate Curriculum Effectiveness] | |
+Exactly[Approve Final Curriculum] |A.Approval Status is Approved |
+Precedence[Select Course Materials, Define Learning Objectives] | | |
+Chain Response[Design Assessment Methods, Develop Lesson Plans] | | |5,10,d
+Precedence[Implement Curriculum, Approve Final Curriculum] | |A.Approval Status is Approved |
+Response[Align Curriculum with Standards, Integrate Technology] | |A.Alignment Status is Aligned |
+Chain Succession[Conduct Teacher Training, Implement Curriculum] | | |1,3,d
+Not Co-Existence[Gather Stakeholder Feedback, Revise Curriculum] | | |
+Precedence[Monitor Curriculum Implementation, Plan Curriculum Rollout] | | |
+Chain Response[Review Curriculum Draft, Approve Final Curriculum] | | |2,5,d
+Response[Evaluate Curriculum Effectiveness, Revise Curriculum] |A.Effectiveness Score < 50 | |
+Co-Existence[Design Assessment Methods, Define Learning Objectives] | |A.Number of Assessments == T.Number of Objectives |
+Not Precedence[Implement Curriculum, Approve Final Curriculum] | |A.Approval Status is Rejected |
+Precedence[Integrate Technology, Align Curriculum with Standards] | |A.Alignment Status is Aligned |

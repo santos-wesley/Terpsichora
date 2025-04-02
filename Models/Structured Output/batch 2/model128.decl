@@ -1,0 +1,45 @@
+activity Manufacture Drug
+activity Package Drug
+activity Label Package
+activity Store Package
+activity Distribute Package
+activity Receive Package
+activity Inspect Package
+activity Approve Package
+activity Reject Package
+activity Transport Package
+activity Receive at Pharmacy
+activity Dispense Drug
+activity Return Package
+activity Dispose Package
+activity Audit Process
+bind Manufacture Drug: Batch Number, Drug Potency
+bind Inspect Package: Inspection Result
+bind Store Package: Storage Duration
+bind Transport Package: Transport Distance, Transport Method
+bind Audit Process: Audit Result
+Batch Number: integer between 1 and 10000
+Package Weight: float between 0.1 and 5.0
+Package Status: Manufactured, Packaged, Labeled, Stored, Distributed, Received, Inspected, Approved, Rejected, Transported, Dispensed, Returned, Disposed
+Inspection Result: Pass, Fail
+Storage Duration: integer between 1 and 365
+Transport Distance: float between 0.5 and 1000.0
+Transport Method: Air, Land, Sea
+Audit Result: Compliant, Non-Compliant
+Drug Potency: float between 50.0 and 100.0
+Return Quantity: integer between 1 and 500
+Init[Manufacture Drug] | |
+End[Audit Process] | |
+Existence[Inspect Package] | |
+Absence2[Dispose Package] | |
+Response[Approve Package, Transport Package] | | |0,48,h
+Chain Precedence[Approve Package, Transport Package] | | |
+Response[Reject Package, Return Package] | | |0,2,d
+Precedence[Label Package, Store Package] | | |
+Precedence[Inspect Package, Approve Package] | | |
+Precedence[Store Package, Distribute Package] |A.Storage Duration >= 5 | |
+Response[Transport Package, Receive at Pharmacy] |A.Transport Method is Air | |0,24,h
+Not Succession[Inspect Package, Approve Package] |A.Inspection Result is Fail | |
+Not Co-Existence[Approve Package, Reject Package] | | |
+Not Co-Existence[Return Package, Dispose Package] | | |
+Choice[Receive Package, Inspect Package] | | |

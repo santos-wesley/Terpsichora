@@ -1,0 +1,48 @@
+activity Receive Archival Material
+activity Assess Material Condition
+activity Catalog Material
+activity Digitize Material
+activity Preserve Material
+activity Store Material
+activity Retrieve Material
+activity Review Access Request
+activity Provide Access
+activity Conduct Research
+activity Update Catalog Entry
+activity Dispose Material
+activity Conduct Inventory
+activity Report Findings
+activity Plan Preservation Strategy
+bind Receive Archival Material: Material ID
+bind Assess Material Condition: Material ID, Material Condition Score
+bind Catalog Material: Material ID, Material Type
+bind Digitize Material: Material ID, Digitization Cost
+bind Preserve Material: Material ID, Preservation Status, Preservation Cost
+bind Store Material: Material ID, Storage Location ID
+bind Review Access Request: Request ID, Access Level
+bind Conduct Research: Material ID, Research Status
+Material ID: integer between 1 and 10000
+Material Condition Score: float between 0.0 and 10.0
+Access Level: Public, Restricted, Confidential
+Preservation Status: Not Started, In Progress, Completed
+Request ID: integer between 1 and 5000
+Digitization Cost: float between 0.0 and 1000.0
+Material Type: Document, Photograph, Audio, Video
+Storage Location ID: integer between 1 and 1000
+Research Status: Not Started, Ongoing, Completed
+Preservation Cost: float between 0.0 and 5000.0
+Init[Receive Archival Material] | |
+End[Store Material] | |
+Existence[Assess Material Condition] | |
+Absence[Dispose Material] | |
+Response[Digitize Material, Catalog Material] | |A.Material ID == T.Material ID |0,2,d
+Precedence[Store Material, Preserve Material] | |A.Material ID == T.Material ID |
+Chain Succession[Review Access Request, Provide Access] | |A.Request ID == T.Request ID |0,48,h
+Chain Succession[Conduct Research, Report Findings] | |A.Material ID == T.Material ID |0,48,h
+Response[Retrieve Material, Store Material] | |A.Material ID == T.Material ID |0,2,d
+Precedence[Digitize Material, Catalog Material] | |A.Material ID == T.Material ID |
+Not Succession[Preserve Material, Dispose Material] | |A.Material ID == T.Material ID |
+Precedence[Preserve Material, Assess Material Condition] | |A.Material ID == T.Material ID |
+Precedence[Store Material, Catalog Material] | |A.Material ID == T.Material ID |
+Response[Review Access Request, Provide Access] | |A.Request ID == T.Request ID |0,48,h
+Precedence[Conduct Research, Retrieve Material] | |A.Material ID == T.Material ID |

@@ -1,0 +1,49 @@
+activity Identify Opportunity
+activity Conduct Market Research
+activity Develop Concept
+activity Evaluate Feasibility
+activity Create Business Plan
+activity Secure Funding
+activity Develop Prototype
+activity Test Prototype
+activity Refine Prototype
+activity Launch Product
+activity Monitor Market
+activity Iterate Product
+activity Conduct Training
+activity Evaluate Impact
+activity Document Learnings
+bind Conduct Market Research: Market Size
+bind Secure Funding: Funding Amount
+bind Evaluate Feasibility: Feasibility Status
+bind Develop Prototype: Prototype Status, Development Cost
+bind Launch Product: Product Price
+bind Monitor Market: Market Reaction
+bind Iterate Product: Customer Feedback Score
+bind Conduct Training: Training Type
+bind Evaluate Impact: Impact Score
+Market Size: integer between 1000 and 1000000
+Funding Amount: float between 10000.0 and 1000000.0
+Feasibility Status: Feasible, Not Feasible
+Prototype Status: In Progress, Completed, Tested
+Product Price: float between 10.0 and 1000.0
+Customer Feedback Score: integer between 1 and 10
+Training Type: Online, In-Person
+Impact Score: integer between 1 and 100
+Market Reaction: Positive, Neutral, Negative
+Development Cost: float between 5000.0 and 500000.0
+Init[Identify Opportunity] | |
+End[Document Learnings] | |
+Existence[Conduct Market Research] | |
+Exactly[Test Prototype] | |
+Chain Succession[Develop Prototype, Test Prototype] | | |0,30,d
+Response[Evaluate Feasibility, Secure Funding] |A.Feasibility Status is Feasible | |
+Precedence[Launch Product, Refine Prototype] | | |
+Co-Existence[Conduct Training, Evaluate Impact] | | |
+Response[Monitor Market, Iterate Product] |A.Market Reaction is Positive | |0,15,d
+Chain Succession[Create Business Plan, Secure Funding] | | |0,60,d
+Not Chain Succession[Develop Prototype, Launch Product] | | |
+Choice[Conduct Market Research, Develop Concept] | | |
+Responded Existence[Conduct Training, Iterate Product] |A.Training Type == T.Training Type | |
+Not Responded Existence[Secure Funding, Develop Prototype] |A.Funding Amount > 500000 |T.Development Cost < 400000 |
+Response[Launch Product, Evaluate Impact] | | |0,10,d

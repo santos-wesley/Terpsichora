@@ -1,0 +1,49 @@
+activity Create Assessment
+activity Assign Assessment
+activity Submit Assessment
+activity Grade Assessment
+activity Review Grades
+activity Publish Grades
+activity Provide Feedback
+activity Request Re-evaluation
+activity Re-evaluate Assessment
+activity Finalize Grades
+activity Archive Assessment
+activity Schedule Assessment
+activity Notify Students
+activity Prepare Assessment Materials
+activity Conduct Assessment
+bind Create Assessment: Assessment Type, Number of Questions
+bind Assign Assessment: Student ID
+bind Submit Assessment: Student ID
+bind Grade Assessment: Grade
+bind Provide Feedback: Feedback Type, Feedback Score
+bind Request Re-evaluation: Re-evaluation Request ID
+bind Re-evaluate Assessment: Re-evaluation Status
+bind Schedule Assessment: Assessment Duration
+bind Notify Students: Notification Method
+Student ID: integer between 1 and 10000
+Grade: float between 0.0 and 100.0
+Assessment Type: Quiz, Exam, Assignment, Project
+Feedback Type: Positive, Negative, Neutral
+Re-evaluation Request ID: integer between 1 and 500
+Re-evaluation Status: Pending, Completed, Rejected
+Assessment Duration: float between 0.5 and 3.0
+Number of Questions: integer between 1 and 100
+Notification Method: Email, SMS, Portal
+Feedback Score: float between 0.0 and 5.0
+Init[Create Assessment] | |
+End[Archive Assessment] | |
+Existence[Schedule Assessment] | |
+Precedence[Submit Assessment, Assign Assessment] | | |
+Response[Submit Assessment, Grade Assessment] | | |0,48,h
+Precedence[Publish Grades, Review Grades] | | |
+Response[Publish Grades, Provide Feedback] | | |0,24,h
+Response[Request Re-evaluation, Re-evaluate Assessment] | | |0,7,d
+Precedence[Finalize Grades, Re-evaluate Assessment] | | |
+Precedence[Conduct Assessment, Schedule Assessment] | | |
+Precedence[Conduct Assessment, Notify Students] | | |0,3,d
+Co-Existence[Create Assessment, Schedule Assessment] | | |
+Chain Response[Provide Feedback, Provide Feedback] |A.Feedback Score > 4 |A.Feedback Type is Positive |
+Chain Precedence[Finalize Grades, Re-evaluate Assessment] | |T.Re-evaluation Status is Completed |
+Chain Response[Schedule Assessment, Notify Students] |A.Assessment Duration > 2 |T.Notification Method in (Email, Portal) |

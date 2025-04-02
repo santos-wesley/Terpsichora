@@ -1,0 +1,31 @@
+activity Collect Employee Data
+activity Calculate Gross Pay
+activity Deduct Taxes
+activity Process Benefits
+activity Review Payroll
+activity Approve Payroll
+activity Disburse Salaries
+activity Generate Payslips
+activity Archive Payroll Records
+bind Collect Employee Data: Tax Status
+bind Calculate Gross Pay: Hours Worked, Pay Rate, Gross Pay
+bind Deduct Taxes: Gross Pay, Net Pay, Tax Status
+bind Process Benefits: Benefit Type
+bind Approve Payroll: Approval Status
+Hours Worked: integer between 0 and 200
+Pay Rate: float between 10.0 and 100.0
+Gross Pay: float between 0.0 and 20000.0
+Net Pay: float between 0.0 and 20000.0
+Tax Status: Single, Married
+Approval Status: Pending, Approved, Rejected
+Benefit Type: Health, Retirement, None
+Init[Collect Employee Data] | |
+End[Disburse Salaries] | |
+Existence[Calculate Gross Pay] | |
+Exactly[Review Payroll] | |
+Chain Response[Calculate Gross Pay, Deduct Taxes] | | |0,5,m
+Response[Review Payroll, Approve Payroll] | |A.Approval Status is Approved |0,2,h
+Co-Existence[Generate Payslips, Archive Payroll Records] | | |
+Not Chain Succession[Deduct Taxes, Process Benefits] | | |
+Precedence[Disburse Salaries, Approve Payroll] | | |0,1,d
+Choice[Process Benefits, Deduct Taxes] | | |

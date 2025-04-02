@@ -1,0 +1,42 @@
+activity Receive Exchange Request
+activity Verify Customer Identity
+activity Check Exchange Rates
+activity Calculate Exchange Amount
+activity Approve Exchange
+activity Reject Exchange
+activity Process Payment
+activity Issue Receipt
+activity Notify Customer
+activity Log Transaction
+bind Receive Exchange Request: Customer ID, Exchange Status
+bind Verify Customer Identity: Customer ID
+bind Check Exchange Rates: Exchange Rate
+bind Calculate Exchange Amount: Exchange Amount
+bind Approve Exchange: Exchange Status
+bind Reject Exchange: Exchange Status
+bind Process Payment: Payment Method
+bind Issue Receipt: Transaction ID
+bind Notify Customer: Notification Method
+bind Log Transaction: Transaction ID
+Customer ID: integer between 1 and 1000000
+Exchange Rate: float between 0.01 and 1000.0
+Exchange Amount: float between 1.0 and 100000.0
+Exchange Status: Pending, Approved, Rejected
+Payment Method: Credit Card, Debit Card, Cash, Bank Transfer
+Transaction ID: integer between 1 and 1000000
+Notification Method: Email, SMS, Phone Call
+Init[Receive Exchange Request] | |
+End[Log Transaction] | |
+Response[Receive Exchange Request, Verify Customer Identity] | |A.Customer ID == T.Customer ID |0,30,m
+Chain Succession[Verify Customer Identity, Check Exchange Rates] | | |
+Chain Succession[Check Exchange Rates, Calculate Exchange Amount] | | |
+Exclusive Choice[Approve Exchange, Reject Exchange] | | |
+Response[Approve Exchange, Process Payment] |A.Exchange Status is Approved | |0,1,h
+Chain Response[Process Payment, Issue Receipt] | |A.Transaction ID == T.Transaction ID |
+Responded Existence[Approve Exchange, Notify Customer] | | |0,2,h
+Responded Existence[Reject Exchange, Notify Customer] | | |0,2,h
+Succession[Issue Receipt, Log Transaction] | |A.Transaction ID == T.Transaction ID |
+Existence[Receive Exchange Request] | |
+Existence[Notify Customer] | |
+Not Response[Reject Exchange, Process Payment] |A.Exchange Status is Rejected | |
+Precedence[Calculate Exchange Amount, Check Exchange Rates] | | |

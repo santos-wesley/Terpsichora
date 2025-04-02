@@ -1,0 +1,28 @@
+activity Initiate Project
+activity Conduct Market Research
+activity Develop Business Plan
+activity Secure Funding
+activity Hire Team
+activity Launch Product
+activity Monitor Impact
+activity Report Outcomes
+bind Initiate Project: Project Duration
+bind Secure Funding: Funding Amount
+bind Conduct Market Research: Market Type
+bind Hire Team: Team Size
+bind Monitor Impact: Impact Level
+Project Duration: integer between 1 and 36
+Funding Amount: float between 1000.0 and 1000000.0
+Market Type: Local, National, International
+Team Size: Small, Medium, Large
+Impact Level: Low, Medium, High
+Init[Initiate Project] | |
+Existence[Conduct Market Research] | |
+End[Report Outcomes] | |
+Precedence[Develop Business Plan, Conduct Market Research] | | |
+Precedence[Hire Team, Secure Funding] | | |
+Response[Secure Funding, Launch Product] | | |0,6,m
+Response[Launch Product, Monitor Impact] | | |
+Not Responded Existence[Initiate Project, Conduct Market Research] |A.Project Duration <= 24 |T.Market Type is International |
+Responded Existence[Secure Funding, Hire Team] |A.Funding Amount > 500000 |T.Team Size is Large |
+Responded Existence[Initiate Project, Monitor Impact] |A.Project Duration > 18 |T.Impact Level is High |

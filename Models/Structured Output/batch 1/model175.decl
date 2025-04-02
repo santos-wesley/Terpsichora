@@ -1,0 +1,32 @@
+activity Create Database
+activity Backup Database
+activity Restore Database
+activity Update Schema
+activity Optimize Performance
+activity Monitor Database
+activity Grant Access
+activity Revoke Access
+activity Audit Database
+bind Create Database: Database Size
+bind Backup Database: Backup Duration
+bind Update Schema: Schema Status
+bind Grant Access: Access Level, User Count
+bind Optimize Performance: Performance Score
+bind Audit Database: Audit Status
+Database Size: integer between 1 and 1000
+Backup Duration: float between 0.1 and 24.0
+Schema Status: Pending, In Progress, Completed
+Access Level: Read, Write, Admin
+User Count: integer between 1 and 1000
+Performance Score: float between 0.0 and 100.0
+Audit Status: Not Started, Ongoing, Completed
+Existence[Create Database] | |
+Response[Create Database, Backup Database] | | |0,24,h
+Precedence[Optimize Performance, Update Schema] | |A.Schema Status is Completed |
+Chain Precedence[Grant Access, Revoke Access] |A.User Count < 1000 | |
+Existence[Audit Database] |A.Audit Status is Completed |
+Alternate Response[Optimize Performance, Monitor Database] | | |0,2,d
+Not Chain Succession[Backup Database, Restore Database] | | |
+Exclusive Choice[Grant Access, Revoke Access] | | |
+Precedence[Backup Database, Create Database] | |T.Database Size < 500 |
+Response[Optimize Performance, Monitor Database] |A.Performance Score > 80 | |0,48,h

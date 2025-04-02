@@ -1,0 +1,33 @@
+activity Conduct Field Survey
+activity Analyze Data
+activity Develop Conservation Plan
+activity Implement Conservation Plan
+activity Monitor Species
+activity Report Findings
+activity Review Conservation Plan
+activity Engage Community
+activity Secure Funding
+bind Conduct Field Survey: Species Count, Survey Duration
+bind Develop Conservation Plan: Budget Allocation, Plan Status
+bind Engage Community: Community Engagement Level
+bind Secure Funding: Funding Status
+bind Report Findings: Report Pages
+Species Count: integer between 1 and 1000
+Budget Allocation: float between 1000.0 and 100000.0
+Plan Status: Draft, Approved, Implemented
+Community Engagement Level: Low, Medium, High
+Survey Duration: integer between 1 and 30
+Species Diversity Index: float between 0.1 and 10.0
+Funding Status: Pending, Secured, Utilized
+Report Pages: integer between 1 and 100
+Plan Revision Cost: float between 100.0 and 5000.0
+Existence[Conduct Field Survey] | |
+Exactly[Develop Conservation Plan] | |
+Precedence[Implement Conservation Plan, Develop Conservation Plan] | | |
+Response[Engage Community, Review Conservation Plan] | | |0,30,d
+Precedence[Implement Conservation Plan, Secure Funding] | |A.Funding Status is Secured |
+Response[Implement Conservation Plan, Monitor Species] | | |0,15,d
+Response[Monitor Species, Report Findings] | | |0,10,d
+Not Co-Existence[Develop Conservation Plan, Engage Community] | | |
+Exclusive Choice[Review Conservation Plan, Engage Community] | | |
+End[Report Findings] | |

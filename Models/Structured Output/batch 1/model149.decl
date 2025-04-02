@@ -1,0 +1,32 @@
+activity Register Asset
+activity Evaluate Asset
+activity Approve Asset
+activity Allocate Asset
+activity Maintain Asset
+activity Dispose Asset
+activity Audit Asset
+activity Update Asset Record
+bind Register Asset: Asset ID, Asset Value
+bind Evaluate Asset: Asset ID, Asset Condition
+bind Approve Asset: Asset ID, Approval Status
+bind Allocate Asset: Asset ID, Department ID
+bind Maintain Asset: Asset ID, Maintenance Status
+bind Dispose Asset: Asset ID
+bind Audit Asset: Asset ID
+bind Update Asset Record: Asset ID
+Asset ID: integer between 1 and 10000
+Asset Value: float between 100.0 and 100000.0
+Asset Condition: New, Good, Fair, Poor
+Approval Status: Pending, Approved, Rejected
+Department ID: integer between 1 and 100
+Maintenance Status: Scheduled, Completed, Overdue
+Init[Register Asset] | |
+End[Dispose Asset] | |
+Existence[Evaluate Asset] | |
+Precedence[Allocate Asset, Approve Asset] | |A.Asset ID == T.Asset ID |
+Response[Allocate Asset, Maintain Asset] | |A.Asset ID == T.Asset ID |0,30,d
+Precedence[Dispose Asset, Audit Asset] | |A.Asset ID == T.Asset ID |
+Chain Response[Audit Asset, Update Asset Record] | |A.Asset ID == T.Asset ID |
+Not Co-Existence[Approve Asset, Approve Asset] |A.Approval Status is Approved |T.Approval Status is Rejected |
+Not Response[Register Asset, Dispose Asset] | |A.Asset ID == T.Asset ID |0,7,d
+Exclusive Choice[Allocate Asset, Dispose Asset] | |A.Asset ID == T.Asset ID |

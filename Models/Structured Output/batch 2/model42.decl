@@ -1,0 +1,50 @@
+activity Assess Water Quality
+activity Monitor Water Levels
+activity Inspect Infrastructure
+activity Implement Conservation Measures
+activity Conduct Risk Assessment
+activity Review Emergency Plans
+activity Approve Water Usage
+activity Report Findings
+activity Train Personnel
+activity Evaluate Policy Impact
+activity Coordinate with Agencies
+activity Respond to Incidents
+activity Update Water Security Plan
+activity Conduct Public Awareness Campaign
+activity Analyze Data
+bind Assess Water Quality: Water Quality Index
+bind Monitor Water Levels: Water Level
+bind Inspect Infrastructure: Infrastructure Status
+bind Implement Conservation Measures: Conservation Strategy
+bind Conduct Risk Assessment: Risk Score
+bind Review Emergency Plans: Emergency Plan Status
+bind Approve Water Usage: Usage Approval Limit
+bind Train Personnel: Training Level
+bind Evaluate Policy Impact: Policy Effectiveness Score
+bind Respond to Incidents: Incident Response Status
+Water Quality Index: integer between 0 and 100
+Water Level: float between 0.0 and 100.0
+Infrastructure Status: Good, Needs Repair, Critical
+Conservation Strategy: Rationing, Public Awareness, Technology Upgrade
+Risk Score: integer between 1 and 10
+Emergency Plan Status: Reviewed, Pending, Outdated
+Usage Approval Limit: float between 0.0 and 10000.0
+Training Level: Basic, Intermediate, Advanced
+Policy Effectiveness Score: integer between 1 and 5
+Incident Response Status: Resolved, In Progress, Unresolved
+Init[Assess Water Quality] | |
+End[Report Findings] | |
+Existence[Assess Water Quality] | |
+Absence2[Inspect Infrastructure] | |
+Response[Monitor Water Levels, Implement Conservation Measures] | | |0,2,d
+Precedence[Review Emergency Plans, Conduct Risk Assessment] | | |
+Chain Response[Approve Water Usage, Report Findings] | | |0,48,h
+Co-Existence[Train Personnel, Evaluate Policy Impact] | | |
+Not Chain Succession[Approve Water Usage, Respond to Incidents] | | |
+Exclusive Choice[Conduct Public Awareness Campaign, Analyze Data] | | |
+Response[Inspect Infrastructure, Implement Conservation Measures] |A.Infrastructure Status is Critical | |
+Response[Assess Water Quality, Conduct Risk Assessment] |A.Water Quality Index < 50 | |
+Response[Conduct Risk Assessment, Review Emergency Plans] |A.Risk Score > 7 | |0,1,d
+Response[Train Personnel, Evaluate Policy Impact] |A.Training Level is Advanced |A.Policy Effectiveness Score >= 4 |
+Response[Respond to Incidents, Update Water Security Plan] |A.Incident Response Status is Unresolved | |0,3,d

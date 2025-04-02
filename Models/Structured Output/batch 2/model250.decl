@@ -1,0 +1,50 @@
+activity Initiate Digital Strategy
+activity Assess Current Technology
+activity Identify Key Stakeholders
+activity Develop Implementation Plan
+activity Allocate Resources
+activity Conduct Training Sessions
+activity Monitor Progress
+activity Evaluate Outcomes
+activity Optimize Processes
+activity Upgrade Technology
+activity Engage with Customers
+activity Review Security Protocols
+activity Launch Digital Products
+activity Analyze Market Trends
+activity Report to Management
+bind Initiate Digital Strategy: Budget
+bind Assess Current Technology: Technology Status
+bind Identify Key Stakeholders: Stakeholder Type
+bind Conduct Training Sessions: Training Hours
+bind Review Security Protocols: Security Level
+bind Analyze Market Trends: Market Alignment
+bind Allocate Resources: Resource Allocation
+bind Engage with Customers: Customer Feedback
+bind Launch Digital Products: Digital Product Status
+bind Evaluate Outcomes: Satisfaction Score
+Budget: integer between 10000 and 1000000
+Satisfaction Score: float between 0.0 and 10.0
+Stakeholder Type: Internal, External
+Technology Status: Legacy, Modern, Upgraded
+Training Hours: integer between 1 and 100
+Security Level: Low, Medium, High
+Market Alignment: float between 0.0 and 1.0
+Resource Allocation: Pending, Completed
+Customer Feedback: integer between 0 and 1000
+Digital Product Status: Planned, In Progress, Launched
+Init[Initiate Digital Strategy] | |
+End[Report to Management] | |
+Existence[Evaluate Outcomes] | |
+Absence2[Analyze Market Trends] | |
+Precedence[Conduct Training Sessions, Allocate Resources] | |A.Resource Allocation is Completed |
+Chain Succession[Upgrade Technology, Review Security Protocols] |A.Technology Status is Upgraded | |
+Response[Engage with Customers, Evaluate Outcomes] | | |0,48,h
+Succession[Develop Implementation Plan, Allocate Resources] | | |0,2,d
+Precedence[Launch Digital Products, Evaluate Outcomes] |A.Satisfaction Score > 7 | |
+Co-Existence[Identify Key Stakeholders, Assess Current Technology] | | |
+Not Chain Succession[Monitor Progress, Evaluate Outcomes] | | |
+Precedence[Optimize Processes, Evaluate Outcomes] | | |0,5,d
+Not Precedence[Review Security Protocols, Assess Current Technology] | |T.Technology Status is Legacy |
+Not Co-Existence[Initiate Digital Strategy, Analyze Market Trends] | | |
+Response[Engage with Customers, Launch Digital Products] | | |0,2,d

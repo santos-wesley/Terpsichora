@@ -1,0 +1,31 @@
+activity Design Product
+activity Procure Materials
+activity Assemble Product
+activity Test Product
+activity Package Product
+activity Ship Product
+activity Receive Feedback
+activity Improve Design
+bind Design Product: Design Iteration
+bind Procure Materials: Material Quantity
+bind Test Product: Test Result
+bind Receive Feedback: Feedback Type
+bind Ship Product: Shipping Weight
+bind Package Product: Packaging Type
+Material Quantity: integer between 1 and 1000
+Product Cost: float between 10.0 and 1000.0
+Test Result: Pass, Fail
+Feedback Type: Positive, Negative, Neutral
+Design Iteration: integer between 1 and 10
+Shipping Weight: float between 0.5 and 50.0
+Packaging Type: Box, Envelope, Crate
+Init[Design Product] | |
+End[Ship Product] | |
+Response[Receive Feedback, Improve Design] | | |0,2,d
+Precedence[Package Product, Test Product] | | |
+Not Responded Existence[Test Product, Ship Product] |A.Test Result is Fail | |
+Chain Succession[Procure Materials, Assemble Product] | | |
+Precedence[Package Product, Assemble Product] | |A.Product Cost < 500 |
+Response[Receive Feedback, Improve Design] |A.Feedback Type is Negative | |
+Precedence[Ship Product, Package Product] | |A.Shipping Weight > 10 AND T.Packaging Type is Box |
+Existence[Test Product] | |

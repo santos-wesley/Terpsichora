@@ -1,0 +1,52 @@
+activity Install Security App
+activity Update Security App
+activity Scan Device
+activity Review Scan Results
+activity Quarantine Threat
+activity Remove Threat
+activity Configure App Settings
+activity Enable Real-Time Protection
+activity Disable Real-Time Protection
+activity Perform Security Audit
+activity Generate Security Report
+activity Backup Device Data
+activity Restore Device Data
+activity Notify User
+activity Log Security Event
+bind Install Security App: App Version
+bind Scan Device: Threat Level, Scan Status, Scan Duration
+bind Review Scan Results: Threat Level, Scan Status
+bind Quarantine Threat: Threat Level
+bind Remove Threat: Threat Level
+bind Enable Real-Time Protection: Protection Status
+bind Disable Real-Time Protection: Protection Status
+bind Perform Security Audit: Audit Result
+bind Backup Device Data: Backup Size
+bind Restore Device Data: Restore Status
+bind Notify User: Notification Type
+bind Log Security Event: Event Count
+Threat Level: integer between 1 and 10
+App Version: float between 1.0 and 10.0
+Scan Status: Complete, In Progress
+Protection Status: Enabled, Disabled
+Backup Size: integer between 100 and 10000
+Audit Result: Passed, Failed
+Scan Duration: float between 0.1 and 120.0
+Notification Type: Alert, Info
+Event Count: integer between 0 and 1000
+Restore Status: Success, Failure
+Init[Install Security App] | |
+Existence[Update Security App] | |
+Chain Response[Scan Device, Review Scan Results] |A.Scan Status is Complete | |0,5,m
+Response[Quarantine Threat, Remove Threat] |A.Threat Level > 5 | |0,2,h
+Precedence[Perform Security Audit, Enable Real-Time Protection] | |T.Protection Status is Enabled |
+Response[Perform Security Audit, Generate Security Report] |A.Audit Result is Passed | |0,1,h
+Not Precedence[Restore Device Data, Backup Device Data] |A.Restore Status is Success |T.Backup Size >= 5000 |
+Response[Log Security Event, Notify User] |A.Event Count > 0 |T.Notification Type is Alert |0,10,m
+Co-Existence[Install Security App, Update Security App] | |A.App Version == T.App Version |
+End[Log Security Event] | |
+Exclusive Choice[Perform Security Audit, Scan Device] | | |
+Response[Disable Real-Time Protection, Enable Real-Time Protection] |A.Protection Status is Disabled | |0,1,h
+Not Chain Response[Install Security App, Scan Device] | | |
+Response[Review Scan Results, Notify User] |A.Threat Level > 8 |T.Notification Type is Alert |0,30,m
+Not Co-Existence[Backup Device Data, Restore Device Data] | | |

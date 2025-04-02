@@ -1,0 +1,27 @@
+activity List Property
+activity Schedule Viewing
+activity Conduct Viewing
+activity Receive Offer
+activity Negotiate Offer
+activity Accept Offer
+activity Sign Contract
+activity Close Sale
+bind List Property: Property ID
+bind Schedule Viewing: Property ID, Viewing Status
+bind Receive Offer: Property ID, Offer Amount, Offer Status
+bind Sign Contract: Property ID, Contract Status
+Property ID: integer between 1 and 10000
+Offer Amount: float between 50000.0 and 1000000.0
+Viewing Status: Scheduled, Completed, Cancelled
+Offer Status: Pending, Accepted, Rejected
+Contract Status: Signed, Not Signed
+Init[List Property] | |
+End[Close Sale] | |
+Precedence[Conduct Viewing, Schedule Viewing] |A.Viewing Status is Completed |A.Property ID == T.Property ID |
+Precedence[Negotiate Offer, Receive Offer] |A.Offer Status is Pending |A.Property ID == T.Property ID |
+Precedence[Sign Contract, Accept Offer] |A.Contract Status is Not Signed |A.Property ID == T.Property ID |
+Precedence[Close Sale, Sign Contract] |A.Contract Status is Signed |A.Property ID == T.Property ID |0,2,d
+Response[Schedule Viewing, Conduct Viewing] |A.Viewing Status is Scheduled |A.Property ID == T.Property ID |0,7,d
+Choice[Receive Offer, Accept Offer] |A.Offer Status is Pending |A.Property ID == T.Property ID |0,10,d
+Co-Existence[List Property, Receive Offer] | |A.Property ID == T.Property ID |
+Existence[Schedule Viewing] | |

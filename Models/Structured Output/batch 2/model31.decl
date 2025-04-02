@@ -1,0 +1,46 @@
+activity Book Workspace
+activity Cancel Booking
+activity Check In
+activity Check Out
+activity Request Equipment
+activity Return Equipment
+activity Report Issue
+activity Resolve Issue
+activity Schedule Event
+activity Cancel Event
+activity Conduct Event
+activity Clean Workspace
+activity Inspect Workspace
+activity Approve Booking
+activity Deny Booking
+bind Book Workspace: Booking ID, Booking Duration, Booking Status
+bind Request Equipment: Equipment ID, Equipment Status
+bind Report Issue: Issue Severity
+bind Schedule Event: Event Type, Event ID
+bind Clean Workspace: Cleaning Status
+bind Inspect Workspace: Inspection Result
+Booking ID: integer between 1 and 10000
+Booking Duration: float between 0.5 and 12.0
+Booking Status: Pending, Approved, Denied, Cancelled
+Equipment ID: integer between 1 and 500
+Equipment Status: Requested, Provided, Returned
+Issue Severity: float between 1.0 and 5.0
+Event Type: Meeting, Workshop, Conference
+Event ID: integer between 1 and 1000
+Cleaning Status: Scheduled, In Progress, Completed
+Inspection Result: Pass, Fail
+Init[Book Workspace] | |
+End[Check Out] | |
+Existence[Inspect Workspace] | |
+Exactly[Book Workspace] | |
+Precedence[Check In, Approve Booking] | | |
+Response[Request Equipment, Return Equipment] | | |0,2,d
+Succession[Schedule Event, Conduct Event] | | |0,1,d
+Chain Response[Report Issue, Resolve Issue] | | |0,48,h
+Alternate Response[Conduct Event, Clean Workspace] | | |0,1,d
+Not Chain Succession[Inspect Workspace, Clean Workspace] | | |
+Not Co-Existence[Approve Booking, Deny Booking] | |A.Booking ID == T.Booking ID |
+Not Response[Schedule Event, Conduct Event] | | |1,1,d
+Exclusive Choice[Approve Booking, Deny Booking] | |A.Booking ID == T.Booking ID |
+Precedence[Return Equipment, Request Equipment] | |A.Equipment ID == T.Equipment ID |
+Precedence[Book Workspace, Inspect Workspace] | |T.Inspection Result is Pass |

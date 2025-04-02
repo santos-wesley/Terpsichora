@@ -1,0 +1,50 @@
+activity Draft Policy
+activity Review Policy
+activity Approve Policy
+activity Implement Policy
+activity Monitor Compliance
+activity Evaluate Impact
+activity Revise Policy
+activity Conduct Public Consultation
+activity Publish Policy
+activity Train Staff
+activity Collect Data
+activity Analyze Data
+activity Report Findings
+activity Hold Stakeholder Meeting
+activity Update Policy Documentation
+bind Draft Policy: Policy Version
+bind Approve Policy: Approval Status
+bind Implement Policy: Budget Allocation
+bind Monitor Compliance: Compliance Level
+bind Conduct Public Consultation: Feedback Count
+bind Evaluate Impact: Impact Score
+bind Train Staff: Training Status
+bind Collect Data: Data Quality
+bind Hold Stakeholder Meeting: Stakeholder Count
+bind Revise Policy: Revision Cost
+Policy Version: integer between 1 and 1000
+Budget Allocation: float between 1000.0 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Compliance Level: High, Medium, Low
+Feedback Count: integer between 0 and 10000
+Impact Score: float between 0.0 and 10.0
+Training Status: Not Started, In Progress, Completed
+Data Quality: Poor, Average, Good
+Stakeholder Count: integer between 1 and 500
+Revision Cost: float between 100.0 and 50000.0
+Init[Draft Policy] | |
+End[Publish Policy] | |
+Existence[Review Policy] | |
+Absence3[Revise Policy] | |
+Precedence[Implement Policy, Approve Policy] | |A.Approval Status is Approved |
+Response[Implement Policy, Monitor Compliance] | | |0,30,d
+Precedence[Publish Policy, Conduct Public Consultation] | | |
+Response[Collect Data, Evaluate Impact] | | |0,15,d
+Precedence[Implement Policy, Train Staff] | |T.Training Status is Completed |
+Responded Existence[Evaluate Impact, Revise Policy] |A.Impact Score < 5 | |
+Precedence[Update Policy Documentation, Hold Stakeholder Meeting] | | |
+Chain Response[Collect Data, Analyze Data] | | |
+Response[Analyze Data, Report Findings] | | |0,10,d
+Exclusive Choice[Revise Policy, Approve Policy] | | |
+Precedence[Publish Policy, Approve Policy] | |A.Approval Status is Approved |

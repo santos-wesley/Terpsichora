@@ -1,0 +1,35 @@
+activity Initiate Purchase Request
+activity Approve Purchase Request
+activity Select Supplier
+activity Create Purchase Order
+activity Receive Goods
+activity Perform Quality Check
+activity Approve Invoice
+activity Make Payment
+activity Close Purchase Order
+bind Initiate Purchase Request: Request ID
+bind Approve Purchase Request: Approval Status
+bind Create Purchase Order: Order Value
+bind Select Supplier: Supplier Rating
+bind Receive Goods: Quantity Received
+bind Perform Quality Check: Quality Status
+bind Approve Invoice: Invoice Amount
+bind Make Payment: Payment Status
+Request ID: integer between 1 and 10000
+Approval Status: Pending, Approved, Rejected
+Order Value: float between 100.0 and 100000.0
+Supplier Rating: Excellent, Good, Average, Poor
+Quantity Received: integer between 1 and 1000
+Quality Status: Passed, Failed
+Invoice Amount: float between 100.0 and 100000.0
+Payment Status: Pending, Completed, Failed
+Init[Initiate Purchase Request] | |
+Existence[Approve Purchase Request] | |
+Precedence[Create Purchase Order, Approve Purchase Request] | |A.Approval Status is Approved |
+Precedence[Perform Quality Check, Receive Goods] | | |
+Precedence[Make Payment, Approve Invoice] | | |
+Responded Existence[Select Supplier, Select Supplier] |A.Supplier Rating in (Good, Excellent) | |
+Response[Approve Invoice, Make Payment] | | |0,5,d
+End[Close Purchase Order] | |
+Not Succession[Perform Quality Check, Close Purchase Order] |A.Quality Status is Failed | |
+Response[Create Purchase Order, Receive Goods] | | |0,2,d

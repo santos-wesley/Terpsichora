@@ -1,0 +1,50 @@
+activity Conduct Job Analysis
+activity Develop Training Program
+activity Evaluate Employee Performance
+activity Conduct Employee Survey
+activity Analyze Survey Results
+activity Implement Organizational Change
+activity Conduct Exit Interview
+activity Recruit New Employees
+activity Conduct Team Building Activity
+activity Assess Training Effectiveness
+activity Develop Employee Engagement Strategy
+activity Conduct Leadership Assessment
+activity Provide Career Counseling
+activity Conduct Workplace Safety Audit
+activity Review Compensation Packages
+bind Conduct Job Analysis: Job Complexity
+bind Develop Training Program: Training Duration
+bind Conduct Employee Survey: Survey Type
+bind Evaluate Employee Performance: Performance Score
+bind Implement Organizational Change: Change Type
+bind Develop Employee Engagement Strategy: Engagement Level
+bind Conduct Exit Interview: Exit Reason
+bind Conduct Team Building Activity: Team Size
+bind Conduct Workplace Safety Audit: Safety Score
+bind Conduct Leadership Assessment: Leadership Potential
+Job Complexity: integer between 1 and 10
+Training Duration: float between 1.0 and 100.0
+Survey Type: Satisfaction, Engagement, Feedback
+Performance Score: integer between 1 and 100
+Change Type: Structural, Cultural, Technological
+Engagement Level: float between 0.0 and 100.0
+Exit Reason: Personal, Career Growth, Compensation, Work Environment
+Team Size: integer between 2 and 50
+Safety Score: float between 0.0 and 100.0
+Leadership Potential: High, Medium, Low
+Existence[Conduct Job Analysis] | |
+Absence3[Conduct Exit Interview] | |
+Response[Develop Training Program, Assess Training Effectiveness] | | |0,30,d
+Co-Existence[Conduct Employee Survey, Analyze Survey Results] | | |
+Precedence[Recruit New Employees, Conduct Job Analysis] | | |
+Not Chain Succession[Conduct Team Building Activity, Conduct Leadership Assessment] | | |
+Not Co-Existence[Conduct Leadership Assessment, Provide Career Counseling] | | |
+Response[Conduct Workplace Safety Audit, Implement Organizational Change] |A.Safety Score < 50 | |0,10,d
+Chain Response[Conduct Employee Survey, Develop Employee Engagement Strategy] |A.Survey Type is Engagement | |
+Response[Evaluate Employee Performance, Provide Career Counseling] |A.Performance Score < 50 | |0,15,d
+Co-Existence[Conduct Job Analysis, Develop Training Program] | | |
+Not Co-Existence[Conduct Exit Interview, Recruit New Employees] | | |
+Response[Conduct Team Building Activity, Evaluate Employee Performance] | | |0,10,d
+Response[Conduct Leadership Assessment, Provide Career Counseling] |A.Leadership Potential is High | |0,20,d
+Exactly[Conduct Workplace Safety Audit] | |

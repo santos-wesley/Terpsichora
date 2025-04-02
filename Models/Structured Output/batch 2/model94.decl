@@ -1,0 +1,46 @@
+activity Identify Suspect
+activity Conduct Surveillance
+activity Analyze Evidence
+activity Obtain Warrant
+activity Execute Arrest
+activity Seize Drugs
+activity Interrogate Suspect
+activity File Charges
+activity Present Case in Court
+activity Conduct Undercover Operation
+activity Gather Intelligence
+activity Coordinate with Other Agencies
+activity Prepare Reports
+activity Secure Crime Scene
+activity Transport Evidence
+bind Identify Suspect: Suspect Age, Suspect Status
+bind Conduct Surveillance: Operation Duration, Budget Allocation
+bind Analyze Evidence: Evidence Type, Evidence Count
+bind Obtain Warrant: Warrant Type
+bind Present Case in Court: Court Outcome
+bind Coordinate with Other Agencies: Agency Collaboration
+Suspect Age: integer between 18 and 80
+Drug Quantity: float between 0.1 and 1000.0
+Warrant Type: Search, Arrest
+Evidence Type: Physical, Digital, Testimonial
+Operation Duration: integer between 1 and 30
+Suspect Status: Identified, Arrested, Charged
+Budget Allocation: float between 10.0 and 500.0
+Court Outcome: Guilty, Not Guilty, Dismissed
+Evidence Count: integer between 1 and 100
+Agency Collaboration: Local, State, Federal
+Init[Identify Suspect] | |
+End[Present Case in Court] | |
+Existence[Conduct Surveillance] | |
+Exactly[Interrogate Suspect] | |
+Precedence[Obtain Warrant, Analyze Evidence] | | |
+Chain Response[Obtain Warrant, Execute Arrest] | | |0,2,h
+Response[Execute Arrest, Seize Drugs] | | |
+Response[Execute Arrest, Interrogate Suspect] | | |0,1,d
+Response[Interrogate Suspect, File Charges] | | |0,2,d
+Co-Existence[Conduct Undercover Operation, Gather Intelligence] | | |
+Response[Gather Intelligence, Prepare Reports] | | |0,3,d
+Precedence[Transport Evidence, Secure Crime Scene] | | |
+Precedence[Present Case in Court, Coordinate with Other Agencies] | | |
+Precedence[Conduct Surveillance, Identify Suspect] |A.Suspect Status is Identified | |
+Responded Existence[Obtain Warrant, Analyze Evidence] | |A.Warrant Type == T.Evidence Type |

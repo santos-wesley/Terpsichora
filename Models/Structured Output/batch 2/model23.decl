@@ -1,0 +1,50 @@
+activity Initiate Investigation
+activity Conduct Interviews
+activity Collect Evidence
+activity Analyze Financial Records
+activity Prepare Report
+activity Review Report
+activity Submit Report
+activity Close Investigation
+activity Notify Stakeholders
+activity Conduct Surveillance
+activity Gather Intelligence
+activity Assess Risk
+activity Consult Legal Team
+activity Evaluate Evidence
+activity Plan Investigation Strategy
+bind Conduct Interviews: Interview Duration
+bind Analyze Financial Records: Financial Discrepancy
+bind Prepare Report: Report Status
+bind Close Investigation: Investigation Outcome
+bind Collect Evidence: Evidence Count
+bind Notify Stakeholders: Stakeholder Notification
+bind Assess Risk: Risk Level
+bind Consult Legal Team: Legal Compliance
+bind Conduct Surveillance: Surveillance Duration
+bind Gather Intelligence: Intelligence Source
+Interview Duration: integer between 10 and 180
+Financial Discrepancy: float between 0.01 and 1000000.0
+Report Status: Draft, Reviewed, Final
+Investigation Outcome: Resolved, Unresolved, Pending
+Evidence Count: integer between 0 and 500
+Stakeholder Notification: Notified, Not Notified
+Risk Level: float between 0.0 and 10.0
+Legal Compliance: Compliant, Non-Compliant
+Surveillance Duration: integer between 1 and 72
+Intelligence Source: Internal, External
+Init[Initiate Investigation] | |
+End[Close Investigation] | |
+Existence[Conduct Interviews] | |
+Exactly[Prepare Report] | |
+Chain Response[Conduct Interviews, Collect Evidence] | | |0,2,d
+Response[Prepare Report, Review Report] | | |
+Response[Review Report, Submit Report] | | |
+Response[Submit Report, Notify Stakeholders] | | |
+Precedence[Conduct Surveillance, Gather Intelligence] | | |
+Responded Existence[Assess Risk, Consult Legal Team] |A.Risk Level > 7 | |
+Co-Existence[Close Investigation, Prepare Report] |A.Investigation Outcome is Resolved |A.Report Status is Final |
+Precedence[Prepare Report, Analyze Financial Records] | | |
+Not Responded Existence[Conduct Surveillance, Gather Intelligence] |A.Surveillance Duration > 24 |T.Intelligence Source is External |
+Chain Response[Submit Report, Notify Stakeholders] | | |0,48,h
+Precedence[Close Investigation, Consult Legal Team] | |T.Legal Compliance is Compliant |

@@ -1,0 +1,49 @@
+activity Define Event Goals
+activity Select Venue
+activity Create Budget
+activity Design Event Program
+activity Invite Speakers
+activity Arrange Catering
+activity Promote Event
+activity Register Attendees
+activity Set Up Venue
+activity Conduct Event
+activity Gather Feedback
+activity Evaluate Success
+activity Send Thank You Notes
+activity Close Budget
+activity Document Event
+bind Define Event Goals: Expected Attendees
+bind Select Venue: Venue Type
+bind Create Budget: Budget Amount
+bind Invite Speakers: Speakers Invited
+bind Promote Event: Promotion Channel
+bind Gather Feedback: Feedback Type
+bind Evaluate Success: Event Success
+bind Register Attendees: Ticket Price
+bind Set Up Venue: Days to Event
+Expected Attendees: integer between 50 and 5000
+Budget Amount: float between 1000.0 and 100000.0
+Venue Type: Indoor, Outdoor, Virtual
+Catering Type: Buffet, Sit-down, Cocktail
+Promotion Channel: Social Media, Email, Print, TV
+Speakers Invited: integer between 1 and 50
+Ticket Price: float between 10.0 and 500.0
+Feedback Type: Survey, Interview, Comment Box
+Days to Event: integer between 1 and 365
+Event Success: Successful, Moderate, Unsuccessful
+Init[Define Event Goals] | |
+End[Send Thank You Notes] | |
+Existence[Invite Speakers] | |
+Exactly[Design Event Program] | |
+Precedence[Conduct Event, Select Venue] | | |
+Precedence[Register Attendees, Promote Event] | | |
+Chain Precedence[Conduct Event, Set Up Venue] | | |0,2,d
+Response[Conduct Event, Gather Feedback] | | |
+Precedence[Invite Speakers, Create Budget] | | |
+Response[Gather Feedback, Evaluate Success] | | |
+Response[Evaluate Success, Document Event] | | |
+Chain Succession[Select Venue, Set Up Venue] |A.Venue Type is Indoor |A.Venue Type == T.Venue Type |
+Not Co-Existence[Arrange Catering, Select Venue] |A.Catering Type is Buffet |A.Catering Type != T.Venue Type |
+Responded Existence[Register Attendees, Promote Event] |A.Ticket Price > 100 |T.Promotion Channel is Social Media |
+Chain Response[Send Thank You Notes, Close Budget] | | |0,48,h

@@ -1,0 +1,46 @@
+activity Collect Sample
+activity Prepare Sample
+activity Conduct PCR Test
+activity Conduct Antibody Test
+activity Analyze Results
+activity Report Findings
+activity Dispose Sample
+activity Store Sample
+activity Review Patient History
+activity Consult Specialist
+activity Update Patient Record
+activity Schedule Follow-up
+activity Conduct Viral Culture
+activity Perform Quality Control
+activity Authorize Test Results
+bind Collect Sample: Sample ID, Sample Condition
+bind Conduct PCR Test: Viral Load, Test Type
+bind Analyze Results: Result Status, Test Accuracy
+bind Consult Specialist: Specialist Opinion
+bind Schedule Follow-up: Follow-up Days
+bind Perform Quality Control: Quality Control Status
+Sample ID: integer between 1 and 10000
+Viral Load: float between 0.0 and 1000000.0
+Test Type: PCR, Antibody, Culture
+Result Status: Positive, Negative, Inconclusive
+Patient Age: integer between 0 and 120
+Sample Condition: Good, Degraded, Contaminated
+Test Accuracy: float between 0.0 and 100.0
+Specialist Opinion: Required, Not Required
+Follow-up Days: integer between 0 and 365
+Quality Control Status: Passed, Failed
+Init[Collect Sample] | |
+End[Authorize Test Results] | |
+Existence[Prepare Sample] | |
+Absence2[Conduct PCR Test] | |
+Chain Succession[Collect Sample, Prepare Sample] | | |0,15,m
+Response[Conduct PCR Test, Analyze Results] | | |0,2,h
+Succession[Store Sample, Dispose Sample] | | |0,7,d
+Precedence[Consult Specialist, Analyze Results] |A.Result Status is Inconclusive | |
+Co-Existence[Report Findings, Analyze Results] | | |
+Precedence[Authorize Test Results, Perform Quality Control] | |A.Quality Control Status is Passed |
+Responded Existence[Schedule Follow-up, Analyze Results] |A.Result Status is Positive | |
+Not Chain Succession[Conduct PCR Test, Conduct Viral Culture] | | |
+Exclusive Choice[Conduct PCR Test, Conduct Antibody Test] | | |
+Precedence[Conduct PCR Test, Review Patient History] | | |
+Not Responded Existence[Conduct PCR Test, Conduct Antibody Test] |A.Test Type == T.Test Type | |

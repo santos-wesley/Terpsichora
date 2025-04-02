@@ -1,0 +1,47 @@
+activity Install Middleware
+activity Configure Middleware
+activity Start Middleware
+activity Stop Middleware
+activity Monitor Middleware
+activity Update Middleware
+activity Backup Middleware Configuration
+activity Restore Middleware Configuration
+activity Uninstall Middleware
+activity Check Middleware Logs
+activity Restart Middleware
+activity Test Middleware Connectivity
+activity Audit Middleware Security
+activity Scale Middleware Resources
+activity Document Middleware Changes
+bind Install Middleware: Version Number
+bind Configure Middleware: Configuration State
+bind Monitor Middleware: CPU Usage, Memory Usage
+bind Check Middleware Logs: Log Entries
+bind Audit Middleware Security: Security Level
+bind Test Middleware Connectivity: Connectivity Status
+bind Scale Middleware Resources: Response Time
+Version Number: integer between 1 and 10
+CPU Usage: float between 0.0 and 100.0
+Middleware Status: Running, Stopped, Error
+Configuration State: Default, Custom, Backup
+Log Entries: integer between 0 and 10000
+Memory Usage: float between 0.0 and 64.0
+Security Level: Low, Medium, High
+Backup Frequency: integer between 1 and 30
+Connectivity Status: Connected, Disconnected
+Response Time: float between 0.1 and 5000.0
+Init[Install Middleware] | |
+End[Uninstall Middleware] | |
+Existence[Monitor Middleware] | |
+Exactly[Backup Middleware Configuration] | |
+Precedence[Start Middleware, Configure Middleware] | | |
+Chain Response[Stop Middleware, Start Middleware] | | |2,4,h
+Response[Update Middleware, Restart Middleware] | | |
+Response[Start Middleware, Test Middleware Connectivity] | | |
+Response[Configure Middleware, Check Middleware Logs] | | |
+Not Chain Succession[Start Middleware, Stop Middleware] | | |
+Responded Existence[Audit Middleware Security, Monitor Middleware] |A.Security Level is High | |
+Not Co-Existence[Uninstall Middleware, Configure Middleware] | |T.Configuration State is Custom |
+Response[Monitor Middleware, Scale Middleware Resources] |A.Response Time > 3000 | |
+Response[Backup Middleware Configuration, Restore Middleware Configuration] |A.Configuration State is Backup | |
+Response[Configure Middleware, Document Middleware Changes] | | |

@@ -1,0 +1,37 @@
+activity Conduct Air Quality Test
+activity Inspect Water Sources
+activity Assess Soil Contamination
+activity Monitor Noise Levels
+activity Evaluate Waste Management
+activity Conduct Health Risk Assessment
+activity Implement Pollution Control Measures
+activity Review Environmental Policies
+activity Report Findings
+bind Conduct Air Quality Test: Air Quality Index
+bind Inspect Water Sources: Water pH Level
+bind Assess Soil Contamination: Soil Contamination Level
+bind Monitor Noise Levels: Noise Level
+bind Evaluate Waste Management: Waste Management Compliance
+bind Conduct Health Risk Assessment: Health Risk Score
+bind Implement Pollution Control Measures: Pollution Control Status
+bind Review Environmental Policies: Policy Review Score
+bind Report Findings: Report Status
+Air Quality Index: integer between 0 and 500
+Water pH Level: float between 0.0 and 14.0
+Soil Contamination Level: Low, Medium, High
+Noise Level: integer between 30 and 130
+Waste Management Compliance: Compliant, Non-Compliant
+Health Risk Score: float between 0.0 and 100.0
+Pollution Control Status: Implemented, Not Implemented
+Policy Review Score: integer between 0 and 10
+Report Status: Draft, Finalized
+Init[Conduct Air Quality Test] | |
+End[Report Findings] | |
+Response[Inspect Water Sources, Assess Soil Contamination] | | |0,2,d
+Chain Response[Monitor Noise Levels, Evaluate Waste Management] | | |0,48,h
+Existence[Conduct Health Risk Assessment] | |
+Precedence[Implement Pollution Control Measures, Conduct Health Risk Assessment] |A.Health Risk Score > 70 | |
+Co-Existence[Review Environmental Policies, Report Findings] | | |
+Responded Existence[Conduct Air Quality Test, Conduct Health Risk Assessment] |A.Air Quality Index > 150 | |
+Not Chain Succession[Monitor Noise Levels, Evaluate Waste Management] | | |
+Exclusive Choice[Implement Pollution Control Measures, Review Environmental Policies] | | |

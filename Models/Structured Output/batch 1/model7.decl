@@ -1,0 +1,30 @@
+activity Draft Policy Proposal
+activity Review Policy Proposal
+activity Conduct Public Consultation
+activity Revise Policy Proposal
+activity Approve Policy
+activity Implement Policy
+activity Monitor Policy Implementation
+activity Evaluate Policy Outcomes
+bind Draft Policy Proposal: Proposal ID
+bind Review Policy Proposal: Proposal ID
+bind Conduct Public Consultation: Feedback Type
+bind Revise Policy Proposal: Revision Number
+bind Approve Policy: Approval Status
+bind Implement Policy: Budget Allocation, Implementation Status
+Proposal ID: integer between 1 and 1000
+Budget Allocation: float between 10000.0 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Feedback Type: Positive, Negative, Neutral
+Revision Number: integer between 0 and 10
+Implementation Status: Not Started, In Progress, Completed
+Init[Draft Policy Proposal] | |
+End[Evaluate Policy Outcomes] | |
+Existence[Approve Policy] | |
+Precedence[Revise Policy Proposal, Review Policy Proposal] | |A.Proposal ID == T.Proposal ID |
+Response[Conduct Public Consultation, Revise Policy Proposal] | | |0,30,d
+Chain Response[Approve Policy, Implement Policy] |A.Approval Status is Approved | |0,60,d
+Response[Implement Policy, Monitor Policy Implementation] |A.Implementation Status is Completed | |0,10,d
+Co-Existence[Draft Policy Proposal, Approve Policy] | |A.Proposal ID == T.Proposal ID |
+Not Precedence[Implement Policy, Approve Policy] |A.Approval Status is not Approved | |
+Choice[Conduct Public Consultation, Approve Policy] | | |

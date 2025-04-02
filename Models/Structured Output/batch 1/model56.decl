@@ -1,0 +1,37 @@
+activity Analyze Music Piece
+activity Conduct Field Research
+activity Compile Research Data
+activity Publish Research Findings
+activity Review Literature
+activity Develop Hypothesis
+activity Design Experiment
+activity Collect Data
+activity Interpret Results
+activity Present at Conference
+bind Analyze Music Piece: Duration, Music Genre
+bind Conduct Field Research: Sample Size
+bind Compile Research Data: Research Status
+bind Publish Research Findings: Publication Type, Impact Factor
+bind Present at Conference: Conference Type, Citations
+bind Design Experiment: Budget Utilization
+bind Collect Data: Funding Amount
+Duration: integer between 1 and 120
+Funding Amount: float between 1000.0 and 100000.0
+Research Status: Initiated, In Progress, Completed
+Music Genre: Classical, Jazz, Rock, Pop
+Sample Size: integer between 10 and 1000
+Publication Type: Journal, Conference, Book
+Impact Factor: float between 0.0 and 10.0
+Conference Type: National, International
+Citations: integer between 0 and 1000
+Budget Utilization: float between 0.0 and 100.0
+Existence[Review Literature] | |
+Init[Develop Hypothesis] | |
+End[Publish Research Findings] | |
+Response[Analyze Music Piece, Interpret Results] | | |0,2,d
+Chain Response[Conduct Field Research, Compile Research Data] | | |0,48,h
+Co-Existence[Design Experiment, Collect Data] | | |
+Precedence[Publish Research Findings, Interpret Results] | | |
+Not Chain Precedence[Present at Conference, Publish Research Findings] | | |
+Response[Review Literature, Develop Hypothesis] | | |0,5,d
+Succession[Compile Research Data, Publish Research Findings] | | |0,10,d

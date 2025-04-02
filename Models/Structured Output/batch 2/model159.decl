@@ -1,0 +1,50 @@
+activity Classify Export Item
+activity Review Export License
+activity Submit Export Declaration
+activity Verify End User
+activity Approve Export Shipment
+activity Conduct Compliance Check
+activity Issue Export License
+activity Inspect Goods
+activity Pack Goods for Export
+activity Transport Goods to Port
+activity Load Goods onto Vessel
+activity Monitor Shipment
+activity Receive Export Confirmation
+activity Handle Export Discrepancy
+activity Close Export File
+bind Classify Export Item: Item Classification Code
+bind Review Export License: License Status
+bind Submit Export Declaration: Shipment Value
+bind Verify End User: End User Verification Status
+bind Conduct Compliance Check: Compliance Score
+bind Inspect Goods: Goods Condition
+bind Transport Goods to Port: Transport Cost
+bind Monitor Shipment: Shipment Status
+bind Handle Export Discrepancy: Discrepancy Count
+bind Close Export File: File Closure Status
+Item Classification Code: integer between 1000 and 9999
+Shipment Value: float between 1000.0 and 1000000.0
+License Status: Pending, Approved, Rejected
+End User Verification Status: Verified, Unverified
+Compliance Score: integer between 0 and 100
+Goods Condition: Intact, Damaged
+Transport Cost: float between 100.0 and 10000.0
+Shipment Status: In Transit, Delivered, Delayed
+Discrepancy Count: integer between 0 and 10
+File Closure Status: Open, Closed
+Init[Classify Export Item] | |
+End[Close Export File] | |
+Existence[Submit Export Declaration] | |
+Precedence[Approve Export Shipment, Review Export License] | | |
+Response[Verify End User, Approve Export Shipment] |A.End User Verification Status is Verified | |
+Chain Succession[Pack Goods for Export, Inspect Goods] | | |
+Response[Pack Goods for Export, Transport Goods to Port] | | |0,2,d
+Response[Load Goods onto Vessel, Monitor Shipment] | | |
+Not Co-Existence[Handle Export Discrepancy, Close Export File] | | |
+Response[Conduct Compliance Check, Issue Export License] |A.Compliance Score > 80 | |
+Precedence[Load Goods onto Vessel, Inspect Goods] | |T.Goods Condition is Intact |
+Precedence[Approve Export Shipment, Transport Goods to Port] | |T.Transport Cost < 5000 |
+Precedence[Pack Goods for Export, Submit Export Declaration] | | |
+Precedence[Receive Export Confirmation, Submit Export Declaration] | |T.Shipment Value > 10000 |
+Precedence[Close Export File, Monitor Shipment] | |T.Shipment Status is Delivered |

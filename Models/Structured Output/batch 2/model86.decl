@@ -1,0 +1,49 @@
+activity Plan Fundraising Event
+activity Identify Potential Donors
+activity Send Invitations
+activity Receive Donations
+activity Thank Donors
+activity Evaluate Event Success
+activity Prepare Financial Report
+activity Conduct Post-Event Survey
+activity Secure Venue
+activity Arrange Catering
+activity Coordinate Volunteers
+activity Promote Event
+activity Set Fundraising Goal
+activity Design Event Materials
+activity Review Legal Requirements
+bind Plan Fundraising Event: Event Status
+bind Receive Donations: Donor Count, Donation Amount
+bind Arrange Catering: Catering Type
+bind Coordinate Volunteers: Volunteer Count
+bind Promote Event: Promotion Channel
+bind Prepare Financial Report: Event Cost
+bind Conduct Post-Event Survey: Survey Feedback
+bind Evaluate Event Success: Attendance
+bind Review Legal Requirements: Legal Compliance
+Donor Count: integer between 1 and 1000
+Donation Amount: float between 10.0 and 100000.0
+Event Status: Planned, Ongoing, Completed
+Catering Type: Buffet, Sit-down, None
+Volunteer Count: integer between 0 and 100
+Promotion Channel: Social Media, Email, Print
+Event Cost: float between 100.0 and 50000.0
+Survey Feedback: Positive, Neutral, Negative
+Attendance: integer between 10 and 500
+Legal Compliance: Compliant, Non-Compliant
+Init[Plan Fundraising Event] | |
+End[Evaluate Event Success] | |
+Existence[Plan Fundraising Event] | |
+Exactly[Prepare Financial Report] | |
+Precedence[Receive Donations, Plan Fundraising Event] |A.Event Status is Ongoing | |
+Response[Receive Donations, Thank Donors] | | |0,2,d
+Precedence[Promote Event, Secure Venue] | | |
+Chain Response[Secure Venue, Arrange Catering] | | |0,48,h
+Precedence[Promote Event, Coordinate Volunteers] | | |
+Precedence[Promote Event, Design Event Materials] | | |
+Precedence[Conduct Post-Event Survey, Plan Fundraising Event] |A.Event Status is Completed | |
+Precedence[Plan Fundraising Event, Review Legal Requirements] | |A.Legal Compliance is Compliant |
+Responded Existence[Evaluate Event Success, Conduct Post-Event Survey] |A.Attendance > 50 | |
+Responded Existence[Receive Donations, Prepare Financial Report] |A.Donation Amount > 5000 | |
+Not Co-Existence[Plan Fundraising Event, Review Legal Requirements] |A.Legal Compliance is Non-Compliant | |

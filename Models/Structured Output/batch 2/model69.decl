@@ -1,0 +1,50 @@
+activity Collect Temperature Data
+activity Analyze Precipitation Patterns
+activity Model Climate Change Scenarios
+activity Validate Climate Models
+activity Publish Research Findings
+activity Conduct Field Surveys
+activity Assess Carbon Emissions
+activity Monitor Sea Level Rise
+activity Evaluate Renewable Energy Impact
+activity Review Climate Policies
+activity Simulate Weather Patterns
+activity Collect Soil Samples
+activity Analyze Ocean Currents
+activity Assess Biodiversity Changes
+activity Develop Mitigation Strategies
+bind Collect Temperature Data: Temperature
+bind Analyze Precipitation Patterns: Precipitation
+bind Validate Climate Models: Climate Model Status
+bind Assess Carbon Emissions: Carbon Emission Level
+bind Monitor Sea Level Rise: Sea Level Change
+bind Evaluate Renewable Energy Impact: Energy Source
+bind Assess Biodiversity Changes: Biodiversity Index
+bind Review Climate Policies: Policy Review Outcome
+bind Collect Soil Samples: Soil Quality
+bind Develop Mitigation Strategies: Mitigation Strategy Type
+Temperature: integer between -50 and 50
+Precipitation: float between 0.0 and 500.0
+Climate Model Status: Pending, Validated, Rejected
+Carbon Emission Level: integer between 0 and 10000
+Sea Level Change: float between -10.0 and 10.0
+Energy Source: Solar, Wind, Hydro, Nuclear
+Biodiversity Index: integer between 0 and 100
+Policy Review Outcome: Effective, Needs Improvement, Ineffective
+Soil Quality: float between 0.0 and 10.0
+Mitigation Strategy Type: Adaptation, Mitigation, Geoengineering
+Existence[Collect Temperature Data] | |
+End[Publish Research Findings] | |
+Response[Analyze Precipitation Patterns, Model Climate Change Scenarios] | | |2,5,d
+Co-Existence[Conduct Field Surveys, Collect Soil Samples] | | |
+Precedence[Simulate Weather Patterns, Collect Temperature Data] | | |
+Not Chain Succession[Assess Carbon Emissions, Evaluate Renewable Energy Impact] | | |
+Chain Response[Validate Climate Models, Publish Research Findings] | | |0,3,d
+Not Co-Existence[Review Climate Policies, Develop Mitigation Strategies] | | |
+Succession[Analyze Ocean Currents, Assess Biodiversity Changes] | | |
+Exclusive Choice[Collect Temperature Data, Monitor Sea Level Rise] | | |
+Chain Response[Evaluate Renewable Energy Impact, Review Climate Policies] | | |1,2,d
+Not Chain Succession[Collect Soil Samples, Analyze Precipitation Patterns] | | |
+Precedence[Model Climate Change Scenarios, Validate Climate Models] | | |
+Chain Response[Assess Biodiversity Changes, Develop Mitigation Strategies] | | |0,1,d
+Choice[Collect Temperature Data, Analyze Precipitation Patterns] | | |

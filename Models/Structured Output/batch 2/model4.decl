@@ -1,0 +1,50 @@
+activity Create Content
+activity Schedule Post
+activity Publish Post
+activity Monitor Engagement
+activity Respond to Comments
+activity Analyze Metrics
+activity Update Profile
+activity Conduct Live Session
+activity Collaborate with Influencer
+activity Run Ad Campaign
+activity Review Ad Performance
+activity Generate Report
+activity Plan Strategy
+activity Approve Content
+activity Conduct Survey
+bind Create Content: Content Type
+bind Schedule Post: Post Status
+bind Publish Post: Platform
+bind Monitor Engagement: Engagement Rate
+bind Run Ad Campaign: Ad Budget
+bind Review Ad Performance: Ad Performance Score
+bind Collaborate with Influencer: Influencer Tier
+bind Conduct Live Session: Live Session Duration
+bind Update Profile: Follower Count
+bind Respond to Comments: Comment Count
+Engagement Rate: integer between 0 and 1000
+Ad Budget: float between 0.0 and 10000.0
+Post Status: Draft, Scheduled, Published
+Content Type: Image, Video, Text
+Follower Count: integer between 0 and 1000000
+Platform: Facebook, Instagram, Twitter
+Ad Performance Score: float between 0.0 and 10.0
+Influencer Tier: Micro, Macro, Mega
+Comment Count: integer between 0 and 10000
+Live Session Duration: float between 0.0 and 180.0
+Init[Plan Strategy] | |
+End[Generate Report] | |
+Existence[Approve Content] | |
+Absence2[Conduct Live Session] | |
+Precedence[Publish Post, Schedule Post] | |A.Post Status is Scheduled |
+Response[Run Ad Campaign, Review Ad Performance] |A.Ad Budget > 500 | |0,7,d
+Succession[Create Content, Publish Post] |A.Content Type in (Image, Video) | |0,30,d
+Chain Response[Monitor Engagement, Respond to Comments] |A.Engagement Rate > 100 | |0,1,d
+Not Co-Existence[Update Profile, Conduct Survey] | | |
+Precedence[Collaborate with Influencer, Plan Strategy] |A.Influencer Tier is Mega | |
+Not Chain Succession[Conduct Live Session, Conduct Live Session] |A.Live Session Duration > 60 | |
+Choice[Run Ad Campaign, Collaborate with Influencer] | | |
+Exclusive Choice[Conduct Live Session, Conduct Survey] | | |
+Not Precedence[Review Ad Performance, Run Ad Campaign] | |T.Ad Budget < 100 |
+Precedence[Generate Report, Analyze Metrics] | | |

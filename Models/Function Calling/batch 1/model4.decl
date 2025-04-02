@@ -1,0 +1,40 @@
+activity Define Problem
+activity Formulate Hypothesis
+activity Construct Proof
+activity Review Proof
+activity Revise Proof
+activity Publish Results
+activity Present Findings
+activity Gather Feedback
+activity Incorporate Feedback
+activity Archive Work
+bind Define Problem: Problem ID
+bind Formulate Hypothesis: Hypothesis Type, Problem ID
+bind Construct Proof: Problem ID, Proof Length
+bind Review Proof: Review Status, Problem ID
+bind Revise Proof: Revision Type, Problem ID
+bind Publish Results: Publication Venue, Problem ID
+bind Present Findings: Conference ID, Problem ID
+bind Gather Feedback: Feedback Count, Problem ID
+bind Incorporate Feedback: Feedback Nature, Problem ID
+bind Archive Work: Archive ID, Problem ID
+Problem ID: integer between 1 and 9999
+Hypothesis Type: Conjecture, Lemma, Proposition, Theorem
+Proof Length: float between 0.1 and 100
+Review Status: Approved, Pending, Rejected
+Revision Type: Minor, Major, None
+Publication Venue: Journal, Conference, Arxiv
+Feedback Count: integer between 0 and 100
+Conference ID: integer between 1 and 9999
+Feedback Nature: Positive, Negative, Neutral
+Archive ID: integer between 1 and 9999
+Init[Define Problem] | |
+Existence[Formulate Hypothesis] | |
+Response[Formulate Hypothesis, Construct Proof] | | |
+Existence2[Review Proof] | |
+Chain Response[Review Proof, Revise Proof] | | |
+End[Publish Results] | |
+Response[Publish Results, Present Findings] | | |0,10,d
+Precedence[Gather Feedback, Present Findings] | | |
+Chain Precedence[Incorporate Feedback, Gather Feedback] |A.Feedback Nature in ["Negative", "Neutral"] | |
+Chain Succession[Incorporate Feedback, Archive Work] | | |0,15,d

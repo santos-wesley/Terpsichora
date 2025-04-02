@@ -1,0 +1,34 @@
+activity Register Member
+activity Issue Book
+activity Return Book
+activity Pay Fine
+activity Reserve Book
+activity Cancel Reservation
+activity Renew Membership
+activity Add New Book
+activity Remove Book
+bind Register Member: Member ID, Membership Status
+bind Issue Book: Member ID, Book ID
+bind Return Book: Book ID, Book Condition
+bind Pay Fine: Member ID, Fine Amount
+bind Reserve Book: Member ID, Book ID, Reservation Status
+bind Cancel Reservation: Member ID, Book ID
+bind Renew Membership: Member ID, Membership Status
+bind Add New Book: Book ID
+bind Remove Book: Book ID
+Member ID: integer between 1 and 10000
+Book ID: integer between 1 and 50000
+Fine Amount: float between 0.0 and 100.0
+Membership Status: Active, Expired
+Reservation Status: Reserved, Not Reserved
+Book Condition: Good, Damaged
+Init[Register Member] | |
+Existence[Return Book] | |
+Response[Issue Book, Return Book] | |A.Book ID == T.Book ID |0,30,d
+Precedence[Cancel Reservation, Reserve Book] | |A.Book ID == T.Book ID |
+Response[Return Book, Pay Fine] |A.Book Condition is Damaged |A.Book ID == T.Book ID |0,7,d
+Precedence[Remove Book, Add New Book] | |A.Book ID == T.Book ID |
+Existence[Renew Membership] | |
+Precedence[Renew Membership, Register Member] |A.Membership Status is Expired |A.Member ID == T.Member ID |
+Not Response[Reserve Book, Issue Book] | |A.Book ID == T.Book ID |0,2,d
+Not Precedence[Pay Fine, Return Book] | |A.Member ID == T.Member ID |

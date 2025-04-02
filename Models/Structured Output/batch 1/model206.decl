@@ -1,0 +1,28 @@
+activity Prepare Solution
+activity Measure pH
+activity Heat Solution
+activity Cool Solution
+activity Filter Solution
+activity Record Observations
+activity Dispose Chemicals
+activity Analyze Results
+bind Prepare Solution: Chemical Type, Volume
+bind Measure pH: pH Level
+bind Heat Solution: Temperature
+bind Cool Solution: Temperature
+bind Record Observations: Observation Type
+Temperature: integer between 0 and 1000
+pH Level: float between 0.0 and 14.0
+Chemical Type: Acid, Base, Neutral
+Observation Type: Color Change, Precipitate Formation, Gas Evolution
+Volume: integer between 1 and 10000
+Init[Prepare Solution] | |
+End[Dispose Chemicals] | |
+Chain Succession[Heat Solution, Cool Solution] | |A.Temperature > T.Temperature |0,10,m
+Precedence[Record Observations, Filter Solution] | | |
+Alternate Precedence[Measure pH, Prepare Solution] | | |0,5,m
+Response[Prepare Solution, Measure pH] |A.Chemical Type is Acid |T.pH Level < 7 |
+Chain Response[Record Observations, Analyze Results] |A.Observation Type is Color Change | |0,2,m
+Succession[Record Observations, Analyze Results] | | |
+Existence[Heat Solution] | |
+Not Precedence[Dispose Chemicals, Analyze Results] |A.Chemical Type is Base | |

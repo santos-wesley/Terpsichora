@@ -1,0 +1,39 @@
+activity Identify Workforce Needs
+activity Develop Job Descriptions
+activity Post Job Openings
+activity Screen Applications
+activity Conduct Interviews
+activity Make Job Offers
+activity Onboard New Employees
+activity Evaluate Workforce Performance
+activity Plan Training Programs
+activity Adjust Workforce Plan
+bind Identify Workforce Needs: Number of Positions
+bind Develop Job Descriptions: Job Type
+bind Post Job Openings: Salary Range
+bind Screen Applications: Experience Required
+bind Conduct Interviews: Interview Outcome
+bind Make Job Offers: Offer Status
+bind Evaluate Workforce Performance: Performance Score
+bind Plan Training Programs: Training Type, Training Duration
+bind Adjust Workforce Plan: Adjustment Type
+Number of Positions: integer between 1 and 1000
+Salary Range: float between 30000.0 and 200000.0
+Job Type: Full-Time, Part-Time, Contract
+Interview Outcome: Pass, Fail
+Experience Required: integer between 0 and 30
+Training Type: Technical, Soft Skills, Leadership
+Performance Score: float between 0.0 and 10.0
+Offer Status: Accepted, Rejected, Pending
+Training Duration: integer between 1 and 365
+Adjustment Type: Increase, Decrease, Reallocate
+Init[Identify Workforce Needs] | |
+End[Adjust Workforce Plan] | |
+Precedence[Post Job Openings, Develop Job Descriptions] | | |
+Response[Conduct Interviews, Make Job Offers] |A.Interview Outcome is Pass | |0,2,d
+Precedence[Conduct Interviews, Screen Applications] | | |0,48,h
+Response[Make Job Offers, Onboard New Employees] |A.Offer Status is Accepted | |0,5,d
+Co-Existence[Plan Training Programs, Evaluate Workforce Performance] | | |
+Existence[Evaluate Workforce Performance] | |
+Not Chain Succession[Evaluate Workforce Performance, Adjust Workforce Plan] | | |
+Not Co-Existence[Make Job Offers, Onboard New Employees] |A.Offer Status is Rejected | |

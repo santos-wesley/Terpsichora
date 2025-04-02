@@ -1,0 +1,37 @@
+activity Patrol Neighborhood
+activity Conduct Community Meeting
+activity Respond to Emergency Call
+activity File Incident Report
+activity Engage in Conflict Resolution
+activity Perform Routine Check
+activity Provide Safety Workshop
+activity Collaborate with Local Organizations
+activity Evaluate Community Feedback
+bind Patrol Neighborhood: Patrol Duration
+bind Conduct Community Meeting: Meeting Type
+bind Respond to Emergency Call: Response Time
+bind File Incident Report: Incident Severity
+bind Engage in Conflict Resolution: Conflict Resolution Duration
+bind Perform Routine Check: Check Type
+bind Provide Safety Workshop: Workshop Duration
+bind Collaborate with Local Organizations: Organization Type
+bind Evaluate Community Feedback: Feedback Score
+Patrol Duration: integer between 30 and 180
+Meeting Type: Safety, Awareness, Feedback
+Response Time: float between 1.0 and 60.0
+Incident Severity: Low, Medium, High
+Conflict Resolution Duration: integer between 10 and 120
+Check Type: Foot, Vehicle
+Workshop Duration: float between 1.0 and 4.0
+Organization Type: Non-Profit, Government, Private
+Feedback Score: integer between 1 and 10
+Existence[Patrol Neighborhood] | |
+Response[Conduct Community Meeting, File Incident Report] |A.Meeting Type is Feedback | |0,2,d
+Chain Response[Respond to Emergency Call, File Incident Report] |A.Response Time <= 30 | |0,1,h
+Co-Existence[Engage in Conflict Resolution, Perform Routine Check] | | |
+Not Chain Succession[Provide Safety Workshop, Conduct Community Meeting] | | |
+Precedence[Perform Routine Check, Patrol Neighborhood] |A.Check Type is Vehicle | |0,12,h
+End[Evaluate Community Feedback] | |
+Response[Collaborate with Local Organizations, Provide Safety Workshop] | |A.Organization Type is Non-Profit |0,5,d
+Not Response[File Incident Report, Provide Safety Workshop] |A.Incident Severity is High | |
+Choice[Patrol Neighborhood, Conduct Community Meeting] | | |

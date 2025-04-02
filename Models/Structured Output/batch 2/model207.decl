@@ -1,0 +1,35 @@
+activity Draft Treaty
+activity Review Treaty
+activity Negotiate Terms
+activity Sign Treaty
+activity Ratify Treaty
+activity Implement Treaty
+activity Monitor Compliance
+activity Amend Treaty
+activity Resolve Dispute
+activity Terminate Treaty
+bind Draft Treaty: Treaty Status
+bind Review Treaty: Review Duration
+bind Negotiate Terms: Negotiation Cost
+bind Resolve Dispute: Dispute Resolution Method
+bind Amend Treaty: Amendment Count
+Review Duration: integer between 1 and 30
+Negotiation Cost: float between 0.1 and 50.0
+Treaty Status: Drafted, Reviewed, Signed, Ratified, Implemented, Terminated
+Dispute Resolution Method: Arbitration, Mediation, Litigation
+Amendment Count: integer between 0 and 10
+Existence[Draft Treaty] | |
+Exactly[Review Treaty] | |
+Response[Negotiate Terms, Sign Treaty] | | |
+Precedence[Sign Treaty, Review Treaty] | | |
+Responded Existence[Resolve Dispute, Amend Treaty] |A.Dispute Resolution Method in (Arbitration, Mediation) | |
+Not Chain Succession[Amend Treaty, Terminate Treaty] | | |
+Response[Monitor Compliance, Resolve Dispute] | | |0,30,d
+Existence[Implement Treaty] | |
+Chain Response[Sign Treaty, Ratify Treaty] | | |0,60,d
+Co-Existence[Draft Treaty, Review Treaty] | | |
+Not Precedence[Negotiate Terms, Terminate Treaty] | | |
+Chain Response[Negotiate Terms, Sign Treaty] | | |0,30,d
+Response[Amend Treaty, Review Treaty] | | |0,15,d
+Succession[Implement Treaty, Terminate Treaty] | | |
+Absence2[Terminate Treaty] | |

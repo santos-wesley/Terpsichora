@@ -1,0 +1,40 @@
+activity Authenticate User
+activity Monitor Transactions
+activity Alert Security Team
+activity Block Account
+activity Review Security Logs
+activity Update Security Protocols
+activity Conduct Security Audit
+activity Grant Access
+activity Log Security Incident
+activity Reset Password
+bind Authenticate User: User ID, Failed Attempts
+bind Monitor Transactions: Transaction Amount
+bind Alert Security Team: Alert Level
+bind Block Account: User ID
+bind Review Security Logs: Log Entries
+bind Update Security Protocols: Security Protocol
+bind Conduct Security Audit: Audit Score
+bind Grant Access: Access Status
+bind Log Security Incident: Incident Type
+bind Reset Password: Password Status
+User ID: integer between 1 and 1000000
+Transaction Amount: float between 0.01 and 1000000.0
+Alert Level: Low, Medium, High
+Access Status: Granted, Denied
+Failed Attempts: integer between 0 and 10
+Security Protocol: Standard, Enhanced, Advanced
+Audit Score: float between 0.0 and 100.0
+Incident Type: Data Breach, Unauthorized Access, Phishing
+Log Entries: integer between 0 and 10000
+Password Status: Pending, Completed
+Init[Authenticate User] | |
+Existence[Monitor Transactions] | |
+Alternate Response[Alert Security Team, Block Account] |A.Alert Level is High |A.User ID == T.User ID |0,2,h
+Alternate Succession[Authenticate User, Grant Access] |A.Failed Attempts < 3 |A.User ID == T.User ID |0,30,m
+Response[Conduct Security Audit, Update Security Protocols] |A.Audit Score < 70 | |0,7,d
+Not Chain Succession[Alert Security Team, Block Account] |A.Alert Level is Medium |A.User ID == T.User ID |
+Choice[Log Security Incident, Reset Password] | | |
+Exclusive Choice[Review Security Logs, Update Security Protocols] | | |
+Responded Existence[Monitor Transactions, Alert Security Team] |A.Transaction Amount > 10000 | |
+Exactly[Reset Password] | |

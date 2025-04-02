@@ -1,0 +1,48 @@
+activity Conduct Security Training
+activity Assess Security Knowledge
+activity Distribute Security Materials
+activity Update Security Policies
+activity Monitor Security Compliance
+activity Report Security Incidents
+activity Review Security Incidents
+activity Conduct Security Audit
+activity Implement Security Measures
+activity Evaluate Security Measures
+activity Plan Security Awareness Campaign
+activity Launch Security Awareness Campaign
+activity Gather Feedback on Campaign
+activity Analyze Feedback
+activity Conduct Follow-up Training
+bind Conduct Security Training: Training Duration, Training Type
+bind Assess Security Knowledge: Feedback Score
+bind Monitor Security Compliance: Compliance Rate
+bind Report Security Incidents: Incident Severity, Incident Count
+bind Update Security Policies: Policy Status
+bind Conduct Security Audit: Audit Score
+bind Evaluate Security Measures: Measure Effectiveness
+bind Launch Security Awareness Campaign: Campaign Status
+Training Duration: integer between 1 and 8
+Compliance Rate: float between 0.0 and 100.0
+Incident Severity: Low, Medium, High
+Policy Status: Draft, Approved, Under Review
+Feedback Score: integer between 1 and 10
+Audit Score: float between 0.0 and 100.0
+Training Type: Online, In-Person
+Incident Count: integer between 0 and 100
+Measure Effectiveness: float between 0.0 and 100.0
+Campaign Status: Planned, Ongoing, Completed
+Existence[Conduct Security Training] | |
+End[Evaluate Security Measures] | |
+Precedence[Review Security Incidents, Report Security Incidents] | | |
+Chain Response[Conduct Security Audit, Implement Security Measures] | | |0,2,d
+Co-Existence[Conduct Security Training, Assess Security Knowledge] | | |
+Response[Plan Security Awareness Campaign, Launch Security Awareness Campaign] | | |
+Alternate Response[Launch Security Awareness Campaign, Gather Feedback on Campaign] | | |
+Not Chain Precedence[Update Security Policies, Conduct Security Audit] | | |
+Chain Response[Report Security Incidents, Review Security Incidents] |A.Incident Severity is High | |0,48,h
+Succession[Implement Security Measures, Evaluate Security Measures] | | |
+Choice[Gather Feedback on Campaign, Conduct Follow-up Training] | | |
+Not Responded Existence[Gather Feedback on Campaign, Launch Security Awareness Campaign] |A.Feedback Score < 5 | |
+Responded Existence[Conduct Security Training, Conduct Security Training] |A.Training Duration > 4 |A.Training Type is In-Person |
+Not Precedence[Implement Security Measures, Conduct Security Audit] | |T.Audit Score < 50 |
+Chain Response[Update Security Policies, Monitor Security Compliance] | | |0,5,d

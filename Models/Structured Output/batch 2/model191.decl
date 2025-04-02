@@ -1,0 +1,48 @@
+activity Identify Policy Need
+activity Conduct Research
+activity Draft Policy Document
+activity Review Policy Draft
+activity Revise Policy Document
+activity Approve Policy
+activity Implement Policy
+activity Monitor Policy Implementation
+activity Evaluate Policy Impact
+activity Communicate Policy
+activity Gather Stakeholder Feedback
+activity Conduct Policy Training
+activity Archive Policy Document
+activity Identify Policy Gaps
+activity Conduct Policy Audit
+bind Conduct Research: Research Duration, Policy Budget
+bind Approve Policy: Approval Status
+bind Communicate Policy: Communication Method
+bind Gather Stakeholder Feedback: Feedback Count
+bind Evaluate Policy Impact: Impact Score
+bind Conduct Policy Training: Training Status
+bind Conduct Policy Audit: Audit Frequency
+bind Revise Policy Document: Revision Cost
+Research Duration: integer between 1 and 30
+Policy Budget: float between 0.5 and 100.0
+Approval Status: Pending, Approved, Rejected
+Policy Type: HR, Finance, Operations, IT
+Feedback Count: integer between 0 and 100
+Impact Score: float between 0.0 and 10.0
+Training Status: Not Started, In Progress, Completed
+Audit Frequency: integer between 1 and 12
+Communication Method: Email, Meeting, Newsletter
+Revision Cost: float between 0.1 and 50.0
+Init[Identify Policy Need] | |
+End[Archive Policy Document] | |
+Existence[Conduct Research] | |
+Exactly[Approve Policy] | |
+Precedence[Revise Policy Document, Review Policy Draft] | | |
+Response[Approve Policy, Implement Policy] | | |5,10,d
+Succession[Implement Policy, Monitor Policy Implementation] | | |
+Precedence[Communicate Policy, Approve Policy] | | |
+Response[Communicate Policy, Gather Stakeholder Feedback] | | |
+Response[Communicate Policy, Conduct Policy Training] | | |
+Response[Monitor Policy Implementation, Evaluate Policy Impact] | | |
+Responded Existence[Implement Policy, Conduct Policy Audit] | | |
+Precedence[Identify Policy Gaps, Evaluate Policy Impact] |A.Impact Score < 5 | |
+Not Responded Existence[Revise Policy Document, Draft Policy Document] |A.Revision Cost > 20 |A.Policy Type is HR |
+Precedence[Communicate Policy, Gather Stakeholder Feedback] |A.Feedback Count > 50 |A.Communication Method is Email |

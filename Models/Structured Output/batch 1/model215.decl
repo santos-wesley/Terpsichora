@@ -1,0 +1,37 @@
+activity Receive Shipment
+activity Inspect Goods
+activity Store Goods
+activity Update Inventory
+activity Process Order
+activity Pick Goods
+activity Pack Goods
+activity Dispatch Order
+activity Conduct Stock Audit
+activity Reorder Stock
+bind Receive Shipment: Quantity, Supplier
+bind Inspect Goods: Condition
+bind Store Goods: Storage Location
+bind Update Inventory: Stock Level
+bind Process Order: Order Status, Total Order Value
+bind Conduct Stock Audit: Audit Result
+bind Reorder Stock: Reorder Threshold
+Quantity: integer between 1 and 1000
+Item Price: float between 0.5 and 500.0
+Condition: New, Damaged, Expired
+Order Status: Pending, Processed, Shipped, Delivered
+Stock Level: integer between 0 and 5000
+Storage Location: Warehouse A, Warehouse B, Warehouse C
+Total Order Value: float between 10.0 and 10000.0
+Audit Result: Match, Mismatch
+Reorder Threshold: integer between 10 and 100
+Supplier: Supplier X, Supplier Y, Supplier Z
+Init[Receive Shipment] | |
+End[Dispatch Order] | |
+Chain Succession[Receive Shipment, Inspect Goods] | | |0,5,m
+Response[Process Order, Pick Goods] | |A.Order Status is Processed |0,2,h
+Chain Response[Pick Goods, Pack Goods] | | |0,10,m
+Responded Existence[Conduct Stock Audit, Reorder Stock] |A.Stock Level < A.Reorder Threshold | |
+Not Co-Existence[Conduct Stock Audit, Reorder Stock] |A.Audit Result is Match | |
+Precedence[Dispatch Order, Pack Goods] | | |
+Existence[Conduct Stock Audit] | |
+Not Co-Existence[Receive Shipment, Process Order] | | |

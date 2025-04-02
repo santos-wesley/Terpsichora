@@ -1,0 +1,40 @@
+activity Assess Risk
+activity Develop Strategy
+activity Implement Measures
+activity Monitor Progress
+activity Review Outcomes
+activity Conduct Training
+activity Engage Stakeholders
+activity Allocate Resources
+activity Test Systems
+activity Report Findings
+bind Assess Risk: Risk Level
+bind Develop Strategy: Strategy Type
+bind Implement Measures: Budget Allocation
+bind Monitor Progress: Progress Percentage
+bind Review Outcomes: Outcome Status
+bind Conduct Training: Training Type
+bind Engage Stakeholders: Stakeholder Count
+bind Allocate Resources: Resource Type
+bind Test Systems: Test Frequency
+bind Report Findings: Report Accuracy
+Risk Level: integer between 1 and 10
+Budget Allocation: float between 1000.0 and 100000.0
+Strategy Type: Preventive, Reactive, Adaptive
+Training Type: Online, In-Person
+Stakeholder Count: integer between 1 and 50
+Progress Percentage: float between 0.0 and 100.0
+Outcome Status: Successful, Partially Successful, Unsuccessful
+Resource Type: Human, Financial, Technical
+Test Frequency: integer between 1 and 12
+Report Accuracy: float between 0.0 and 100.0
+Init[Assess Risk] | |
+End[Report Findings] | |
+Existence[Conduct Training] | |
+Chain Succession[Develop Strategy, Implement Measures] | | |5,10,d
+Response[Monitor Progress, Review Outcomes] | | |
+Precedence[Allocate Resources, Engage Stakeholders] | | |
+Not Chain Succession[Implement Measures, Test Systems] | | |
+Choice[Conduct Training, Engage Stakeholders] | | |
+Not Co-Existence[Develop Strategy, Review Outcomes] | | |
+Chain Response[Assess Risk, Develop Strategy] | | |2,5,d

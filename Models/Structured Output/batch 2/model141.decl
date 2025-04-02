@@ -1,0 +1,48 @@
+activity Submit Proposal
+activity Review Proposal
+activity Approve Proposal
+activity Reject Proposal
+activity Allocate Budget
+activity Conduct Research
+activity Analyze Data
+activity Draft Report
+activity Review Report
+activity Publish Report
+activity Request Extension
+activity Grant Extension
+activity Deny Extension
+activity Conduct Peer Review
+activity Archive Report
+bind Submit Proposal: Proposal ID, Proposal Status
+bind Review Proposal: Review Outcome
+bind Allocate Budget: Budget Amount
+bind Conduct Research: Research Phase
+bind Analyze Data: Data Accuracy
+bind Draft Report: Report Status
+bind Request Extension: Extension Days, Extension Status
+bind Conduct Peer Review: Peer Review Score
+Proposal ID: integer between 1 and 10000
+Budget Amount: float between 1000.0 and 1000000.0
+Proposal Status: Submitted, Reviewed, Approved, Rejected
+Report Status: Drafted, Reviewed, Published, Archived
+Extension Days: integer between 1 and 30
+Review Outcome: Approved, Rejected
+Data Accuracy: float between 0.0 and 100.0
+Research Phase: Initiated, In Progress, Completed
+Peer Review Score: integer between 1 and 10
+Extension Status: Requested, Granted, Denied
+Existence[Submit Proposal] | |
+Exactly[Review Proposal] | |
+Chain Response[Approve Proposal, Allocate Budget] |A.Review Outcome is Approved | |0,1,h
+Response[Conduct Research, Analyze Data] |A.Research Phase is Completed | |0,2,d
+Succession[Draft Report, Review Report] |A.Report Status is Drafted | |0,3,d
+Response[Review Report, Publish Report] |A.Report Status is Reviewed | |0,1,d
+Not Succession[Approve Proposal, Reject Proposal] | | |
+Choice[Request Extension, Grant Extension] |A.Extension Status is Requested | |
+Not Precedence[Archive Report, Publish Report] | | |
+Precedence[Conduct Peer Review, Publish Report] |A.Report Status is Published | |0,5,d
+Not Response[Reject Proposal, Approve Proposal] | | |
+Co-Existence[Submit Proposal, Draft Report] | | |
+Precedence[Allocate Budget, Approve Proposal] | | |
+Precedence[Analyze Data, Conduct Research] |A.Research Phase is Completed | |
+Precedence[Archive Report, Publish Report] | | |

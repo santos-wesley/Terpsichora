@@ -1,0 +1,34 @@
+activity Prepare Regulatory Submission
+activity Review Submission Documents
+activity Submit to Regulatory Agency
+activity Receive Regulatory Feedback
+activity Address Regulatory Concerns
+activity Conduct Internal Audit
+activity Update Submission Documents
+activity Approve Final Submission
+activity Resubmit to Regulatory Agency
+activity Receive Final Approval
+bind Prepare Regulatory Submission: Document Version, Submission Fee
+bind Receive Regulatory Feedback: Feedback Type
+bind Conduct Internal Audit: Audit Result
+bind Receive Final Approval: Approval Status
+Document Version: integer between 1 and 10
+Submission Fee: float between 100.0 and 10000.0
+Feedback Type: Minor, Major, Critical
+Audit Result: Pass, Fail
+Approval Status: Pending, Approved, Rejected
+Init[Prepare Regulatory Submission] | |
+End[Receive Final Approval] | |
+Existence[Prepare Regulatory Submission] | |
+Exactly[Conduct Internal Audit] | |
+Precedence[Submit to Regulatory Agency, Review Submission Documents] | | |
+Precedence[Resubmit to Regulatory Agency, Address Regulatory Concerns] | | |
+Responded Existence[Receive Regulatory Feedback, Prepare Regulatory Submission] |A.Feedback Type is Critical |T.Submission Fee > 5000 |
+Chain Response[Receive Regulatory Feedback, Update Submission Documents] | | |0,1,h
+Precedence[Resubmit to Regulatory Agency, Approve Final Submission] | | |
+Precedence[Approve Final Submission, Conduct Internal Audit] | |T.Audit Result is Pass |
+Response[Receive Regulatory Feedback, Update Submission Documents] | | |0,2,d
+Not Responded Existence[Receive Regulatory Feedback, Prepare Regulatory Submission] |A.Feedback Type is Minor |T.Submission Fee >= 5000 |
+Response[Approve Final Submission, Resubmit to Regulatory Agency] | | |0,48,h
+Precedence[Receive Final Approval, Submit to Regulatory Agency] | | |
+Responded Existence[Receive Final Approval, Prepare Regulatory Submission] |A.Approval Status is Rejected | |

@@ -1,0 +1,50 @@
+activity Identify Threat
+activity Analyze Threat
+activity Mitigate Threat
+activity Report Threat
+activity Review Threat Report
+activity Update Threat Database
+activity Conduct Threat Simulation
+activity Evaluate Simulation Results
+activity Develop Threat Response Plan
+activity Train Staff on Threat Response
+activity Monitor Network Traffic
+activity Perform Security Audit
+activity Assess Vulnerabilities
+activity Implement Security Patches
+activity Conduct Post-Incident Analysis
+bind Identify Threat: Threat Level, Threat Status
+bind Analyze Threat: Impact Score
+bind Mitigate Threat: Threat Status
+bind Report Threat: Threat Status
+bind Conduct Threat Simulation: Simulation Frequency
+bind Monitor Network Traffic: Network Traffic Volume
+bind Perform Security Audit: Audit Result
+bind Assess Vulnerabilities: Vulnerability Count
+bind Implement Security Patches: Patch Status
+bind Conduct Post-Incident Analysis: Incident Response Time
+Threat Level: integer between 1 and 10
+Impact Score: float between 0.1 and 100.0
+Threat Status: Identified, Analyzed, Mitigated, Reported
+Response Plan Status: Draft, Approved, Implemented
+Simulation Frequency: integer between 1 and 12
+Network Traffic Volume: float between 0.0 and 1000.0
+Audit Result: Pass, Fail
+Vulnerability Count: integer between 0 and 100
+Patch Status: Pending, Completed
+Incident Response Time: float between 0.1 and 48.0
+Init[Identify Threat] | |
+Existence[Report Threat] | |
+End[Conduct Post-Incident Analysis] | |
+Response[Identify Threat, Analyze Threat] | | |0,2,d
+Precedence[Mitigate Threat, Analyze Threat] | | |
+Chain Response[Conduct Threat Simulation, Evaluate Simulation Results] | | |0,48,h
+Co-Existence[Perform Security Audit, Assess Vulnerabilities] | | |
+Not Chain Succession[Implement Security Patches, Conduct Post-Incident Analysis] | | |
+Choice[Monitor Network Traffic, Perform Security Audit] | | |
+Succession[Train Staff on Threat Response, Develop Threat Response Plan] | | |0,5,d
+Not Precedence[Report Threat, Mitigate Threat] |A.Threat Status is Reported |A.Threat Status is not Mitigated |
+Not Co-Existence[Identify Threat, Implement Security Patches] | | |
+Not Chain Response[Conduct Threat Simulation, Identify Threat] | | |
+Response[Assess Vulnerabilities, Implement Security Patches] | | |0,3,d
+Not Succession[Identify Threat, Report Threat] | | |

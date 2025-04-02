@@ -1,0 +1,43 @@
+activity Identify Customer
+activity Qualify Lead
+activity Schedule Meeting
+activity Conduct Meeting
+activity Send Proposal
+activity Receive Feedback
+activity Negotiate Terms
+activity Finalize Agreement
+activity Onboard Customer
+activity Provide Support
+activity Review Satisfaction
+activity Renew Contract
+activity Close Account
+bind Identify Customer: Lead Score
+bind Send Proposal: Proposal Value
+bind Receive Feedback: Feedback Type
+bind Finalize Agreement: Agreement Status
+bind Provide Support: Support Tickets
+bind Review Satisfaction: Satisfaction Level
+bind Renew Contract: Renewal Value, Contract Decision
+Lead Score: integer between 1 and 100
+Proposal Value: float between 1000.0 and 100000.0
+Feedback Type: Positive, Negative, Neutral
+Agreement Status: Pending, Finalized, Cancelled
+Support Tickets: integer between 0 and 50
+Satisfaction Level: High, Medium, Low
+Renewal Value: float between 500.0 and 50000.0
+Contract Decision: Renew, Not Renew
+Init[Identify Customer] | |
+End[Renew Contract] | |
+End[Close Account] | |
+Existence[Schedule Meeting] | |
+Existence[Send Proposal] | |
+Absence3[Receive Feedback] | |
+Precedence[Schedule Meeting, Qualify Lead] | | |
+Chain Response[Schedule Meeting, Conduct Meeting] | | |0,1,h
+Response[Conduct Meeting, Send Proposal] | | |0,2,d
+Response[Send Proposal, Receive Feedback] | | |0,5,d
+Precedence[Finalize Agreement, Receive Feedback] | |T.Feedback Type is Positive |
+Responded Existence[Finalize Agreement, Provide Support] |A.Agreement Status is Finalized | |
+Response[Provide Support, Review Satisfaction] | | |0,30,d
+Precedence[Renew Contract, Review Satisfaction] | |T.Satisfaction Level in (High, Medium) |
+Response[Review Satisfaction, Renew Contract] | | |0,10,d

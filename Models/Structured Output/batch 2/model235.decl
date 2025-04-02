@@ -1,0 +1,49 @@
+activity Identify Workforce Needs
+activity Conduct Skills Assessment
+activity Develop Training Programs
+activity Recruit New Employees
+activity Allocate Resources
+activity Monitor Workforce Performance
+activity Adjust Workforce Plan
+activity Approve Workforce Budget
+activity Conduct Exit Interviews
+activity Analyze Workforce Data
+activity Implement Workforce Changes
+activity Evaluate Training Effectiveness
+activity Plan Succession
+activity Review Workforce Policies
+activity Report Workforce Metrics
+bind Identify Workforce Needs: Employee Count
+bind Conduct Skills Assessment: Skill Level
+bind Develop Training Programs: Training Hours
+bind Recruit New Employees: Recruitment Type
+bind Allocate Resources: Resource Type
+bind Monitor Workforce Performance: Performance Score
+bind Approve Workforce Budget: Budget Allocation, Approval Status
+bind Conduct Exit Interviews: Exit Interviews Conducted
+bind Evaluate Training Effectiveness: Training Effectiveness
+Employee Count: integer between 1 and 1000
+Budget Allocation: float between 1000.0 and 100000.0
+Skill Level: Beginner, Intermediate, Advanced
+Approval Status: Pending, Approved, Rejected
+Training Hours: integer between 1 and 100
+Recruitment Type: Internal, External
+Performance Score: float between 0.0 and 100.0
+Resource Type: Human, Financial, Material
+Exit Interviews Conducted: integer between 0 and 100
+Training Effectiveness: float between 0.0 and 10.0
+Init[Identify Workforce Needs] | |
+End[Report Workforce Metrics] | |
+Existence[Conduct Skills Assessment] | |
+Absence3[Recruit New Employees] | |
+Exactly2[Develop Training Programs] | |
+Response[Identify Workforce Needs, Allocate Resources] | | |2,5,d
+Precedence[Recruit New Employees, Approve Workforce Budget] | | |
+Co-Existence[Conduct Exit Interviews, Analyze Workforce Data] | | |
+Chain Response[Monitor Workforce Performance, Adjust Workforce Plan] | | |1,3,d
+Chain Response[Evaluate Training Effectiveness, Report Workforce Metrics] | | |2,4,h
+Response[Review Workforce Policies, Implement Workforce Changes] | | |5,10,d
+Not Chain Succession[Conduct Skills Assessment, Plan Succession] | | |
+Not Co-Existence[Approve Workforce Budget, Approve Workforce Budget] |A.Approval Status is Rejected | |
+Responded Existence[Recruit New Employees, Conduct Skills Assessment] |A.Recruitment Type is Internal |T.Skill Level in (Intermediate, Advanced) |
+Response[Evaluate Training Effectiveness, Develop Training Programs] |A.Training Effectiveness < 5 | |

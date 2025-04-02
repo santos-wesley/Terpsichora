@@ -1,0 +1,31 @@
+activity Receive Claim
+activity Assess Damage
+activity Approve Claim
+activity Reject Claim
+activity Calculate Payout
+activity Issue Payment
+activity Notify Policyholder
+activity Close Claim
+bind Receive Claim: Claim Amount, Policy Type
+bind Assess Damage: Damage Assessment
+bind Approve Claim: Claim Status
+bind Reject Claim: Claim Status
+bind Calculate Payout: Payout Amount
+bind Issue Payment: Payment Method
+Claim Amount: integer between 100 and 1000000
+Claim Status: Pending, Approved, Rejected
+Damage Assessment: float between 0.0 and 1000000.0
+Policy Type: Home, Auto, Health
+Policyholder Age: integer between 18 and 100
+Payment Method: Bank Transfer, Check, Cash
+Payout Amount: float between 0.0 and 1000000.0
+Existence[Receive Claim] | |
+End[Close Claim] | |
+Precedence[Approve Claim, Assess Damage] | | |
+Response[Approve Claim, Issue Payment] |A.Claim Status is Approved | |0,2,d
+Not Co-Existence[Approve Claim, Reject Claim] | | |
+Choice[Notify Policyholder, Approve Claim] | | |0,1,d
+Choice[Notify Policyholder, Reject Claim] | | |0,1,d
+Chain Response[Approve Claim, Calculate Payout] |A.Claim Status is Approved | |0,1,h
+Chain Response[Approve Claim, Calculate Payout] |A.Claim Status is Approved | |0,1,h
+Precedence[Approve Claim, Assess Damage] |A.Claim Amount > T.Damage Assessment | |

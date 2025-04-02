@@ -1,0 +1,32 @@
+activity Assess Risk Profile
+activity Develop Investment Strategy
+activity Execute Trade
+activity Monitor Portfolio
+activity Rebalance Portfolio
+activity Generate Performance Report
+activity Review Compliance
+activity Conduct Market Analysis
+activity Client Meeting
+bind Assess Risk Profile: Risk Level
+bind Execute Trade: Investment Amount, Trade Volume
+bind Review Compliance: Compliance Status
+bind Generate Performance Report: Performance Return
+bind Conduct Market Analysis: Market Trend
+bind Client Meeting: Client Satisfaction
+Risk Level: Low, Medium, High
+Investment Amount: float between 1000.0 and 1000000.0
+Trade Volume: integer between 1 and 10000
+Compliance Status: Compliant, Non-Compliant
+Performance Return: float between -100.0 and 100.0
+Market Trend: Bullish, Bearish, Neutral
+Client Satisfaction: integer between 1 and 5
+Init[Assess Risk Profile] | |
+End[Client Meeting] | |
+Response[Develop Investment Strategy, Execute Trade] | | |0,2,d
+Chain Response[Execute Trade, Review Compliance] | | |0,48,h
+Co-Existence[Conduct Market Analysis, Develop Investment Strategy] | | |
+Response[Monitor Portfolio, Generate Performance Report] | | |
+Not Chain Succession[Execute Trade, Rebalance Portfolio] | | |
+Precedence[Assess Risk Profile, Execute Trade] |A.Risk Level is High |T.Investment Amount > 100000 |
+Responded Existence[Client Meeting, Generate Performance Report] |A.Client Satisfaction < 3 | |
+Precedence[Review Compliance, Generate Performance Report] |A.Compliance Status is Compliant | |

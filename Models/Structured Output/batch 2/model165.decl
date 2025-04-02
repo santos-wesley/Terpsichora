@@ -1,0 +1,55 @@
+activity Receive Child Abuse Report
+activity Assess Risk Level
+activity Initiate Investigation
+activity Conduct Home Visit
+activity Interview Child
+activity Interview Guardian
+activity Develop Safety Plan
+activity Provide Temporary Shelter
+activity Refer to Counseling
+activity Close Case
+activity File Legal Action
+activity Review Case
+activity Monitor Child's Progress
+activity Update Case File
+activity Conduct Follow-up Visit
+bind Receive Child Abuse Report: 
+bind Assess Risk Level: Risk Level
+bind Initiate Investigation: 
+bind Conduct Home Visit: Home Visit Duration
+bind Interview Child: Interview Duration
+bind Interview Guardian: Interview Duration
+bind Develop Safety Plan: Safety Plan Status
+bind Provide Temporary Shelter: Shelter Status
+bind Refer to Counseling: Counseling Sessions, Counseling Referral Status
+bind Close Case: Case Status
+bind File Legal Action: Legal Action Status
+bind Review Case: 
+bind Monitor Child's Progress: 
+bind Update Case File: 
+bind Conduct Follow-up Visit: Follow-up Visits
+Risk Level: integer between 1 and 5
+Interview Duration: float between 0.5 and 3.0
+Shelter Status: Arranged, Not Arranged
+Legal Action Status: Initiated, Not Initiated
+Counseling Sessions: integer between 0 and 20
+Case Status: Open, Closed, Under Review
+Home Visit Duration: float between 1.0 and 4.0
+Safety Plan Status: Completed, Pending
+Follow-up Visits: integer between 0 and 10
+Counseling Referral Status: Referred, Not Referred
+Init[Receive Child Abuse Report] | |
+End[Close Case] | |
+Existence[Assess Risk Level] | |
+Response[Assess Risk Level, Initiate Investigation] | | |0,2,d
+Response[Initiate Investigation, Conduct Home Visit] | | |0,3,d
+Response[Conduct Home Visit, Interview Child] | | |0,1,d
+Response[Interview Child, Interview Guardian] | | |0,1,d
+Response[Assess Risk Level, Develop Safety Plan] |A.Risk Level > 3 | |0,2,d
+Response[Develop Safety Plan, Provide Temporary Shelter] |A.Safety Plan Status is Pending | |0,1,d
+Response[Assess Risk Level, Refer to Counseling] |A.Risk Level >= 3 | |0,3,d
+Response[Assess Risk Level, File Legal Action] |A.Risk Level = 5 | |0,2,d
+Precedence[Close Case, Review Case] | | |
+Response[Provide Temporary Shelter, Monitor Child's Progress] | | |0,5,d
+Response[Review Case, Update Case File] | | |0,1,d
+Response[Close Case, Conduct Follow-up Visit] | | |0,10,d

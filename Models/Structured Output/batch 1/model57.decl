@@ -1,0 +1,27 @@
+activity Initiate Quality Audit
+activity Conduct Inspection
+activity Document Findings
+activity Review Findings
+activity Approve Quality Report
+activity Implement Corrective Actions
+activity Verify Corrective Actions
+activity Close Quality Audit
+bind Initiate Quality Audit: Audit ID
+bind Conduct Inspection: Inspection Result, Defect Rate
+bind Implement Corrective Actions: Corrective Action Status
+bind Approve Quality Report: Report Approval Level
+Audit ID: integer between 1 and 10000
+Inspection Result: Pass, Fail
+Defect Rate: float between 0.0 and 100.0
+Corrective Action Status: Pending, Completed
+Report Approval Level: integer between 1 and 5
+Init[Initiate Quality Audit] | |
+End[Close Quality Audit] | |
+Response[Conduct Inspection, Document Findings] | | |0,2,h
+Precedence[Approve Quality Report, Review Findings] | | |
+Succession[Implement Corrective Actions, Verify Corrective Actions] | |A.Corrective Action Status is Completed |0,5,d
+Not Co-Existence[Conduct Inspection, Approve Quality Report] | | |
+Existence[Conduct Inspection] | |
+Co-Existence[Initiate Quality Audit, Close Quality Audit] | | |
+Precedence[Implement Corrective Actions, Review Findings] | | |0,3,d
+Response[Conduct Inspection, Implement Corrective Actions] |A.Inspection Result is Fail | |0,1,d

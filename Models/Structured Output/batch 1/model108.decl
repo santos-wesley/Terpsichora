@@ -1,0 +1,39 @@
+activity Monitor Energy Usage
+activity Analyze Energy Data
+activity Generate Energy Report
+activity Implement Energy Saving Measures
+activity Verify Energy Savings
+activity Schedule Maintenance
+activity Conduct Energy Audit
+activity Review Energy Policies
+activity Approve Energy Budget
+activity Train Energy Personnel
+bind Monitor Energy Usage: Energy Consumption
+bind Generate Energy Report: Report Type
+bind Conduct Energy Audit: Audit Status
+bind Schedule Maintenance: Maintenance Frequency
+bind Review Energy Policies: Policy Review Status
+bind Approve Energy Budget: Budget Amount
+bind Train Energy Personnel: Training Level, Personnel Trained
+bind Verify Energy Savings: Savings Verification Status
+bind Implement Energy Saving Measures: Cost Savings
+Energy Consumption: integer between 0 and 1000000
+Cost Savings: float between 0.0 and 100000.0
+Report Type: Summary, Detailed
+Audit Status: Pending, Completed
+Maintenance Frequency: integer between 1 and 365
+Policy Review Status: Reviewed, Not Reviewed
+Budget Amount: float between 0.0 and 500000.0
+Training Level: Basic, Advanced
+Personnel Trained: integer between 0 and 500
+Savings Verification Status: Verified, Not Verified
+Init[Monitor Energy Usage] | |
+End[Verify Energy Savings] | |
+Response[Monitor Energy Usage, Analyze Energy Data] | | |0,2,h
+Chain Response[Analyze Energy Data, Generate Energy Report] | | |0,1,h
+Precedence[Implement Energy Saving Measures, Generate Energy Report] |A.Report Type is Detailed | |
+Co-Existence[Conduct Energy Audit, Review Energy Policies] | | |
+Not Chain Succession[Conduct Energy Audit, Schedule Maintenance] |A.Audit Status is Completed | |
+Precedence[Train Energy Personnel, Approve Energy Budget] | | |0,5,d
+Response[Implement Energy Saving Measures, Verify Energy Savings] | | |0,3,d
+Existence[Conduct Energy Audit] | |

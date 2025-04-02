@@ -1,0 +1,38 @@
+activity Initiate Payment
+activity Approve Payment
+activity Execute Payment
+activity Reconcile Account
+activity Generate Report
+activity Review Report
+activity Close Period
+activity Audit Transaction
+activity Manage Liquidity
+activity Forecast Cash Flow
+bind Initiate Payment: Payment Amount, Payment Status
+bind Approve Payment: Approval Level, Payment Status
+bind Execute Payment: Transaction ID, Payment Status
+bind Reconcile Account: Reconciliation Difference, Account Balance
+bind Generate Report: Report Type, Transaction ID
+bind Audit Transaction: Audit Result, Transaction ID
+bind Manage Liquidity: Liquidity Ratio, Account Balance
+bind Forecast Cash Flow: Forecast Period, Liquidity Ratio
+Payment Amount: integer between 100 and 1000000
+Payment Status: Pending, Approved, Executed, Failed
+Account Balance: float between 0.0 and 10000000.0
+Report Type: Summary, Detailed
+Transaction ID: integer between 1 and 100000
+Audit Result: Pass, Fail
+Liquidity Ratio: float between 0.0 and 10.0
+Forecast Period: integer between 1 and 12
+Approval Level: Manager, Director, CFO
+Reconciliation Difference: float between -1000.0 and 1000.0
+Init[Initiate Payment] | |
+End[Close Period] | |
+Precedence[Execute Payment, Approve Payment] |A.Payment Status is Approved |A.Approval Level in (Director, CFO) |0,2,h
+Response[Execute Payment, Reconcile Account] |A.Payment Status is Executed |A.Transaction ID == T.Transaction ID |0,24,h
+Response[Reconcile Account, Generate Report] |A.Reconciliation Difference <= 100 |A.Transaction ID == T.Transaction ID |0,12,h
+Response[Reconcile Account, Audit Transaction] |A.Reconciliation Difference > 500 |A.Transaction ID == T.Transaction ID |0,48,h
+Precedence[Forecast Cash Flow, Manage Liquidity] |A.Forecast Period >= 3 |A.Liquidity Ratio >= 1.5 |0,7,d
+Existence[Initiate Payment] | |
+Responded Existence[Generate Report, Review Report] |A.Report Type is Detailed | |
+Not Precedence[Audit Transaction, Approve Payment] |A.Audit Result is Fail |A.Transaction ID == T.Transaction ID |

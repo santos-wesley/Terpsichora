@@ -1,0 +1,50 @@
+activity Plan Campaign Strategy
+activity Conduct Opinion Polls
+activity Design Campaign Material
+activity Organize Rally
+activity Engage with Media
+activity Fundraising Event
+activity Recruit Volunteers
+activity Train Volunteers
+activity Launch Social Media Campaign
+activity Monitor Social Media Engagement
+activity Conduct Debate
+activity Distribute Campaign Material
+activity Canvass Door-to-Door
+activity Hold Press Conference
+activity Evaluate Campaign Performance
+bind Conduct Opinion Polls: Poll Sample Size
+bind Fundraising Event: Funds Raised
+bind Engage with Media: Media Type
+bind Recruit Volunteers: Volunteer Role
+bind Launch Social Media Campaign: Social Media Posts
+bind Monitor Social Media Engagement: Engagement Rate
+bind Conduct Debate: Debate Outcome
+bind Distribute Campaign Material: Material Distributed
+bind Hold Press Conference: Press Conference Topic
+bind Evaluate Campaign Performance: Campaign Effectiveness
+Poll Sample Size: integer between 100 and 10000
+Funds Raised: float between 1000.0 and 1000000.0
+Media Type: Television, Radio, Online, Print
+Volunteer Role: Canvasser, Social Media Manager, Event Coordinator
+Social Media Posts: integer between 1 and 500
+Engagement Rate: float between 0.0 and 100.0
+Debate Outcome: Win, Lose, Draw
+Material Distributed: integer between 100 and 10000
+Press Conference Topic: Policy, Strategy, Response to Opponent
+Campaign Effectiveness: float between 0.0 and 10.0
+Existence[Plan Campaign Strategy] | |
+End[Evaluate Campaign Performance] | |
+Response[Fundraising Event, Hold Press Conference] | | |0,2,d
+Chain Succession[Conduct Debate, Hold Press Conference] | |A.Debate Outcome == T.Press Conference Topic |
+Response[Launch Social Media Campaign, Monitor Social Media Engagement] | | |
+Precedence[Organize Rally, Plan Campaign Strategy] | | |
+Precedence[Train Volunteers, Recruit Volunteers] | | |
+Precedence[Distribute Campaign Material, Design Campaign Material] | | |
+Not Co-Existence[Engage with Media, Organize Rally] | | |
+Exclusive Choice[Conduct Opinion Polls, Hold Press Conference] | | |
+Not Chain Succession[Fundraising Event, Organize Rally] | | |
+Responded Existence[Launch Social Media Campaign, Monitor Social Media Engagement] | | |
+Response[Distribute Campaign Material, Canvass Door-to-Door] | | |0,48,h
+Response[Recruit Volunteers, Train Volunteers] |A.Volunteer Role is Canvasser | |0,5,d
+Existence2[Conduct Opinion Polls] | |

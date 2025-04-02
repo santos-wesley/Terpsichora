@@ -1,0 +1,32 @@
+activity Initialize Quantum Key
+activity Verify Quantum Key
+activity Encrypt Data
+activity Transmit Data
+activity Decrypt Data
+activity Monitor Quantum Channel
+activity Authenticate User
+activity Log Security Event
+activity Terminate Session
+bind Initialize Quantum Key: Key Length
+bind Encrypt Data: Data Size, Encryption Status
+bind Transmit Data: Transmission Status
+bind Authenticate User: User ID
+bind Monitor Quantum Channel: Anomaly Detected
+bind Terminate Session: Session Duration
+Key Length: integer between 128 and 1024
+Data Size: float between 0.1 and 1000.0
+Encryption Status: Success, Failure
+Transmission Status: Pending, Completed, Failed
+User ID: integer between 1 and 10000
+Anomaly Detected: Yes, No
+Session Duration: float between 0.1 and 24.0
+Init[Initialize Quantum Key] | |
+End[Terminate Session] | |
+Response[Encrypt Data, Transmit Data] |A.Encryption Status is Success | |0,2,h
+Response[Transmit Data, Decrypt Data] |A.Transmission Status is Completed | |0,1,h
+Response[Monitor Quantum Channel, Log Security Event] |A.Anomaly Detected is Yes | |0,30,m
+Precedence[Encrypt Data, Authenticate User] | |A.User ID == T.User ID |
+Existence[Monitor Quantum Channel] | |
+Co-Existence[Encrypt Data, Decrypt Data] | |A.Data Size == T.Data Size |
+Not Co-Existence[Log Security Event, Terminate Session] | | |
+Choice[Encrypt Data, Transmit Data] | | |

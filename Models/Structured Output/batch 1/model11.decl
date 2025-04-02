@@ -1,0 +1,32 @@
+activity Identify Market Needs
+activity Conduct Competitive Analysis
+activity Develop Product Concept
+activity Evaluate Technical Feasibility
+activity Estimate Production Costs
+activity Conduct Focus Group
+activity Analyze Feedback
+activity Prepare Business Case
+activity Review Business Case
+activity Finalize Product Proposal
+bind Identify Market Needs: Market Size
+bind Conduct Competitive Analysis: Competitor Count
+bind Evaluate Technical Feasibility: Feasibility Status
+bind Estimate Production Costs: Estimated Cost
+bind Conduct Focus Group: Feedback Rating
+bind Review Business Case: Approval Status
+Market Size: integer between 1 and 1000
+Estimated Cost: float between 10.0 and 5000.0
+Feasibility Status: Feasible, Not Feasible
+Feedback Rating: Excellent, Good, Average, Poor
+Competitor Count: integer between 1 and 50
+Approval Status: Approved, Rejected
+Init[Identify Market Needs] | |
+End[Finalize Product Proposal] | |
+Existence[Conduct Focus Group] | |
+Precedence[Evaluate Technical Feasibility, Develop Product Concept] | | |
+Chain Response[Conduct Competitive Analysis, Develop Product Concept] | | |5,10,d
+Response[Analyze Feedback, Prepare Business Case] | | |
+Chain Response[Prepare Business Case, Review Business Case] | | |0,2,d
+Not Responded Existence[Evaluate Technical Feasibility, Finalize Product Proposal] |A.Feasibility Status is Not Feasible | |
+Precedence[Prepare Business Case, Estimate Production Costs] | | |
+Precedence[Review Business Case, Conduct Focus Group] |A.Approval Status is Approved |T.Feedback Rating in (Good, Excellent) |

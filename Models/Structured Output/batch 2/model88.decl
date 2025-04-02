@@ -1,0 +1,45 @@
+activity Collect Sample
+activity Prepare Sample
+activity Conduct DNA Sequencing
+activity Analyze Data
+activity Validate Results
+activity Document Findings
+activity Store Sample
+activity Dispose Sample
+activity Review Protocol
+activity Approve Experiment
+activity Conduct Experiment
+activity Monitor Experiment
+activity Record Observations
+activity Prepare Report
+activity Submit Report
+bind Collect Sample: Sample ID, Sample Type
+bind Conduct DNA Sequencing: Sequencing Status
+bind Approve Experiment: Approval Status
+bind Monitor Experiment: Observation Time
+bind Prepare Report: Report Status
+Sample ID: integer between 1 and 1000
+Sample Volume: float between 0.1 and 100.0
+Sample Type: Blood, Tissue, Saliva
+Sequencing Status: Not Started, In Progress, Completed
+Experiment ID: integer between 1 and 500
+Approval Status: Pending, Approved, Rejected
+Observation Time: float between 0.5 and 24.0
+Report Status: Draft, Finalized, Submitted
+Protocol Version: integer between 1 and 10
+Data Accuracy: float between 0.0 and 100.0
+Init[Collect Sample] | |
+End[Submit Report] | |
+Existence[Approve Experiment] | |
+Exactly[Dispose Sample] | |
+Chain Succession[Collect Sample, Prepare Sample] | |A.Sample ID == T.Sample ID |
+Succession[Prepare Sample, Conduct DNA Sequencing] | |A.Sample ID == T.Sample ID |
+Precedence[Analyze Data, Conduct DNA Sequencing] |A.Sequencing Status is Completed | |
+Response[Analyze Data, Validate Results] | | |0,48,h
+Co-Existence[Document Findings, Validate Results] | | |
+Responded Existence[Conduct Experiment, Monitor Experiment] | | |0,24,h
+Chain Response[Monitor Experiment, Record Observations] |A.Observation Time > 1.0 | |
+Alternate Succession[Record Observations, Prepare Report] | | |0,2,d
+Precedence[Submit Report, Prepare Report] |A.Report Status is Finalized | |
+Not Co-Existence[Store Sample, Dispose Sample] | | |
+Precedence[Approve Experiment, Review Protocol] | | |0,1,d

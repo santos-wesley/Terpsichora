@@ -1,0 +1,32 @@
+activity Request License
+activity Validate License
+activity Issue License
+activity Revoke License
+activity Renew License
+activity Access Content
+activity Log Access
+activity Audit License
+bind Request License: License ID, User ID
+bind Validate License: License ID, License Status
+bind Issue License: License ID, License Fee
+bind Revoke License: License ID
+bind Renew License: License ID, License Fee
+bind Access Content: User ID, Content Type, Access Type
+bind Log Access: User ID, Content Type
+bind Audit License: License ID
+License ID: integer between 1 and 10000
+License Status: Valid, Invalid, Revoked, Expired
+License Fee: float between 0.99 and 999.99
+Content Type: Video, Audio, Ebook, Software
+User ID: integer between 1 and 100000
+Access Type: Read, Write, Execute
+Init[Request License] | |
+End[Log Access] | |
+Precedence[Issue License, Validate License] | |A.License ID == T.License ID |
+Chain Response[Access Content, Log Access] | |A.User ID == T.User ID |5,10,m
+Precedence[Revoke License, Validate License] |A.License Status is Valid |A.License ID == T.License ID |
+Response[Renew License, Validate License] | |A.License ID == T.License ID |1,2,d
+Not Chain Succession[Audit License, Issue License] | |A.License ID == T.License ID |
+Not Co-Existence[Request License, Access Content] | |A.User ID == T.User ID |
+Existence[Validate License] | |
+Chain Succession[Access Content, Log Access] | |A.Content Type == T.Content Type |

@@ -1,0 +1,40 @@
+activity Negotiate Contract
+activity Conduct Mediation
+activity Sign Agreement
+activity Initiate Grievance
+activity Review Policy
+activity Conduct Arbitration
+activity Approve Budget
+activity Evaluate Performance
+activity Conduct Training
+activity Terminate Contract
+bind Negotiate Contract: Contract Duration, Contract Type
+bind Conduct Mediation: Mediation Cost
+bind Sign Agreement: Salary Increase
+bind Initiate Grievance: Grievance Status
+bind Review Policy: Policy Compliance
+bind Conduct Arbitration: Arbitration Cases
+bind Approve Budget: Budget Amount
+bind Evaluate Performance: Performance Rating
+bind Conduct Training: Training Hours
+bind Terminate Contract: 
+Contract Duration: integer between 6 and 60
+Salary Increase: float between 0.0 and 10.0
+Grievance Status: Filed, In Process, Resolved, Closed
+Policy Compliance: Compliant, Non-Compliant
+Training Hours: integer between 1 and 40
+Budget Amount: float between 1000.0 and 100000.0
+Performance Rating: Excellent, Good, Satisfactory, Needs Improvement
+Arbitration Cases: integer between 0 and 20
+Contract Type: Permanent, Temporary, Freelance
+Mediation Cost: float between 100.0 and 5000.0
+Init[Negotiate Contract] | |
+End[Terminate Contract] | |
+Response[Initiate Grievance, Conduct Mediation] | | |5,10,d
+Precedence[Sign Agreement, Negotiate Contract] | | |
+Precedence[Approve Budget, Review Policy] | | |
+Existence2[Evaluate Performance] | |
+Chain Response[Conduct Training, Evaluate Performance] | | |1,2,d
+Not Co-Existence[Conduct Mediation, Conduct Arbitration] | | |
+Precedence[Initiate Grievance, Review Policy] | |T.Policy Compliance is Non-Compliant |
+Chain Succession[Negotiate Contract, Sign Agreement] | |A.Contract Type == T.Contract Type |

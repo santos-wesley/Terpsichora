@@ -1,0 +1,37 @@
+activity Initiate Assignment
+activity Review Assignment
+activity Approve Assignment
+activity Prepare Relocation
+activity Conduct Pre-Departure Training
+activity Arrange Travel
+activity Conduct Arrival Orientation
+activity Monitor Assignment Progress
+activity Complete Assignment
+activity Evaluate Assignment Outcome
+bind Initiate Assignment: Assignment ID, Assignment Status
+bind Prepare Relocation: Relocation Budget
+bind Conduct Pre-Departure Training: Training Type
+bind Arrange Travel: Travel Days, Travel Class
+bind Monitor Assignment Progress: Progress Score
+bind Conduct Arrival Orientation: Orientation Duration
+bind Evaluate Assignment Outcome: Outcome Rating, Evaluation Score
+Assignment ID: integer between 1 and 10000
+Assignment Status: Initiated, Reviewed, Approved, Completed
+Relocation Budget: float between 1000.0 and 100000.0
+Training Type: Cultural, Language, Technical
+Travel Days: integer between 1 and 30
+Travel Class: Economy, Business, First
+Progress Score: float between 0.0 and 100.0
+Orientation Duration: integer between 1 and 7
+Outcome Rating: Excellent, Good, Satisfactory, Poor
+Evaluation Score: float between 0.0 and 10.0
+Init[Initiate Assignment] | |
+Exactly[Complete Assignment] | |
+Precedence[Approve Assignment, Review Assignment] | | |
+Chain Response[Arrange Travel, Conduct Arrival Orientation] | | |0,2,d
+Co-Existence[Conduct Pre-Departure Training, Arrange Travel] | | |
+Response[Monitor Assignment Progress, Evaluate Assignment Outcome] | | |0,5,d
+Precedence[Prepare Relocation, Initiate Assignment] |A.Relocation Budget > 5000 | |
+Chain Precedence[Arrange Travel, Conduct Pre-Departure Training] |A.Travel Days > 10 |T.Travel Class in (Business, First) |
+Responded Existence[Evaluate Assignment Outcome, Complete Assignment] |A.Evaluation Score >= 7 |T.Outcome Rating in (Excellent, Good) |
+Existence2[Monitor Assignment Progress] | |

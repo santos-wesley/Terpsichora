@@ -1,0 +1,50 @@
+activity Assess Risk
+activity Develop Recovery Strategy
+activity Implement Backup Solutions
+activity Test Recovery Plan
+activity Train Staff
+activity Review and Update Plan
+activity Communicate Plan
+activity Conduct Impact Analysis
+activity Allocate Resources
+activity Monitor Threats
+activity Activate Recovery Plan
+activity Evaluate Recovery Performance
+activity Document Lessons Learned
+activity Restore Operations
+activity Conduct Post-Recovery Review
+bind Assess Risk: Risk Level
+bind Develop Recovery Strategy: Recovery Cost
+bind Implement Backup Solutions: Backup Type
+bind Train Staff: Training Level
+bind Allocate Resources: Resource Allocation
+bind Monitor Threats: Threat Level
+bind Conduct Impact Analysis: Impact Score
+bind Communicate Plan: Stakeholder Communication
+bind Restore Operations: Recovery Time
+bind Conduct Post-Recovery Review: Review Status
+Risk Level: integer between 1 and 10
+Recovery Cost: float between 1000.0 and 100000.0
+Backup Type: Full, Incremental, Differential
+Training Level: Basic, Intermediate, Advanced
+Resource Allocation: integer between 1 and 100
+Threat Level: Low, Medium, High
+Impact Score: float between 0.0 and 100.0
+Stakeholder Communication: Not Started, In Progress, Completed
+Recovery Time: integer between 1 and 72
+Review Status: Pending, Ongoing, Completed
+Existence[Assess Risk] | |
+Existence[Develop Recovery Strategy] | |
+Precedence[Implement Backup Solutions, Develop Recovery Strategy] | | |
+Precedence[Test Recovery Plan, Train Staff] | | |
+Chain Response[Develop Recovery Strategy, Test Recovery Plan] | | |0,1,d
+Response[Develop Recovery Strategy, Communicate Plan] | | |0,2,d
+Precedence[Allocate Resources, Conduct Impact Analysis] | | |
+Responded Existence[Monitor Threats, Activate Recovery Plan] |A.Threat Level is High | |
+Response[Activate Recovery Plan, Evaluate Recovery Performance] | | |0,48,h
+Response[Activate Recovery Plan, Restore Operations] | | |0,72,h
+Response[Restore Operations, Conduct Post-Recovery Review] | | |0,5,d
+Response[Evaluate Recovery Performance, Document Lessons Learned] | | |
+Not Responded Existence[Monitor Threats, Activate Recovery Plan] |A.Threat Level is Low | |
+Existence[Review and Update Plan] | |
+Not Co-Existence[Communicate Plan, Review and Update Plan] |A.Stakeholder Communication is Not Started |T.Review Status is Pending |

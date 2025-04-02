@@ -1,0 +1,50 @@
+activity Identify Crisis
+activity Assemble Crisis Team
+activity Develop Communication Plan
+activity Draft Initial Statement
+activity Approve Statement
+activity Release Statement
+activity Monitor Media
+activity Conduct Press Conference
+activity Update Stakeholders
+activity Evaluate Response
+activity Revise Communication Plan
+activity Conduct Internal Review
+activity Document Lessons Learned
+activity Train Staff
+activity Close Crisis Management
+bind Identify Crisis: Crisis Severity
+bind Approve Statement: Approval Status
+bind Monitor Media: Media Coverage Reach
+bind Update Stakeholders: Stakeholder Type
+bind Assemble Crisis Team: Team Size
+bind Evaluate Response: Response Time
+bind Train Staff: Training Type
+bind Conduct Press Conference: Press Conference Duration
+bind Close Crisis Management: Crisis Status
+bind Revise Communication Plan: Budget Used
+Crisis Severity: integer between 1 and 5
+Approval Status: Pending, Approved, Rejected
+Media Coverage Reach: float between 0.1 and 100.0
+Stakeholder Type: Internal, External
+Team Size: integer between 1 and 20
+Response Time: float between 0.5 and 48.0
+Training Type: Online, In-Person
+Press Conference Duration: integer between 10 and 120
+Budget Used: float between 0.0 and 500.0
+Crisis Status: Open, Closed
+Init[Identify Crisis] | |
+End[Close Crisis Management] | |
+Existence[Assemble Crisis Team] | |
+Absence2[Draft Initial Statement] | |
+Precedence[Release Statement, Approve Statement] | |A.Approval Status is Approved |
+Response[Release Statement, Conduct Press Conference] | | |0,2,d
+Precedence[Draft Initial Statement, Develop Communication Plan] | | |
+Response[Release Statement, Monitor Media] | | |0,48,h
+Response[Conduct Press Conference, Update Stakeholders] | | |0,24,h
+Response[Update Stakeholders, Evaluate Response] | | |0,48,h
+Responded Existence[Evaluate Response, Revise Communication Plan] |A.Response Time > 24 | |
+Response[Document Lessons Learned, Train Staff] | | |0,7,d
+Not Co-Existence[Close Crisis Management, Identify Crisis] |A.Crisis Status is Open | |
+Precedence[Document Lessons Learned, Conduct Internal Review] | | |
+Precedence[Develop Communication Plan, Assemble Crisis Team] | | |

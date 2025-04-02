@@ -1,0 +1,40 @@
+activity Enroll Employee
+activity Verify Eligibility
+activity Calculate Premium
+activity Approve Enrollment
+activity Notify Employee
+activity Process Payment
+activity Update Records
+activity Terminate Benefits
+activity Review Claims
+activity Audit Benefits
+bind Enroll Employee: Employee ID, Eligibility Status
+bind Verify Eligibility: Employee ID, Eligibility Status
+bind Calculate Premium: Employee ID, Premium Amount
+bind Approve Enrollment: Employee ID, Enrollment Status
+bind Notify Employee: Employee ID, Notification Type
+bind Process Payment: Employee ID, Payment Status
+bind Update Records: Employee ID
+bind Terminate Benefits: Employee ID
+bind Review Claims: Claim Number, Claim Amount
+bind Audit Benefits: Audit ID, Audit Result
+Employee ID: integer between 1 and 10000
+Premium Amount: float between 50.0 and 1000.0
+Eligibility Status: Eligible, Not Eligible
+Enrollment Status: Pending, Approved, Rejected
+Claim Number: integer between 1 and 5000
+Payment Status: Paid, Unpaid
+Claim Amount: float between 10.0 and 5000.0
+Audit Result: Pass, Fail
+Audit ID: integer between 1 and 1000
+Notification Type: Email, Letter, SMS
+Init[Enroll Employee] | |
+End[Update Records] | |
+Precedence[Approve Enrollment, Verify Eligibility] | |A.Employee ID == T.Employee ID |
+Response[Approve Enrollment, Notify Employee] | |A.Employee ID == T.Employee ID |0,2,d
+Precedence[Process Payment, Calculate Premium] | |A.Employee ID == T.Employee ID |
+Not Co-Existence[Review Claims, Audit Benefits] | | |
+Exactly[Approve Enrollment] |A.Enrollment Status is Approved |
+Response[Terminate Benefits, Notify Employee] | |A.Employee ID == T.Employee ID |0,48,h
+Not Chain Precedence[Audit Benefits, Process Payment] | |A.Audit ID != T.Employee ID |
+Existence[Review Claims] |A.Claim Number > 0 |

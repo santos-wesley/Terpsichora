@@ -1,0 +1,29 @@
+activity Book Flight
+activity Reserve Hotel
+activity Arrange Transportation
+activity Create Itinerary
+activity Process Payment
+activity Issue Invoice
+activity Confirm Booking
+activity Cancel Booking
+bind Book Flight: Flight Cost, Number of Travelers
+bind Reserve Hotel: Number of Nights
+bind Arrange Transportation: Transport Type
+bind Process Payment: Payment Status
+bind Confirm Booking: Booking Status
+Number of Nights: integer between 1 and 30
+Flight Cost: float between 50.0 and 5000.0
+Payment Status: Pending, Completed, Failed
+Transport Type: Car, Bus, Train
+Number of Travelers: integer between 1 and 10
+Booking Status: Confirmed, Cancelled
+Init[Book Flight] | |
+End[Confirm Booking] | |
+Existence[Process Payment] | |
+Response[Book Flight, Reserve Hotel] | | |
+Precedence[Arrange Transportation, Reserve Hotel] | | |
+Chain Response[Process Payment, Confirm Booking] | | |0,48,h
+Not Succession[Cancel Booking, Confirm Booking] | | |
+Exclusive Choice[Confirm Booking, Cancel Booking] | | |
+Responded Existence[Process Payment, Confirm Booking] |A.Payment Status is Completed |A.Payment Status is Completed and T.Booking Status is Confirmed |
+Chain Precedence[Arrange Transportation, Book Flight] |A.Transport Type is Car |T.Number of Travelers <= 4 |

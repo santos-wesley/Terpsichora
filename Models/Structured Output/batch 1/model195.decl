@@ -1,0 +1,40 @@
+activity Register Voter
+activity Organize Town Hall
+activity Conduct Survey
+activity Submit Petition
+activity Attend Workshop
+activity Vote in Election
+activity Volunteer for Campaign
+activity Host Debate
+activity Evaluate Policy
+activity Report Issue
+bind Register Voter: Voter Age
+bind Organize Town Hall: Budget Allocation
+bind Conduct Survey: Survey Topic
+bind Submit Petition: Petition Status
+bind Attend Workshop: Workshop Duration
+bind Vote in Election: Election Type
+bind Volunteer for Campaign: Volunteer Hours
+bind Host Debate: Debate Topic
+bind Evaluate Policy: Policy Impact Score
+bind Report Issue: Issue Severity
+Voter Age: integer between 18 and 120
+Budget Allocation: float between 1000.0 and 100000.0
+Survey Topic: Healthcare, Education, Infrastructure, Environment
+Petition Status: Pending, Approved, Rejected
+Workshop Duration: integer between 1 and 8
+Election Type: Local, National
+Volunteer Hours: float between 1.0 and 100.0
+Debate Topic: Economy, Social Justice, Foreign Policy
+Policy Impact Score: integer between 1 and 10
+Issue Severity: Low, Medium, High
+Init[Register Voter] | |
+Existence[Vote in Election] | |
+Precedence[Host Debate, Organize Town Hall] | | |
+Response[Conduct Survey, Attend Workshop] |A.Survey Topic is Healthcare | |0,2,d
+Not Co-Existence[Submit Petition, Report Issue] | | |
+Response[Evaluate Policy, Organize Town Hall] |A.Policy Impact Score > 8 | |0,48,h
+Chain Succession[Volunteer for Campaign, Vote in Election] | |A.Election Type == T.Election Type |
+Response[Host Debate, Conduct Survey] |A.Debate Topic is Economy |T.Survey Topic is Infrastructure |0,5,h
+Response[Register Voter, Submit Petition] |A.Voter Age > 30 | |
+Response[Attend Workshop, Evaluate Policy] |A.Workshop Duration > 4 | |0,1,d

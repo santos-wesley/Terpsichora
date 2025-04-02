@@ -1,0 +1,40 @@
+activity Conduct Team Meeting
+activity Provide Feedback
+activity Organize Team Building
+activity Evaluate Employee Performance
+activity Approve Leave Request
+activity Conduct Training Session
+activity Celebrate Achievements
+activity Resolve Conflict
+activity Conduct Exit Interview
+activity Review Workplace Policies
+bind Conduct Team Meeting: Meeting Duration
+bind Provide Feedback: Feedback Score
+bind Organize Team Building: Team Building Type
+bind Evaluate Employee Performance: Performance Rating
+bind Approve Leave Request: Leave Status
+bind Conduct Training Session: Training Cost
+bind Celebrate Achievements: Achievement Type
+bind Resolve Conflict: Conflict Severity
+bind Conduct Exit Interview: Exit Reason
+bind Review Workplace Policies: Policy Review Frequency
+Meeting Duration: integer between 30 and 180
+Feedback Score: float between 1.0 and 5.0
+Team Building Type: Outdoor, Indoor, Virtual
+Performance Rating: integer between 1 and 10
+Leave Status: Approved, Rejected, Pending
+Training Cost: float between 100.0 and 10000.0
+Achievement Type: Individual, Team, Project
+Conflict Severity: integer between 1 and 5
+Exit Reason: Personal, Professional, Retirement
+Policy Review Frequency: float between 1.0 and 12.0
+Existence[Conduct Team Meeting] | |
+End[Conduct Exit Interview] | |
+Chain Response[Conduct Team Meeting, Provide Feedback] | |A.Meeting Duration > 60 |0,2,h
+Precedence[Organize Team Building, Conduct Training Session] | |A.Team Building Type is not Virtual |
+Response[Resolve Conflict, Conduct Team Meeting] |A.Conflict Severity > 3 | |0,1,d
+Not Co-Existence[Celebrate Achievements, Provide Feedback] | | |
+Not Chain Precedence[Conduct Exit Interview, Approve Leave Request] | |T.Leave Status is Approved |
+Response[Evaluate Employee Performance, Provide Feedback] |A.Performance Rating >= 8 | |0,48,h
+Exactly[Review Workplace Policies] | |
+Choice[Conduct Training Session, Organize Team Building] | | |

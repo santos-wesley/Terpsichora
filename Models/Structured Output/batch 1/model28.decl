@@ -1,0 +1,40 @@
+activity Prepare Solution
+activity Measure pH
+activity Heat Solution
+activity Cool Solution
+activity Add Reagent
+activity Stir Solution
+activity Filter Solution
+activity Record Observations
+activity Dispose Waste
+activity Clean Equipment
+bind Prepare Solution: Solution Volume
+bind Measure pH: pH Level
+bind Heat Solution: Temperature
+bind Cool Solution: Temperature
+bind Add Reagent: Reagent Type, Reagent Volume
+bind Stir Solution: Stirring Speed
+bind Filter Solution: Filtration Time
+bind Record Observations: Observation Count
+bind Dispose Waste: Waste Type
+bind Clean Equipment: Equipment Condition
+Temperature: integer between 0 and 1000
+pH Level: float between 0.0 and 14.0
+Reagent Type: Acid, Base, Neutral
+Stirring Speed: integer between 0 and 3000
+Waste Type: Hazardous, Non-Hazardous
+Observation Count: integer between 0 and 100
+Reagent Volume: float between 0.1 and 1000.0
+Equipment Condition: Clean, Contaminated
+Solution Volume: float between 0.1 and 10.0
+Filtration Time: integer between 1 and 60
+Init[Prepare Solution] | |
+End[Clean Equipment] | |
+Precedence[Cool Solution, Heat Solution] | | |
+Chain Response[Add Reagent, Stir Solution] | | |
+Response[Measure pH, Record Observations] | | |10,15,m
+Not Chain Succession[Stir Solution, Filter Solution] | | |
+Responded Existence[Prepare Solution, Filter Solution] |A.Solution Volume > 5 | |30,60,m
+Not Responded Existence[Add Reagent, Dispose Waste] |A.Reagent Type is Acid |T.Waste Type is Hazardous |
+Co-Existence[Dispose Waste, Clean Equipment] | | |
+Existence[Stir Solution] | |

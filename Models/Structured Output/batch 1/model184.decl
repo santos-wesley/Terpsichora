@@ -1,0 +1,39 @@
+activity Inspect Cargo
+activity Seal Container
+activity Verify Documentation
+activity Authorize Shipment
+activity Track Shipment
+activity Report Incident
+activity Conduct Risk Assessment
+activity Load Cargo
+activity Unload Cargo
+activity Conduct Security Briefing
+bind Inspect Cargo: Inspection Score
+bind Seal Container: Seal Status
+bind Verify Documentation: Documentation Status
+bind Authorize Shipment: Authorization Status
+bind Track Shipment: Distance Traveled
+bind Report Incident: Incident Type
+bind Conduct Risk Assessment: Risk Level
+bind Load Cargo: Loading Time
+bind Conduct Security Briefing: Briefing Status
+Inspection Score: integer between 1 and 10
+Cargo Weight: float between 0.1 and 5000.0
+Seal Status: Sealed, Not Sealed
+Documentation Status: Complete, Incomplete
+Authorization Status: Authorized, Not Authorized
+Risk Level: integer between 1 and 5
+Incident Type: Theft, Damage, None
+Distance Traveled: float between 0.0 and 20000.0
+Briefing Status: Completed, Not Completed
+Loading Time: float between 0.1 and 24.0
+Existence[Inspect Cargo] | |
+Chain Succession[Inspect Cargo, Seal Container] | | |0,5,m
+Precedence[Authorize Shipment, Verify Documentation] | | |
+Response[Report Incident, Conduct Risk Assessment] | | |0,2,h
+End[Track Shipment] | |
+Co-Existence[Load Cargo, Unload Cargo] | | |
+Precedence[Load Cargo, Conduct Security Briefing] | | |
+Absence2[Inspect Cargo] | |
+Responded Existence[Authorize Shipment, Inspect Cargo] |A.Cargo Weight < 5000 | |
+Not Responded Existence[Inspect Cargo, Seal Container] |A.Inspection Score < 5 | |

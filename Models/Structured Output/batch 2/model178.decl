@@ -1,0 +1,55 @@
+activity Schedule Appointment
+activity Conduct Initial Assessment
+activity Develop Counseling Plan
+activity Conduct Follow-up Session
+activity Evaluate Progress
+activity Provide Feedback
+activity Close Case
+activity Refer to Specialist
+activity Document Session
+activity Update Counseling Plan
+activity Conduct Group Session
+activity Prepare Session Materials
+activity Conduct Parental Meeting
+activity Administer Survey
+activity Analyze Survey Results
+bind Schedule Appointment: Student ID
+bind Conduct Initial Assessment: Student ID, Counseling Type
+bind Develop Counseling Plan: Student ID, Plan Revision Count
+bind Conduct Follow-up Session: Student ID, Session Duration
+bind Evaluate Progress: Student ID, Progress Score
+bind Provide Feedback: Student ID, Feedback Type
+bind Close Case: Student ID
+bind Refer to Specialist: Student ID, Referral Type
+bind Document Session: Student ID, Session Count
+bind Update Counseling Plan: Student ID, Plan Revision Count
+bind Conduct Group Session: Session Count, Counseling Type
+bind Prepare Session Materials: Material Preparation Time
+bind Conduct Parental Meeting: Student ID
+bind Administer Survey: Student ID, Survey Completion
+bind Analyze Survey Results: Student ID
+Student ID: integer between 1 and 10000
+Session Duration: float between 0.5 and 3.0
+Counseling Type: Individual, Group, Family
+Progress Score: integer between 0 and 100
+Feedback Type: Positive, Neutral, Negative
+Plan Revision Count: float between 0 and 10
+Referral Type: Psychologist, Therapist, None
+Session Count: integer between 1 and 20
+Survey Completion: Completed, Not Completed
+Material Preparation Time: float between 0.1 and 2.0
+Init[Schedule Appointment] | |
+End[Close Case] | |
+Existence[Conduct Follow-up Session] | |
+Absence3[Conduct Group Session] | |
+Exactly[Provide Feedback] | |
+Response[Conduct Initial Assessment, Conduct Follow-up Session] | |A.Student ID == T.Student ID |0,7,d
+Chain Response[Conduct Initial Assessment, Develop Counseling Plan] | |A.Student ID == T.Student ID |
+Precedence[Close Case, Conduct Parental Meeting] | |A.Student ID == T.Student ID |
+Response[Administer Survey, Analyze Survey Results] | |A.Student ID == T.Student ID |0,3,d
+Not Chain Response[Conduct Follow-up Session, Document Session] | |A.Student ID == T.Student ID |
+Response[Evaluate Progress, Update Counseling Plan] |A.Progress Score < 50 |A.Student ID == T.Student ID |0,5,d
+Response[Provide Feedback, Refer to Specialist] |A.Feedback Type is Negative |A.Student ID == T.Student ID |0,2,d
+Not Co-Existence[Conduct Group Session, Conduct Initial Assessment] |A.Counseling Type is Group |A.Counseling Type is Individual |
+Precedence[Conduct Follow-up Session, Prepare Session Materials] | | |
+Choice[Administer Survey, Conduct Parental Meeting] | | |

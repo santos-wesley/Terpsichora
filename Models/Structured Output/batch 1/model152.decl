@@ -1,0 +1,30 @@
+activity Plan Fundraising Event
+activity Identify Sponsors
+activity Promote Event
+activity Sell Tickets
+activity Conduct Event
+activity Collect Donations
+activity Thank Donors
+activity Evaluate Event
+bind Identify Sponsors: Number of Sponsors
+bind Sell Tickets: Ticket Price, Number of Tickets Sold
+bind Promote Event: Promotion Channel
+bind Conduct Event: Event Status
+bind Collect Donations: Total Donations, Donor Type
+Number of Sponsors: integer between 1 and 100
+Ticket Price: float between 10.0 and 500.0
+Promotion Channel: Social Media, Email, Flyers, TV
+Event Status: Planned, Ongoing, Completed
+Number of Tickets Sold: integer between 0 and 1000
+Total Donations: float between 0.0 and 100000.0
+Donor Type: Individual, Corporate
+Init[Plan Fundraising Event] | |
+End[Evaluate Event] | |
+Existence[Promote Event] | |
+Precedence[Sell Tickets, Promote Event] | | |
+Response[Plan Fundraising Event, Conduct Event] | | |0,2,d
+Chain Response[Conduct Event, Collect Donations] | | |
+Response[Collect Donations, Thank Donors] | | |
+Chain Succession[Conduct Event, Evaluate Event] |A.Event Status is Ongoing |T.Event Status is Completed |
+Precedence[Conduct Event, Identify Sponsors] |A.Number of Sponsors >= 5 | |
+Response[Conduct Event, Collect Donations] | |T.Total Donations >= 10000 |

@@ -1,0 +1,38 @@
+activity Identify Target Audience
+activity Develop Marketing Strategy
+activity Design Promotional Materials
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Engage with Audience
+activity Collect Feedback
+activity Analyze Feedback
+activity Adjust Strategy
+activity Report Results
+bind Identify Target Audience: Audience Type
+bind Develop Marketing Strategy: Budget
+bind Launch Marketing Campaign: Duration, Channel
+bind Engage with Audience: Engagement Rate
+bind Collect Feedback: Feedback Type, Feedback Count
+bind Analyze Feedback: Satisfaction Score
+bind Adjust Strategy: Strategy Adjustment
+bind Report Results: Report Type
+Audience Type: Family, Solo, Couple, Group
+Budget: float between 1000.0 and 100000.0
+Duration: integer between 1 and 365
+Channel: Online, Print, TV, Radio
+Engagement Rate: float between 0.0 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Feedback Count: integer between 0 and 1000
+Satisfaction Score: float between 0.0 and 10.0
+Strategy Adjustment: Minor, Major, None
+Report Type: Summary, Detailed, Executive
+Init[Identify Target Audience] | |
+End[Report Results] | |
+Existence[Develop Marketing Strategy] | |
+Precedence[Launch Marketing Campaign, Develop Marketing Strategy] | | |
+Response[Launch Marketing Campaign, Engage with Audience] | | |2,5,d
+Response[Engage with Audience, Collect Feedback] | | |
+Response[Collect Feedback, Analyze Feedback] | | |
+Precedence[Adjust Strategy, Analyze Feedback] | | |
+Not Responded Existence[Launch Marketing Campaign, Develop Marketing Strategy] |A.Budget < 5000 |A.Duration > 30 |
+Responded Existence[Analyze Feedback, Report Results] |A.Satisfaction Score < 5 |T.Report Type is Detailed |

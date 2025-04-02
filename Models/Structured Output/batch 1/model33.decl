@@ -1,0 +1,25 @@
+activity Draft Policy
+activity Review Policy
+activity Approve Policy
+activity Publish Policy
+activity Update Policy
+activity Archive Policy
+bind Draft Policy: Policy ID, Budget Allocation
+bind Review Policy: Review Status
+bind Approve Policy: Approval Status
+bind Update Policy: Version Number
+Policy ID: integer between 1 and 10000
+Budget Allocation: float between 1000.0 and 100000.0
+Review Status: Pending, In Progress, Completed
+Approval Status: Approved, Rejected
+Version Number: integer between 1 and 20
+Existence[Draft Policy] | |
+Exactly[Publish Policy] | |
+Precedence[Approve Policy, Review Policy] |A.Approval Status is Approved |A.Review Status is Completed |
+Response[Update Policy, Review Policy] |A.Version Number > 1 | |5,10,d
+Chain Succession[Publish Policy, Archive Policy] | | |
+Not Co-Existence[Draft Policy, Publish Policy] | | |
+Response[Draft Policy, Review Policy] | | |2,4,d
+Response[Approve Policy, Publish Policy] |A.Approval Status is Approved | |1,3,d
+Precedence[Archive Policy, Publish Policy] | | |
+Not Chain Response[Update Policy, Review Policy] | | |

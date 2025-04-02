@@ -1,0 +1,35 @@
+activity Identify Witness
+activity Assess Threat Level
+activity Relocate Witness
+activity Provide New Identity
+activity Monitor Witness
+activity Conduct Risk Assessment
+activity Coordinate with Law Enforcement
+activity Secure Communication Channels
+activity Provide Financial Support
+activity Train Witness
+bind Assess Threat Level: Threat Level
+bind Provide Financial Support: Financial Support Amount
+bind Provide New Identity: Identity Status
+bind Secure Communication Channels: Communication Security
+bind Conduct Risk Assessment: Risk Score
+Threat Level: integer between 1 and 10
+Financial Support Amount: float between 1000.0 and 10000.0
+Identity Status: Issued, Pending, Revoked
+Communication Security: Secure, Not Secure
+Risk Score: integer between 1 and 100
+Init[Identify Witness] | |
+End[Train Witness] | |
+Existence[Assess Threat Level] | |
+Precedence[Relocate Witness, Assess Threat Level] | | |
+Response[Relocate Witness, Provide New Identity] | | |0,2,d
+Chain Response[Provide New Identity, Secure Communication Channels] | | |0,48,h
+Responded Existence[Provide Financial Support, Relocate Witness] |A.Financial Support Amount >= 1000 | |
+Alternate Succession[Assess Threat Level, Conduct Risk Assessment] | | |0,24,h
+Succession[Conduct Risk Assessment, Coordinate with Law Enforcement] | | |0,1,d
+Responded Existence[Provide New Identity, Secure Communication Channels] |A.Identity Status is Issued |A.Communication Security is Secure |
+Chain Response[Assess Threat Level, Relocate Witness] |A.Threat Level > 7 | |0,12,h
+Precedence[Secure Communication Channels, Monitor Witness] |A.Communication Security is Not Secure | |
+Exclusive Choice[Provide Financial Support, Relocate Witness] | | |
+Response[Conduct Risk Assessment, Assess Threat Level] |A.Risk Score > 50 | |0,3,d
+Precedence[Train Witness, Provide New Identity] | | |0,5,d

@@ -1,0 +1,40 @@
+activity Enroll in Course
+activity Complete Course
+activity Submit Feedback
+activity Attend Workshop
+activity Receive Certification
+activity Update Resume
+activity Apply for Promotion
+activity Mentor Colleagues
+activity Join Professional Network
+activity Present at Conference
+bind Enroll in Course: Course Duration
+bind Complete Course: Course Rating
+bind Submit Feedback: Feedback Type
+bind Receive Certification: Certification Status
+bind Update Resume: Resume Update Time
+bind Apply for Promotion: Promotion Application Count
+bind Attend Workshop: Workshop Type
+bind Mentor Colleagues: Mentorship Hours
+bind Join Professional Network: Network Membership Status
+bind Present at Conference: Conference Presentation Duration
+Course Duration: integer between 1 and 365
+Course Rating: float between 1.0 and 5.0
+Feedback Type: Positive, Neutral, Negative
+Certification Status: Pending, Granted, Denied
+Resume Update Time: float between 0.5 and 8.0
+Promotion Application Count: integer between 0 and 10
+Workshop Type: Technical, Leadership, Communication
+Mentorship Hours: integer between 1 and 100
+Network Membership Status: Active, Inactive
+Conference Presentation Duration: float between 10.0 and 120.0
+Init[Enroll in Course] | |
+End[Update Resume] | |
+Existence[Complete Course] | |
+Response[Complete Course, Submit Feedback] | | |0,2,d
+Precedence[Receive Certification, Complete Course] | | |
+Co-Existence[Attend Workshop, Mentor Colleagues] | | |
+Not Chain Succession[Join Professional Network, Present at Conference] | | |
+Response[Apply for Promotion, Receive Certification] | | |0,30,d
+Exclusive Choice[Enroll in Course, Attend Workshop] | | |
+Response[Complete Course, Submit Feedback] |A.Course Rating > 3 | |

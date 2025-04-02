@@ -1,0 +1,50 @@
+activity Survey Site
+activity Excavate Area
+activity Catalog Artifacts
+activity Analyze Samples
+activity Preserve Artifacts
+activity Document Findings
+activity Conduct Research
+activity Prepare Report
+activity Present Findings
+activity Store Artifacts
+activity Conduct Geophysical Survey
+activity Obtain Permits
+activity Transport Artifacts
+activity Assess Site
+activity Plan Excavation
+bind Survey Site: Survey Duration
+bind Excavate Area: Artifact Count
+bind Catalog Artifacts: Artifact Condition
+bind Analyze Samples: Sample Weight, Sample Type
+bind Preserve Artifacts: Artifact Condition
+bind Document Findings: Report Pages
+bind Conduct Research: Research Focus
+bind Prepare Report: Report Pages
+bind Present Findings: Presentation Audience
+bind Obtain Permits: Permit Status
+Artifact Count: integer between 1 and 1000
+Sample Weight: float between 0.1 and 500.0
+Artifact Condition: Excellent, Good, Fair, Poor
+Permit Status: Pending, Approved, Denied
+Survey Duration: integer between 1 and 30
+Sample Type: Soil, Bone, Ceramic, Metal
+Artifact Value: float between 10.0 and 10000.0
+Research Focus: Historical, Cultural, Technological
+Report Pages: integer between 10 and 500
+Presentation Audience: Academic, Public, Government
+Init[Survey Site] | |
+End[Present Findings] | |
+Existence[Excavate Area] | |
+Response[Excavate Area, Catalog Artifacts] | | |
+Chain Response[Analyze Samples, Preserve Artifacts] | | |
+Co-Existence[Conduct Research, Document Findings] | | |
+Precedence[Prepare Report, Document Findings] | | |
+Not Chain Succession[Transport Artifacts, Store Artifacts] | | |
+Precedence[Excavate Area, Conduct Geophysical Survey] | | |
+Precedence[Excavate Area, Obtain Permits] |A.Permit Status is Approved | |
+Response[Survey Site, Excavate Area] | | |10,15,d
+Response[Catalog Artifacts, Analyze Samples] | | |0,48,h
+Response[Prepare Report, Present Findings] | | |5,13,m
+Response[Preserve Artifacts, Transport Artifacts] | | |0,2,d
+Not Co-Existence[Excavate Area, Conduct Geophysical Survey] | | |

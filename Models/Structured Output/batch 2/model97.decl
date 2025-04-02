@@ -1,0 +1,45 @@
+activity Schedule Shipment
+activity Load Cargo
+activity Inspect Cargo
+activity Depart Port
+activity Navigate Route
+activity Dock at Destination
+activity Unload Cargo
+activity Customs Clearance
+activity Deliver Cargo
+activity Return to Origin
+bind Schedule Shipment: Cargo Type, Cargo Weight
+bind Load Cargo: Cargo Weight
+bind Inspect Cargo: Inspection Status
+bind Depart Port: Fuel Level, Weather Condition
+bind Navigate Route: Distance Traveled
+bind Dock at Destination: Weather Condition
+bind Unload Cargo: Cargo Weight
+bind Customs Clearance: Customs Status
+bind Deliver Cargo: Delivery Time, Cargo Value
+bind Return to Origin: Crew Count
+Cargo Weight: integer between 100 and 50000
+Fuel Level: float between 0.0 and 100.0
+Cargo Type: Perishable, Non-Perishable, Hazardous
+Weather Condition: Clear, Stormy, Foggy
+Crew Count: integer between 5 and 30
+Distance Traveled: float between 0.0 and 10000.0
+Inspection Status: Passed, Failed
+Customs Status: Cleared, Not Cleared
+Delivery Time: integer between 1 and 72
+Cargo Value: float between 1.0 and 1000.0
+Init[Schedule Shipment] | |
+End[Return to Origin] | |
+Existence[Inspect Cargo] | |
+Exactly[Unload Cargo] | |
+Precedence[Unload Cargo, Inspect Cargo] | | |
+Response[Schedule Shipment, Load Cargo] | | |0,2,h
+Chain Response[Load Cargo, Depart Port] | | |0,1,h
+Response[Navigate Route, Dock at Destination] | | |0,48,h
+Succession[Customs Clearance, Deliver Cargo] | | |0,24,h
+Not Chain Succession[Deliver Cargo, Return to Origin] | | |
+Chain Precedence[Load Cargo, Schedule Shipment] | |A.Cargo Type == T.Cargo Type |
+Co-Existence[Depart Port, Dock at Destination] |A.Weather Condition is Clear |A.Weather Condition == T.Weather Condition |
+Chain Succession[Load Cargo, Unload Cargo] | |A.Cargo Weight == T.Cargo Weight |
+Precedence[Deliver Cargo, Customs Clearance] | |T.Customs Status is Cleared |
+Response[Customs Clearance, Deliver Cargo] | |T.Delivery Time < 48 |0,48,h

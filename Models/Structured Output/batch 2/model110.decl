@@ -1,0 +1,50 @@
+activity Collect Customer Feedback
+activity Analyze Feedback Data
+activity Develop Improvement Plan
+activity Implement Changes
+activity Monitor Customer Satisfaction
+activity Conduct Customer Survey
+activity Review Survey Results
+activity Identify Key Drivers
+activity Train Customer Service Team
+activity Evaluate Training Effectiveness
+activity Engage with Loyal Customers
+activity Resolve Customer Complaints
+activity Track Customer Retention
+activity Reward Loyal Customers
+activity Conduct Market Research
+bind Collect Customer Feedback: Feedback Score
+bind Analyze Feedback Data: Feedback Score
+bind Develop Improvement Plan: Improvement Status
+bind Conduct Customer Survey: Survey Type
+bind Train Customer Service Team: Training Hours
+bind Resolve Customer Complaints: Complaint Resolution
+bind Track Customer Retention: Retention Rate
+bind Reward Loyal Customers: Loyalty Reward
+bind Conduct Market Research: Market Research Budget
+bind Engage with Loyal Customers: Engagement Type
+Feedback Score: integer between 1 and 10
+Satisfaction Level: float between 0.0 and 100.0
+Improvement Status: Not Started, In Progress, Completed
+Survey Type: Online, Phone, In-Person
+Training Hours: integer between 1 and 40
+Complaint Resolution: Resolved, Pending, Escalated
+Retention Rate: float between 0.0 and 100.0
+Loyalty Reward: Discount, Gift, Points
+Market Research Budget: integer between 1000 and 100000
+Engagement Type: Email, Call, Meeting
+Init[Collect Customer Feedback] | |
+End[Reward Loyal Customers] | |
+Response[Collect Customer Feedback, Analyze Feedback Data] | | |0,2,d
+Chain Succession[Develop Improvement Plan, Implement Changes] | | |
+Succession[Conduct Customer Survey, Review Survey Results] | | |
+Response[Resolve Customer Complaints, Track Customer Retention] |A.Complaint Resolution is Resolved | |
+Chain Response[Train Customer Service Team, Evaluate Training Effectiveness] | | |0,48,h
+Not Chain Succession[Engage with Loyal Customers, Reward Loyal Customers] | | |
+Not Co-Existence[Conduct Market Research, Develop Improvement Plan] | | |
+Existence[Collect Customer Feedback] | |
+Absence2[Resolve Customer Complaints] |A.Complaint Resolution is Escalated |
+Exclusive Choice[Analyze Feedback Data, Conduct Customer Survey] | | |
+Response[Develop Improvement Plan, Implement Changes] |A.Improvement Status is Completed | |
+Succession[Monitor Customer Satisfaction, Identify Key Drivers] | | |
+Precedence[Resolve Customer Complaints, Collect Customer Feedback] | | |

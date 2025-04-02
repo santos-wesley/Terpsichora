@@ -1,0 +1,32 @@
+activity Define Problem
+activity Formulate Hypothesis
+activity Develop Model
+activity Perform Simulation
+activity Analyze Results
+activity Validate Model
+activity Document Findings
+activity Review Literature
+activity Present Conclusions
+bind Define Problem: Complexity Level
+bind Perform Simulation: Simulation Time, Iterations
+bind Validate Model: Validation Status
+bind Document Findings: Documentation Status
+bind Review Literature: Literature Review Status
+Complexity Level: integer between 1 and 10
+Simulation Time: float between 0.1 and 100.0
+Model Type: Linear, Non-linear, Stochastic
+Validation Status: Validated, Not Validated
+Iterations: integer between 1 and 1000
+Error Margin: float between 0.0 and 5.0
+Documentation Status: Complete, Incomplete
+Literature Review Status: Reviewed, Not Reviewed
+Init[Define Problem] | |
+End[Present Conclusions] | |
+Chain Succession[Perform Simulation, Analyze Results] | | |0,48,h
+Response[Validate Model, Document Findings] |A.Validation Status is Validated | |
+Precedence[Develop Model, Review Literature] | |T.Literature Review Status is Reviewed |
+Existence[Formulate Hypothesis] | |
+Not Co-Existence[Define Problem, Develop Model] | | |
+Responded Existence[Validate Model, Document Findings] |A.Validation Status is Validated |T.Documentation Status is Complete |
+Not Chain Succession[Perform Simulation, Validate Model] | | |
+Choice[Develop Model, Analyze Results] |A.Model Type is Linear |T.Error Margin < 2.0 |

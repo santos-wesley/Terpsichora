@@ -1,0 +1,41 @@
+activity Receive Claim
+activity Review Claim
+activity Assign Investigator
+activity Conduct Interview
+activity Gather Evidence
+activity Analyze Evidence
+activity Prepare Report
+activity Approve Claim
+activity Reject Claim
+activity Notify Claimant
+activity Close Case
+bind Receive Claim: Claim Amount, Claim Status
+bind Conduct Interview: Interview Type
+bind Gather Evidence: Evidence Weight
+bind Analyze Evidence: Investigation Outcome
+bind Prepare Report: Report Accuracy
+bind Notify Claimant: Notification Method
+bind Assign Investigator: Investigation Duration
+Claim Amount: integer between 1000 and 1000000
+Evidence Weight: float between 0.1 and 10.0
+Claim Status: Pending, Under Review, Approved, Rejected
+Investigation Outcome: Fraudulent, Legitimate
+Investigation Duration: integer between 1 and 365
+Interview Type: In-Person, Phone, Video
+Report Accuracy: float between 0.0 and 100.0
+Notification Method: Email, Phone, Letter
+Init[Receive Claim] | |
+End[Close Case] | |
+Existence[Review Claim] | |
+Precedence[Conduct Interview, Assign Investigator] | | |
+Precedence[Analyze Evidence, Gather Evidence] | | |
+Response[Analyze Evidence, Prepare Report] | | |
+Precedence[Approve Claim, Analyze Evidence] | |T.Investigation Outcome is Legitimate |
+Precedence[Reject Claim, Analyze Evidence] | |T.Investigation Outcome is Fraudulent |
+Chain Response[Approve Claim, Notify Claimant] | | |0,2,d
+Chain Response[Reject Claim, Notify Claimant] | | |0,2,d
+Response[Notify Claimant, Close Case] | | |
+Chain Response[Assign Investigator, Conduct Interview] | | |0,15,d
+Chain Response[Conduct Interview, Gather Evidence] | | |0,10,d
+Precedence[Approve Claim, Prepare Report] | |T.Report Accuracy >= 90.0 |
+Precedence[Reject Claim, Prepare Report] | |T.Report Accuracy >= 90.0 |

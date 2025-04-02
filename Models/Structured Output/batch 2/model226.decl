@@ -1,0 +1,50 @@
+activity Conduct Interview
+activity Review Employee File
+activity Initiate Investigation
+activity Hold Mediation Session
+activity Issue Warning
+activity Provide Training
+activity Terminate Employment
+activity Conduct Follow-up
+activity Document Resolution
+activity Escalate Issue
+activity Approve Resolution Plan
+activity Conduct Exit Interview
+activity Evaluate Performance
+activity Receive Complaint
+activity Acknowledge Complaint
+bind Conduct Interview: Interview Score
+bind Provide Training: Training Hours
+bind Document Resolution: Resolution Status
+bind Receive Complaint: Complaint Type
+bind Issue Warning: Warning Count
+bind Evaluate Performance: Performance Score
+bind Terminate Employment: Employment Status
+bind Hold Mediation Session: Mediation Outcome
+bind Initiate Investigation: Investigation Duration
+bind Escalate Issue: Escalation Level
+Interview Score: integer between 1 and 10
+Training Hours: float between 0.5 and 40.0
+Resolution Status: Pending, Approved, Rejected
+Complaint Type: Harassment, Discrimination, Performance
+Warning Count: integer between 0 and 3
+Performance Score: float between 0.0 and 100.0
+Employment Status: Active, Terminated, On Leave
+Mediation Outcome: Successful, Unsuccessful
+Investigation Duration: integer between 1 and 30
+Escalation Level: Manager, Director, CEO
+Init[Receive Complaint] | |
+End[Document Resolution] | |
+Existence[Conduct Interview] | |
+Absence3[Issue Warning] | |
+Exactly[Provide Training] | |
+Response[Receive Complaint, Initiate Investigation] | | |0,2,d
+Succession[Initiate Investigation, Hold Mediation Session] | | |
+Choice[Hold Mediation Session, Escalate Issue] | |A.Mediation Outcome is Successful |
+Response[Approve Resolution Plan, Document Resolution] |A.Resolution Status is Approved | |0,1,d
+Chain Response[Terminate Employment, Conduct Exit Interview] | | |
+Response[Receive Complaint, Acknowledge Complaint] |A.Complaint Type is Harassment | |0,48,h
+Response[Issue Warning, Evaluate Performance] | | |0,5,d
+Precedence[Escalate Issue, Receive Complaint] |A.Complaint Type is Discrimination |T.Escalation Level in (Director, CEO) |
+Response[Hold Mediation Session, Escalate Issue] |A.Mediation Outcome is Unsuccessful | |
+Chain Succession[Terminate Employment, Document Resolution] |A.Employment Status is Terminated |T.Resolution Status is Approved |

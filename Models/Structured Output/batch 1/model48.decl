@@ -1,0 +1,34 @@
+activity Plant Seeds
+activity Irrigate Field
+activity Apply Fertilizer
+activity Monitor Growth
+activity Harvest Crops
+activity Transport Produce
+activity Store Produce
+activity Sell Produce
+bind Plant Seeds: Seed Quantity
+bind Irrigate Field: Water Volume
+bind Apply Fertilizer: Fertilizer Type
+bind Monitor Growth: Growth Rate
+bind Harvest Crops: Harvest Quantity
+bind Transport Produce: Transport Method
+bind Store Produce: Storage Temperature
+bind Sell Produce: Market Type
+Seed Quantity: integer between 100 and 10000
+Water Volume: float between 10.0 and 1000.0
+Fertilizer Type: Organic, Inorganic
+Growth Rate: float between 0.1 and 5.0
+Harvest Quantity: integer between 50 and 5000
+Transport Method: Truck, Cart, Drone
+Storage Temperature: integer between 0 and 30
+Market Type: Local, International
+Init[Plant Seeds] | |
+End[Sell Produce] | |
+Existence[Irrigate Field] | |
+Response[Plant Seeds, Apply Fertilizer] | | |2,5,d
+Precedence[Harvest Crops, Monitor Growth] | | |
+Chain Response[Harvest Crops, Transport Produce] | | |
+Responded Existence[Transport Produce, Sell Produce] |A.Transport Method is Drone |T.Market Type is International |
+Co-Existence[Apply Fertilizer, Irrigate Field] | | |
+Response[Monitor Growth, Irrigate Field] |A.Growth Rate < 1.0 | |1,3,d
+Precedence[Sell Produce, Store Produce] | | |

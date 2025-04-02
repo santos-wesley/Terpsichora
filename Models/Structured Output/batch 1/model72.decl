@@ -1,0 +1,29 @@
+activity Assess Wind Potential
+activity Install Turbine
+activity Monitor Performance
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Analyze Data
+activity Report Findings
+activity Upgrade Turbine
+activity Decommission Turbine
+bind Assess Wind Potential: Wind Speed
+bind Monitor Performance: Turbine Efficiency
+bind Schedule Maintenance: Maintenance Status
+bind Report Findings: Report Status
+bind Decommission Turbine: Turbine Age
+Wind Speed: integer between 0 and 150
+Turbine Efficiency: float between 0.0 and 100.0
+Maintenance Status: Scheduled, In Progress, Completed
+Report Status: Draft, Finalized
+Turbine Age: integer between 0 and 30
+Init[Assess Wind Potential] | |
+End[Decommission Turbine] | |
+Chain Response[Install Turbine, Monitor Performance] | | |0,48,h
+Precedence[Perform Maintenance, Schedule Maintenance] | | |
+Response[Analyze Data, Report Findings] | | |
+Not Chain Succession[Report Findings, Upgrade Turbine] | | |
+Response[Schedule Maintenance, Perform Maintenance] |A.Maintenance Status is Scheduled | |0,7,d
+Precedence[Decommission Turbine, Monitor Performance] |A.Turbine Age > 25 | |
+Co-Existence[Assess Wind Potential, Install Turbine] | | |
+Response[Analyze Data, Report Findings] | |T.Report Status is Finalized |0,2,d

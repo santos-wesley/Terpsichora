@@ -1,0 +1,31 @@
+activity Post Job Opening
+activity Screen Applications
+activity Conduct Initial Interview
+activity Conduct Technical Interview
+activity Conduct HR Interview
+activity Make Job Offer
+activity Negotiate Offer
+activity Onboard Employee
+bind Post Job Opening: Interview Status
+bind Screen Applications: Experience Years
+bind Conduct Initial Interview: Interview Status
+bind Conduct Technical Interview: Interview Status
+bind Conduct HR Interview: Interview Status
+bind Make Job Offer: Expected Salary, Job Offer Status
+bind Negotiate Offer: Job Offer Status
+bind Onboard Employee: Onboarding Status
+Experience Years: integer between 0 and 40
+Expected Salary: float between 30000.0 and 200000.0
+Interview Status: Scheduled, Completed, Pending
+Job Offer Status: Accepted, Rejected, Negotiating
+Onboarding Status: Initiated, Completed, Pending
+Init[Post Job Opening] | |
+End[Onboard Employee] | |
+Response[Screen Applications, Conduct Initial Interview] |A.Experience Years >= 2 | |0,2,d
+Chain Response[Conduct Technical Interview, Conduct HR Interview] |A.Interview Status is Completed | |0,1,d
+Succession[Make Job Offer, Negotiate Offer] |A.Expected Salary > 50000 | |0,3,d
+Precedence[Make Job Offer, Conduct HR Interview] | |T.Interview Status is Completed |
+Not Succession[Make Job Offer, Onboard Employee] |A.Job Offer Status is Rejected | |
+Co-Existence[Conduct Initial Interview, Conduct Technical Interview] | | |
+Choice[Make Job Offer, Negotiate Offer] | | |
+Existence[Conduct Initial Interview] | |

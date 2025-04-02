@@ -1,0 +1,49 @@
+activity Submit Proposal
+activity Review Proposal
+activity Approve Proposal
+activity Reject Proposal
+activity Allocate Funding
+activity Conduct Research
+activity Submit Progress Report
+activity Review Progress Report
+activity Submit Final Report
+activity Review Final Report
+activity Approve Final Report
+activity Reject Final Report
+activity Publish Findings
+activity Request Extension
+activity Grant Extension
+bind Submit Proposal: Proposal ID, Proposal Status
+bind Review Proposal: Proposal Status, Review Decision
+bind Allocate Funding: Funding Amount
+bind Conduct Research: Research Phase, Research Duration
+bind Submit Progress Report: Report Status, Progress Percentage
+bind Review Progress Report: Report Status, Review Decision
+bind Submit Final Report: Report Status
+bind Review Final Report: Report Status, Review Decision
+bind Publish Findings: Publication Status
+bind Request Extension: Extension Days
+Proposal ID: integer between 1 and 10000
+Funding Amount: float between 1000.0 and 1000000.0
+Proposal Status: Submitted, Reviewed, Approved, Rejected
+Report Status: Submitted, Reviewed, Approved, Rejected
+Research Phase: Initial, Midterm, Final
+Extension Days: integer between 0 and 365
+Publication Status: Published, Not Published
+Progress Percentage: float between 0.0 and 100.0
+Review Decision: Approved, Rejected
+Research Duration: integer between 30 and 730
+Init[Submit Proposal] | |
+Response[Submit Proposal, Review Proposal] | |A.Proposal ID == T.Proposal ID |0,7,d
+Precedence[Approve Proposal, Review Proposal] |A.Proposal Status is Approved |A.Proposal ID == T.Proposal ID |
+Succession[Approve Proposal, Allocate Funding] | |A.Proposal ID == T.Proposal ID |0,30,d
+Existence[Conduct Research] | |
+Response[Conduct Research, Submit Progress Report] |A.Research Phase is Midterm |A.Proposal ID == T.Proposal ID |0,60,d
+Response[Submit Progress Report, Review Progress Report] | |A.Proposal ID == T.Proposal ID |0,30,d
+Response[Conduct Research, Submit Final Report] |A.Research Phase is Final |A.Proposal ID == T.Proposal ID |0,90,d
+Response[Submit Final Report, Review Final Report] | |A.Proposal ID == T.Proposal ID |0,30,d
+Precedence[Approve Final Report, Review Final Report] |A.Report Status is Approved |A.Proposal ID == T.Proposal ID |
+Precedence[Publish Findings, Approve Final Report] | |A.Proposal ID == T.Proposal ID |
+Responded Existence[Request Extension, Conduct Research] |A.Research Phase is Midterm |A.Proposal ID == T.Proposal ID |
+Precedence[Grant Extension, Request Extension] | |A.Proposal ID == T.Proposal ID |
+End[Publish Findings] | |

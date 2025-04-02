@@ -1,0 +1,26 @@
+activity Collect Evidence
+activity Analyze Evidence
+activity Store Evidence
+activity Retrieve Evidence
+activity Document Evidence
+activity Transport Evidence
+activity Present Evidence
+activity Dispose Evidence
+bind Collect Evidence: Evidence ID, Weight
+bind Store Evidence: Condition, Storage Location
+bind Transport Evidence: Transport Method
+Evidence ID: integer between 1 and 10000
+Weight: float between 0.1 and 100.0
+Condition: Intact, Damaged, Contaminated
+Storage Location: Warehouse, Lab, Court
+Transport Method: Car, Van, Drone
+Init[Collect Evidence] | |
+End[Dispose Evidence] | |
+Response[Collect Evidence, Store Evidence] |A.Condition is Intact |A.Evidence ID == T.Evidence ID |0,2,h
+Precedence[Present Evidence, Retrieve Evidence] | |A.Evidence ID == T.Evidence ID |
+Not Chain Succession[Collect Evidence, Transport Evidence] | |A.Evidence ID == T.Evidence ID |
+Co-Existence[Analyze Evidence, Document Evidence] | |A.Evidence ID == T.Evidence ID |
+Existence[Analyze Evidence] | |
+Response[Collect Evidence, Store Evidence] | |T.Storage Location in (Warehouse, Lab) |0,1,d
+Response[Transport Evidence, Store Evidence] |A.Weight > 50 |A.Transport Method in (Car, Van) |0,12,h
+Not Co-Existence[Dispose Evidence, Present Evidence] | |A.Evidence ID == T.Evidence ID |

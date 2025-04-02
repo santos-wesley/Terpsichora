@@ -1,0 +1,30 @@
+activity Enroll Course
+activity Access Course Material
+activity Submit Assignment
+activity Grade Assignment
+activity Participate in Discussion
+activity Complete Quiz
+activity Receive Certificate
+activity Provide Feedback
+bind Enroll Course: Student ID, Course Level
+bind Submit Assignment: Student ID
+bind Grade Assignment: Assignment Score
+bind Complete Quiz: Quiz Score
+bind Receive Certificate: Certificate Status
+bind Provide Feedback: Feedback Type
+Student ID: integer between 1 and 10000
+Course Level: Beginner, Intermediate, Advanced
+Assignment Score: float between 0.0 and 100.0
+Feedback Type: Positive, Neutral, Negative
+Quiz Score: integer between 0 and 100
+Certificate Status: Issued, Not Issued
+Init[Enroll Course] | |
+Existence[Provide Feedback] | |
+Chain Response[Submit Assignment, Grade Assignment] | | |0,48,h
+Precedence[Receive Certificate, Complete Quiz] | | |
+Not Co-Existence[Participate in Discussion, Provide Feedback] | | |
+Responded Existence[Enroll Course, Enroll Course] |A.Course Level is Advanced |A.Student ID > 5000 |
+Chain Succession[Complete Quiz, Receive Certificate] | | |0,2,d
+Precedence[Receive Certificate, Complete Quiz] | |T.Quiz Score > 70 |
+Responded Existence[Provide Feedback, Grade Assignment] |A.Feedback Type is Negative |T.Assignment Score < 50 |
+Not Co-Existence[Access Course Material, Submit Assignment] | | |

@@ -1,0 +1,50 @@
+activity Enroll Course
+activity Access Course Material
+activity Submit Assignment
+activity Grade Assignment
+activity Participate in Discussion
+activity Attend Live Session
+activity Complete Quiz
+activity Provide Feedback
+activity Receive Certificate
+activity Update Profile
+activity Request Support
+activity Review Course
+activity Access Grades
+activity Download Certificate
+activity Log Out
+bind Enroll Course: Course ID
+bind Submit Assignment: Assignment Submission Time
+bind Grade Assignment: Assignment Grade
+bind Provide Feedback: Feedback Type
+bind Complete Quiz: Quiz Score
+bind Request Support: Support Type
+bind Review Course: Course Rating
+bind Attend Live Session: Session Type
+bind Update Profile: Profile Update Count
+bind Receive Certificate: Certificate Status
+Course ID: integer between 1 and 1000
+Assignment Grade: float between 0.0 and 100.0
+Feedback Type: Positive, Neutral, Negative
+Quiz Score: integer between 0 and 100
+Support Type: Technical, Course-related
+Course Rating: float between 1.0 and 5.0
+Session Type: Webinar, Workshop
+Profile Update Count: integer between 0 and 10
+Certificate Status: Pending, Awarded
+Assignment Submission Time: float between 0.1 and 72.0
+Init[Enroll Course] | |
+End[Log Out] | |
+Existence[Access Course Material] | |
+Absence3[Submit Assignment] | |
+Exactly[Provide Feedback] | |
+Chain Response[Submit Assignment, Grade Assignment] | | |0,48,h
+Precedence[Receive Certificate, Attend Live Session] | | |
+Response[Access Course Material, Complete Quiz] | | |
+Chain Response[Request Support, Participate in Discussion] | | |0,24,h
+Responded Existence[Provide Feedback, Review Course] |A.Feedback Type in (Positive, Neutral) | |
+Precedence[Access Grades, Update Profile] | | |
+Chain Response[Receive Certificate, Download Certificate] | | |0,2,d
+Precedence[Attend Live Session, Participate in Discussion] | | |
+Exclusive Choice[Provide Feedback, Review Course] | | |
+Co-Existence[Attend Live Session, Attend Live Session] |A.Session Type is Workshop |A.Session Type != T.Session Type |

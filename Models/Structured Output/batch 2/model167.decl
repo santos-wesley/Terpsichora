@@ -1,0 +1,42 @@
+activity Log Incident
+activity Categorize Incident
+activity Prioritize Incident
+activity Assign Technician
+activity Investigate Incident
+activity Resolve Incident
+activity Close Incident
+activity Escalate Incident
+activity Notify User
+activity Reopen Incident
+bind Log Incident: Incident ID
+bind Categorize Incident: Category
+bind Prioritize Incident: Priority
+bind Assign Technician: Technician Level
+bind Resolve Incident: Resolution Time, Cost
+bind Notify User: Notification Method
+bind Reopen Incident: Reopen Count
+Incident ID: integer between 1 and 10000
+Category: Hardware, Software, Network, Security
+Priority: Low, Medium, High, Critical
+Resolution Time: float between 0.1 and 72.0
+Technician Level: Junior, Mid, Senior
+User Satisfaction: integer between 1 and 5
+Escalation Level: Level 1, Level 2, Level 3
+Cost: float between 0.0 and 1000.0
+Notification Method: Email, Phone, SMS
+Reopen Count: integer between 0 and 5
+Init[Log Incident] | |
+End[Close Incident] | |
+Existence[Categorize Incident] | |
+Absence3[Reopen Incident] | |
+Precedence[Assign Technician, Prioritize Incident] | | |
+Response[Log Incident, Categorize Incident] | | |
+Chain Response[Escalate Incident, Investigate Incident] | | |0,2,h
+Not Chain Succession[Log Incident, Resolve Incident] | | |
+Chain Response[Resolve Incident, Notify User] | | |0,1,d
+Precedence[Close Incident, Resolve Incident] | | |
+Response[Reopen Incident, Resolve Incident] | | |
+Responded Existence[Resolve Incident, Prioritize Incident] |A.Resolution Time > 24 |T.Priority in (High, Critical) |
+Precedence[Escalate Incident, Investigate Incident] | | |
+Chain Response[Categorize Incident, Escalate Incident] |A.Category is Security |T.Escalation Level is Level 3 |0,1,h
+Chain Response[Resolve Incident, Notify User] | |A.Notification Method == T.Notification Method |

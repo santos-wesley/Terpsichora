@@ -1,0 +1,49 @@
+activity Schedule Bus
+activity Dispatch Bus
+activity Board Passengers
+activity Collect Fare
+activity Drive Route
+activity Handle Emergency
+activity Refuel Bus
+activity Perform Maintenance
+activity Inspect Bus
+activity End Route
+activity Clean Bus
+activity Update Schedule
+activity Report Incident
+activity Check Tickets
+activity Announce Stops
+bind Schedule Bus: Route Status, Schedule Variance
+bind Dispatch Bus: Fuel Level
+bind Board Passengers: Passenger Count
+bind Collect Fare: Fare Amount
+bind Handle Emergency: Emergency Type
+bind Perform Maintenance: Maintenance Cost
+bind Inspect Bus: Bus Condition
+bind Report Incident: Incident Report ID
+bind Check Tickets: Ticket Status
+Passenger Count: integer between 0 and 1000
+Fare Amount: float between 0.5 and 100.0
+Bus Condition: Good, Needs Maintenance, Out of Service
+Emergency Type: Accident, Medical, Mechanical
+Fuel Level: integer between 0 and 100
+Route Status: On Time, Delayed, Cancelled
+Maintenance Cost: float between 0.0 and 5000.0
+Ticket Status: Valid, Invalid
+Incident Report ID: integer between 1 and 10000
+Schedule Variance: float between -60.0 and 60.0
+Init[Schedule Bus] | |
+End[Clean Bus] | |
+Existence[Inspect Bus] | |
+Response[Dispatch Bus, Drive Route] | | |
+Chain Response[Board Passengers, Collect Fare] | | |0,5,m
+Response[Handle Emergency, Report Incident] | | |0,1,h
+Precedence[Perform Maintenance, Inspect Bus] | | |
+Precedence[Dispatch Bus, Inspect Bus] |A.Bus Condition is Good | |
+Not Chain Succession[Handle Emergency, Refuel Bus] | | |
+Response[Drive Route, Announce Stops] | | |0,10,m
+Not Precedence[Collect Fare, Check Tickets] | |A.Ticket Status is Invalid |
+Precedence[Dispatch Bus, Refuel Bus] |A.Fuel Level < 20 | |
+Not Precedence[Dispatch Bus, Schedule Bus] | |A.Route Status is Cancelled |
+Response[Inspect Bus, Perform Maintenance] |A.Maintenance Cost > 1000 | |0,2,d
+Response[Schedule Bus, Update Schedule] |A.Schedule Variance > 30 | |0,1,d

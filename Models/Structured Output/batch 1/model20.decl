@@ -1,0 +1,40 @@
+activity Enroll in Dance Class
+activity Attend Dance Class
+activity Submit Dance Assignment
+activity Receive Dance Feedback
+activity Perform Dance Recital
+activity Evaluate Dance Performance
+activity Schedule Dance Rehearsal
+activity Conduct Dance Workshop
+activity Purchase Dance Supplies
+activity Complete Dance Exam
+bind Enroll in Dance Class: Student ID, Dance Style
+bind Attend Dance Class: Student ID, Dance Style
+bind Submit Dance Assignment: Student ID, Assignment Status
+bind Receive Dance Feedback: Student ID, Feedback Rating
+bind Perform Dance Recital: Student ID, Recital Role
+bind Evaluate Dance Performance: Student ID, Performance Score
+bind Schedule Dance Rehearsal: Student ID, Rehearsal Duration
+bind Conduct Dance Workshop: Student ID, Workshop Capacity
+bind Purchase Dance Supplies: Student ID, Supply Type
+bind Complete Dance Exam: Student ID, Exam Score
+Student ID: integer between 1 and 1000
+Dance Style: Ballet, Hip Hop, Contemporary, Jazz
+Performance Score: float between 0.0 and 10.0
+Assignment Status: Submitted, Not Submitted
+Rehearsal Duration: integer between 30 and 180
+Feedback Rating: float between 1.0 and 5.0
+Supply Type: Shoes, Costume, Music
+Workshop Capacity: integer between 5 and 50
+Exam Score: float between 0.0 and 100.0
+Recital Role: Lead, Supporting, Ensemble
+Init[Enroll in Dance Class] | |
+Existence[Attend Dance Class] | |
+Precedence[Receive Dance Feedback, Submit Dance Assignment] | |A.Student ID == T.Student ID |
+Chain Response[Schedule Dance Rehearsal, Attend Dance Class] | |A.Student ID == T.Student ID |0,2,d
+Precedence[Conduct Dance Workshop, Purchase Dance Supplies] | |A.Student ID == T.Student ID |
+Response[Perform Dance Recital, Evaluate Dance Performance] | |A.Student ID == T.Student ID |0,48,h
+Exactly[Submit Dance Assignment] |A.Assignment Status is Submitted |
+Not Chain Succession[Attend Dance Class, Complete Dance Exam] | |A.Student ID == T.Student ID |
+Choice[Perform Dance Recital, Conduct Dance Workshop] | | |
+End[Complete Dance Exam] | |

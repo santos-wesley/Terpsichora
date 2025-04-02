@@ -1,0 +1,41 @@
+activity Create Purchase Request
+activity Approve Purchase Request
+activity Select Vendor
+activity Negotiate Terms
+activity Issue Purchase Order
+activity Receive Goods
+activity Inspect Goods
+activity Approve Invoice
+activity Process Payment
+activity Close Purchase Order
+bind Create Purchase Request: Request ID
+bind Approve Purchase Request: Approval Status
+bind Select Vendor: Vendor Type
+bind Issue Purchase Order: Order Value
+bind Receive Goods: Goods Quantity
+bind Inspect Goods: Inspection Result
+bind Approve Invoice: Invoice Amount
+bind Process Payment: Payment Status
+Request ID: integer between 1 and 10000
+Order Value: float between 100.0 and 100000.0
+Approval Status: Pending, Approved, Rejected
+Vendor Type: Local, International
+Goods Quantity: integer between 1 and 1000
+Inspection Result: Pass, Fail
+Invoice Amount: float between 100.0 and 100000.0
+Payment Status: Pending, Completed, Failed
+Init[Create Purchase Request] | |
+End[Close Purchase Order] | |
+Existence[Approve Purchase Request] | |
+Precedence[Issue Purchase Order, Approve Purchase Request] | | |
+Precedence[Inspect Goods, Receive Goods] | | |
+Precedence[Approve Invoice, Inspect Goods] | |T.Inspection Result is Pass |
+Precedence[Receive Goods, Issue Purchase Order] | | |
+Precedence[Process Payment, Approve Invoice] | | |
+Response[Approve Purchase Request, Select Vendor] |A.Approval Status is Approved | |0,2,d
+Response[Select Vendor, Negotiate Terms] |A.Vendor Type is International | |0,5,d
+Responded Existence[Issue Purchase Order, Negotiate Terms] |A.Order Value > 50000 | |
+Chain Response[Receive Goods, Inspect Goods] | | |0,48,h
+Response[Process Payment, Close Purchase Order] |A.Payment Status is Completed | |0,1,d
+Not Succession[Inspect Goods, Approve Invoice] |A.Inspection Result is Fail | |
+Exactly[Approve Purchase Request] | |

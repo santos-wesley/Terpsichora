@@ -1,0 +1,49 @@
+activity Identify Talent Needs
+activity Source Candidates
+activity Screen Applications
+activity Conduct Interviews
+activity Evaluate Candidates
+activity Make Job Offer
+activity Onboard New Hire
+activity Conduct Training
+activity Monitor Performance
+activity Identify Development Opportunities
+activity Conduct Performance Review
+activity Plan Succession
+activity Manage Employee Exit
+activity Conduct Exit Interview
+activity Update Talent Database
+bind Source Candidates: Candidate Experience
+bind Conduct Interviews: Interview Score
+bind Make Job Offer: Job Offer Status
+bind Conduct Training: Training Type, Training Hours
+bind Monitor Performance: Performance Rating
+bind Manage Employee Exit: Exit Reason
+bind Identify Development Opportunities: Development Budget
+bind Plan Succession: Succession Plan Status
+bind Conduct Exit Interview: Exit Interview Score
+Candidate Experience: integer between 0 and 40
+Interview Score: float between 0.0 and 10.0
+Job Offer Status: Accepted, Rejected, Pending
+Training Type: Technical, Soft Skills, Compliance
+Performance Rating: integer between 1 and 5
+Exit Reason: Resignation, Termination, Retirement
+Development Budget: float between 100.0 and 10000.0
+Succession Plan Status: In Progress, Completed, Not Started
+Training Hours: integer between 1 and 100
+Exit Interview Score: float between 0.0 and 10.0
+Init[Identify Talent Needs] | |
+End[Update Talent Database] | |
+Existence[Conduct Interviews] | |
+Exactly[Make Job Offer] | |
+Absence3[Manage Employee Exit] | |
+Response[Source Candidates, Screen Applications] | | |0,2,d
+Chain Response[Conduct Interviews, Evaluate Candidates] | | |0,1,d
+Precedence[Onboard New Hire, Make Job Offer] | |T.Job Offer Status is Accepted |
+Succession[Conduct Training, Monitor Performance] | | |0,30,d
+Co-Existence[Conduct Performance Review, Identify Development Opportunities] | | |
+Not Chain Succession[Conduct Performance Review, Plan Succession] | | |
+Not Precedence[Conduct Exit Interview, Manage Employee Exit] | |T.Exit Reason is Retirement |
+Choice[Identify Talent Needs, Update Talent Database] | | |
+Not Co-Existence[Conduct Training, Manage Employee Exit] | | |
+Exclusive Choice[Source Candidates, Conduct Interviews] | | |

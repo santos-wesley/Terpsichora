@@ -1,0 +1,38 @@
+activity Collect Blood Sample
+activity Prepare Sample
+activity Conduct ELISA Test
+activity Analyze Results
+activity Record Findings
+activity Consult Immunologist
+activity Notify Patient
+activity Schedule Follow-up
+activity Prepare Report
+activity Review Report
+bind Collect Blood Sample: Sample Volume, Sample Condition
+bind Conduct ELISA Test: Test Type, Antibody Concentration
+bind Analyze Results: Result Status
+bind Consult Immunologist: Consultation Duration
+bind Prepare Report: Report Accuracy
+bind Notify Patient: Follow-up Required
+bind Schedule Follow-up: Patient Age
+bind Review Report: Review Time
+Sample Volume: integer between 5 and 20
+Test Type: ELISA, Western Blot
+Antibody Concentration: float between 0.0 and 100.0
+Result Status: Positive, Negative, Inconclusive
+Consultation Duration: integer between 10 and 60
+Follow-up Required: Yes, No
+Report Accuracy: float between 90.0 and 100.0
+Patient Age: integer between 0 and 120
+Sample Condition: Good, Contaminated
+Review Time: float between 0.5 and 2.0
+Init[Collect Blood Sample] | |
+End[Notify Patient] | |
+Chain Succession[Collect Blood Sample, Prepare Sample] | | |0,10,m
+Response[Conduct ELISA Test, Analyze Results] | | |0,2,h
+Succession[Analyze Results, Record Findings] | | |
+Precedence[Consult Immunologist, Analyze Results] |A.Result Status in (Positive, Inconclusive) | |
+Response[Notify Patient, Schedule Follow-up] |A.Follow-up Required is Yes | |0,1,d
+Chain Response[Prepare Report, Review Report] | | |0,1,d
+Precedence[Conduct ELISA Test, Collect Blood Sample] |A.Sample Condition is Good | |
+Existence[Conduct ELISA Test] | |

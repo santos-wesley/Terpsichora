@@ -1,0 +1,36 @@
+activity Initiate Negotiation
+activity Present Demands
+activity Review Demands
+activity Counter Offer
+activity Evaluate Counter Offer
+activity Conduct Mediation
+activity Vote on Agreement
+activity Sign Agreement
+activity Declare Strike
+activity End Negotiation
+bind Present Demands: Demand Count
+bind Counter Offer: Offer Value
+bind Vote on Agreement: Agreement Status, Vote Count
+bind Conduct Mediation: Negotiation Phase
+bind Declare Strike: Strike Status
+Demand Count: integer between 1 and 50
+Offer Value: float between 1000.0 and 1000000.0
+Agreement Status: Accepted, Rejected
+Negotiation Phase: Initial, Mediation, Final
+Vote Count: integer between 0 and 1000
+Strike Status: Declared, Not Declared
+Init[Initiate Negotiation] | |
+End[End Negotiation] | |
+Existence[Conduct Mediation] | |
+Response[Review Demands, Counter Offer] | | |
+Chain Response[Evaluate Counter Offer, Conduct Mediation] | | |0,2,d
+Response[Conduct Mediation, Vote on Agreement] | | |
+Response[Vote on Agreement, Declare Strike] |A.Agreement Status is Rejected | |
+Chain Response[Vote on Agreement, Sign Agreement] |A.Agreement Status is Accepted | |0,48,h
+Not Co-Existence[Initiate Negotiation, Declare Strike] | | |
+Precedence[Review Demands, Present Demands] | | |
+Chain Succession[Conduct Mediation, Conduct Mediation] |A.Negotiation Phase is Mediation |A.Negotiation Phase == T.Negotiation Phase |
+Not Chain Precedence[Counter Offer, Initiate Negotiation] | | |
+Exclusive Choice[Sign Agreement, Declare Strike] | | |
+Chain Response[Counter Offer, Evaluate Counter Offer] | | |5,10,m
+Choice[End Negotiation, Sign Agreement] | | |

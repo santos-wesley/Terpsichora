@@ -1,0 +1,47 @@
+activity Conduct Risk Assessment
+activity Implement Security Measures
+activity Monitor Security Systems
+activity Review Security Policies
+activity Train Personnel
+activity Conduct Security Audit
+activity Report Security Breach
+activity Update Security Protocols
+activity Authorize Access
+activity Revoke Access
+activity Inspect Security Equipment
+activity Respond to Security Incident
+activity Evaluate Security Training
+activity Develop Contingency Plan
+activity Test Security Systems
+bind Conduct Risk Assessment: Risk Level
+bind Implement Security Measures: Security Budget, Security Status
+bind Train Personnel: Personnel Trained
+bind Conduct Security Audit: Audit Result
+bind Respond to Security Incident: Incident Response Time, Incident Severity
+bind Evaluate Security Training: Training Effectiveness
+bind Inspect Security Equipment: Equipment Inspected
+Risk Level: integer between 1 and 10
+Security Budget: float between 1000.0 and 100000.0
+Security Status: Active, Inactive, Pending
+Access Level: Admin, User, Guest
+Personnel Trained: integer between 0 and 500
+Incident Response Time: float between 0.0 and 120.0
+Audit Result: Pass, Fail, Needs Improvement
+Equipment Inspected: integer between 0 and 100
+Training Effectiveness: float between 0.0 and 100.0
+Incident Severity: Low, Medium, High
+Existence[Conduct Risk Assessment] | |
+Exactly[Conduct Security Audit] | |
+End[Update Security Protocols] | |
+Precedence[Monitor Security Systems, Implement Security Measures] | | |
+Response[Report Security Breach, Respond to Security Incident] | | |0,2,h
+Chain Succession[Train Personnel, Evaluate Security Training] | | |
+Not Co-Existence[Authorize Access, Revoke Access] | | |
+Precedence[Test Security Systems, Inspect Security Equipment] | | |
+Responded Existence[Conduct Risk Assessment, Implement Security Measures] |A.Risk Level > 7 |T.Security Budget > 50000 |
+Response[Conduct Security Audit, Update Security Protocols] |A.Audit Result is Fail | |0,1,d
+Succession[Report Security Breach, Develop Contingency Plan] | | |
+Not Chain Response[Respond to Security Incident, Report Security Breach] | | |
+Responded Existence[Respond to Security Incident, Report Security Breach] |A.Incident Severity is High |A.Incident Response Time < 30 |
+Response[Train Personnel, Evaluate Security Training] | | |
+Precedence[Implement Security Measures, Review Security Policies] | | |

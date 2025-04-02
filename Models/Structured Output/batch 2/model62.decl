@@ -1,0 +1,49 @@
+activity Draft Contract
+activity Review Contract
+activity Negotiate Terms
+activity Approve Contract
+activity Sign Contract
+activity Register Property
+activity Conduct Title Search
+activity Resolve Title Issues
+activity Appraise Property
+activity Inspect Property
+activity Finalize Sale
+activity File Legal Documents
+activity Arrange Financing
+activity Close Deal
+activity Issue Title Insurance
+bind Draft Contract: Contract Version, Contract Status
+bind Review Contract: Contract Status
+bind Conduct Title Search: Title Status
+bind Appraise Property: Property Value
+bind Inspect Property: Inspection Score
+bind Arrange Financing: Financing Status, Interest Rate
+bind Close Deal: Deal Status
+bind File Legal Documents: Document Count
+bind Issue Title Insurance: Insurance Status
+Contract Version: integer between 1 and 10
+Property Value: float between 50000.0 and 1000000.0
+Contract Status: Draft, Reviewed, Approved, Signed
+Title Status: Clear, Issues Found, Resolved
+Inspection Score: integer between 1 and 10
+Financing Status: Pending, Approved, Denied
+Interest Rate: float between 1.0 and 10.0
+Deal Status: Open, Closed
+Document Count: integer between 1 and 20
+Insurance Status: Issued, Not Issued
+Init[Draft Contract] | |
+End[Close Deal] | |
+Existence[Review Contract] | |
+Absence3[Draft Contract] | |
+Precedence[Sign Contract, Approve Contract] | | |
+Response[Approve Contract, Sign Contract] | | |
+Precedence[Finalize Sale, Appraise Property] | | |
+Chain Response[Appraise Property, Inspect Property] | | |0,1,d
+Precedence[Register Property, Resolve Title Issues] | |A.Title Status is Issues Found |
+Precedence[Approve Contract, Negotiate Terms] | | |
+Precedence[Close Deal, Arrange Financing] | | |
+Chain Response[Close Deal, File Legal Documents] | | |0,2,d
+Responded Existence[Close Deal, Issue Title Insurance] | | |
+Precedence[Sign Contract, Approve Contract] |A.Contract Status is Approved | |
+Precedence[File Legal Documents, Close Deal] |A.Deal Status is Closed | |

@@ -1,0 +1,36 @@
+activity Collect Water Sample
+activity Analyze Water Quality
+activity Tag Marine Animal
+activity Record Marine Animal Data
+activity Conduct Coral Health Survey
+activity Log Coral Health Data
+activity Deploy Underwater Sensor
+activity Retrieve Underwater Sensor
+activity Analyze Sensor Data
+activity Report Findings
+bind Collect Water Sample: Sample ID, Salinity Level, pH Level
+bind Tag Marine Animal: Animal Species, Tag ID
+bind Conduct Coral Health Survey: Coral Type, Coral Health Index
+bind Deploy Underwater Sensor: Sensor ID
+bind Analyze Sensor Data: Temperature
+bind Report Findings: Report Type
+Sample ID: integer between 1 and 1000
+Salinity Level: float between 0.0 and 40.0
+Animal Species: Dolphin, Shark, Turtle, Whale
+Tag ID: integer between 1 and 500
+Coral Type: Brain Coral, Staghorn Coral, Elkhorn Coral
+Coral Health Index: float between 0.0 and 10.0
+Sensor ID: integer between 1 and 200
+Temperature: float between -2.0 and 35.0
+Report Type: Preliminary, Final
+pH Level: float between 7.0 and 9.0
+Init[Collect Water Sample] | |
+End[Report Findings] | |
+Existence[Analyze Water Quality] | |
+Response[Tag Marine Animal, Record Marine Animal Data] | |A.Tag ID == T.Tag ID |0,2,d
+Chain Response[Conduct Coral Health Survey, Log Coral Health Data] | |A.Coral Type == T.Coral Type |
+Response[Deploy Underwater Sensor, Retrieve Underwater Sensor] | |A.Sensor ID == T.Sensor ID |0,48,h
+Precedence[Analyze Sensor Data, Retrieve Underwater Sensor] | |A.Sensor ID == T.Sensor ID |
+Not Co-Existence[Collect Water Sample, Tag Marine Animal] | | |
+Response[Analyze Sensor Data, Report Findings] | | |10,60,m
+Choice[Conduct Coral Health Survey, Analyze Water Quality] | | |

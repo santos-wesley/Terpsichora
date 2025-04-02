@@ -1,0 +1,25 @@
+activity Submit Change Request
+activity Review Change Request
+activity Approve Change Request
+activity Implement Change
+activity Verify Change
+activity Close Change Request
+bind Submit Change Request: Request ID, Change Type, Estimated Cost, Priority Level
+bind Review Change Request: Request ID, Approval Status
+bind Verify Change: Request ID, Verification Status
+Request ID: integer between 1 and 10000
+Change Type: Bug Fix, Feature Enhancement, Security Patch
+Estimated Cost: float between 100.0 and 10000.0
+Approval Status: Pending, Approved, Rejected
+Priority Level: integer between 1 and 5
+Verification Status: Verified, Not Verified
+Init[Submit Change Request] | |
+Existence[Review Change Request] | |
+End[Close Change Request] | |
+Precedence[Implement Change, Approve Change Request] | |A.Request ID == T.Request ID |
+Chain Response[Implement Change, Verify Change] | |A.Request ID == T.Request ID |0,2,d
+Not Succession[Approve Change Request, Implement Change] |A.Approval Status is Rejected |A.Request ID == T.Request ID |
+Precedence[Review Change Request, Submit Change Request] | |A.Request ID == T.Request ID |
+Precedence[Close Change Request, Verify Change] | |A.Request ID == T.Request ID |
+Precedence[Close Change Request, Verify Change] | |T.Verification Status is Verified |
+Chain Response[Submit Change Request, Review Change Request] | |A.Request ID == T.Request ID |0,48,h

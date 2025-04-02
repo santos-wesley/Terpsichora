@@ -1,0 +1,37 @@
+activity Identify Skill Gaps
+activity Forecast Workforce Demand
+activity Develop Recruitment Strategy
+activity Conduct Training Programs
+activity Evaluate Training Effectiveness
+activity Allocate Resources
+activity Monitor Workforce Performance
+activity Adjust Workforce Plan
+activity Approve Workforce Budget
+bind Identify Skill Gaps: Skill Gap Count
+bind Forecast Workforce Demand: Forecast Accuracy
+bind Develop Recruitment Strategy: Recruitment Strategy Type
+bind Conduct Training Programs: Training Sessions
+bind Evaluate Training Effectiveness: Training Effectiveness Score
+bind Allocate Resources: Resource Allocation Status
+bind Monitor Workforce Performance: Performance Check Frequency
+bind Adjust Workforce Plan: Adjustment Type
+bind Approve Workforce Budget: Budget Amount
+Skill Gap Count: integer between 0 and 1000
+Forecast Accuracy: float between 0.0 and 100.0
+Recruitment Strategy Type: Internal, External, Mixed
+Training Sessions: integer between 0 and 100
+Training Effectiveness Score: float between 0.0 and 10.0
+Resource Allocation Status: Pending, Completed
+Performance Check Frequency: integer between 0 and 30
+Adjustment Type: Increase, Decrease, Reallocate
+Budget Amount: float between 0.0 and 1000000.0
+Init[Identify Skill Gaps] | |
+End[Approve Workforce Budget] | |
+Existence2[Conduct Training Programs] | |
+Response[Identify Skill Gaps, Develop Recruitment Strategy] | | |5,10,d
+Chain Response[Conduct Training Programs, Evaluate Training Effectiveness] | | |1,3,d
+Precedence[Monitor Workforce Performance, Allocate Resources] | | |
+Succession[Monitor Workforce Performance, Adjust Workforce Plan] | | |
+Co-Existence[Forecast Workforce Demand, Develop Recruitment Strategy] | | |
+Not Responded Existence[Develop Recruitment Strategy, Adjust Workforce Plan] |A.Recruitment Strategy Type is not Mixed |A.Recruitment Strategy Type != T.Adjustment Type |
+Exclusive Choice[Conduct Training Programs, Adjust Workforce Plan] | | |

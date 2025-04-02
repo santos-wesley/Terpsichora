@@ -1,0 +1,49 @@
+activity Conduct Ethics Training
+activity Review Code of Conduct
+activity Report Ethical Violation
+activity Investigate Violation
+activity Implement Corrective Action
+activity Evaluate Ethical Performance
+activity Approve Ethical Policy
+activity Conduct Ethics Audit
+activity Hold Ethics Committee Meeting
+activity Distribute Ethics Survey
+activity Analyze Survey Results
+activity Update Code of Conduct
+activity Communicate Ethical Standards
+activity Monitor Compliance
+activity Recognize Ethical Behavior
+bind Conduct Ethics Training: Training Hours
+bind Report Ethical Violation: Violation Severity, Violation Status
+bind Approve Ethical Policy: Policy Status
+bind Distribute Ethics Survey: Survey Responses
+bind Monitor Compliance: Compliance Level
+bind Conduct Ethics Audit: Audit Score
+bind Recognize Ethical Behavior: Recognition Type
+bind Hold Ethics Committee Meeting: Committee Members
+bind Evaluate Ethical Performance: Performance Rating
+Training Hours: integer between 1 and 40
+Violation Severity: float between 0.0 and 10.0
+Policy Status: Draft, Approved, Rejected
+Survey Responses: integer between 0 and 1000
+Compliance Level: High, Medium, Low
+Audit Score: float between 0.0 and 100.0
+Recognition Type: Certificate, Bonus, Public Acknowledgment
+Committee Members: integer between 1 and 20
+Violation Status: Pending, Investigating, Resolved
+Performance Rating: float between 0.0 and 5.0
+Existence[Conduct Ethics Training] | |
+Init[Review Code of Conduct] | |
+End[Recognize Ethical Behavior] | |
+Response[Report Ethical Violation, Investigate Violation] |A.Violation Severity > 5 | |0,2,d
+Chain Response[Conduct Ethics Audit, Evaluate Ethical Performance] |A.Audit Score < 50 | |0,48,h
+Co-Existence[Hold Ethics Committee Meeting, Approve Ethical Policy] | | |
+Succession[Distribute Ethics Survey, Analyze Survey Results] |A.Survey Responses > 100 | |0,7,d
+Not Chain Precedence[Update Code of Conduct, Review Code of Conduct] | | |
+Not Co-Existence[Communicate Ethical Standards, Monitor Compliance] | | |
+Exclusive Choice[Conduct Ethics Training, Report Ethical Violation] | | |
+Chain Precedence[Implement Corrective Action, Investigate Violation] | | |0,24,h
+Not Chain Succession[Recognize Ethical Behavior, Conduct Ethics Training] | | |
+Precedence[Approve Ethical Policy, Hold Ethics Committee Meeting] |A.Policy Status is Approved | |
+Not Response[Monitor Compliance, Recognize Ethical Behavior] |A.Compliance Level is Low | |
+Choice[Conduct Ethics Audit, Evaluate Ethical Performance] | | |

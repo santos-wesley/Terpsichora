@@ -1,0 +1,49 @@
+activity Assess Patient
+activity Develop Treatment Plan
+activity Conduct Physical Therapy
+activity Provide Counseling
+activity Monitor Progress
+activity Administer Medication
+activity Evaluate Treatment Effectiveness
+activity Schedule Follow-up
+activity Conduct Occupational Therapy
+activity Discharge Patient
+activity Conduct Speech Therapy
+activity Perform Nutritional Assessment
+activity Coordinate Family Meeting
+activity Provide Assistive Devices
+activity Conduct Recreational Therapy
+bind Assess Patient: Patient ID, BMI
+bind Develop Treatment Plan: Treatment Cost
+bind Conduct Physical Therapy: Therapy Type, Session Count
+bind Provide Counseling: Progress Status
+bind Administer Medication: Medication Type
+bind Conduct Occupational Therapy: Therapy Type
+bind Perform Nutritional Assessment: Nutritional Score
+bind Coordinate Family Meeting: Family Members Present
+bind Provide Assistive Devices: Device Type
+Patient ID: integer between 1 and 10000
+Treatment Cost: float between 100.0 and 10000.0
+Therapy Type: Physical, Occupational, Speech, Recreational
+Medication Type: Painkiller, Antidepressant, Antibiotic
+Session Count: integer between 1 and 100
+Progress Status: Improving, Stable, Deteriorating
+BMI: float between 10.0 and 50.0
+Family Members Present: integer between 0 and 10
+Device Type: Wheelchair, Walker, Cane
+Nutritional Score: float between 0.0 and 100.0
+Init[Assess Patient] | |
+End[Discharge Patient] | |
+Existence[Provide Counseling] | |
+Absence3[Perform Nutritional Assessment] | |
+Response[Conduct Physical Therapy, Monitor Progress] | | |0,2,d
+Response[Administer Medication, Evaluate Treatment Effectiveness] | | |0,48,h
+Precedence[Conduct Physical Therapy, Develop Treatment Plan] | | |
+Co-Existence[Conduct Occupational Therapy, Conduct Physical Therapy] | | |
+Not Chain Succession[Provide Counseling, Coordinate Family Meeting] | | |
+Not Co-Existence[Conduct Speech Therapy, Conduct Recreational Therapy] | | |
+Response[Perform Nutritional Assessment, Coordinate Family Meeting] | | |0,1,d
+Precedence[Provide Assistive Devices, Assess Patient] | | |
+Responded Existence[Conduct Physical Therapy, Conduct Occupational Therapy] |A.Therapy Type is Physical |A.Therapy Type == T.Therapy Type |
+Precedence[Coordinate Family Meeting, Provide Counseling] | | |
+Precedence[Discharge Patient, Evaluate Treatment Effectiveness] | | |

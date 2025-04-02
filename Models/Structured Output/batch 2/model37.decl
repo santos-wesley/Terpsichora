@@ -1,0 +1,46 @@
+activity Collect Customer Feedback
+activity Analyze Feedback Data
+activity Categorize Feedback
+activity Identify Key Issues
+activity Generate Feedback Report
+activity Review Feedback Report
+activity Approve Feedback Report
+activity Distribute Feedback Report
+activity Plan Improvement Actions
+activity Implement Improvement Actions
+activity Monitor Improvement Results
+activity Conduct Follow-up Survey
+activity Update Customer Records
+activity Archive Feedback Data
+activity Conduct Feedback Meeting
+bind Collect Customer Feedback: Survey Method, Customer ID
+bind Analyze Feedback Data: Feedback Score, Feedback Type
+bind Generate Feedback Report: Report Status
+bind Plan Improvement Actions: Action Status, Improvement Cost
+bind Conduct Follow-up Survey: Satisfaction Increase
+bind Conduct Feedback Meeting: Meeting Outcome, Issue Count
+Feedback Score: integer between 1 and 10
+Improvement Cost: float between 100.0 and 10000.0
+Feedback Type: Positive, Negative, Neutral
+Report Status: Draft, Reviewed, Approved
+Action Status: Planned, In Progress, Completed
+Customer ID: integer between 1 and 100000
+Satisfaction Increase: float between 0.0 and 100.0
+Survey Method: Online, In-Person, Phone
+Issue Count: integer between 0 and 50
+Meeting Outcome: Actionable, Non-Actionable
+Init[Collect Customer Feedback] | |
+End[Archive Feedback Data] | |
+Existence[Analyze Feedback Data] | |
+Exactly[Approve Feedback Report] | |
+Precedence[Generate Feedback Report, Analyze Feedback Data] | | |
+Response[Plan Improvement Actions, Implement Improvement Actions] | | |0,7,d
+Succession[Implement Improvement Actions, Conduct Follow-up Survey] | | |0,30,d
+Precedence[Approve Feedback Report, Review Feedback Report] | | |
+Not Co-Existence[Conduct Feedback Meeting, Generate Feedback Report] | | |
+Chain Succession[Approve Feedback Report, Distribute Feedback Report] | | |0,1,d
+Not Chain Succession[Collect Customer Feedback, Conduct Follow-up Survey] | | |
+Co-Existence[Analyze Feedback Data, Identify Key Issues] | | |
+Response[Analyze Feedback Data, Generate Feedback Report] | | |0,5,d
+Not Chain Succession[Approve Feedback Report, Distribute Feedback Report] | | |
+Responded Existence[Conduct Feedback Meeting, Identify Key Issues] |A.Issue Count > 5 |T.Meeting Outcome is Actionable |

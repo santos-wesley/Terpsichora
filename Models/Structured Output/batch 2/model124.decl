@@ -1,0 +1,45 @@
+activity Analyze Learner Needs
+activity Define Learning Objectives
+activity Design Instructional Strategy
+activity Develop Course Materials
+activity Implement Course
+activity Evaluate Learner Performance
+activity Revise Course Content
+activity Conduct Formative Evaluation
+activity Conduct Summative Evaluation
+activity Gather Feedback
+bind Analyze Learner Needs: Learner Age, Learning Style
+bind Define Learning Objectives: Number of Modules
+bind Design Instructional Strategy: Course Format, Budget Allocation
+bind Develop Course Materials: Number of Modules, Course Duration
+bind Implement Course: Course Format
+bind Evaluate Learner Performance: Evaluation Method, Satisfaction Rating
+bind Revise Course Content: Revision Count
+bind Conduct Formative Evaluation: Evaluation Method
+bind Conduct Summative Evaluation: Satisfaction Rating
+bind Gather Feedback: Feedback Type
+Learner Age: integer between 18 and 65
+Course Duration: float between 1.0 and 100.0
+Learning Style: Visual, Auditory, Kinesthetic
+Course Format: Online, In-Person, Hybrid
+Number of Modules: integer between 1 and 20
+Satisfaction Rating: float between 1.0 and 5.0
+Evaluation Method: Quiz, Assignment, Project
+Feedback Type: Survey, Interview, Focus Group
+Revision Count: integer between 0 and 10
+Budget Allocation: float between 0.5 and 50.0
+Init[Analyze Learner Needs] | |
+End[Gather Feedback] | |
+Existence[Implement Course] | |
+Absence2[Develop Course Materials] | |
+Chain Response[Design Instructional Strategy, Develop Course Materials] | | |5,10,d
+Response[Implement Course, Evaluate Learner Performance] | | |
+Precedence[Conduct Formative Evaluation, Develop Course Materials] | | |
+Not Co-Existence[Conduct Summative Evaluation, Gather Feedback] | | |
+Response[Analyze Learner Needs, Define Learning Objectives] | | |
+Precedence[Revise Course Content, Evaluate Learner Performance] | | |
+Chain Succession[Design Instructional Strategy, Implement Course] |A.Course Format is Online |A.Course Format == T.Course Format |
+Chain Response[Design Instructional Strategy, Develop Course Materials] |A.Budget Allocation > 10 |T.Course Duration >= 20 AND T.Course Duration <= 30 |20,30,h
+Co-Existence[Conduct Formative Evaluation, Conduct Summative Evaluation] |A.Evaluation Method is Quiz |A.Evaluation Method == T.Evaluation Method |
+Response[Revise Course Content, Implement Course] |A.Revision Count > 3 | |
+Responded Existence[Conduct Summative Evaluation, Gather Feedback] |A.Satisfaction Rating > 4 | |

@@ -1,0 +1,32 @@
+activity Book Transport
+activity Assign Driver
+activity Load Goods
+activity Start Journey
+activity Monitor Journey
+activity Unload Goods
+activity Complete Journey
+activity Review Transport
+bind Book Transport: Transport Status
+bind Assign Driver: Driver ID
+bind Load Goods: Cargo Weight
+bind Start Journey: Vehicle Type
+bind Monitor Journey: Journey Duration
+bind Complete Journey: Transport Status
+bind Review Transport: Review Outcome
+Driver ID: integer between 1 and 1000
+Cargo Weight: float between 0.1 and 50.0
+Transport Status: Scheduled, In Progress, Completed, Cancelled
+Vehicle Type: Truck, Van, Train, Ship
+Journey Duration: integer between 1 and 72
+Fuel Consumption: float between 10.0 and 500.0
+Review Outcome: Satisfactory, Unsatisfactory
+Init[Book Transport] | |
+Exactly[Complete Journey] | |
+Precedence[Start Journey, Assign Driver] | | |
+Precedence[Start Journey, Load Goods] | | |
+Response[Start Journey, Monitor Journey] | | |0,2,h
+Response[Monitor Journey, Complete Journey] | | |0,4,h
+Response[Complete Journey, Review Transport] | | |0,1,d
+Chain Response[Complete Journey, Review Transport] |A.Transport Status is Completed | |
+Exclusive Choice[Review Transport, Book Transport] | | |
+Responded Existence[Complete Journey, Review Transport] |A.Transport Status is Completed |T.Review Outcome is Satisfactory |

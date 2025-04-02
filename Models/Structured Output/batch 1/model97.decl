@@ -1,0 +1,27 @@
+activity Collect Financial Data
+activity Analyze Financial Performance
+activity Prepare Financial Report
+activity Review Financial Report
+activity Approve Financial Plan
+activity Monitor Financial Metrics
+activity Adjust Financial Strategy
+bind Collect Financial Data: Data Volume
+bind Analyze Financial Performance: Performance Score
+bind Prepare Financial Report: Report Status
+bind Approve Financial Plan: Approval Status
+bind Monitor Financial Metrics: Metric Count
+Data Volume: integer between 100 and 10000
+Performance Score: float between 0.0 and 100.0
+Report Status: Draft, Reviewed, Final
+Approval Status: Pending, Approved, Rejected
+Metric Count: integer between 1 and 50
+Init[Collect Financial Data] | |
+End[Adjust Financial Strategy] | |
+Existence[Prepare Financial Report] | |
+Response[Review Financial Report, Approve Financial Plan] | |A.Report Status is Reviewed |0,2,d
+Succession[Approve Financial Plan, Monitor Financial Metrics] |A.Approval Status is Approved | |0,48,h
+Chain Succession[Monitor Financial Metrics, Adjust Financial Strategy] |A.Metric Count > 10 | |0,24,h
+Not Chain Succession[Collect Financial Data, Prepare Financial Report] | | |
+Precedence[Prepare Financial Report, Analyze Financial Performance] | |A.Data Volume > 500 |0,12,h
+Not Co-Existence[Prepare Financial Report, Approve Financial Plan] |A.Report Status is Final | |
+Exclusive Choice[Review Financial Report, Approve Financial Plan] | | |

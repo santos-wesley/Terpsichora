@@ -1,0 +1,46 @@
+activity Receive Shipment
+activity Inspect Goods
+activity Store Goods
+activity Pick Goods
+activity Pack Goods
+activity Dispatch Shipment
+activity Update Inventory
+activity Handle Returns
+activity Perform Maintenance
+activity Conduct Audit
+bind Receive Shipment: Quantity, Weight, Shipment Status
+bind Inspect Goods: Condition, Quantity
+bind Store Goods: Storage Location, Quantity
+bind Pick Goods: Order ID, Quantity
+bind Pack Goods: Order ID, Weight
+bind Dispatch Shipment: Order ID, Shipment Status
+bind Update Inventory: Quantity
+bind Handle Returns: Return ID, Condition
+bind Perform Maintenance: Maintenance Type
+bind Conduct Audit: Audit Result
+Quantity: integer between 1 and 1000
+Weight: float between 0.1 and 500.0
+Condition: New, Used, Damaged
+Storage Location: Aisle 1, Aisle 2, Aisle 3, Aisle 4
+Shipment Status: Pending, In Transit, Delivered
+Return ID: integer between 1000 and 9999
+Value: float between 1.0 and 10000.0
+Audit Result: Pass, Fail
+Maintenance Type: Routine, Emergency
+Order ID: integer between 10000 and 99999
+Init[Receive Shipment] | |
+End[Dispatch Shipment] | |
+Existence[Conduct Audit] | |
+Absence2[Perform Maintenance] | |
+Chain Succession[Receive Shipment, Inspect Goods] | | |0,10,m
+Not Chain Succession[Inspect Goods, Store Goods] | | |10,30,m
+Precedence[Pack Goods, Pick Goods] | | |
+Response[Pack Goods, Dispatch Shipment] | | |0,2,h
+Responded Existence[Handle Returns, Inspect Goods] | | |
+Response[Store Goods, Update Inventory] | | |0,1,h
+Not Co-Existence[Perform Maintenance, Conduct Audit] | | |
+Choice[Pick Goods, Pack Goods] | | |
+Exclusive Choice[Handle Returns, Dispatch Shipment] | | |
+Alternate Response[Inspect Goods, Handle Returns] |A.Condition is Damaged | |
+Chain Precedence[Store Goods, Pick Goods] | |A.Storage Location == T.Storage Location |
+Precedence[Pack Goods, Pick Goods] | |A.Weight >= T.Weight |

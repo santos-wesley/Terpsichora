@@ -1,0 +1,39 @@
+activity Submit Application
+activity Review Application
+activity Approve Application
+activity Reject Application
+activity Request Additional Information
+activity Receive Additional Information
+activity Schedule Interview
+activity Conduct Interview
+activity Issue Decision
+activity Notify Applicant
+bind Submit Application: Application ID, Application Fee, Application Status
+bind Review Application: Application Status, Review Duration
+bind Approve Application: Decision Outcome
+bind Reject Application: Decision Outcome
+bind Request Additional Information: Additional Documents Count
+bind Receive Additional Information: Information Completeness
+bind Schedule Interview: Interview Required
+bind Conduct Interview: Interview Score
+bind Notify Applicant: Notification Method
+Application ID: integer between 1000 and 9999
+Application Fee: float between 10.0 and 500.0
+Application Status: Submitted, Under Review, Approved, Rejected
+Interview Required: Yes, No
+Interview Score: integer between 1 and 10
+Decision Outcome: Approved, Rejected
+Additional Documents Count: float between 0.0 and 10.0
+Notification Method: Email, Postal Mail, Phone
+Review Duration: integer between 1 and 30
+Information Completeness: Complete, Incomplete
+Existence[Submit Application] | |
+End[Notify Applicant] | |
+Choice[Review Application, Approve Application] | | |
+Response[Request Additional Information, Receive Additional Information] | | |5,10,d
+Chain Succession[Schedule Interview, Conduct Interview] | | |
+Precedence[Approve Application, Conduct Interview] |A.Interview Score > 7 | |
+Not Precedence[Reject Application, Conduct Interview] |A.Interview Score > 7 | |
+Responded Existence[Submit Application, Schedule Interview] |A.Application Fee > 100 | |
+Response[Receive Additional Information, Review Application] |A.Information Completeness is Complete | |2,5,d
+Chain Response[Submit Application, Notify Applicant] | |A.Notification Method == T.Notification Method |

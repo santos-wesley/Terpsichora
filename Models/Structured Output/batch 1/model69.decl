@@ -1,0 +1,37 @@
+activity Create Virtual Machine
+activity Allocate Resources
+activity Install Operating System
+activity Configure Network
+activity Deploy Application
+activity Monitor Performance
+activity Backup Virtual Machine
+activity Update Software
+activity Migrate Virtual Machine
+activity Decommission Virtual Machine
+bind Create Virtual Machine: CPU Cores, Memory Size, Storage Size
+bind Install Operating System: Operating System
+bind Configure Network: Network Type
+bind Backup Virtual Machine: Backup Status
+bind Monitor Performance: CPU Usage, Disk I/O
+bind Migrate Virtual Machine: Migration Status
+bind Decommission Virtual Machine: Decommission Reason
+CPU Cores: integer between 1 and 64
+Memory Size: float between 0.5 and 512.0
+Operating System: Windows, Linux, macOS
+Network Type: NAT, Bridged, Host-Only
+Storage Size: integer between 10 and 2048
+Backup Status: Completed, Pending, Failed
+CPU Usage: float between 0.0 and 100.0
+Disk I/O: float between 0.0 and 1000.0
+Migration Status: Not Started, In Progress, Completed
+Decommission Reason: End of Life, Consolidation, Cost Reduction
+Init[Create Virtual Machine] | |
+End[Decommission Virtual Machine] | |
+Existence[Install Operating System] | |
+Chain Response[Create Virtual Machine, Allocate Resources] | | |0,5,m
+Precedence[Decommission Virtual Machine, Backup Virtual Machine] | | |
+Response[Migrate Virtual Machine, Monitor Performance] | | |0,1,h
+Succession[Install Operating System, Configure Network] | | |
+Not Chain Succession[Backup Virtual Machine, Decommission Virtual Machine] | | |
+Exclusive Choice[Update Software, Migrate Virtual Machine] | | |
+Response[Monitor Performance, Deploy Application] |A.CPU Usage > 80 | |0,30,m

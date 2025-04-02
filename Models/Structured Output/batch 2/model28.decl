@@ -1,0 +1,50 @@
+activity Define Mission Statement
+activity Conduct SWOT Analysis
+activity Set Strategic Goals
+activity Develop Action Plans
+activity Allocate Resources
+activity Implement Strategy
+activity Monitor Performance
+activity Evaluate Outcomes
+activity Revise Strategy
+activity Communicate Strategy
+activity Conduct Market Research
+activity Identify Key Stakeholders
+activity Assess Competitive Position
+activity Develop Risk Management Plan
+activity Review Strategic Alignment
+bind Define Mission Statement: Strategy Status
+bind Conduct SWOT Analysis: SWOT Opportunities
+bind Set Strategic Goals: Alignment Status
+bind Develop Action Plans: Resource Allocation
+bind Allocate Resources: Budget Utilization
+bind Implement Strategy: Strategy Status
+bind Monitor Performance: Performance Score
+bind Evaluate Outcomes: Market Share
+bind Revise Strategy: Risk Level
+bind Communicate Strategy: Stakeholder Engagement
+Resource Allocation: integer between 1000 and 1000000
+Market Share: float between 0.0 and 100.0
+Strategy Status: Not Started, In Progress, Completed
+Risk Level: Low, Medium, High
+Performance Score: integer between 0 and 100
+Budget Utilization: float between 0.0 and 100.0
+Stakeholder Engagement: Low, Medium, High
+SWOT Opportunities: integer between 0 and 50
+Alignment Status: Aligned, Not Aligned
+Risk Mitigation Effectiveness: float between 0.0 and 1.0
+Init[Define Mission Statement] | |
+End[Communicate Strategy] | |
+Existence[Conduct SWOT Analysis] | |
+Exactly[Evaluate Outcomes] | |
+Response[Develop Action Plans, Allocate Resources] | | |0,2,d
+Precedence[Implement Strategy, Set Strategic Goals] | | |
+Succession[Monitor Performance, Evaluate Outcomes] | | |0,48,h
+Co-Existence[Conduct Market Research, Assess Competitive Position] | | |
+Not Chain Succession[Revise Strategy, Implement Strategy] | | |
+Not Co-Existence[Develop Risk Management Plan, Revise Strategy] |A.Risk Level is High | |
+Response[Review Strategic Alignment, Revise Strategy] |A.Alignment Status is Not Aligned | |0,1,d
+Precedence[Communicate Strategy, Evaluate Outcomes] | | |
+Precedence[Develop Action Plans, Identify Key Stakeholders] | | |
+Not Chain Succession[Conduct SWOT Analysis, Implement Strategy] | | |
+Exclusive Choice[Set Strategic Goals, Develop Action Plans] | | |

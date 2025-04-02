@@ -1,0 +1,40 @@
+activity Identify Risks
+activity Develop Continuity Plan
+activity Test Continuity Plan
+activity Review Test Results
+activity Implement Improvements
+activity Communicate Plan
+activity Monitor Risks
+activity Conduct Training
+activity Activate Continuity Plan
+activity Evaluate Incident Response
+bind Identify Risks: Risk Level
+bind Test Continuity Plan: Test Outcome
+bind Review Test Results: Plan Effectiveness
+bind Implement Improvements: Improvement Status
+bind Communicate Plan: Communication Method
+bind Conduct Training: Training Hours
+bind Activate Continuity Plan: Incident Severity
+bind Evaluate Incident Response: Response Time
+bind Monitor Risks: Monitoring Frequency
+bind Develop Continuity Plan: Stakeholder Engagement
+Risk Level: integer between 1 and 10
+Plan Effectiveness: float between 0.0 and 100.0
+Test Outcome: Pass, Fail
+Improvement Status: Completed, Pending
+Communication Method: Email, Meeting, Newsletter
+Training Hours: integer between 1 and 40
+Incident Severity: Low, Medium, High
+Response Time: float between 0.0 and 24.0
+Stakeholder Engagement: High, Moderate, Low
+Monitoring Frequency: integer between 1 and 30
+Init[Identify Risks] | |
+End[Evaluate Incident Response] | |
+Alternate Response[Test Continuity Plan, Review Test Results] |A.Test Outcome is Pass | |0,2,d
+Chain Response[Review Test Results, Implement Improvements] |A.Plan Effectiveness < 80.0 |A.Improvement Status is Pending |0,48,h
+Response[Develop Continuity Plan, Communicate Plan] |A.Stakeholder Engagement is High |A.Communication Method in (Email, Meeting) |5,13,m
+Responded Existence[Communicate Plan, Conduct Training] |A.Communication Method is Meeting | |
+Precedence[Activate Continuity Plan, Identify Risks] |A.Incident Severity in (Medium, High) | |
+Co-Existence[Monitor Risks, Identify Risks] |A.Monitoring Frequency <= 7 | |
+Not Chain Succession[Activate Continuity Plan, Evaluate Incident Response] |A.Incident Severity is High | |10,15,s
+Existence[Conduct Training] |A.Training Hours >= 8 |

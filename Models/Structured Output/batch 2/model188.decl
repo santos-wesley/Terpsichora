@@ -1,0 +1,40 @@
+activity Verify Identity
+activity Inspect Package
+activity Confirm Delivery Address
+activity Secure Package
+activity Load Vehicle
+activity Transport Package
+activity Deliver Package
+activity Obtain Signature
+activity Update Delivery Status
+activity Return to Warehouse
+bind Verify Identity: Identity Verification Method
+bind Inspect Package: Package Condition Score
+bind Confirm Delivery Address: Delivery Status
+bind Transport Package: Distance to Delivery, Vehicle Type
+bind Deliver Package: Delivery Attempts
+bind Obtain Signature: Signature Obtained
+bind Load Vehicle: Package Weight
+Identity Verification Method: ID Card, Passport, Driver License
+Package Condition Score: integer between 1 and 10
+Delivery Status: Pending, In Transit, Delivered, Failed
+Distance to Delivery: float between 0.0 and 500.0
+Vehicle Type: Van, Truck, Bike
+Delivery Attempts: integer between 1 and 5
+Package Weight: float between 0.1 and 50.0
+Signature Obtained: Yes, No
+Existence[Verify Identity] | |
+Existence[Inspect Package] | |
+End[Update Delivery Status] | |
+Response[Confirm Delivery Address, Secure Package] | | |0,2,h
+Chain Succession[Load Vehicle, Transport Package] | | |
+Succession[Transport Package, Deliver Package] |A.Distance to Delivery <= 100 |A.Vehicle Type is Van |0,4,h
+Chain Response[Deliver Package, Obtain Signature] | | |
+Co-Existence[Obtain Signature, Update Delivery Status] | | |
+Precedence[Deliver Package, Verify Identity] | | |
+Not Chain Succession[Inspect Package, Load Vehicle] | | |
+Not Responded Existence[Secure Package, Inspect Package] |A.Package Condition Score < 5 | |
+Choice[Verify Identity, Confirm Delivery Address] | | |
+Exclusive Choice[Obtain Signature, Update Delivery Status] | | |
+Not Succession[Transport Package, Return to Warehouse] |A.Delivery Status is Failed | |
+Response[Transport Package, Deliver Package] | | |0,2,h

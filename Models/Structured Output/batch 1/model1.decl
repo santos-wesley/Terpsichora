@@ -1,0 +1,40 @@
+activity Draft Contract
+activity Review Contract
+activity Negotiate Terms
+activity Approve Contract
+activity Sign Contract
+activity Register Property
+activity Conduct Title Search
+activity Assess Property Value
+activity Verify Funds
+activity Close Deal
+bind Draft Contract: Contract Version, Contract Status
+bind Review Contract: Contract Status
+bind Negotiate Terms: Negotiation Rounds
+bind Approve Contract: Contract Status
+bind Sign Contract: Contract Status
+bind Register Property: Registration Status
+bind Conduct Title Search: Title Search Result
+bind Assess Property Value: Property Value
+bind Verify Funds: Funds Verified
+bind Close Deal: Days to Close, Deal Status
+Contract Version: integer between 1 and 10
+Property Value: float between 50000.0 and 1000000.0
+Contract Status: Draft, Reviewed, Approved, Signed
+Ownership Status: Clear, Disputed
+Negotiation Rounds: integer between 1 and 5
+Funds Verified: float between 50000.0 and 1000000.0
+Registration Status: Pending, Completed
+Title Search Result: Clear, Issues Found
+Days to Close: integer between 1 and 30
+Deal Status: Open, Closed
+Init[Draft Contract] | |
+End[Close Deal] | |0,30,d
+Response[Draft Contract, Review Contract] | |A.Contract Status is Draft |0,2,d
+Chain Succession[Approve Contract, Sign Contract] |A.Contract Status is Approved |A.Contract Status == T.Contract Status |0,1,d
+Response[Sign Contract, Register Property] |A.Contract Status is Signed |T.Registration Status is Pending |0,5,d
+Precedence[Approve Contract, Conduct Title Search] |A.Contract Status is Reviewed |T.Title Search Result is Clear |
+Precedence[Negotiate Terms, Assess Property Value] | |A.Property Value > 50000 |
+Precedence[Close Deal, Verify Funds] |A.Deal Status is Open |A.Funds Verified >= T.Property Value |
+Existence[Review Contract] | |
+Not Co-Existence[Sign Contract, Conduct Title Search] |A.Contract Status is Approved |T.Title Search Result is Issues Found |

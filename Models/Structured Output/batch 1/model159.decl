@@ -1,0 +1,39 @@
+activity Conduct Reconnaissance
+activity Scan Network
+activity Exploit Vulnerabilities
+activity Maintain Access
+activity Cover Tracks
+activity Report Findings
+activity Conduct Social Engineering
+activity Perform Risk Assessment
+activity Develop Exploit
+activity Test Security Measures
+bind Conduct Reconnaissance: Network Type
+bind Scan Network: Network Type
+bind Exploit Vulnerabilities: Severity Level, Access Type
+bind Maintain Access: Time Spent
+bind Cover Tracks: Detection Probability
+bind Report Findings: Risk Score
+bind Conduct Social Engineering: Social Engineering Technique
+bind Develop Exploit: Exploit Type
+bind Test Security Measures: Exploit Success Rate
+Severity Level: integer between 1 and 10
+Exploit Success Rate: float between 0.0 and 100.0
+Access Type: User, Admin, Root
+Network Type: Wired, Wireless
+Number of Attempts: integer between 1 and 100
+Time Spent: float between 0.1 and 24.0
+Social Engineering Technique: Phishing, Pretexting, Baiting
+Exploit Type: Remote, Local
+Risk Score: integer between 1 and 100
+Detection Probability: float between 0.0 and 1.0
+Init[Conduct Reconnaissance] | |
+Response[Scan Network, Exploit Vulnerabilities] | |A.Network Type == T.Network Type |0,2,h
+Chain Succession[Exploit Vulnerabilities, Maintain Access] |A.Severity Level > 5 | |0,1,h
+Existence[Cover Tracks] |A.Detection Probability < 0.5 |
+Not Co-Existence[Conduct Social Engineering, Perform Risk Assessment] | | |
+Alternate Response[Develop Exploit, Test Security Measures] |A.Exploit Type is Remote | |0,3,h
+End[Report Findings] | |
+Alternate Succession[Conduct Reconnaissance, Scan Network] | | |
+Not Succession[Exploit Vulnerabilities, Maintain Access] |A.Severity Level <= 5 | |
+Choice[Conduct Social Engineering, Perform Risk Assessment] | | |

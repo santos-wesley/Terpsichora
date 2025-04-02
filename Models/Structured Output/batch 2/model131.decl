@@ -1,0 +1,48 @@
+activity Inspect Ticket
+activity Conduct Security Check
+activity Monitor Surveillance
+activity Report Suspicious Activity
+activity Patrol Station
+activity Respond to Emergency
+activity Assist Passengers
+activity Check Identification
+activity Enforce Regulations
+activity Issue Fine
+activity Provide First Aid
+activity Coordinate with Authorities
+activity Review Incident Footage
+activity Maintain Equipment
+activity Train Security Staff
+bind Inspect Ticket: Ticket Validity
+bind Conduct Security Check: Security Level
+bind Monitor Surveillance: Camera ID
+bind Report Suspicious Activity: Incident Type
+bind Respond to Emergency: Emergency Type, Response Time
+bind Issue Fine: Fine Amount
+bind Maintain Equipment: Equipment Status
+bind Train Security Staff: Training Duration
+Ticket Validity: integer between 0 and 1
+Security Level: Low, Medium, High
+Response Time: float between 0.0 and 60.0
+Passenger Count: integer between 0 and 1000
+Incident Type: Theft, Vandalism, Assault, Other
+Fine Amount: float between 0.0 and 500.0
+Camera ID: integer between 1 and 100
+Emergency Type: Medical, Fire, Security
+Equipment Status: integer between 0 and 1
+Training Duration: float between 0.5 and 8.0
+Init[Inspect Ticket] | |
+End[Maintain Equipment] | |
+Existence2[Conduct Security Check] | |
+Response[Report Suspicious Activity, Conduct Security Check] | | |10,15,m
+Chain Succession[Respond to Emergency, Coordinate with Authorities] | | |
+Precedence[Report Suspicious Activity, Monitor Surveillance] | | |
+Co-Existence[Assist Passengers, Enforce Regulations] | | |
+Precedence[Issue Fine, Enforce Regulations] | | |
+Not Chain Succession[Maintain Equipment, Train Security Staff] | | |
+Response[Inspect Ticket, Issue Fine] |A.Ticket Validity = 0 | |
+Response[Conduct Security Check, Respond to Emergency] |A.Security Level is High | |
+Succession[Report Suspicious Activity, Review Incident Footage] | | |
+Response[Respond to Emergency, Report Suspicious Activity] |A.Response Time > 30 | |
+Chain Response[Respond to Emergency, Provide First Aid] |A.Emergency Type is Medical | |0,5,m
+Responded Existence[Report Suspicious Activity, Conduct Security Check] |A.Incident Type is Theft |A.Security Level is High |

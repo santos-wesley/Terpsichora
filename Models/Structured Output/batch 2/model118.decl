@@ -1,0 +1,50 @@
+activity Conduct Cultural Assessment
+activity Develop Training Program
+activity Facilitate Cultural Workshop
+activity Evaluate Workshop Effectiveness
+activity Implement Cultural Policies
+activity Monitor Team Interactions
+activity Provide Feedback
+activity Resolve Cultural Conflicts
+activity Review Cultural Policies
+activity Conduct Follow-up Assessment
+activity Gather Feedback
+activity Analyze Feedback
+activity Report Findings
+activity Adjust Training Program
+activity Celebrate Cultural Diversity
+bind Conduct Cultural Assessment: Assessment Score
+bind Develop Training Program: Training Program Type
+bind Facilitate Cultural Workshop: Workshop Duration
+bind Evaluate Workshop Effectiveness: Workshop Effectiveness
+bind Implement Cultural Policies: Policy Status
+bind Provide Feedback: Feedback Type
+bind Resolve Cultural Conflicts: Conflict Resolution Time
+bind Conduct Follow-up Assessment: Improvement Percentage
+bind Gather Feedback: Feedback Satisfaction
+bind Celebrate Cultural Diversity: Diversity Event Attendance
+Assessment Score: integer between 1 and 100
+Workshop Duration: float between 0.5 and 8.0
+Policy Status: Draft, Implemented, Reviewed
+Feedback Type: Positive, Constructive, Negative
+Conflict Resolution Time: integer between 5 and 120
+Training Program Type: Online, In-person, Hybrid
+Improvement Percentage: float between 0.0 and 100.0
+Feedback Satisfaction: Satisfied, Neutral, Dissatisfied
+Diversity Event Attendance: integer between 10 and 500
+Workshop Effectiveness: High, Medium, Low
+Init[Conduct Cultural Assessment] | |
+End[Celebrate Cultural Diversity] | |
+Existence[Facilitate Cultural Workshop] | |
+Exactly[Evaluate Workshop Effectiveness] | |
+Precedence[Facilitate Cultural Workshop, Develop Training Program] | | |
+Response[Provide Feedback, Resolve Cultural Conflicts] | | |0,2,d
+Precedence[Conduct Follow-up Assessment, Implement Cultural Policies] | | |
+Chain Response[Gather Feedback, Analyze Feedback] | | |0,48,h
+Precedence[Adjust Training Program, Report Findings] | | |
+Co-Existence[Conduct Cultural Assessment, Conduct Follow-up Assessment] | | |
+Co-Existence[Facilitate Cultural Workshop, Evaluate Workshop Effectiveness] | | |
+Not Chain Succession[Implement Cultural Policies, Review Cultural Policies] | | |
+Precedence[Report Findings, Gather Feedback] |A.Feedback Satisfaction is Satisfied | |
+Precedence[Review Cultural Policies, Resolve Cultural Conflicts] |A.Conflict Resolution Time < 60 | |
+Chain Succession[Develop Training Program, Adjust Training Program] | |A.Training Program Type == T.Training Program Type |

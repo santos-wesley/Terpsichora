@@ -1,0 +1,52 @@
+activity Conduct Exit Interview
+activity Analyze Employee Feedback
+activity Implement Retention Strategies
+activity Monitor Employee Satisfaction
+activity Provide Career Development
+activity Review Compensation Packages
+activity Conduct Performance Review
+activity Organize Team Building Activities
+activity Offer Flexible Work Options
+activity Recognize Employee Achievements
+activity Conduct Onboarding Session
+activity Evaluate Work-Life Balance
+activity Address Employee Concerns
+activity Conduct Training Programs
+activity Assess Employee Engagement
+bind Conduct Exit Interview: Feedback Type
+bind Analyze Employee Feedback: Feedback Type
+bind Implement Retention Strategies: Salary Increase Percentage
+bind Monitor Employee Satisfaction: Satisfaction Score
+bind Provide Career Development: Training Hours
+bind Review Compensation Packages: Salary Increase Percentage
+bind Conduct Performance Review: Performance Rating
+bind Organize Team Building Activities: Team Building Frequency
+bind Offer Flexible Work Options: Work Option
+bind Recognize Employee Achievements: Achievement Level
+bind Evaluate Work-Life Balance: Work-Life Balance Score
+bind Assess Employee Engagement: Engagement Level
+Satisfaction Score: integer between 1 and 10
+Salary Increase Percentage: float between 0.0 and 20.0
+Feedback Type: Positive, Negative, Neutral
+Work Option: Remote, On-site, Hybrid
+Performance Rating: integer between 1 and 5
+Achievement Level: High, Medium, Low
+Training Hours: float between 0.0 and 40.0
+Engagement Level: Engaged, Disengaged, Neutral
+Team Building Frequency: integer between 0 and 12
+Work-Life Balance Score: float between 0.0 and 10.0
+Existence[Conduct Exit Interview] | |
+Exactly[Analyze Employee Feedback] | |
+Precedence[Implement Retention Strategies, Analyze Employee Feedback] | | |
+Response[Monitor Employee Satisfaction, Provide Career Development] |A.Satisfaction Score < 5 | |0,30,d
+Co-Existence[Review Compensation Packages, Conduct Performance Review] | | |
+Not Chain Succession[Organize Team Building Activities, Offer Flexible Work Options] | | |
+Responded Existence[Conduct Performance Review, Recognize Employee Achievements] |A.Performance Rating >= 4 | |
+Init[Conduct Onboarding Session] | |
+Response[Evaluate Work-Life Balance, Address Employee Concerns] |A.Work-Life Balance Score < 5 | |0,15,d
+Chain Response[Conduct Training Programs, Assess Employee Engagement] |A.Training Hours > 20 | |
+Not Co-Existence[Offer Flexible Work Options, Evaluate Work-Life Balance] | | |
+Not Response[Conduct Exit Interview, Implement Retention Strategies] |A.Feedback Type is Negative | |
+Response[Review Compensation Packages, Monitor Employee Satisfaction] |A.Salary Increase Percentage > 5 | |0,60,d
+Not Chain Precedence[Conduct Performance Review, Conduct Exit Interview] | | |
+Precedence[Recognize Employee Achievements, Conduct Performance Review] | |A.Achievement Level is High |

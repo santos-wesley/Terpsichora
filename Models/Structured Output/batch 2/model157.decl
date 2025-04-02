@@ -1,0 +1,47 @@
+activity Conduct Physical Training
+activity Administer Written Exam
+activity Perform Firearms Training
+activity Conduct First Aid Training
+activity Evaluate Driving Skills
+activity Conduct Tactical Training
+activity Administer Psychological Evaluation
+activity Conduct Legal Knowledge Training
+activity Perform Scenario-Based Training
+activity Conduct Communication Skills Training
+activity Evaluate Physical Fitness
+activity Conduct Ethics Training
+activity Administer Final Assessment
+activity Conduct Graduation Ceremony
+activity Provide Feedback Session
+bind Administer Written Exam: Score, Exam Type
+bind Evaluate Driving Skills: Score, Evaluation Result
+bind Conduct Physical Training: Fitness Level, Session Duration
+bind Conduct Tactical Training: Training Type, Session Duration
+bind Administer Psychological Evaluation: Evaluation Result, Trainee ID
+bind Perform Scenario-Based Training: Response Time, Pass Status
+bind Provide Feedback Session: Feedback Type, Trainee ID
+Score: integer between 0 and 100
+Fitness Level: float between 0.0 and 10.0
+Pass Status: Pass, Fail
+Training Type: Physical, Tactical, Legal, Ethics
+Trainee ID: integer between 1 and 1000
+Exam Type: Written, Practical
+Response Time: float between 0.0 and 60.0
+Evaluation Result: Satisfactory, Unsatisfactory
+Session Duration: integer between 30 and 180
+Feedback Type: Positive, Negative, Neutral
+Init[Conduct Physical Training] | |
+End[Conduct Graduation Ceremony] | |
+Existence3[Conduct Physical Training] | |
+Response[Administer Written Exam, Provide Feedback Session] | |A.Trainee ID == T.Trainee ID |0,2,d
+Precedence[Conduct Tactical Training, Conduct Physical Training] | |A.Training Type is Tactical |
+Chain Response[Perform Scenario-Based Training, Provide Feedback Session] | |A.Trainee ID == T.Trainee ID |0,1,d
+Co-Existence[Perform Firearms Training, Administer Psychological Evaluation] | | |
+Not Chain Succession[Administer Psychological Evaluation, Provide Feedback Session] | | |
+Succession[Conduct Legal Knowledge Training, Conduct Ethics Training] | | |
+Precedence[Administer Final Assessment, Evaluate Driving Skills] | |A.Score > 70 |
+Not Co-Existence[Conduct Communication Skills Training, Perform Scenario-Based Training] | | |
+Chain Response[Conduct First Aid Training, Conduct Tactical Training] | | |0,3,d
+Not Precedence[Conduct Graduation Ceremony, Administer Final Assessment] | | |
+Exactly[Administer Psychological Evaluation] | |
+Co-Existence[Conduct Physical Training, Conduct Ethics Training] | | |

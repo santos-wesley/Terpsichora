@@ -1,0 +1,32 @@
+activity Initiate Test Plan
+activity Conduct Reconnaissance
+activity Perform Vulnerability Scan
+activity Exploit Vulnerabilities
+activity Document Findings
+activity Review Test Results
+activity Generate Report
+activity Present Findings
+bind Initiate Test Plan: Test ID, Test Status
+bind Conduct Reconnaissance: Test ID
+bind Perform Vulnerability Scan: Number of Vulnerabilities
+bind Exploit Vulnerabilities: Vulnerability Severity
+bind Document Findings: Risk Score
+bind Review Test Results: Time Spent
+bind Generate Report: Test Status
+bind Present Findings: Risk Score
+Test ID: integer between 1 and 1000
+Risk Score: float between 0.0 and 10.0
+Test Status: Planned, In Progress, Completed
+Vulnerability Severity: Low, Medium, High, Critical
+Number of Vulnerabilities: integer between 0 and 500
+Time Spent: float between 0.0 and 100.0
+Init[Initiate Test Plan] | |
+End[Present Findings] | |
+Chain Succession[Conduct Reconnaissance, Perform Vulnerability Scan] | | |2,4,h
+Response[Exploit Vulnerabilities, Document Findings] | | |
+Precedence[Generate Report, Review Test Results] | | |
+Chain Succession[Generate Report, Present Findings] | | |0,1,d
+Not Co-Existence[Conduct Reconnaissance, Exploit Vulnerabilities] | | |
+Existence[Perform Vulnerability Scan] | |
+Responded Existence[Document Findings, Present Findings] |A.Risk Score > 7 | |
+Chain Succession[Initiate Test Plan, Conduct Reconnaissance] | | |0,3,h

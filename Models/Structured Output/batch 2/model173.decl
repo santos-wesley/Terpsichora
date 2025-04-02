@@ -1,0 +1,50 @@
+activity Initiate Security Assessment
+activity Perform Vulnerability Scan
+activity Analyze Threat Intelligence
+activity Implement Security Controls
+activity Conduct Penetration Testing
+activity Review Security Policies
+activity Monitor Network Traffic
+activity Respond to Security Incidents
+activity Update Security Software
+activity Train Security Personnel
+activity Audit Security Logs
+activity Evaluate Risk Management Plan
+activity Verify System Integrity
+activity Report Security Findings
+activity Plan Security Improvements
+bind Initiate Security Assessment: Risk Level
+bind Perform Vulnerability Scan: Scan Duration
+bind Analyze Threat Intelligence: Threat Type
+bind Implement Security Controls: Control Status
+bind Respond to Security Incidents: Incident Count
+bind Monitor Network Traffic: Network Load
+bind Review Security Policies: Policy Compliance
+bind Train Security Personnel: Training Hours
+bind Verify System Integrity: Integrity Score
+bind Plan Security Improvements: Improvement Plan Status
+Risk Level: integer between 1 and 10
+Scan Duration: float between 0.5 and 5.0
+Threat Type: Malware, Phishing, DDoS, Insider Threat
+Control Status: Implemented, Pending, Failed
+Incident Count: integer between 0 and 100
+Network Load: float between 0.1 and 10.0
+Policy Compliance: Compliant, Non-Compliant
+Training Hours: integer between 1 and 40
+Integrity Score: float between 0.0 and 100.0
+Improvement Plan Status: Drafted, Approved, Rejected
+Existence[Initiate Security Assessment] | |
+Precedence[Implement Security Controls, Perform Vulnerability Scan] | | |
+Response[Analyze Threat Intelligence, Respond to Security Incidents] | | |0,48,h
+Exactly2[Review Security Policies] | |
+Exclusive Choice[Train Security Personnel, Audit Security Logs] | | |
+Succession[Monitor Network Traffic, Verify System Integrity] | | |0,2,d
+End[Report Security Findings] | |
+Response[Respond to Security Incidents, Update Security Software] | | |0,24,h
+Precedence[Plan Security Improvements, Evaluate Risk Management Plan] | | |
+Not Co-Existence[Conduct Penetration Testing, Implement Security Controls] | | |
+Chain Response[Initiate Security Assessment, Perform Vulnerability Scan] | | |0,1,h
+Chain Succession[Monitor Network Traffic, Verify System Integrity] | |T.Integrity Score > 90 |
+Not Responded Existence[Analyze Threat Intelligence, Respond to Security Incidents] | |A.Threat Type != T.Threat Type |
+Precedence[Report Security Findings, Implement Security Controls] | |T.Control Status is Implemented |
+Absence[Respond to Security Incidents] |A.Incident Count > 50 |

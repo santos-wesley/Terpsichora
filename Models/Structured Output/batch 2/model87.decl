@@ -1,0 +1,52 @@
+activity Identify Risks
+activity Assess Impact
+activity Develop Strategy
+activity Implement Strategy
+activity Test Strategy
+activity Review Strategy
+activity Update Plan
+activity Communicate Plan
+activity Train Employees
+activity Monitor Risks
+activity Activate Plan
+activity Conduct Audit
+activity Report Findings
+activity Approve Plan
+activity Deactivate Plan
+bind Identify Risks: Risk Level
+bind Assess Impact: Impact Score
+bind Develop Strategy: Strategy Status
+bind Implement Strategy: Strategy Status
+bind Test Strategy: Strategy Status
+bind Review Strategy: Strategy Status
+bind Update Plan: Plan Status
+bind Communicate Plan: Stakeholders Notified
+bind Train Employees: Training Sessions
+bind Monitor Risks: Risk Monitoring Frequency
+bind Conduct Audit: Audit Score, Audit Status
+bind Activate Plan: Plan Activation Status
+Risk Level: integer between 1 and 5
+Impact Score: float between 0.0 and 10.0
+Strategy Status: Draft, Implemented, Tested, Reviewed
+Plan Status: Pending, Approved, Communicated
+Training Sessions: integer between 0 and 10
+Audit Score: float between 0.0 and 100.0
+Audit Status: Scheduled, In Progress, Completed
+Risk Monitoring Frequency: Daily, Weekly, Monthly
+Stakeholders Notified: integer between 0 and 100
+Plan Activation Status: Active, Inactive
+Init[Identify Risks] | |
+End[Deactivate Plan] | |
+Existence[Test Strategy] | |
+Exactly[Conduct Audit] | |
+Chain Succession[Develop Strategy, Implement Strategy] | |A.Strategy Status == T.Strategy Status |
+Response[Update Plan, Communicate Plan] |A.Plan Status is Approved | |0,2,d
+Precedence[Communicate Plan, Approve Plan] | | |
+Response[Monitor Risks, Activate Plan] |A.Risk Monitoring Frequency is Daily | |0,48,h
+Response[Conduct Audit, Report Findings] |A.Audit Status is Completed | |0,5,d
+Succession[Activate Plan, Deactivate Plan] |A.Plan Activation Status is Active | |0,2,d
+Response[Test Strategy, Review Strategy] |A.Strategy Status is Tested | |0,7,d
+Response[Review Strategy, Update Plan] |A.Strategy Status is Reviewed | |
+Response[Communicate Plan, Train Employees] |A.Stakeholders Notified > 0 | |0,10,d
+Exclusive Choice[Activate Plan, Deactivate Plan] | | |
+Precedence[Develop Strategy, Assess Impact] | |A.Impact Score > 5 |

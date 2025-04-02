@@ -1,0 +1,55 @@
+activity Receive Shipment
+activity Inspect Goods
+activity Store Goods
+activity Update Inventory
+activity Process Order
+activity Pick Goods
+activity Pack Goods
+activity Dispatch Order
+activity Perform Stock Audit
+activity Reorder Stock
+activity Receive Return
+activity Inspect Return
+activity Restock Goods
+activity Dispose Goods
+activity Generate Report
+bind Receive Shipment: Quantity, Cost
+bind Inspect Goods: Inspection Result
+bind Store Goods: Quantity
+bind Update Inventory: Quantity
+bind Process Order: Order Status, Discount
+bind Pick Goods: Quantity
+bind Pack Goods: Quantity
+bind Dispatch Order: Order Status
+bind Perform Stock Audit: Audit Score
+bind Reorder Stock: Lead Time
+bind Receive Return: Return Reason
+bind Inspect Return: Inspection Result
+bind Restock Goods: Quantity
+bind Dispose Goods: Disposal Method
+bind Generate Report: 
+Quantity: integer between 1 and 1000
+Cost: float between 0.01 and 10000.0
+Condition: New, Used, Damaged
+Order Status: Pending, Processed, Shipped, Delivered
+Inspection Result: Pass, Fail
+Audit Score: integer between 0 and 100
+Return Reason: Defective, Unwanted, Wrong Item
+Discount: float between 0.0 and 50.0
+Lead Time: integer between 1 and 30
+Disposal Method: Recycle, Landfill, Donation
+Init[Receive Shipment] | |
+End[Generate Report] | |
+Existence[Perform Stock Audit] | |
+Chain Response[Receive Shipment, Inspect Goods] | | |0,1,h
+Response[Inspect Goods, Store Goods] |A.Inspection Result is Pass | |0,2,h
+Precedence[Pick Goods, Process Order] | | |
+Chain Succession[Pick Goods, Pack Goods] | | |0,30,m
+Response[Pack Goods, Dispatch Order] | | |0,1,d
+Response[Receive Return, Inspect Return] | | |0,1,d
+Response[Inspect Return, Restock Goods] |A.Inspection Result is Pass | |
+Response[Inspect Goods, Dispose Goods] |A.Inspection Result is Fail | |
+Responded Existence[Update Inventory, Reorder Stock] |A.Quantity < 50 | |
+Response[Dispatch Order, Generate Report] | | |0,1,d
+Not Co-Existence[Restock Goods, Dispose Goods] | | |
+Exclusive Choice[Perform Stock Audit, Reorder Stock] | | |

@@ -1,0 +1,30 @@
+activity Define Problem Statement
+activity Formulate Mathematical Model
+activity Collect Data
+activity Perform Data Analysis
+activity Develop Solution Strategy
+activity Implement Solution
+activity Validate Results
+activity Document Findings
+bind Define Problem Statement: Complexity Level
+bind Collect Data: Data Type, Data Volume
+bind Develop Solution Strategy: Solution Method
+bind Implement Solution: Iterations
+bind Validate Results: Validation Status, Accuracy
+Complexity Level: integer between 1 and 10
+Data Type: Quantitative, Qualitative
+Data Volume: float between 0.0 and 10000.0
+Solution Method: Analytical, Numerical
+Iterations: integer between 1 and 1000
+Validation Status: Valid, Invalid
+Accuracy: float between 0.0 and 100.0
+Init[Define Problem Statement] | |
+Precedence[Perform Data Analysis, Collect Data] | | |
+Precedence[Implement Solution, Develop Solution Strategy] | | |
+Chain Succession[Develop Solution Strategy, Implement Solution] |A.Solution Method is Analytical |A.Solution Method == T.Solution Method |0,1,d
+Response[Validate Results, Implement Solution] |A.Validation Status is Invalid | |0,2,d
+Existence[Validate Results] | |
+Responded Existence[Collect Data, Perform Data Analysis] |A.Data Type is Quantitative |A.Data Volume > 100 |0,12,h
+Response[Validate Results, Document Findings] | | |0,1,d
+Absence2[Define Problem Statement] | |
+Not Chain Succession[Develop Solution Strategy, Implement Solution] | | |

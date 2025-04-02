@@ -1,0 +1,39 @@
+activity Select Venue
+activity Send Invitations
+activity Arrange Catering
+activity Hire Entertainment
+activity Decorate Venue
+activity Confirm RSVPs
+activity Conduct Rehearsal
+activity Finalize Schedule
+activity Setup Audio Equipment
+activity Conduct Event
+bind Select Venue: Venue Type
+bind Send Invitations: Invitation Status
+bind Arrange Catering: Catering Budget
+bind Hire Entertainment: Entertainment Type
+bind Decorate Venue: Decoration Budget
+bind Confirm RSVPs: RSVP Count
+bind Conduct Rehearsal: Rehearsal Duration
+bind Setup Audio Equipment: Audio Setup Status
+bind Conduct Event: Event Status
+Venue Type: Indoor, Outdoor
+Guest Count: integer between 50 and 500
+Catering Budget: float between 1000.0 and 10000.0
+Entertainment Type: Band, DJ, Speaker
+Invitation Status: Sent, Pending
+RSVP Count: integer between 0 and 500
+Decoration Budget: float between 500.0 and 5000.0
+Audio Setup Status: Complete, Incomplete
+Rehearsal Duration: integer between 30 and 180
+Event Status: Planned, In Progress, Completed
+Init[Select Venue] | |
+End[Conduct Event] | |
+Existence[Send Invitations] | |
+Precedence[Conduct Event, Arrange Catering] | | |
+Chain Response[Select Venue, Decorate Venue] | | |0,2,d
+Response[Select Venue, Hire Entertainment] | | |1,7,d
+Response[Send Invitations, Confirm RSVPs] | | |0,14,d
+Precedence[Conduct Event, Setup Audio Equipment] | | |
+Precedence[Conduct Event, Conduct Rehearsal] | | |0,1,d
+Precedence[Conduct Event, Finalize Schedule] |A.Event Status is Planned | |

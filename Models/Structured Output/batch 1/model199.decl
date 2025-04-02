@@ -1,0 +1,32 @@
+activity Submit Release Request
+activity Review Release Request
+activity Approve Release
+activity Schedule Release
+activity Deploy Release
+activity Perform Post-Deployment Testing
+activity Document Release
+activity Notify Stakeholders
+bind Submit Release Request: Request ID, Request Status
+bind Review Release Request: Request Status
+bind Approve Release: Request Status
+bind Schedule Release: Scheduled Date, Release Version
+bind Deploy Release: Release Version
+bind Perform Post-Deployment Testing: Test Result
+bind Notify Stakeholders: Stakeholder Count
+Request ID: integer between 1 and 10000
+Request Status: Pending, Reviewed, Approved, Rejected
+Release Version: float between 0.1 and 10.0
+Release Priority: Low, Medium, High
+Scheduled Date: integer between 1 and 31
+Test Result: Pass, Fail
+Stakeholder Count: integer between 1 and 100
+Existence[Submit Release Request] | |
+Precedence[Review Release Request, Submit Release Request] | | |
+Response[Approve Release, Schedule Release] | | |
+Chain Response[Deploy Release, Perform Post-Deployment Testing] | | |0,2,h
+Response[Perform Post-Deployment Testing, Notify Stakeholders] |A.Test Result is Fail | |0,1,d
+Chain Succession[Schedule Release, Deploy Release] | |A.Release Version == T.Release Version |0,1,d
+Exactly[Approve Release] | |
+Not Co-Existence[Approve Release, Review Release Request] |A.Request Status is Approved |T.Request Status is Rejected |
+Choice[Deploy Release, Notify Stakeholders] | | |
+End[Notify Stakeholders] | |

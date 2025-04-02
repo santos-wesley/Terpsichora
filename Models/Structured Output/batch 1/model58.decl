@@ -1,0 +1,36 @@
+activity Conduct Survey
+activity Analyze Data
+activity Develop Intervention
+activity Implement Intervention
+activity Monitor Impact
+activity Report Findings
+activity Review Literature
+activity Select Participants
+activity Prepare Materials
+activity Conduct Interviews
+bind Conduct Survey: Survey Responses, Survey Type
+bind Analyze Data: Data Analysis Method
+bind Develop Intervention: Intervention Type, Budget
+bind Implement Intervention: Participant Group
+bind Monitor Impact: Impact Score
+bind Conduct Interviews: Interview Duration
+Survey Responses: integer between 50 and 5000
+Impact Score: float between 0.0 and 10.0
+Intervention Type: Educational, Technological, Behavioral
+Participant Group: Control, Experimental
+Interview Duration: integer between 10 and 120
+Budget: float between 1000.0 and 50000.0
+Data Analysis Method: Qualitative, Quantitative
+Literature Reviewed: integer between 5 and 100
+Survey Type: Online, Paper
+Response Rate: float between 0.0 and 100.0
+Init[Review Literature] | |
+Existence[Conduct Survey] | |
+Precedence[Analyze Data, Conduct Survey] | | |
+Precedence[Implement Intervention, Develop Intervention] | | |
+Response[Implement Intervention, Monitor Impact] | | |0,2,d
+Response[Monitor Impact, Report Findings] | | |0,1,d
+Responded Existence[Conduct Interviews, Implement Intervention] |A.Participant Group is Experimental | |
+Co-Existence[Conduct Survey, Analyze Data] |A.Survey Type is Online |A.Data Analysis Method is Quantitative |
+Precedence[Develop Intervention, Implement Intervention] |A.Intervention Type is Technological |A.Budget > 10000 |
+End[Report Findings] | |

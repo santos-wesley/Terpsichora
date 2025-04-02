@@ -1,0 +1,36 @@
+activity Receive Shipment
+activity Inspect Goods
+activity Store Goods
+activity Update Inventory
+activity Process Order
+activity Pick Goods
+activity Pack Goods
+activity Dispatch Order
+activity Perform Stock Audit
+activity Generate Inventory Report
+bind Receive Shipment: Quantity, Item Value, Condition
+bind Inspect Goods: Inspection Result
+bind Store Goods: Storage Location
+bind Process Order: Order Status, Discount Rate
+bind Dispatch Order: Shipping Cost
+bind Perform Stock Audit: Audit Frequency
+Quantity: integer between 1 and 1000
+Item Value: float between 0.01 and 10000.0
+Condition: New, Damaged, Refurbished
+Order Status: Pending, Processed, Shipped, Delivered
+Audit Frequency: integer between 1 and 365
+Storage Location: Aisle 1, Aisle 2, Aisle 3, Aisle 4
+Discount Rate: float between 0.0 and 0.5
+Lead Time: integer between 1 and 30
+Inspection Result: Passed, Failed
+Shipping Cost: float between 0.0 and 500.0
+Init[Receive Shipment] | |
+End[Generate Inventory Report] | |
+Existence[Perform Stock Audit] | |
+Chain Succession[Receive Shipment, Inspect Goods] | | |0,5,m
+Response[Inspect Goods, Store Goods] |A.Inspection Result is Passed | |0,1,h
+Precedence[Process Order, Update Inventory] | | |
+Chain Response[Pack Goods, Dispatch Order] | | |0,2,d
+Response[Dispatch Order, Process Order] | |T.Order Status is Shipped |0,1,d
+Co-Existence[Perform Stock Audit, Generate Inventory Report] | | |
+Not Precedence[Store Goods, Receive Shipment] | |A.Condition is Damaged |

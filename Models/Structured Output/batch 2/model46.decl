@@ -1,0 +1,50 @@
+activity Assess Supplier Sustainability
+activity Negotiate Supplier Contract
+activity Place Purchase Order
+activity Receive Goods
+activity Inspect Goods Quality
+activity Approve Goods
+activity Reject Goods
+activity Process Payment
+activity Monitor Supplier Performance
+activity Review Sustainability Report
+activity Conduct Supplier Audit
+activity Update Supplier Scorecard
+activity Initiate Return Process
+activity Finalize Return Process
+activity Evaluate Supply Chain Impact
+bind Assess Supplier Sustainability: Sustainability Score
+bind Negotiate Supplier Contract: Contract Status
+bind Place Purchase Order: Order Value
+bind Inspect Goods Quality: Goods Quality
+bind Process Payment: Payment Status
+bind Conduct Supplier Audit: Audit Score
+bind Initiate Return Process: Return Status
+bind Evaluate Supply Chain Impact: Impact Score
+bind Monitor Supplier Performance: Supplier Performance
+bind Review Sustainability Report: Audit Compliance
+Sustainability Score: integer between 1 and 100
+Order Value: float between 100.0 and 100000.0
+Contract Status: Draft, Finalized, Terminated
+Goods Quality: Accepted, Rejected
+Payment Status: Pending, Completed, Failed
+Audit Score: integer between 0 and 100
+Return Status: Initiated, In Progress, Completed
+Impact Score: float between 0.0 and 10.0
+Supplier Performance: Excellent, Good, Average, Poor
+Audit Compliance: Compliant, Non-Compliant
+Init[Assess Supplier Sustainability] | |
+End[Evaluate Supply Chain Impact] | |
+Response[Negotiate Supplier Contract, Place Purchase Order] | | |0,2,d
+Chain Response[Receive Goods, Inspect Goods Quality] | | |0,48,h
+Response[Approve Goods, Process Payment] |A.Goods Quality is Accepted | |0,5,d
+Response[Reject Goods, Initiate Return Process] |A.Goods Quality is Rejected | |0,3,d
+Precedence[Conduct Supplier Audit, Review Sustainability Report] | | |
+Co-Existence[Monitor Supplier Performance, Update Supplier Scorecard] | | |
+Not Precedence[Finalize Return Process, Initiate Return Process] | | |
+Exclusive Choice[Approve Goods, Reject Goods] | | |
+Existence[Review Sustainability Report] | |
+Exactly[Conduct Supplier Audit] | |
+Not Response[Assess Supplier Sustainability, Negotiate Supplier Contract] |A.Sustainability Score < 50 |T.Contract Status is Finalized |
+Response[Conduct Supplier Audit, Review Sustainability Report] |A.Audit Score < 60 |T.Audit Compliance is Non-Compliant |
+Not Co-Existence[Process Payment, Reject Goods] |A.Order Value > 50000 | |

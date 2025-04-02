@@ -1,0 +1,30 @@
+activity Conduct Habitat Survey
+activity Analyze Population Data
+activity Develop Conservation Plan
+activity Implement Conservation Actions
+activity Monitor Species Recovery
+activity Assess Environmental Impact
+activity Review Conservation Plan
+activity Report Findings
+bind Conduct Habitat Survey: Survey Area
+bind Analyze Population Data: Population Growth Rate
+bind Develop Conservation Plan: Conservation Status
+bind Assess Environmental Impact: Impact Level
+bind Implement Conservation Actions: Budget Allocation
+bind Monitor Species Recovery: Recovery Time
+Survey Area: integer between 1 and 1000
+Population Growth Rate: float between -1.0 and 1.0
+Conservation Status: Endangered, Vulnerable, Stable, Increasing
+Impact Level: Low, Moderate, High
+Budget Allocation: float between 0.1 and 50.0
+Recovery Time: integer between 1 and 50
+Existence[Conduct Habitat Survey] | |
+Exactly[Develop Conservation Plan] | |
+Response[Analyze Population Data, Develop Conservation Plan] |A.Population Growth Rate < 0 | |0,7,d
+Succession[Develop Conservation Plan, Implement Conservation Actions] |A.Conservation Status in (Endangered, Vulnerable) | |0,30,d
+Chain Succession[Implement Conservation Actions, Monitor Species Recovery] |A.Budget Allocation > 1.0 | |0,365,d
+Response[Assess Environmental Impact, Review Conservation Plan] |A.Impact Level is High | |0,14,d
+Response[Monitor Species Recovery, Report Findings] |A.Recovery Time <= 5 | |0,30,d
+Not Co-Existence[Conduct Habitat Survey, Assess Environmental Impact] | | |
+Exclusive Choice[Conduct Habitat Survey, Assess Environmental Impact] | | |
+Responded Existence[Develop Conservation Plan, Review Conservation Plan] |A.Conservation Status not in (Stable, Increasing) | |

@@ -1,0 +1,50 @@
+activity Prepare Financial Report
+activity Conduct Earnings Call
+activity Distribute Press Release
+activity Update Investor Presentation
+activity Schedule Investor Meeting
+activity Conduct Investor Meeting
+activity Gather Investor Feedback
+activity Analyze Market Trends
+activity Review Regulatory Filings
+activity Prepare Annual Report
+activity Approve Financial Statements
+activity Monitor Stock Performance
+activity Draft CEO Letter
+activity Organize Roadshow
+activity Evaluate Investor Relations Strategy
+bind Prepare Financial Report: Report Year, Earnings Per Share
+bind Conduct Earnings Call: Earnings Per Share
+bind Distribute Press Release: Press Release Type
+bind Schedule Investor Meeting: Meeting Type, Number of Investors
+bind Conduct Investor Meeting: Meeting Type, Number of Investors
+bind Gather Investor Feedback: Feedback Score
+bind Analyze Market Trends: Market Trend
+bind Approve Financial Statements: Approval Status
+bind Monitor Stock Performance: Stock Price
+bind Prepare Annual Report: Annual Revenue
+Report Year: integer between 2000 and 2100
+Earnings Per Share: float between 0.01 and 100.0
+Meeting Type: Annual, Quarterly, Special
+Market Trend: Bullish, Bearish, Neutral
+Number of Investors: integer between 1 and 1000
+Stock Price: float between 0.01 and 1000.0
+Approval Status: Pending, Approved, Rejected
+Feedback Score: integer between 1 and 10
+Press Release Type: Earnings, Merger, Product Launch
+Annual Revenue: float between 10000.0 and 100000000.0
+Init[Prepare Financial Report] | |
+End[Gather Investor Feedback] | |
+Existence[Conduct Earnings Call] | |
+Absence2[Distribute Press Release] | |
+Exactly[Schedule Investor Meeting] | |
+Response[Schedule Investor Meeting, Conduct Investor Meeting] | | |0,2,d
+Precedence[Conduct Earnings Call, Prepare Financial Report] | | |
+Co-Existence[Conduct Investor Meeting, Gather Investor Feedback] | | |
+Succession[Approve Financial Statements, Distribute Press Release] | |A.Approval Status is Approved |0,48,h
+Precedence[Organize Roadshow, Analyze Market Trends] | | |
+Chain Response[Prepare Annual Report, Draft CEO Letter] | | |0,24,h
+Not Chain Succession[Monitor Stock Performance, Evaluate Investor Relations Strategy] | | |
+Chain Succession[Schedule Investor Meeting, Conduct Investor Meeting] | |A.Meeting Type == T.Meeting Type |
+Not Responded Existence[Distribute Press Release, Analyze Market Trends] |A.Press Release Type is Merger |T.Market Trend is Bearish |
+Exclusive Choice[Prepare Financial Report, Prepare Annual Report] | | |

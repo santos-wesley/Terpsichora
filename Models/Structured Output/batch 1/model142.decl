@@ -1,0 +1,29 @@
+activity Submit Claim
+activity Review Claim
+activity Approve Claim
+activity Reject Claim
+activity Request Additional Information
+activity Receive Additional Information
+activity Process Payment
+activity Notify Claimant
+bind Submit Claim: Claim Amount, Claim Status
+bind Review Claim: Claim Status
+bind Request Additional Information: Information Status
+bind Receive Additional Information: Information Status
+bind Process Payment: Payment Amount
+bind Notify Claimant: Notification Type
+Claim Amount: integer between 100 and 1000000
+Claim Status: Pending, Approved, Rejected
+Information Status: Requested, Received, Not Required
+Payment Amount: float between 0.0 and 1000000.0
+Notification Type: Approval, Rejection, Information Request
+Init[Submit Claim] | |
+Existence[Review Claim] | |
+Response[Request Additional Information, Receive Additional Information] |A.Information Status is Requested |A.Information Status == T.Information Status |5,10,d
+Precedence[Approve Claim, Review Claim] |A.Claim Status is Approved |A.Claim Status == T.Claim Status |
+Precedence[Reject Claim, Review Claim] |A.Claim Status is Rejected |A.Claim Status == T.Claim Status |
+Response[Approve Claim, Process Payment] |A.Claim Status is Approved | |2,5,d
+Chain Response[Reject Claim, Notify Claimant] |A.Claim Status is Rejected |T.Notification Type is Rejection |
+Response[Receive Additional Information, Review Claim] |A.Information Status is Received | |1,3,d
+Choice[Approve Claim, Reject Claim] | | |
+Exactly[Process Payment] | |

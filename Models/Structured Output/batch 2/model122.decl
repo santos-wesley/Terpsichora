@@ -1,0 +1,48 @@
+activity Request Maintenance
+activity Approve Request
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Inspect Facility
+activity Close Request
+activity Record Maintenance Cost
+activity Notify Stakeholders
+activity Evaluate Contractor
+activity Update Maintenance Log
+activity Order Supplies
+activity Receive Supplies
+activity Assign Contractor
+activity Review Maintenance Plan
+activity Authorize Payment
+bind Request Maintenance: Request ID, Request Status
+bind Approve Request: Request Status
+bind Perform Maintenance: Maintenance Type, Contractor ID
+bind Inspect Facility: Inspection Score
+bind Record Maintenance Cost: Maintenance Cost
+bind Order Supplies: Supply Quantity, Supply Status
+bind Authorize Payment: Payment Status
+bind Evaluate Contractor: Contractor Rating
+Request ID: integer between 1 and 10000
+Request Status: Pending, Approved, Rejected
+Maintenance Cost: float between 0.0 and 10000.0
+Contractor Rating: Excellent, Good, Average, Poor
+Supply Quantity: integer between 1 and 1000
+Supply Status: Ordered, Received, Pending
+Inspection Score: float between 0.0 and 10.0
+Maintenance Type: Routine, Emergency, Upgrade
+Contractor ID: integer between 1 and 500
+Payment Status: Authorized, Pending, Completed
+Init[Request Maintenance] | |
+Existence[Request Maintenance] | |
+Exactly[Close Request] | |
+Response[Approve Request, Schedule Maintenance] | | |0,2,d
+Chain Response[Perform Maintenance, Inspect Facility] | | |0,48,h
+Succession[Order Supplies, Receive Supplies] | | |0,5,d
+Responded Existence[Perform Maintenance, Record Maintenance Cost] | | |
+Precedence[Evaluate Contractor, Perform Maintenance] | | |
+Co-Existence[Notify Stakeholders, Close Request] | | |
+Not Precedence[Close Request, Approve Request] | | |
+Not Chain Precedence[Close Request, Approve Request] | | |
+Precedence[Schedule Maintenance, Approve Request] | | |
+Precedence[Perform Maintenance, Approve Request] | | |
+Precedence[Order Supplies, Approve Request] | | |
+Precedence[Assign Contractor, Approve Request] | | |0,1,d

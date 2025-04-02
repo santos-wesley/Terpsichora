@@ -1,0 +1,33 @@
+activity Initiate Quantum Key Distribution
+activity Perform Quantum Encryption
+activity Validate Quantum Keys
+activity Monitor Quantum Channels
+activity Detect Quantum Intrusion
+activity Respond to Quantum Threat
+activity Audit Quantum Security Measures
+activity Update Quantum Security Protocols
+activity Terminate Quantum Session
+bind Initiate Quantum Key Distribution: Key Length
+bind Perform Quantum Encryption: Encryption Strength
+bind Monitor Quantum Channels: Channel Status
+bind Detect Quantum Intrusion: Intrusion Type
+bind Respond to Quantum Threat: Threat Level
+bind Audit Quantum Security Measures: Audit Result
+bind Update Quantum Security Protocols: Protocol Version
+Key Length: integer between 128 and 512
+Encryption Strength: float between 1.0 and 10.0
+Channel Status: Active, Inactive, Compromised
+Intrusion Type: Eavesdropping, Man-in-the-Middle, None
+Threat Level: integer between 1 and 5
+Audit Result: Pass, Fail
+Protocol Version: float between 1.0 and 5.0
+Init[Initiate Quantum Key Distribution] | |
+End[Terminate Quantum Session] | |
+Existence[Perform Quantum Encryption] | |
+Response[Detect Quantum Intrusion, Respond to Quantum Threat] |A.Intrusion Type in (Eavesdropping, Man-in-the-Middle) |A.Threat Level >= 3 |2,5,m
+Response[Monitor Quantum Channels, Detect Quantum Intrusion] |A.Channel Status is Compromised | |0,10,m
+Precedence[Perform Quantum Encryption, Initiate Quantum Key Distribution] |A.Key Length >= 256 | |
+Chain Response[Update Quantum Security Protocols, Audit Quantum Security Measures] |A.Protocol Version > 3.0 | |0,1,d
+Co-Existence[Perform Quantum Encryption, Initiate Quantum Key Distribution] | | |
+Not Chain Succession[Perform Quantum Encryption, Terminate Quantum Session] |A.Encryption Strength > 5.0 | |
+Exclusive Choice[Detect Quantum Intrusion, Respond to Quantum Threat] | | |

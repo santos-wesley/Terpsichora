@@ -1,0 +1,49 @@
+activity Define Event Goals
+activity Select Venue
+activity Create Budget
+activity Invite Speakers
+activity Design Event Program
+activity Promote Event
+activity Register Attendees
+activity Arrange Catering
+activity Setup Venue
+activity Conduct Event
+activity Collect Feedback
+activity Evaluate Success
+activity Send Thank You Notes
+activity Close Budget
+activity Document Event
+bind Define Event Goals: Event Type
+bind Select Venue: Venue Type
+bind Create Budget: Budget Amount
+bind Invite Speakers: Speakers Invited
+bind Promote Event: Promotion Channel
+bind Register Attendees: Expected Attendees, Registration Fee
+bind Arrange Catering: Catering Type
+bind Collect Feedback: Feedback Type
+bind Conduct Event: Days Duration
+Expected Attendees: integer between 50 and 5000
+Budget Amount: float between 1000.0 and 100000.0
+Venue Type: Indoor, Outdoor, Virtual
+Catering Type: Buffet, Plated, Cocktail
+Promotion Channel: Social Media, Email, Flyers
+Speakers Invited: integer between 1 and 50
+Feedback Type: Survey, Interview, Feedback Form
+Registration Fee: float between 0.0 and 500.0
+Event Type: Conference, Workshop, Seminar
+Days Duration: integer between 1 and 7
+Init[Define Event Goals] | |
+End[Document Event] | |
+Existence[Promote Event] | |
+Exactly[Create Budget] | |
+Precedence[Conduct Event, Select Venue] | | |
+Response[Invite Speakers, Design Event Program] | | |0,2,d
+Precedence[Setup Venue, Arrange Catering] | | |
+Precedence[Collect Feedback, Conduct Event] | | |0,1,d
+Chain Succession[Define Event Goals, Conduct Event] |A.Event Type is Conference |A.Event Type == T.Event Type |
+Responded Existence[Promote Event, Register Attendees] |A.Promotion Channel is Social Media |T.Registration Fee < 100 |
+Not Co-Existence[Collect Feedback, Define Event Goals] |A.Feedback Type is Survey |T.Event Type is Seminar |
+Chain Precedence[Invite Speakers, Select Venue] |A.Speakers Invited > 5 |T.Venue Type is Indoor |0,3,d
+Precedence[Promote Event, Register Attendees] | | |0,7,d
+Response[Close Budget, Create Budget] | |A.Budget Amount == T.Budget Amount |
+Succession[Document Event, Send Thank You Notes] | | |

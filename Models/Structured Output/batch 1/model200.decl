@@ -1,0 +1,40 @@
+activity Book Venue
+activity Send Invitations
+activity Arrange Catering
+activity Hire Entertainment
+activity Decorate Venue
+activity Confirm RSVPs
+activity Conduct Rehearsal
+activity Finalize Schedule
+activity Setup Audio Equipment
+activity Conduct Event
+bind Book Venue: Venue Type, Budget
+bind Send Invitations: Guest Count
+bind Arrange Catering: Catering Type, Budget
+bind Hire Entertainment: Entertainment Type, Budget
+bind Decorate Venue: Decoration Cost
+bind Confirm RSVPs: RSVP Count
+bind Conduct Rehearsal: Rehearsal Duration
+bind Finalize Schedule: Schedule Status
+bind Setup Audio Equipment: Audio Equipment Type
+bind Conduct Event: Schedule Status
+Guest Count: integer between 10 and 500
+Budget: float between 1000.0 and 100000.0
+Venue Type: Indoor, Outdoor
+Catering Type: Buffet, Sit-down, Cocktail
+Entertainment Type: Band, DJ, Speaker
+RSVP Count: integer between 0 and 500
+Decoration Cost: float between 100.0 and 10000.0
+Audio Equipment Type: Basic, Advanced
+Rehearsal Duration: integer between 30 and 240
+Schedule Status: Draft, Finalized
+Init[Book Venue] | |
+End[Conduct Event] | |
+Existence[Send Invitations] | |
+Precedence[Arrange Catering, Book Venue] | | |
+Chain Succession[Book Venue, Decorate Venue] | | |0,2,d
+Precedence[Conduct Event, Hire Entertainment] | | |
+Precedence[Finalize Schedule, Confirm RSVPs] | | |
+Precedence[Conduct Event, Finalize Schedule] | | |
+Precedence[Conduct Event, Setup Audio Equipment] | | |
+Chain Response[Finalize Schedule, Conduct Rehearsal] | | |0,48,h

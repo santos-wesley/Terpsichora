@@ -1,0 +1,40 @@
+activity Monitor Entrance
+activity Conduct Patrol
+activity Check Identification
+activity Respond to Alarm
+activity Lock Doors
+activity Report Incident
+activity Review Surveillance Footage
+activity Escort Visitor
+activity Conduct Drill
+activity Inspect Equipment
+bind Monitor Entrance: Identification Status
+bind Conduct Patrol: Patrol Frequency
+bind Check Identification: Visitor ID, Identification Status
+bind Respond to Alarm: Response Time, Alarm Type
+bind Lock Doors: 
+bind Report Incident: Incident Severity
+bind Review Surveillance Footage: Footage Review Duration
+bind Escort Visitor: Visitor ID, Visitor Escort Duration
+bind Conduct Drill: Drill Participants
+bind Inspect Equipment: Equipment Status
+Visitor ID: integer between 1 and 1000
+Response Time: float between 0.1 and 60.0
+Alarm Type: Fire, Intrusion, Medical
+Identification Status: Verified, Not Verified
+Patrol Frequency: integer between 1 and 10
+Incident Severity: Low, Medium, High
+Footage Review Duration: float between 0.5 and 5.0
+Drill Participants: integer between 10 and 500
+Equipment Status: Operational, Faulty
+Visitor Escort Duration: float between 1.0 and 30.0
+Init[Monitor Entrance] | |
+End[Lock Doors] | |
+Existence3[Conduct Patrol] | |
+Response[Respond to Alarm, Report Incident] | | |0,2,h
+Precedence[Escort Visitor, Check Identification] | |A.Visitor ID == T.Visitor ID |
+Responded Existence[Review Surveillance Footage, Report Incident] |A.Footage Review Duration > 1.0 | |
+Not Co-Existence[Conduct Drill, Inspect Equipment] | | |
+Alternate Succession[Conduct Patrol, Monitor Entrance] |A.Patrol Frequency >= 2 | |0,1,h
+Chain Response[Respond to Alarm, Lock Doors] |A.Alarm Type is Intrusion |A.Response Time < 5.0 |0,10,m
+Choice[Monitor Entrance, Conduct Patrol] | | |

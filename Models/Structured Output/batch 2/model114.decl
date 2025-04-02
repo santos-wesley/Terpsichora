@@ -1,0 +1,36 @@
+activity Conduct Artifact Analysis
+activity Organize Exhibition
+activity Acquire New Artifact
+activity Restore Artifact
+activity Catalog Artifact
+activity Conduct Guided Tour
+activity Evaluate Exhibition Feedback
+activity Approve Exhibition Plan
+activity Conduct Research
+activity Host Educational Workshop
+bind Conduct Artifact Analysis: Artifact Age, Artifact Value
+bind Organize Exhibition: Exhibition Status
+bind Conduct Guided Tour: Tour Type, Visitor Count
+bind Evaluate Exhibition Feedback: Feedback Rating
+Artifact Age: integer between 0 and 5000
+Artifact Value: float between 100.0 and 1000000.0
+Artifact Condition: Excellent, Good, Fair, Poor
+Exhibition Status: Planned, Ongoing, Completed
+Tour Type: General, Specialized, VIP
+Visitor Count: integer between 0 and 1000
+Feedback Rating: float between 1.0 and 5.0
+Init[Conduct Artifact Analysis] | |
+End[Evaluate Exhibition Feedback] | |
+Existence[Conduct Artifact Analysis] | |
+Response[Organize Exhibition, Conduct Guided Tour] | |A.Exhibition Status is Completed |0,2,d
+Precedence[Restore Artifact, Conduct Artifact Analysis] | |A.Artifact Age > 100 |
+Co-Existence[Conduct Guided Tour, Host Educational Workshop] | | |
+Precedence[Organize Exhibition, Approve Exhibition Plan] | | |0,48,h
+Not Co-Existence[Conduct Research, Acquire New Artifact] | | |
+Not Chain Succession[Conduct Guided Tour, Conduct Guided Tour] | | |10,15,m
+Succession[Conduct Artifact Analysis, Catalog Artifact] | |A.Artifact Value > 500 |
+Response[Conduct Research, Host Educational Workshop] | | |0,5,d
+Not Succession[Restore Artifact, Organize Exhibition] | | |
+Response[Conduct Guided Tour, Evaluate Exhibition Feedback] | |A.Visitor Count > 50 |0,1,d
+Response[Acquire New Artifact, Conduct Artifact Analysis] | | |0,3,d
+Not Co-Existence[Approve Exhibition Plan, Restore Artifact] | | |

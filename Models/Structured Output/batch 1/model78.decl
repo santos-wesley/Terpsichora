@@ -1,0 +1,34 @@
+activity Submit Budget Proposal
+activity Review Budget Proposal
+activity Approve Budget
+activity Allocate Funds
+activity Monitor Expenditure
+activity Conduct Audit
+activity Generate Financial Report
+activity Submit Financial Report
+bind Submit Budget Proposal: Proposal ID, Budget Amount
+bind Review Budget Proposal: Proposal ID, Approval Status
+bind Allocate Funds: Department
+bind Monitor Expenditure: Expenditure ID, Expenditure Amount
+bind Conduct Audit: Audit Status
+bind Generate Financial Report: Report ID
+bind Submit Financial Report: Report Status
+Proposal ID: integer between 1 and 10000
+Budget Amount: float between 1000.0 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Department: Health, Education, Infrastructure, Defense
+Expenditure ID: integer between 1 and 5000
+Expenditure Amount: float between 100.0 and 500000.0
+Audit Status: Not Started, In Progress, Completed
+Report ID: integer between 1 and 2000
+Report Status: Draft, Submitted, Reviewed
+Init[Submit Budget Proposal] | |
+Existence[Review Budget Proposal] | |
+Precedence[Approve Budget, Review Budget Proposal] |A.Approval Status is Approved |A.Proposal ID == T.Proposal ID |
+Response[Approve Budget, Allocate Funds] | | |0,2,d
+Succession[Allocate Funds, Monitor Expenditure] | | |0,5,d
+Response[Monitor Expenditure, Conduct Audit] | | |0,10,d
+Response[Conduct Audit, Generate Financial Report] |A.Audit Status is Completed | |0,3,d
+Chain Succession[Generate Financial Report, Submit Financial Report] | |A.Report ID == T.Report ID |0,1,d
+End[Submit Financial Report] | |
+Not Co-Existence[Submit Budget Proposal, Submit Financial Report] | | |

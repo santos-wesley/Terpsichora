@@ -1,0 +1,32 @@
+activity Acquire Land
+activity Design Building
+activity Obtain Permits
+activity Construct Building
+activity Inspect Construction
+activity Market Property
+activity Sell Property
+activity Lease Property
+bind Acquire Land: Land Size
+bind Design Building: Building Cost
+bind Obtain Permits: Permit Status
+bind Inspect Construction: Construction Quality
+bind Market Property: Market Value
+bind Sell Property: Sale Status
+bind Lease Property: Lease Status
+Land Size: integer between 1000 and 10000
+Building Cost: float between 0.5 and 50.0
+Permit Status: Pending, Approved, Rejected
+Construction Quality: Poor, Average, Good, Excellent
+Market Value: float between 1.0 and 100.0
+Sale Status: Not Started, In Progress, Completed
+Lease Status: Not Started, In Progress, Completed
+Init[Acquire Land] | |
+End[Sell Property] | |
+Precedence[Construct Building, Obtain Permits] | |A.Permit Status is Approved |
+Chain Response[Construct Building, Inspect Construction] | | |0,48,h
+Response[Inspect Construction, Market Property] |A.Construction Quality in (Good, Excellent) | |0,5,d
+Exclusive Choice[Sell Property, Lease Property] | | |
+Response[Market Property, Sell Property] | | |0,30,d
+Precedence[Obtain Permits, Design Building] | | |
+Existence[Construct Building] | |
+Existence[Market Property] | |

@@ -1,0 +1,40 @@
+activity Submit Declaration
+activity Inspect Goods
+activity Approve Declaration
+activity Request Additional Documents
+activity Calculate Duties
+activity Pay Duties
+activity Release Goods
+activity Flag for Review
+activity Issue Fine
+activity Close Case
+bind Submit Declaration: Declaration ID, Declaration Status
+bind Inspect Goods: Inspection Result
+bind Approve Declaration: Declaration Status
+bind Request Additional Documents: Declaration ID
+bind Calculate Duties: Goods Value, Duty Amount
+bind Pay Duties: Duty Amount, Payment Status
+bind Release Goods: Declaration Status
+bind Flag for Review: Review Flag
+bind Issue Fine: Fine Status
+bind Close Case: Case ID, Case Status
+Declaration ID: integer between 1 and 1000000
+Goods Value: float between 0.01 and 1000000.0
+Declaration Status: Submitted, Approved, Pending, Rejected
+Inspection Result: Pass, Fail
+Duty Amount: integer between 0 and 100000
+Payment Status: Paid, Unpaid
+Review Flag: Yes, No
+Fine Status: Issued, Not Issued
+Case ID: integer between 1 and 1000000
+Case Status: Open, Closed
+Existence[Submit Declaration] | |
+End[Close Case] | |
+Precedence[Release Goods, Inspect Goods] | | |
+Response[Flag for Review, Request Additional Documents] | | |0,2,d
+Precedence[Approve Declaration, Submit Declaration] | | |
+Response[Calculate Duties, Pay Duties] | | |0,48,h
+Not Co-Existence[Issue Fine, Inspect Goods] | |A.Inspection Result is Pass |
+Response[Approve Declaration, Release Goods] | | |0,24,h
+Precedence[Flag for Review, Submit Declaration] | | |
+Exactly[Pay Duties] | |

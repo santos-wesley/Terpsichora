@@ -1,0 +1,49 @@
+activity Assess Workstation
+activity Design Ergonomic Solution
+activity Implement Solution
+activity Conduct Training
+activity Evaluate Solution Effectiveness
+activity Adjust Workstation
+activity Perform Risk Assessment
+activity Review Ergonomic Standards
+activity Approve Ergonomic Plan
+activity Monitor Workstation Usage
+activity Collect Employee Feedback
+activity Update Ergonomic Policies
+activity Inspect Equipment
+activity Report Ergonomic Issues
+activity Schedule Follow-up Assessment
+bind Assess Workstation: Risk Level
+bind Design Ergonomic Solution: Solution Cost
+bind Implement Solution: Approval Status
+bind Conduct Training: Training Type, Training Duration
+bind Evaluate Solution Effectiveness: Feedback Score
+bind Adjust Workstation: Adjustment Time
+bind Inspect Equipment: Equipment Condition
+bind Review Ergonomic Standards: Compliance Score
+bind Report Ergonomic Issues: Issue Severity
+Risk Level: integer between 1 and 10
+Solution Cost: float between 100.0 and 10000.0
+Approval Status: Pending, Approved, Rejected
+Training Type: Online, In-Person
+Feedback Score: integer between 1 and 5
+Adjustment Time: float between 0.5 and 8.0
+Equipment Condition: Good, Needs Repair, Replace
+Compliance Score: integer between 0 and 100
+Issue Severity: Low, Medium, High
+Training Duration: float between 1.0 and 4.0
+Init[Assess Workstation] | |
+End[Schedule Follow-up Assessment] | |
+Existence[Conduct Training] | |
+Exactly[Review Ergonomic Standards] | |
+Response[Design Ergonomic Solution, Implement Solution] | | |0,2,d
+Precedence[Assess Workstation, Perform Risk Assessment] | | |
+Chain Response[Adjust Workstation, Evaluate Solution Effectiveness] | | |0,8,h
+Co-Existence[Monitor Workstation Usage, Collect Employee Feedback] | | |
+Not Co-Existence[Inspect Equipment, Report Ergonomic Issues] | | |
+Precedence[Approve Ergonomic Plan, Review Ergonomic Standards] | | |
+Response[Conduct Training, Update Ergonomic Policies] | | |0,5,d
+Chain Response[Adjust Workstation, Evaluate Solution Effectiveness] | | |0,8,h
+Responded Existence[Assess Workstation, Design Ergonomic Solution] |A.Risk Level > 5 | |
+Response[Implement Solution, Evaluate Solution Effectiveness] |A.Approval Status is Approved | |0,2,d
+Exclusive Choice[Conduct Training, Collect Employee Feedback] | | |

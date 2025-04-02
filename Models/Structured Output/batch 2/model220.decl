@@ -1,0 +1,55 @@
+activity Identify Risk
+activity Assess Risk
+activity Mitigate Risk
+activity Monitor Risk
+activity Review Governance Policy
+activity Update Governance Policy
+activity Approve Governance Changes
+activity Conduct Risk Audit
+activity Report Risk Findings
+activity Evaluate Risk Controls
+activity Implement Risk Controls
+activity Review Risk Controls
+activity Conduct Governance Training
+activity Evaluate Governance Training
+activity Report Governance Compliance
+bind Identify Risk: Risk Status
+bind Assess Risk: Risk Level, Impact Value
+bind Mitigate Risk: Mitigation Cost
+bind Monitor Risk: Risk Status
+bind Review Governance Policy: Governance Status
+bind Update Governance Policy: Governance Status
+bind Approve Governance Changes: Approval Status
+bind Conduct Risk Audit: Audit Score
+bind Report Risk Findings: Risk Status
+bind Evaluate Risk Controls: Control Effectiveness
+bind Implement Risk Controls: Control Effectiveness
+bind Review Risk Controls: Control Effectiveness
+bind Conduct Governance Training: Training Status
+bind Evaluate Governance Training: Training Status
+bind Report Governance Compliance: Compliance Rate
+Risk Level: integer between 1 and 5
+Impact Value: float between 1000.0 and 100000.0
+Risk Status: Identified, Assessed, Mitigated, Monitored
+Governance Status: Reviewed, Updated, Approved
+Audit Score: integer between 0 and 100
+Control Effectiveness: float between 0.0 and 100.0
+Training Status: Scheduled, Conducted, Evaluated
+Compliance Rate: integer between 0 and 100
+Mitigation Cost: float between 500.0 and 50000.0
+Approval Status: Pending, Approved, Rejected
+Init[Identify Risk] | |
+End[Report Governance Compliance] | |
+Existence[Assess Risk] | |
+Absence3[Update Governance Policy] | |
+Chain Succession[Mitigate Risk, Monitor Risk] | | |0,2,d
+Response[Conduct Risk Audit, Report Risk Findings] | | |
+Chain Response[Review Governance Policy, Update Governance Policy] | | |0,48,h
+Precedence[Evaluate Risk Controls, Implement Risk Controls] | | |
+Co-Existence[Conduct Governance Training, Evaluate Governance Training] | | |
+Not Chain Succession[Approve Governance Changes, Review Governance Policy] | | |
+Choice[Identify Risk, Assess Risk] | | |
+Not Precedence[Monitor Risk, Mitigate Risk] | | |
+Response[Assess Risk, Mitigate Risk] |A.Risk Level = 5 | |0,5,d
+Responded Existence[Update Governance Policy, Approve Governance Changes] |A.Governance Status is Updated | |
+Not Responded Existence[Conduct Risk Audit, Report Risk Findings] |A.Audit Score > 90 | |

@@ -1,0 +1,47 @@
+activity Conduct Training Session
+activity Distribute Training Materials
+activity Assess Knowledge
+activity Issue Completion Certificate
+activity Review Security Policies
+activity Conduct Phishing Simulation
+activity Analyze Simulation Results
+activity Update Training Content
+activity Schedule Next Training
+activity Gather Feedback
+activity Monitor Compliance
+activity Report Security Incidents
+activity Evaluate Training Effectiveness
+activity Identify High-Risk Employees
+activity Implement Security Measures
+bind Conduct Training Session: Employee ID, Training Duration
+bind Assess Knowledge: Employee ID, Assessment Score
+bind Conduct Phishing Simulation: Employee ID, Phishing Simulation Score
+bind Gather Feedback: Employee ID, Feedback Rating
+bind Report Security Incidents: Employee ID, Incident Severity
+bind Identify High-Risk Employees: High-Risk Employee Count
+bind Implement Security Measures: Security Measure Status
+Employee ID: integer between 1 and 10000
+Assessment Score: float between 0.0 and 100.0
+Training Status: Completed, Pending, Not Started
+Feedback Rating: Excellent, Good, Average, Poor
+Phishing Simulation Score: integer between 0 and 100
+Policy Review Status: Reviewed, Not Reviewed
+Training Duration: float between 1.0 and 8.0
+Incident Severity: Low, Medium, High, Critical
+High-Risk Employee Count: integer between 0 and 500
+Security Measure Status: Implemented, Not Implemented
+Existence[Conduct Training Session] | |
+Init[Conduct Training Session] | |
+Exactly[Distribute Training Materials] | |
+Chain Response[Conduct Training Session, Distribute Training Materials] | | |0,10,m
+Response[Conduct Phishing Simulation, Analyze Simulation Results] | | |0,2,d
+Precedence[Assess Knowledge, Distribute Training Materials] | | |
+Precedence[Issue Completion Certificate, Assess Knowledge] |A.Assessment Score > 70 | |
+Co-Existence[Review Security Policies, Update Training Content] | | |
+Response[Conduct Training Session, Gather Feedback] | | |0,1,d
+Not Chain Response[Conduct Training Session, Report Security Incidents] | | |
+Succession[Identify High-Risk Employees, Implement Security Measures] | | |0,5,d
+Response[Conduct Training Session, Evaluate Training Effectiveness] | | |0,7,d
+Precedence[Schedule Next Training, Gather Feedback] | | |
+Responded Existence[Conduct Training Session, Monitor Compliance] | | |
+Exclusive Choice[Conduct Training Session, Review Security Policies] | | |

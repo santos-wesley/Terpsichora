@@ -1,0 +1,33 @@
+activity Conduct Market Research
+activity Develop Brand Strategy
+activity Design Brand Logo
+activity Launch Marketing Campaign
+activity Monitor Brand Performance
+activity Engage with Customers
+activity Evaluate Brand Impact
+activity Revise Brand Strategy
+bind Conduct Market Research: Research Budget
+bind Develop Brand Strategy: Strategy Effectiveness
+bind Design Brand Logo: Logo Style
+bind Launch Marketing Campaign: Campaign Duration
+bind Engage with Customers: Customer Feedback
+bind Monitor Brand Performance: Brand Awareness, Performance Score
+bind Revise Brand Strategy: Strategy Revision Reason
+Research Budget: integer between 1000 and 50000
+Strategy Effectiveness: float between 0.0 and 1.0
+Logo Style: Modern, Classic, Abstract, Minimalist
+Campaign Duration: integer between 1 and 365
+Customer Feedback: Positive, Neutral, Negative
+Brand Awareness: float between 0.0 and 100.0
+Performance Score: integer between 1 and 10
+Strategy Revision Reason: Low Performance, Customer Feedback, Market Change
+Init[Conduct Market Research] | |
+End[Evaluate Brand Impact] | |
+Chain Succession[Develop Brand Strategy, Design Brand Logo] | | |0,2,d
+Response[Launch Marketing Campaign, Engage with Customers] | | |0,7,d
+Co-Existence[Monitor Brand Performance, Engage with Customers] | | |
+Precedence[Revise Brand Strategy, Develop Brand Strategy] |A.Strategy Effectiveness < 0.5 | |
+Not Responded Existence[Engage with Customers, Revise Brand Strategy] |A.Customer Feedback is Negative |T.Strategy Revision Reason is Low Performance |
+Not Chain Precedence[Design Brand Logo, Design Brand Logo] | |A.Logo Style != T.Logo Style |
+Existence2[Monitor Brand Performance] |A.Brand Awareness > 0 |
+Not Response[Conduct Market Research, Launch Marketing Campaign] |A.Research Budget > 20000 |T.Campaign Duration > 30 |

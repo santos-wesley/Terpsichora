@@ -1,0 +1,38 @@
+activity Plan Sprint
+activity Develop Feature
+activity Code Review
+activity Run Tests
+activity Deploy to Staging
+activity Conduct User Testing
+activity Deploy to Production
+activity Monitor Application
+activity Fix Bugs
+activity Retrospective Meeting
+bind Plan Sprint: Sprint Duration
+bind Develop Feature: Feature Status
+bind Code Review: Review Score
+bind Run Tests: Test Result, Code Coverage
+bind Deploy to Staging: Deployment Status
+bind Conduct User Testing: User Satisfaction
+bind Monitor Application: Monitoring Alert, Response Time
+bind Fix Bugs: Bug Count
+Sprint Duration: integer between 7 and 30
+Code Coverage: float between 0.0 and 100.0
+Deployment Status: Pending, In Progress, Completed, Failed
+Test Result: Passed, Failed
+Bug Count: integer between 0 and 100
+Response Time: float between 0.1 and 10.0
+Feature Status: Not Started, In Progress, Completed
+Review Score: integer between 1 and 5
+User Satisfaction: float between 0.0 and 10.0
+Monitoring Alert: None, Warning, Critical
+Init[Plan Sprint] | |
+End[Retrospective Meeting] | |
+Existence[Code Review] | |
+Response[Develop Feature, Code Review] |A.Feature Status is Completed | |
+Chain Response[Code Review, Run Tests] |A.Review Score >= 3 | |0,5,m
+Precedence[Deploy to Staging, Run Tests] |A.Test Result is Passed | |
+Co-Existence[Conduct User Testing, Monitor Application] | | |
+Not Response[Fix Bugs, Deploy to Production] |A.Bug Count > 0 | |
+Precedence[Deploy to Production, Conduct User Testing] |A.User Satisfaction > 7 | |0,2,d
+Not Co-Existence[Monitor Application, Deploy to Production] |A.Monitoring Alert is Critical |T.Deployment Status is Completed |

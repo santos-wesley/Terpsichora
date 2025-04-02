@@ -1,0 +1,41 @@
+activity Define Research Objectives
+activity Identify Target Audience
+activity Design Survey
+activity Conduct Survey
+activity Collect Data
+activity Analyze Data
+activity Prepare Report
+activity Present Findings
+activity Review Feedback
+activity Revise Report
+bind Define Research Objectives: Budget
+bind Identify Target Audience: Audience Segment
+bind Design Survey: Survey Type
+bind Conduct Survey: Sample Size
+bind Collect Data: Response Rate
+bind Analyze Data: Data Accuracy
+bind Review Feedback: Feedback Type
+bind Revise Report: Report Status
+Sample Size: integer between 50 and 1000
+Budget: float between 1000.0 and 50000.0
+Survey Type: Online, Telephone, In-Person
+Audience Segment: Teens, Adults, Seniors
+Response Rate: integer between 0 and 100
+Data Accuracy: float between 0.0 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Report Status: Draft, Final, Revised
+Init[Define Research Objectives] | |
+End[Present Findings] | |
+Existence[Conduct Survey] | |
+Chain Succession[Design Survey, Collect Data] | | |0,1,h
+Precedence[Analyze Data, Collect Data] | | |
+Response[Analyze Data, Prepare Report] | | |0,2,d
+Exclusive Choice[Review Feedback, Revise Report] | | |
+Responded Existence[Conduct Survey, Collect Data] | | |
+Chain Response[Design Survey, Conduct Survey] |A.Survey Type is Online |A.Survey Type == T.Survey Type |0,1,d
+Precedence[Conduct Survey, Identify Target Audience] | | |
+Succession[Prepare Report, Present Findings] | | |0,3,d
+Response[Review Feedback, Revise Report] |A.Feedback Type is Negative | |
+Precedence[Prepare Report, Analyze Data] |A.Data Accuracy > 90 | |
+Precedence[Collect Data, Conduct Survey] |A.Sample Size >= 100 | |
+Precedence[Define Research Objectives, Define Research Objectives] |A.Budget > 1000 | |

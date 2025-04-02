@@ -1,0 +1,45 @@
+activity Plan Fundraising Event
+activity Identify Sponsors
+activity Contact Sponsors
+activity Design Promotional Material
+activity Launch Marketing Campaign
+activity Sell Tickets
+activity Organize Volunteers
+activity Set Up Venue
+activity Conduct Event
+activity Collect Donations
+activity Thank Sponsors
+activity Evaluate Event Success
+activity Report Financials
+activity Follow Up with Attendees
+activity Close Fundraising Campaign
+bind Identify Sponsors: Sponsor Status
+bind Collect Donations: Donation Amount
+bind Sell Tickets: Ticket Price, Attendee Count
+bind Launch Marketing Campaign: Marketing Channel
+bind Evaluate Event Success: Feedback Rating
+Number of Sponsors: integer between 1 and 100
+Donation Amount: float between 10.0 and 100000.0
+Event Type: Gala, Auction, Concert, Marathon
+Sponsor Status: Contacted, Confirmed, Declined
+Volunteer Count: integer between 5 and 500
+Ticket Price: float between 5.0 and 500.0
+Marketing Channel: Social Media, Email, Print, TV
+Feedback Rating: Excellent, Good, Average, Poor
+Attendee Count: integer between 10 and 1000
+Venue Cost: float between 100.0 and 10000.0
+Init[Plan Fundraising Event] | |
+End[Close Fundraising Campaign] | |
+Existence[Evaluate Event Success] | |
+Absence2[Conduct Event] | |
+Precedence[Thank Sponsors, Contact Sponsors] | |A.Sponsor Status is Confirmed |
+Precedence[Sell Tickets, Launch Marketing Campaign] | |A.Marketing Channel in (Social Media, Email) |
+Chain Precedence[Conduct Event, Set Up Venue] | | |0,2,h
+Chain Response[Conduct Event, Collect Donations] | |A.Donation Amount > 50 |0,3,h
+Precedence[Set Up Venue, Organize Volunteers] | |A.Volunteer Count >= 10 |
+Co-Existence[Plan Fundraising Event, Conduct Event] |A.Event Type is Gala |A.Event Type == T.Event Type |
+Not Chain Succession[Plan Fundraising Event, Conduct Event] | | |
+Response[Evaluate Event Success, Report Financials] |A.Feedback Rating in (Excellent, Good) | |0,5,d
+Choice[Contact Sponsors, Launch Marketing Campaign] | | |
+Exclusive Choice[Plan Fundraising Event, Conduct Event] |A.Event Type in (Concert, Marathon) |A.Event Type != T.Event Type |
+Response[Conduct Event, Follow Up with Attendees] | | |0,7,d

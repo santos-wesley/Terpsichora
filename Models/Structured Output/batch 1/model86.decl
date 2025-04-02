@@ -1,0 +1,37 @@
+activity Initiate Security Audit
+activity Perform Risk Assessment
+activity Implement Security Measures
+activity Monitor System Activity
+activity Respond to Incident
+activity Review Security Policies
+activity Update Security Protocols
+activity Conduct Security Training
+activity Test Security Systems
+bind Initiate Security Audit: Audit Status
+bind Perform Risk Assessment: Risk Level
+bind Implement Security Measures: Mitigation Cost
+bind Monitor System Activity: System Uptime
+bind Respond to Incident: Incident Severity
+bind Review Security Policies: Policy Review Outcome
+bind Update Security Protocols: Protocol Update Status
+bind Conduct Security Training: Training Duration
+bind Test Security Systems: Test Frequency
+Risk Level: integer between 1 and 10
+Mitigation Cost: float between 100.0 and 10000.0
+Incident Severity: Low, Medium, High
+Audit Status: Not Started, In Progress, Completed
+Training Duration: integer between 1 and 8
+System Uptime: float between 0.0 and 100.0
+Policy Review Outcome: Approved, Revised, Rejected
+Test Frequency: integer between 1 and 12
+Protocol Update Status: Pending, In Progress, Completed
+Init[Initiate Security Audit] | |
+Existence[Initiate Security Audit] |A.Audit Status is Completed |
+Precedence[Implement Security Measures, Perform Risk Assessment] | |A.Risk Level > 5 |
+Response[Respond to Incident, Review Security Policies] |A.Incident Severity is High | |0,2,d
+Precedence[Test Security Systems, Conduct Security Training] | |A.Training Duration >= 4 |
+Response[Monitor System Activity, Respond to Incident] |A.System Uptime < 95.0 |T.Incident Severity is High |0,48,h
+Succession[Review Security Policies, Update Security Protocols] |A.Policy Review Outcome is Revised | |
+Co-Existence[Implement Security Measures, Monitor System Activity] | | |
+Not Chain Succession[Conduct Security Training, Test Security Systems] | | |
+Exclusive Choice[Initiate Security Audit, Perform Risk Assessment] | | |

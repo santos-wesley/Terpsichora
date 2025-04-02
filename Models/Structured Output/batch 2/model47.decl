@@ -1,0 +1,49 @@
+activity Identify Talent Needs
+activity Source Candidates
+activity Screen Applications
+activity Conduct Interviews
+activity Evaluate Candidates
+activity Select Candidates
+activity Offer Employment
+activity Onboard New Hires
+activity Conduct Training
+activity Assess Performance
+activity Identify Development Needs
+activity Plan Career Path
+activity Conduct Exit Interviews
+activity Update Talent Database
+activity Review Talent Strategy
+bind Source Candidates: Candidate Experience
+bind Conduct Interviews: Interview Outcome
+bind Offer Employment: Offer Status
+bind Conduct Training: Training Hours
+bind Assess Performance: Performance Score
+bind Identify Development Needs: Development Plan
+bind Conduct Exit Interviews: Exit Reason
+bind Update Talent Database: Database Entries
+bind Review Talent Strategy: Strategy Review Score
+Candidate Experience: integer between 0 and 40
+Candidate Rating: float between 1.0 and 5.0
+Interview Outcome: Pass, Fail, Pending
+Offer Status: Accepted, Rejected, Pending
+Training Hours: integer between 0 and 100
+Performance Score: float between 0.0 and 100.0
+Development Plan: Technical, Leadership, Soft Skills
+Exit Reason: Personal, Career Change, Dissatisfaction, Retirement
+Database Entries: integer between 0 and 1000
+Strategy Review Score: float between 0.0 and 10.0
+Init[Identify Talent Needs] | |
+End[Update Talent Database] | |
+Existence[Conduct Interviews] | |
+Absence2[Conduct Exit Interviews] | |
+Response[Source Candidates, Screen Applications] | | |0,2,d
+Alternate Response[Conduct Interviews, Evaluate Candidates] | | |0,48,h
+Alternate Succession[Offer Employment, Onboard New Hires] | | |0,2,d
+Alternate Precedence[Assess Performance, Conduct Training] | | |0,48,h
+Co-Existence[Identify Development Needs, Plan Career Path] | | |
+Precedence[Evaluate Candidates, Conduct Interviews] | | |
+Not Responded Existence[Conduct Exit Interviews, Review Talent Strategy] | | |
+Not Response[Offer Employment, Onboard New Hires] | | |
+Choice[Conduct Training, Assess Performance] | | |
+Exclusive Choice[Conduct Exit Interviews, Review Talent Strategy] | | |
+Alternate Response[Conduct Interviews, Evaluate Candidates] |A.Interview Outcome is Pass | |0,48,h

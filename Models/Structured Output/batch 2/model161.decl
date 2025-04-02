@@ -1,0 +1,45 @@
+activity Submit Compliance Report
+activity Review Compliance Report
+activity Approve Compliance Report
+activity Request Additional Information
+activity Conduct Compliance Audit
+activity Issue Compliance Certificate
+activity Notify Non-Compliance
+activity Schedule Follow-Up Audit
+activity Update Compliance Records
+activity Close Compliance Case
+bind Submit Compliance Report: Report ID, Report Status
+bind Review Compliance Report: Report ID, Report Status
+bind Approve Compliance Report: Report ID, Report Status
+bind Request Additional Information: Report ID, Information Requests
+bind Conduct Compliance Audit: Report ID, Audit Score, Audit Type
+bind Issue Compliance Certificate: Report ID, Certificate Status
+bind Notify Non-Compliance: Report ID, Notification Type, Penalty Amount
+bind Schedule Follow-Up Audit: Report ID, Audit Type
+bind Update Compliance Records: Report ID, Compliance Level
+bind Close Compliance Case: Report ID, Days to Close
+Report ID: integer between 1 and 10000
+Audit Score: float between 0.0 and 100.0
+Report Status: Submitted, Reviewed, Approved, Rejected
+Compliance Level: Full, Partial, None
+Information Requests: integer between 0 and 10
+Audit Type: Initial, Follow-Up
+Penalty Amount: float between 0.0 and 100000.0
+Certificate Status: Issued, Pending, Revoked
+Days to Close: integer between 1 and 365
+Notification Type: Email, Letter, Phone Call
+Init[Submit Compliance Report] | |
+End[Close Compliance Case] | |
+Precedence[Approve Compliance Report, Review Compliance Report] | |A.Report ID == T.Report ID |
+Precedence[Approve Compliance Report, Request Additional Information] | |A.Report ID == T.Report ID |
+Precedence[Issue Compliance Certificate, Conduct Compliance Audit] | |A.Report ID == T.Report ID |
+Response[Notify Non-Compliance, Schedule Follow-Up Audit] | |A.Report ID == T.Report ID |0,30,d
+Response[Conduct Compliance Audit, Update Compliance Records] | |A.Report ID == T.Report ID |0,7,d
+Precedence[Review Compliance Report, Submit Compliance Report] | |A.Report ID == T.Report ID |
+Precedence[Issue Compliance Certificate, Approve Compliance Report] | |A.Report ID == T.Report ID |
+Response[Approve Compliance Report, Request Additional Information] |A.Report Status is Rejected |A.Report ID == T.Report ID |0,14,d
+Response[Conduct Compliance Audit, Schedule Follow-Up Audit] |A.Audit Score < 50 |A.Report ID == T.Report ID |0,60,d
+Precedence[Close Compliance Case, Update Compliance Records] |A.Compliance Level is Full |A.Report ID == T.Report ID |
+Existence[Submit Compliance Report] | |
+Existence[Conduct Compliance Audit] | |
+Not Precedence[Approve Compliance Report, Review Compliance Report] | |A.Report ID == T.Report ID |

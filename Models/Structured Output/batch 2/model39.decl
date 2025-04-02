@@ -1,0 +1,42 @@
+activity Draft Bill
+activity Review Bill
+activity Amend Bill
+activity Approve Bill
+activity Submit Bill
+activity Schedule Debate
+activity Conduct Debate
+activity Vote on Bill
+activity Publish Bill
+activity Archive Bill
+bind Draft Bill: Bill ID, Bill Status
+bind Review Bill: Bill ID, Approval Rating
+bind Amend Bill: Bill ID, Amendment Count
+bind Approve Bill: Bill ID, Approval Rating
+bind Submit Bill: Bill ID, Bill Status
+bind Schedule Debate: Bill ID
+bind Conduct Debate: Bill ID, Debate Outcome
+bind Vote on Bill: Bill ID, Voting Percentage
+bind Publish Bill: Bill ID, Publication Status
+bind Archive Bill: Bill ID
+Bill ID: integer between 1 and 10000
+Bill Status: Drafted, Reviewed, Amended, Approved, Submitted, Debated, Voted, Published, Archived
+Approval Rating: float between 0.0 and 100.0
+Amendment Count: integer between 0 and 50
+Debate Outcome: Passed, Failed, Deferred
+Voting Percentage: float between 0.0 and 100.0
+Publication Status: Published, Not Published
+Init[Draft Bill] | |
+End[Archive Bill] | |
+Existence[Review Bill] | |
+Absence4[Amend Bill] | |
+Precedence[Submit Bill, Approve Bill] | |A.Bill ID == T.Bill ID |
+Response[Submit Bill, Conduct Debate] | |A.Bill ID == T.Bill ID |0,5,d
+Precedence[Conduct Debate, Schedule Debate] | |A.Bill ID == T.Bill ID |
+Succession[Vote on Bill, Publish Bill] | |A.Bill ID == T.Bill ID |0,2,d
+Not Precedence[Publish Bill, Approve Bill] | |A.Bill ID == T.Bill ID |
+Precedence[Archive Bill, Publish Bill] | |A.Bill ID == T.Bill ID |
+Succession[Conduct Debate, Vote on Bill] | |A.Bill ID == T.Bill ID |0,1,d
+Precedence[Amend Bill, Review Bill] | |A.Bill ID == T.Bill ID |
+Succession[Approve Bill, Submit Bill] | |A.Bill ID == T.Bill ID |0,3,d
+Exclusive Choice[Publish Bill, Archive Bill] | |A.Bill ID == T.Bill ID |
+Co-Existence[Review Bill, Approve Bill] | |A.Bill ID == T.Bill ID |

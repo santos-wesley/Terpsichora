@@ -1,0 +1,50 @@
+activity Identify Community Needs
+activity Develop Innovative Solutions
+activity Engage Stakeholders
+activity Secure Funding
+activity Implement Solutions
+activity Monitor Progress
+activity Evaluate Impact
+activity Report Findings
+activity Conduct Workshops
+activity Gather Feedback
+activity Revise Solutions
+activity Celebrate Success
+activity Plan Future Initiatives
+activity Build Partnerships
+activity Share Best Practices
+bind Identify Community Needs: Community Size
+bind Secure Funding: Funding Amount
+bind Engage Stakeholders: Stakeholder Type
+bind Implement Solutions: Solution Status
+bind Conduct Workshops: Workshop Participants
+bind Evaluate Impact: Impact Score
+bind Gather Feedback: Feedback Type
+bind Build Partnerships: Partnerships Formed
+bind Celebrate Success: Event Type
+bind Plan Future Initiatives: Future Plan Budget
+Community Size: integer between 100 and 10000
+Funding Amount: float between 1000.0 and 1000000.0
+Stakeholder Type: Government, NGO, Private Sector, Community
+Solution Status: Planned, In Progress, Completed, Revised
+Workshop Participants: integer between 5 and 500
+Impact Score: float between 0.0 and 10.0
+Feedback Type: Positive, Negative, Neutral
+Partnerships Formed: integer between 0 and 50
+Event Type: Ceremony, Festival, Conference
+Future Plan Budget: float between 5000.0 and 500000.0
+Init[Identify Community Needs] | |
+End[Share Best Practices] | |
+Existence[Conduct Workshops] | |
+Exactly[Celebrate Success] | |
+Response[Develop Innovative Solutions, Engage Stakeholders] | | |5,10,d
+Precedence[Implement Solutions, Secure Funding] | | |
+Succession[Monitor Progress, Evaluate Impact] | | |
+Co-Existence[Gather Feedback, Revise Solutions] | | |
+Not Chain Succession[Engage Stakeholders, Build Partnerships] | | |
+Not Precedence[Conduct Workshops, Identify Community Needs] | | |
+Not Co-Existence[Celebrate Success, Revise Solutions] | | |
+Response[Report Findings, Plan Future Initiatives] | | |2,5,d
+Responded Existence[Evaluate Impact, Share Best Practices] | | |
+Exclusive Choice[Develop Innovative Solutions, Secure Funding] | | |
+Response[Implement Solutions, Monitor Progress] | | |3,7,d

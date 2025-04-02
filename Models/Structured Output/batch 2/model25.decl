@@ -1,0 +1,43 @@
+activity Initiate Valuation Request
+activity Assign Appraiser
+activity Conduct Site Visit
+activity Prepare Valuation Report
+activity Review Valuation Report
+activity Approve Valuation Report
+activity Submit Valuation Report
+activity Request Additional Information
+activity Receive Additional Information
+activity Finalize Valuation
+bind Initiate Valuation Request: Valuation ID
+bind Assign Appraiser: Appraiser ID
+bind Conduct Site Visit: Property Value
+bind Prepare Valuation Report: Report Quality
+bind Review Valuation Report: Appraisal Status
+bind Request Additional Information: Information Type
+bind Receive Additional Information: Information Type
+bind Finalize Valuation: Days to Complete
+Valuation ID: integer between 1 and 10000
+Property Value: float between 50000.0 and 10000000.0
+Appraisal Status: Pending, In Progress, Completed, Approved
+Report Quality: Poor, Average, Good, Excellent
+Appraiser ID: integer between 1 and 500
+Additional Cost: float between 0.0 and 5000.0
+Information Type: Documents, Photos, Measurements
+Days to Complete: integer between 1 and 60
+Client Satisfaction: Unsatisfied, Neutral, Satisfied, Very Satisfied
+Discount Rate: float between 0.0 and 10.0
+Init[Initiate Valuation Request] | |
+End[Finalize Valuation] | |
+Existence[Prepare Valuation Report] | |
+Exactly[Review Valuation Report] | |
+Precedence[Submit Valuation Report, Approve Valuation Report] | | |
+Response[Request Additional Information, Receive Additional Information] | | |3,5,d
+Succession[Conduct Site Visit, Prepare Valuation Report] | | |
+Precedence[Conduct Site Visit, Assign Appraiser] | | |
+Precedence[Approve Valuation Report, Prepare Valuation Report] |A.Report Quality in (Good, Excellent) | |
+Precedence[Approve Valuation Report, Review Valuation Report] |A.Appraisal Status is Completed | |
+Chain Succession[Request Additional Information, Receive Additional Information] | |A.Information Type == T.Information Type |
+Choice[Conduct Site Visit, Request Additional Information] | | |
+Not Chain Succession[Approve Valuation Report, Submit Valuation Report] | | |
+Precedence[Submit Valuation Report, Finalize Valuation] |A.Client Satisfaction in (Satisfied, Very Satisfied) | |
+Not Responded Existence[Receive Additional Information, Finalize Valuation] |A.Discount Rate > 5.0 |T.Additional Cost > 1000.0 |

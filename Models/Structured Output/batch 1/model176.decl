@@ -1,0 +1,26 @@
+activity Initiate Negotiation
+activity Present Demands
+activity Review Demands
+activity Negotiate Terms
+activity Draft Agreement
+activity Approve Agreement
+activity Sign Agreement
+activity Implement Agreement
+bind Present Demands: Demand Priority, Budget Impact
+bind Draft Agreement: Agreement Status
+bind Approve Agreement: Agreement Status
+bind Negotiate Terms: Negotiation Outcome
+Demand Priority: integer between 1 and 10
+Budget Impact: float between 0.0 and 1000000.0
+Agreement Status: Drafted, Approved, Signed, Implemented
+Negotiation Outcome: Successful, Unsuccessful
+Init[Initiate Negotiation] | |
+Existence[Implement Agreement] | |
+Response[Present Demands, Review Demands] | | |2,5,d
+Chain Response[Draft Agreement, Approve Agreement] | |A.Agreement Status is Drafted |
+Responded Existence[Negotiate Terms, Draft Agreement] |A.Negotiation Outcome is Successful | |
+Precedence[Sign Agreement, Approve Agreement] | | |
+Not Co-Existence[Present Demands, Negotiate Terms] |A.Budget Impact > 500000 | |
+Not Chain Succession[Sign Agreement, Implement Agreement] | | |
+Choice[Present Demands, Negotiate Terms] | | |
+Exclusive Choice[Approve Agreement, Sign Agreement] | | |

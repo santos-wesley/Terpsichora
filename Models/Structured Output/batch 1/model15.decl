@@ -1,0 +1,32 @@
+activity Schedule Bus
+activity Assign Driver
+activity Collect Fare
+activity Inspect Vehicle
+activity Dispatch Bus
+activity Monitor Route
+activity Handle Complaint
+activity Refuel Bus
+activity End Route
+bind Schedule Bus: Bus Number, Route Number
+bind Assign Driver: Driver License Status
+bind Collect Fare: Fare Amount
+bind Inspect Vehicle: Inspection Status
+bind Handle Complaint: Complaint Type
+bind Refuel Bus: Fuel Level
+Bus Number: integer between 1 and 500
+Fare Amount: float between 0.5 and 50.0
+Driver License Status: Valid, Expired
+Inspection Status: Passed, Failed
+Route Number: integer between 1 and 100
+Complaint Type: Delay, Rude Staff, Overcrowding
+Fuel Level: float between 0.0 and 100.0
+Init[Schedule Bus] | |
+End[End Route] | |
+Chain Succession[Inspect Vehicle, Dispatch Bus] |A.Inspection Status is Passed | |0,10,m
+Precedence[Assign Driver, Schedule Bus] |A.Driver License Status is Valid | |
+Responded Existence[Handle Complaint, Monitor Route] |A.Complaint Type in (Delay, Rude Staff) | |
+Response[Dispatch Bus, Collect Fare] | | |0,30,m
+Not Chain Succession[End Route, Refuel Bus] | | |
+Existence[Inspect Vehicle] | |
+Precedence[Refuel Bus, End Route] |A.Fuel Level < 20 | |
+Chain Precedence[Dispatch Bus, Schedule Bus] | |A.Bus Number == T.Bus Number AND A.Route Number == T.Route Number |0,1,h

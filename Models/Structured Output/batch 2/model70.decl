@@ -1,0 +1,49 @@
+activity Conduct Employee Survey
+activity Review Survey Results
+activity Organize Feedback Session
+activity Develop Action Plan
+activity Implement Action Plan
+activity Monitor Progress
+activity Conduct Training Session
+activity Evaluate Training Effectiveness
+activity Hold Team Building Activity
+activity Conduct Exit Interview
+activity Analyze Exit Interview Data
+activity Update Employee Handbook
+activity Conduct Policy Review
+activity Draft New Policies
+activity Communicate Policy Changes
+bind Conduct Employee Survey: Survey Score
+bind Conduct Training Session: Training Hours
+bind Organize Feedback Session: Feedback Type, Feedback Session Attendance
+bind Develop Action Plan: Action Plan Status
+bind Conduct Exit Interview: Exit Interview Rating
+bind Update Employee Handbook: Policy Change Type
+bind Hold Team Building Activity: Team Building Budget
+bind Evaluate Training Effectiveness: Training Effectiveness
+bind Conduct Policy Review: Policy Review Duration
+Survey Score: integer between 1 and 10
+Training Hours: float between 0.5 and 40.0
+Feedback Type: Positive, Negative, Neutral
+Action Plan Status: Not Started, In Progress, Completed
+Exit Interview Rating: integer between 1 and 5
+Policy Change Type: Addition, Modification, Removal
+Team Building Budget: float between 100.0 and 10000.0
+Training Effectiveness: Effective, Ineffective
+Feedback Session Attendance: integer between 1 and 500
+Policy Review Duration: float between 1.0 and 20.0
+Init[Conduct Employee Survey] | |
+End[Communicate Policy Changes] | |
+Existence[Conduct Employee Survey] | |
+Absence2[Organize Feedback Session] | |
+Exactly[Develop Action Plan] | |
+Response[Conduct Employee Survey, Review Survey Results] | | |0,2,d
+Chain Succession[Conduct Training Session, Evaluate Training Effectiveness] | | |0,48,h
+Not Chain Succession[Organize Feedback Session, Hold Team Building Activity] | | |
+Precedence[Conduct Exit Interview, Conduct Policy Review] | | |
+Co-Existence[Update Employee Handbook, Draft New Policies] | | |
+Response[Develop Action Plan, Implement Action Plan] |A.Action Plan Status is Completed | |0,5,d
+Precedence[Organize Feedback Session, Conduct Employee Survey] |A.Survey Score >= 5 | |
+Responded Existence[Organize Feedback Session, Conduct Employee Survey] | |A.Feedback Session Attendance == T.Survey Score |
+Precedence[Draft New Policies, Conduct Policy Review] |A.Policy Review Duration <= 10 | |
+Precedence[Hold Team Building Activity, Evaluate Training Effectiveness] |A.Training Effectiveness is Effective | |0,1,d

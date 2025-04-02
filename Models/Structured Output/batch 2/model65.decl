@@ -1,0 +1,49 @@
+activity Receive Archival Material
+activity Assess Material Condition
+activity Catalog Material
+activity Digitize Material
+activity Store Material
+activity Retrieve Material
+activity Review Access Request
+activity Approve Access Request
+activity Deny Access Request
+activity Conduct Preservation Treatment
+activity Update Catalog Entry
+activity Dispose Material
+activity Conduct Research
+activity Return Material
+activity Report Preservation Status
+bind Receive Archival Material: Material ID
+bind Assess Material Condition: Material Condition Score
+bind Review Access Request: Access Request Status
+bind Conduct Preservation Treatment: Preservation Treatment Type
+bind Digitize Material: Digitization Quality Score
+bind Dispose Material: Material Disposal Reason
+bind Conduct Research: Researcher ID
+bind Catalog Material: Catalog Entry Version
+bind Report Preservation Status: Preservation Status
+Material ID: integer between 1 and 10000
+Material Condition Score: float between 0.0 and 10.0
+Access Request Status: Pending, Approved, Denied
+Preservation Treatment Type: Cleaning, Repair, Rebinding
+Digitization Quality Score: float between 0.0 and 10.0
+Material Disposal Reason: Deterioration, Redundancy
+Researcher ID: integer between 1 and 5000
+Material Format: Paper, Photograph, Microfilm
+Catalog Entry Version: integer between 1 and 100
+Preservation Status: Stable, At Risk, Critical
+Init[Receive Archival Material] | |
+End[Return Material] | |
+Existence[Assess Material Condition] | |
+Precedence[Digitize Material, Catalog Material] | | |
+Response[Conduct Preservation Treatment, Update Catalog Entry] | | |
+Choice[Review Access Request, Approve Access Request] | | |
+Choice[Review Access Request, Deny Access Request] | | |
+Precedence[Retrieve Material, Approve Access Request] | | |
+Response[Conduct Research, Return Material] | | |
+Not Succession[Dispose Material, Retrieve Material] | | |
+Precedence[Conduct Preservation Treatment, Assess Material Condition] | | |
+Chain Response[Receive Archival Material, Store Material] | | |0,2,d
+Responded Existence[Digitize Material, Catalog Material] |A.Material Format is Photograph |A.Digitization Quality Score >= 8 |
+Chain Response[Dispose Material, Report Preservation Status] | | |0,48,h
+Chain Response[Report Preservation Status, Conduct Preservation Treatment] |A.Preservation Status is At Risk | |0,5,d

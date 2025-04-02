@@ -1,0 +1,47 @@
+activity Monitor Store Entrance
+activity Inspect Security Cameras
+activity Conduct Bag Check
+activity Alert Security Personnel
+activity Review Security Footage
+activity Report Incident
+activity Escort Suspect
+activity Verify Alarm Trigger
+activity Perform Security Audit
+activity Update Security Protocols
+activity Train Security Staff
+activity Handle Customer Complaint
+activity Check Inventory Discrepancies
+activity Conduct Emergency Drill
+activity Deactivate Alarm
+bind Inspect Security Cameras: Camera ID
+bind Report Incident: Incident Severity, Incident Type
+bind Verify Alarm Trigger: Alarm Status
+bind Alert Security Personnel: Personnel ID, Security Level
+bind Handle Customer Complaint: Customer ID, Complaint Status
+bind Perform Security Audit: Audit Score
+bind Conduct Bag Check: Customer ID
+Camera ID: integer between 1 and 1000
+Incident Severity: float between 0.1 and 10.0
+Alarm Status: Active, Inactive, Triggered
+Security Level: Low, Medium, High
+Personnel ID: integer between 1 and 500
+Response Time: float between 0.1 and 60.0
+Incident Type: Theft, Vandalism, Assault
+Customer ID: integer between 1 and 10000
+Audit Score: float between 0.0 and 100.0
+Complaint Status: Resolved, Unresolved
+Init[Monitor Store Entrance] | |
+End[Deactivate Alarm] | |
+Existence[Report Incident] | |
+Absence[Conduct Emergency Drill] | |
+Response[Inspect Security Cameras, Review Security Footage] | |A.Camera ID == T.Camera ID |
+Chain Response[Alert Security Personnel, Escort Suspect] |A.Security Level is High |A.Personnel ID == T.Personnel ID |0,5,m
+Chain Precedence[Verify Alarm Trigger, Alert Security Personnel] |A.Alarm Status is Triggered | |0,10,m
+Co-Existence[Perform Security Audit, Update Security Protocols] |A.Audit Score < 50 | |
+Succession[Conduct Bag Check, Handle Customer Complaint] | |A.Customer ID == T.Customer ID |0,1,h
+Not Chain Succession[Check Inventory Discrepancies, Report Incident] | | |
+Exclusive Choice[Train Security Staff, Conduct Emergency Drill] | | |
+Precedence[Escort Suspect, Report Incident] | |A.Incident Type is Theft |
+Not Precedence[Deactivate Alarm, Verify Alarm Trigger] | | |
+Not Responded Existence[Handle Customer Complaint, Conduct Bag Check] |A.Complaint Status is Resolved |A.Customer ID == T.Customer ID |
+Not Succession[Review Security Footage, Inspect Security Cameras] | | |

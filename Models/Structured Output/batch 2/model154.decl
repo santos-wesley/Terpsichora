@@ -1,0 +1,47 @@
+activity Submit Visa Application
+activity Review Visa Application
+activity Schedule Interview
+activity Conduct Interview
+activity Approve Visa
+activity Reject Visa
+activity Collect Biometric Data
+activity Issue Visa
+activity Notify Applicant
+activity Receive Appeal
+activity Review Appeal
+activity Approve Appeal
+activity Reject Appeal
+activity Conduct Background Check
+activity Finalize Decision
+bind Submit Visa Application: Application ID, Application Fee, Visa Type
+bind Review Visa Application: Application Status
+bind Schedule Interview: Interview Score
+bind Collect Biometric Data: Biometric Status
+bind Receive Appeal: Appeal Status
+bind Conduct Background Check: Background Check Score
+bind Finalize Decision: Decision Status, Processing Time
+Application ID: integer between 1 and 1000000
+Application Fee: float between 50.0 and 500.0
+Visa Type: Tourist, Business, Student, Work
+Application Status: Submitted, Under Review, Approved, Rejected
+Interview Score: integer between 0 and 100
+Biometric Status: Pending, Completed
+Appeal Status: Not Filed, Under Review, Approved, Rejected
+Background Check Score: float between 0.0 and 100.0
+Decision Status: Pending, Finalized
+Processing Time: integer between 1 and 365
+Existence[Submit Visa Application] | |
+Existence[Review Visa Application] | |
+Response[Submit Visa Application, Review Visa Application] | |A.Application ID == T.Application ID |
+Response[Review Visa Application, Schedule Interview] |A.Application Status is Under Review |A.Application ID == T.Application ID |0,7,d
+Chain Response[Schedule Interview, Conduct Interview] | |A.Application ID == T.Application ID |0,1,d
+Precedence[Approve Visa, Collect Biometric Data] | |A.Application ID == T.Application ID |
+Response[Reject Visa, Notify Applicant] | |A.Application ID == T.Application ID |0,2,d
+Precedence[Receive Appeal, Reject Visa] | |A.Application ID == T.Application ID |
+Response[Receive Appeal, Review Appeal] | |A.Application ID == T.Application ID |0,5,d
+Response[Approve Appeal, Approve Visa] | |A.Application ID == T.Application ID |
+Precedence[Finalize Decision, Conduct Background Check] | |A.Application ID == T.Application ID |
+Response[Approve Visa, Issue Visa] | |A.Application ID == T.Application ID |0,3,d
+Co-Existence[Finalize Decision, Issue Visa] | |A.Application ID == T.Application ID |
+Co-Existence[Finalize Decision, Reject Visa] | |A.Application ID == T.Application ID |
+End[Finalize Decision] | |

@@ -1,0 +1,39 @@
+activity Conduct Environmental Assessment
+activity Develop Sustainability Plan
+activity Implement Green Technologies
+activity Monitor Resource Usage
+activity Evaluate Sustainability Metrics
+activity Report Findings
+activity Review Regulatory Compliance
+activity Engage Stakeholders
+activity Conduct Impact Analysis
+activity Update Sustainability Strategies
+bind Conduct Environmental Assessment: Assessment Type, Impact Score
+bind Develop Sustainability Plan: Budget Allocation
+bind Implement Green Technologies: Technology Type
+bind Monitor Resource Usage: Resource Consumption
+bind Evaluate Sustainability Metrics: Sustainability Index
+bind Report Findings: Report Type
+bind Review Regulatory Compliance: Compliance Status
+bind Engage Stakeholders: Stakeholder Engagement Level
+bind Update Sustainability Strategies: Strategy Revision Count
+Impact Score: integer between 1 and 10
+Resource Consumption: float between 0.0 and 1000.0
+Technology Type: Solar, Wind, Hydro
+Compliance Status: Compliant, Non-Compliant
+Stakeholder Engagement Level: integer between 1 and 5
+Sustainability Index: float between 0.0 and 100.0
+Report Type: Summary, Detailed
+Strategy Revision Count: integer between 0 and 10
+Budget Allocation: float between 1000.0 and 100000.0
+Assessment Type: Preliminary, Detailed
+Init[Conduct Environmental Assessment] | |
+Existence[Develop Sustainability Plan] | |
+Chain Response[Implement Green Technologies, Monitor Resource Usage] | | |0,2,d
+Response[Evaluate Sustainability Metrics, Report Findings] | | |0,48,h
+Co-Existence[Review Regulatory Compliance, Engage Stakeholders] | | |
+Not Chain Succession[Conduct Impact Analysis, Update Sustainability Strategies] | | |
+End[Report Findings] | |
+Precedence[Implement Green Technologies, Develop Sustainability Plan] | | |
+Responded Existence[Monitor Resource Usage, Evaluate Sustainability Metrics] |A.Resource Consumption > 500 | |
+Not Co-Existence[Engage Stakeholders, Conduct Impact Analysis] | | |

@@ -1,0 +1,39 @@
+activity Prepare Soil
+activity Plant Seeds
+activity Irrigate Crops
+activity Apply Fertilizer
+activity Monitor Growth
+activity Control Pests
+activity Harvest Crops
+activity Store Produce
+activity Transport Produce
+activity Sell Produce
+bind Prepare Soil: Soil Quality
+bind Irrigate Crops: Water Usage
+bind Apply Fertilizer: Fertilizer Type
+bind Control Pests: Pest Control Efficiency
+bind Monitor Growth: Growth Rate
+bind Harvest Crops: Harvest Method
+bind Store Produce: Storage Temperature
+bind Transport Produce: Transport Mode
+bind Sell Produce: Market Price, Market Type
+Soil Quality: integer between 1 and 10
+Water Usage: float between 0.1 and 10.0
+Fertilizer Type: Organic, Synthetic
+Pest Control Efficiency: integer between 1 and 5
+Growth Rate: float between 0.1 and 5.0
+Harvest Method: Manual, Mechanical
+Storage Temperature: integer between 0 and 10
+Transport Mode: Truck, Train, Ship
+Market Price: float between 0.5 and 20.0
+Market Type: Local, International
+Init[Prepare Soil] | |
+End[Sell Produce] | |
+Existence2[Irrigate Crops] | |
+Response[Apply Fertilizer, Control Pests] | | |0,3,d
+Precedence[Harvest Crops, Monitor Growth] |A.Growth Rate > 1 | |
+Chain Response[Store Produce, Transport Produce] | | |0,48,h
+Responded Existence[Transport Produce, Sell Produce] |A.Transport Mode is Ship |T.Market Type is International |
+Not Chain Succession[Apply Fertilizer, Control Pests] |A.Fertilizer Type is Organic | |
+Exclusive Choice[Harvest Crops, Harvest Crops] |A.Harvest Method is Manual |T.Harvest Method is Mechanical |
+Precedence[Control Pests, Prepare Soil] |A.Soil Quality < 5 |T.Pest Control Efficiency >= 3 |

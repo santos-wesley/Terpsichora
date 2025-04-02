@@ -1,0 +1,50 @@
+activity Analyze Melody
+activity Evaluate Rhythm
+activity Classify Genre
+activity Assess Harmony
+activity Review Lyrics
+activity Identify Instruments
+activity Measure Tempo
+activity Evaluate Dynamics
+activity Transcribe Music
+activity Analyze Form
+activity Evaluate Timbre
+activity Compare Versions
+activity Assess Cultural Context
+activity Identify Composer
+activity Evaluate Performance
+bind Analyze Melody: Melody Complexity
+bind Evaluate Rhythm: Tempo
+bind Classify Genre: Genre
+bind Assess Harmony: Harmony Complexity
+bind Review Lyrics: Lyric Depth
+bind Identify Instruments: Instrument Type
+bind Evaluate Dynamics: Dynamics
+bind Evaluate Timbre: Timbre Quality
+bind Assess Cultural Context: Cultural Context
+bind Evaluate Performance: Performance Quality
+Melody Complexity: integer between 1 and 10
+Tempo: float between 40.0 and 240.0
+Genre: Classical, Jazz, Rock, Pop, Hip-Hop
+Dynamics: Piano, Mezzo Piano, Mezzo Forte, Forte
+Harmony Complexity: integer between 1 and 10
+Instrument Type: Strings, Percussion, Brass, Woodwind
+Timbre Quality: float between 1.0 and 10.0
+Cultural Context: Western, Eastern, African, Latin
+Lyric Depth: integer between 1 and 10
+Performance Quality: Poor, Average, Good, Excellent
+Init[Analyze Melody] | |
+End[Evaluate Performance] | |
+Existence[Evaluate Rhythm] | |
+Exactly[Classify Genre] | |
+Chain Response[Analyze Melody, Evaluate Rhythm] | | |10,15,m
+Response[Review Lyrics, Assess Harmony] | | |
+Co-Existence[Identify Instruments, Evaluate Dynamics] | | |
+Not Chain Succession[Evaluate Dynamics, Evaluate Timbre] | | |
+Precedence[Assess Cultural Context, Classify Genre] | | |
+Chain Response[Analyze Form, Transcribe Music] | | |5,10,m
+Not Response[Evaluate Performance, Compare Versions] | | |
+Not Co-Existence[Identify Composer, Assess Cultural Context] | | |
+Response[Evaluate Dynamics, Evaluate Timbre] | | |0,2,d
+Precedence[Evaluate Performance, Analyze Form] | | |
+Response[Evaluate Rhythm, Classify Genre] | | |0,1,h

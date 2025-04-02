@@ -1,0 +1,45 @@
+activity Register Patient
+activity Schedule Appointment
+activity Conduct Health Assessment
+activity Administer Vaccine
+activity Issue Health Certificate
+activity Record Test Results
+activity Update Health Records
+activity Notify Patient
+activity Process Insurance Claim
+activity Conduct Follow-up
+bind Register Patient: Patient ID
+bind Schedule Appointment: Patient ID, Appointment Status
+bind Conduct Health Assessment: Patient ID, Assessment Score
+bind Administer Vaccine: Patient ID, Vaccine Dose
+bind Issue Health Certificate: Patient ID, Health Certificate Status
+bind Record Test Results: Patient ID, Test Result
+bind Update Health Records: Patient ID
+bind Notify Patient: Patient ID, Notification Type
+bind Process Insurance Claim: Insurance Claim ID, Claim Amount
+bind Conduct Follow-up: Patient ID, Follow-up Days
+Patient ID: integer between 1 and 1000000
+Vaccine Dose: float between 0.1 and 10.0
+Appointment Status: Scheduled, Completed, Cancelled
+Test Result: Positive, Negative, Inconclusive
+Insurance Claim ID: integer between 1 and 1000000
+Claim Amount: float between 0.0 and 10000.0
+Health Certificate Status: Issued, Pending, Revoked
+Notification Type: Email, SMS, Phone Call
+Follow-up Days: integer between 1 and 365
+Assessment Score: float between 0.0 and 100.0
+Init[Register Patient] | |
+End[Update Health Records] | |
+Existence[Conduct Health Assessment] | |
+Absence3[Administer Vaccine] | |
+Precedence[Conduct Health Assessment, Schedule Appointment] | |A.Patient ID == T.Patient ID |
+Precedence[Issue Health Certificate, Record Test Results] |A.Test Result is Negative |A.Patient ID == T.Patient ID |
+Response[Record Test Results, Notify Patient] | |A.Patient ID == T.Patient ID |0,2,d
+Chain Response[Conduct Health Assessment, Conduct Follow-up] | |A.Patient ID == T.Patient ID |0,30,d
+Response[Administer Vaccine, Process Insurance Claim] | |A.Patient ID == T.Patient ID |0,15,d
+Not Co-Existence[Issue Health Certificate, Record Test Results] |A.Test Result is Positive |A.Patient ID == T.Patient ID |
+Exclusive Choice[Notify Patient, Notify Patient] |A.Notification Type in (Email, SMS) | |
+Precedence[Conduct Follow-up, Conduct Health Assessment] |A.Assessment Score < 50 |A.Patient ID == T.Patient ID |
+Precedence[Conduct Follow-up, Schedule Appointment] |A.Appointment Status is Completed |A.Patient ID == T.Patient ID |
+Chain Response[Record Test Results, Issue Health Certificate] |A.Test Result is Negative |A.Patient ID == T.Patient ID |0,5,d
+Not Response[Administer Vaccine, Process Insurance Claim] |A.Vaccine Dose <= 1.0 |A.Claim Amount > 5000 |

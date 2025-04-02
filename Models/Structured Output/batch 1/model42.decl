@@ -1,0 +1,32 @@
+activity Draft Policy Document
+activity Review Policy Document
+activity Approve Policy Document
+activity Publish Policy Document
+activity Consult Stakeholders
+activity Revise Policy Document
+activity Conduct Impact Analysis
+activity Finalize Policy Document
+activity Archive Policy Document
+bind Draft Policy Document: Approval Status
+bind Review Policy Document: Review Cycle
+bind Approve Policy Document: Approval Status
+bind Publish Policy Document: Publication Medium
+bind Consult Stakeholders: Stakeholder Satisfaction
+bind Revise Policy Document: Revision Count
+bind Conduct Impact Analysis: Impact Level
+Review Cycle: integer between 1 and 10
+Stakeholder Satisfaction: float between 0.0 and 100.0
+Approval Status: Pending, Approved, Rejected
+Publication Medium: Online, Print, Both
+Revision Count: integer between 0 and 5
+Impact Level: Low, Medium, High
+Init[Draft Policy Document] | |
+Existence[Publish Policy Document] | |
+Precedence[Approve Policy Document, Review Policy Document] | |A.Review Cycle >= 1 |
+Chain Response[Revise Policy Document, Review Policy Document] |A.Revision Count > 0 | |0,2,d
+Response[Consult Stakeholders, Publish Policy Document] |A.Stakeholder Satisfaction > 80.0 |T.Publication Medium is Both |
+Not Chain Succession[Finalize Policy Document, Archive Policy Document] | | |
+Response[Consult Stakeholders, Conduct Impact Analysis] | | |0,5,d
+Response[Approve Policy Document, Revise Policy Document] |A.Approval Status is Rejected | |0,3,d
+Succession[Finalize Policy Document, Archive Policy Document] | | |0,7,d
+Exactly[Finalize Policy Document] | |

@@ -1,0 +1,28 @@
+activity Request Equipment
+activity Approve Request
+activity Purchase Equipment
+activity Receive Equipment
+activity Inspect Equipment
+activity Install Equipment
+activity Maintain Equipment
+activity Decommission Equipment
+bind Request Equipment: Request ID
+bind Approve Request: Approval Status
+bind Purchase Equipment: Equipment Cost
+bind Inspect Equipment: Inspection Result
+bind Maintain Equipment: Maintenance Frequency
+Request ID: integer between 1 and 10000
+Approval Status: Pending, Approved, Rejected
+Equipment Cost: float between 100.0 and 100000.0
+Inspection Result: Pass, Fail
+Maintenance Frequency: integer between 30 and 365
+Init[Request Equipment] | |
+Existence[Approve Request] | |
+Response[Approve Request, Purchase Equipment] |A.Approval Status is Approved | |0,2,d
+Chain Succession[Purchase Equipment, Receive Equipment] | | |
+Precedence[Inspect Equipment, Receive Equipment] | |A.Request ID == T.Request ID |
+Response[Inspect Equipment, Decommission Equipment] |A.Inspection Result is Fail | |
+Response[Inspect Equipment, Install Equipment] |A.Inspection Result is Pass | |
+Chain Response[Maintain Equipment, Maintain Equipment] |A.Maintenance Frequency > 0 | |0,365,d
+Exactly[Decommission Equipment] | |
+Exclusive Choice[Install Equipment, Decommission Equipment] | | |

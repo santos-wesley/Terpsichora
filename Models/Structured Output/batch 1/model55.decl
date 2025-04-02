@@ -1,0 +1,28 @@
+activity Initiate Transfer Pricing Policy
+activity Review Financial Data
+activity Approve Transfer Pricing Policy
+activity Implement Transfer Pricing Policy
+activity Monitor Compliance
+activity Adjust Transfer Pricing Policy
+activity Document Transfer Pricing
+activity Audit Transfer Pricing Policy
+bind Initiate Transfer Pricing Policy: Policy ID
+bind Review Financial Data: Financial Impact
+bind Approve Transfer Pricing Policy: Approval Status
+bind Monitor Compliance: Compliance Level
+bind Audit Transfer Pricing Policy: Audit Score
+Policy ID: integer between 1 and 1000
+Financial Impact: float between 0.1 and 100.0
+Approval Status: Pending, Approved, Rejected
+Compliance Level: High, Medium, Low
+Audit Score: integer between 1 and 10
+Init[Initiate Transfer Pricing Policy] | |
+Existence[Approve Transfer Pricing Policy] | |
+Precedence[Approve Transfer Pricing Policy, Review Financial Data] | | |
+Response[Approve Transfer Pricing Policy, Implement Transfer Pricing Policy] | | |0,2,d
+Succession[Implement Transfer Pricing Policy, Monitor Compliance] | | |
+Response[Monitor Compliance, Adjust Transfer Pricing Policy] |A.Compliance Level is Low | |0,5,d
+Response[Adjust Transfer Pricing Policy, Document Transfer Pricing] | | |0,1,d
+Exactly[Audit Transfer Pricing Policy] | |
+Response[Audit Transfer Pricing Policy, Document Transfer Pricing] |A.Audit Score >= 7 | |0,3,d
+Not Precedence[Approve Transfer Pricing Policy, Review Financial Data] |A.Financial Impact < 1 | |

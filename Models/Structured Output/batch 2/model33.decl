@@ -1,0 +1,47 @@
+activity Receive Order
+activity Validate Payment
+activity Check Inventory
+activity Pack Items
+activity Generate Invoice
+activity Ship Order
+activity Update Order Status
+activity Handle Customer Inquiry
+activity Process Return
+activity Issue Refund
+activity Restock Items
+activity Review Order
+activity Cancel Order
+activity Confirm Delivery
+activity Evaluate Customer Feedback
+bind Receive Order: Order ID, Order Value, Customer ID
+bind Validate Payment: Payment Status
+bind Check Inventory: Stock Level
+bind Process Return: Return Reason
+bind Issue Refund: Refund Amount
+bind Evaluate Customer Feedback: Feedback Rating
+bind Handle Customer Inquiry: Inquiry Type
+Order ID: integer between 1000 and 9999
+Order Value: float between 10.0 and 10000.0
+Payment Status: Pending, Completed, Failed
+Order Status: New, Processing, Shipped, Delivered, Cancelled
+Customer ID: integer between 1 and 5000
+Return Reason: Defective, Not as Described, Changed Mind
+Refund Amount: float between 0.0 and 10000.0
+Feedback Rating: Poor, Average, Good, Excellent
+Stock Level: integer between 0 and 1000
+Inquiry Type: Order Status, Product Info, Return Process
+Init[Receive Order] | |
+End[Confirm Delivery] | |
+Existence[Review Order] | |
+Absence[Cancel Order] | |
+Precedence[Validate Payment, Receive Order] | | |
+Chain Succession[Check Inventory, Pack Items] | | |
+Response[Pack Items, Ship Order] | | |0,2,d
+Response[Process Return, Issue Refund] | | |0,5,d
+Precedence[Update Order Status, Ship Order] | | |
+Not Chain Succession[Confirm Delivery, Evaluate Customer Feedback] | | |
+Not Responded Existence[Issue Refund, Receive Order] |A.Refund Amount > 0 |A.Refund Amount > T.Order Value |
+Responded Existence[Handle Customer Inquiry, Receive Order] |A.Inquiry Type in (Order Status, Return Process) | |
+Exclusive Choice[Cancel Order, Confirm Delivery] | | |
+Precedence[Restock Items, Process Return] | | |0,3,d
+Response[Validate Payment, Generate Invoice] |A.Payment Status is Completed | |0,1,d

@@ -1,0 +1,49 @@
+activity Identify Crisis
+activity Assemble Crisis Team
+activity Develop Communication Plan
+activity Draft Press Release
+activity Conduct Press Conference
+activity Monitor Media Coverage
+activity Engage with Stakeholders
+activity Evaluate Crisis Impact
+activity Implement Recovery Plan
+activity Review Crisis Management
+activity Update Policies
+activity Train Employees
+activity Conduct Damage Control
+activity Issue Apology
+activity Close Crisis
+bind Identify Crisis: Crisis Severity, Crisis Type
+bind Develop Communication Plan: Stakeholder Engagement Level
+bind Draft Press Release: Press Release Status
+bind Monitor Media Coverage: Media Coverage Intensity
+bind Evaluate Crisis Impact: Crisis Duration
+bind Implement Recovery Plan: Recovery Cost
+bind Update Policies: Policy Update Status
+bind Train Employees: Employee Training Sessions
+bind Issue Apology: Apology Issued
+Crisis Severity: integer between 1 and 5
+Crisis Type: Financial, Operational, Reputational, Legal
+Media Coverage Intensity: float between 0.0 and 10.0
+Stakeholder Engagement Level: Low, Medium, High
+Recovery Cost: integer between 1000 and 1000000
+Press Release Status: Drafted, Approved, Released
+Crisis Duration: float between 0.1 and 365.0
+Policy Update Status: Pending, In Progress, Completed
+Employee Training Sessions: integer between 0 and 50
+Apology Issued: Yes, No
+Init[Identify Crisis] | |
+End[Close Crisis] | |
+Existence[Assemble Crisis Team] | |
+Absence[Conduct Press Conference] | |
+Precedence[Conduct Press Conference, Draft Press Release] | | |
+Response[Develop Communication Plan, Engage with Stakeholders] | | |0,2,d
+Succession[Draft Press Release, Monitor Media Coverage] | | |0,48,h
+Chain Succession[Evaluate Crisis Impact, Implement Recovery Plan] | | |0,24,h
+Precedence[Issue Apology, Identify Crisis] |A.Crisis Severity = 5 | |
+Not Precedence[Update Policies, Close Crisis] | | |
+Not Chain Succession[Close Crisis, Train Employees] | | |
+Not Co-Existence[Conduct Damage Control, Issue Apology] | | |
+Exclusive Choice[Conduct Press Conference, Engage with Stakeholders] | | |
+Responded Existence[Monitor Media Coverage, Conduct Damage Control] |A.Media Coverage Intensity > 7.0 | |
+Chain Precedence[Evaluate Crisis Impact, Identify Crisis] | |A.Crisis Type == T.Crisis Type |0,5,d

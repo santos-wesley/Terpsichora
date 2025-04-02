@@ -1,0 +1,40 @@
+activity Draft Contract
+activity Review Contract
+activity Negotiate Terms
+activity Approve Contract
+activity Sign Contract
+activity Archive Contract
+activity Reject Contract
+activity Amend Contract
+activity Finalize Contract
+activity Distribute Contract
+bind Draft Contract: Contract ID, Contract Status
+bind Review Contract: Contract ID, Contract Status
+bind Negotiate Terms: Contract ID, Contract Status
+bind Approve Contract: Contract ID, Contract Status
+bind Sign Contract: Contract ID, Contract Status
+bind Archive Contract: Contract ID, Contract Status
+bind Reject Contract: Contract ID, Contract Status
+bind Amend Contract: Contract ID, Amendment Count
+bind Finalize Contract: Contract ID, Contract Status
+bind Distribute Contract: Contract ID, Party Type
+Contract ID: integer between 1 and 10000
+Contract Value: float between 1000.0 and 1000000.0
+Contract Status: Draft, Reviewed, Negotiated, Approved, Signed, Archived, Rejected
+Party Type: Buyer, Seller
+Amendment Count: integer between 0 and 10
+Existence[Draft Contract] | |
+End[Archive Contract] | |
+Response[Review Contract, Negotiate Terms] | | |0,2,d
+Chain Precedence[Negotiate Terms, Approve Contract] | | |0,1,d
+Chain Succession[Sign Contract, Archive Contract] | | |0,12,h
+Not Co-Existence[Reject Contract, Approve Contract] | | |
+Response[Amend Contract, Finalize Contract] | | |0,3,d
+Chain Precedence[Finalize Contract, Distribute Contract] | | |0,1,d
+Choice[Approve Contract, Reject Contract] | | |
+Succession[Draft Contract, Review Contract] | | |0,5,d
+Not Chain Succession[Negotiate Terms, Approve Contract] | | |
+Not Chain Response[Amend Contract, Finalize Contract] | | |
+Not Succession[Sign Contract, Reject Contract] | | |
+Co-Existence[Review Contract, Negotiate Terms] | | |
+Absence3[Amend Contract] | |

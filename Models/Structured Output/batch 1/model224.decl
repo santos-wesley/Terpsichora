@@ -1,0 +1,40 @@
+activity Initiate Project
+activity Approve Design
+activity Procure Materials
+activity Hire Contractors
+activity Conduct Site Survey
+activity Lay Foundation
+activity Construct Framework
+activity Install Utilities
+activity Perform Quality Inspection
+activity Finalize Project
+bind Initiate Project: Budget, Project Status
+bind Approve Design: Design Status
+bind Procure Materials: Material Cost
+bind Hire Contractors: Contractor Count
+bind Conduct Site Survey: Site Condition
+bind Lay Foundation: Foundation Depth
+bind Construct Framework: Framework Height
+bind Install Utilities: Utility Status
+bind Perform Quality Inspection: Inspection Score
+bind Finalize Project: Project Status
+Budget: integer between 100000 and 10000000
+Material Cost: float between 1000.0 and 500000.0
+Design Status: Pending, Approved, Rejected
+Contractor Count: integer between 1 and 50
+Site Condition: Clear, Obstructed
+Foundation Depth: float between 0.5 and 10.0
+Utility Status: Not Started, In Progress, Completed
+Inspection Score: integer between 1 and 10
+Project Status: Initiated, In Progress, Completed
+Framework Height: float between 1.0 and 100.0
+Init[Initiate Project] | |
+End[Finalize Project] | |
+Existence[Approve Design] | |
+Precedence[Lay Foundation, Procure Materials] | | |
+Precedence[Hire Contractors, Conduct Site Survey] | | |
+Succession[Lay Foundation, Construct Framework] | | |
+Response[Construct Framework, Install Utilities] | | |0,48,h
+Response[Install Utilities, Perform Quality Inspection] | | |0,2,d
+Response[Perform Quality Inspection, Finalize Project] |A.Inspection Score >= 8 | |0,5,d
+Co-Existence[Approve Design, Conduct Site Survey] | | |

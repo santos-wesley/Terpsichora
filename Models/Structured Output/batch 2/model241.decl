@@ -1,0 +1,50 @@
+activity Collect Employee Data
+activity Analyze Turnover Rates
+activity Generate Performance Reports
+activity Conduct Employee Surveys
+activity Evaluate Training Programs
+activity Monitor Attendance
+activity Assess Compensation Packages
+activity Identify Skill Gaps
+activity Develop Talent Acquisition Strategies
+activity Implement HR Technology Solutions
+activity Review Compliance Standards
+activity Plan Succession Strategies
+activity Conduct Exit Interviews
+activity Measure Employee Engagement
+activity Optimize Workforce Planning
+bind Collect Employee Data: Employee Count
+bind Analyze Turnover Rates: Turnover Rate
+bind Conduct Employee Surveys: Survey Type
+bind Evaluate Training Programs: Training Hours
+bind Review Compliance Standards: Compliance Status
+bind Measure Employee Engagement: Engagement Score
+bind Implement HR Technology Solutions: Technology Solution
+bind Identify Skill Gaps: Skill Gap Count
+bind Assess Compensation Packages: Compensation Budget
+bind Conduct Exit Interviews: Exit Reason
+Employee Count: integer between 1 and 10000
+Turnover Rate: float between 0.0 and 100.0
+Survey Type: Satisfaction, Engagement, Feedback
+Training Hours: integer between 0 and 1000
+Compliance Status: Compliant, Non-Compliant
+Engagement Score: float between 0.0 and 10.0
+Technology Solution: Payroll, Recruitment, Performance Management
+Skill Gap Count: integer between 0 and 100
+Compensation Budget: float between 0.0 and 1000000.0
+Exit Reason: Retirement, Resignation, Termination
+Init[Collect Employee Data] | |
+End[Conduct Exit Interviews] | |
+Existence[Analyze Turnover Rates] | |
+Exactly2[Evaluate Training Programs] | |
+Alternate Response[Conduct Employee Surveys, Measure Employee Engagement] | |A.Survey Type == T.Survey Type |0,2,d
+Alternate Succession[Monitor Attendance, Assess Compensation Packages] |A.Employee Count > 100 |A.Compensation Budget > T.Compensation Budget |0,48,h
+Chain Response[Implement HR Technology Solutions, Review Compliance Standards] |A.Technology Solution is Payroll |A.Compliance Status is Compliant |5,13,m
+Co-Existence[Identify Skill Gaps, Develop Talent Acquisition Strategies] | |A.Skill Gap Count == T.Skill Gap Count |
+Chain Precedence[Plan Succession Strategies, Conduct Exit Interviews] |A.Exit Reason is Retirement | |10,15,s
+Precedence[Generate Performance Reports, Conduct Employee Surveys] |A.Survey Type in (Satisfaction, Engagement) | |
+Not Response[Optimize Workforce Planning, Conduct Exit Interviews] | | |
+Exclusive Choice[Evaluate Training Programs, Review Compliance Standards] | | |
+Choice[Develop Talent Acquisition Strategies, Implement HR Technology Solutions] | | |
+Not Chain Response[Conduct Employee Surveys, Conduct Exit Interviews] | | |
+Not Chain Succession[Assess Compensation Packages, Monitor Attendance] | | |

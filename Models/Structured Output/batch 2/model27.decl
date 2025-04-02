@@ -1,0 +1,49 @@
+activity Define Target Audience
+activity Conduct Market Research
+activity Develop Marketing Strategy
+activity Create Marketing Content
+activity Select Marketing Channels
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Adjust Marketing Strategy
+activity Ensure Compliance with Regulations
+activity Gather Customer Feedback
+activity Analyze Customer Feedback
+activity Report Marketing Outcomes
+activity Conduct Ethical Review
+activity Train Marketing Team
+activity Evaluate Competitor Strategies
+bind Define Target Audience: Strategy Type
+bind Conduct Market Research: Market Share
+bind Develop Marketing Strategy: Budget
+bind Create Marketing Content: Engagement Rate
+bind Select Marketing Channels: Channel Type
+bind Ensure Compliance with Regulations: Compliance Status
+bind Gather Customer Feedback: Feedback Type
+bind Analyze Customer Feedback: Customer Satisfaction Score
+bind Evaluate Competitor Strategies: Competitor Analysis Score
+Budget: integer between 1000 and 1000000
+ROI: float between 0.0 and 10.0
+Channel Type: Social Media, Email, Print
+Compliance Status: Compliant, Non-Compliant
+Customer Satisfaction Score: integer between 1 and 10
+Feedback Type: Positive, Neutral, Negative
+Market Share: float between 0.0 and 100.0
+Strategy Type: Digital, Traditional, Hybrid
+Competitor Analysis Score: integer between 1 and 10
+Engagement Rate: float between 0.0 and 100.0
+Init[Define Target Audience] | |
+End[Report Marketing Outcomes] | |
+Existence[Conduct Market Research] | |
+Response[Launch Marketing Campaign, Monitor Campaign Performance] | | |0,48,h
+Chain Succession[Create Marketing Content, Select Marketing Channels] | | |
+Response[Gather Customer Feedback, Analyze Customer Feedback] | | |0,2,d
+Co-Existence[Ensure Compliance with Regulations, Conduct Ethical Review] | | |
+Precedence[Launch Marketing Campaign, Develop Marketing Strategy] | | |
+Not Chain Precedence[Launch Marketing Campaign, Train Marketing Team] | | |
+Not Co-Existence[Evaluate Competitor Strategies, Adjust Marketing Strategy] | | |
+Chain Succession[Develop Marketing Strategy, Select Marketing Channels] |A.Strategy Type is Digital |A.Strategy Type == T.Channel Type |
+Not Response[Ensure Compliance with Regulations, Launch Marketing Campaign] |A.Compliance Status is Non-Compliant | |
+Precedence[Create Marketing Content, Conduct Market Research] |A.Engagement Rate > 50 | |
+Precedence[Report Marketing Outcomes, Analyze Customer Feedback] |A.Customer Satisfaction Score >= 7 | |0,2,d
+Precedence[Adjust Marketing Strategy, Evaluate Competitor Strategies] |A.Competitor Analysis Score >= 5 | |0,1,d

@@ -1,0 +1,49 @@
+activity Install Antivirus Software
+activity Update Virus Definitions
+activity Perform Full System Scan
+activity Quarantine Detected Threats
+activity Review Quarantine Logs
+activity Release False Positives
+activity Delete Confirmed Threats
+activity Configure Firewall Settings
+activity Monitor Network Traffic
+activity Generate Security Report
+activity Schedule Regular Scans
+activity Perform Patch Management
+activity Verify Patch Installation
+activity Educate Users on Security Practices
+activity Conduct Security Audit
+bind Install Antivirus Software: Patch Status
+bind Update Virus Definitions: Patch Version
+bind Perform Full System Scan: Scan Duration, Number of Threats
+bind Quarantine Detected Threats: Quarantine Status, Threat Level
+bind Configure Firewall Settings: Firewall Configuration
+bind Monitor Network Traffic: Network Traffic Volume
+bind Perform Patch Management: Patch Status, Patch Version
+bind Educate Users on Security Practices: User Training Status
+bind Conduct Security Audit: Audit Score
+Threat Level: integer between 1 and 10
+Scan Duration: float between 0.1 and 5.0
+Quarantine Status: Pending, Reviewed, Released
+Patch Status: Installed, Failed, Pending
+Number of Threats: integer between 0 and 100
+Network Traffic Volume: float between 0.0 and 1000.0
+Firewall Configuration: Configured, Not Configured
+User Training Status: Completed, Not Completed
+Patch Version: integer between 1 and 100
+Audit Score: float between 0.0 and 100.0
+Init[Install Antivirus Software] | |
+End[Generate Security Report] | |
+Existence[Perform Full System Scan] | |
+Response[Perform Full System Scan, Quarantine Detected Threats] | | |0,2,h
+Chain Response[Quarantine Detected Threats, Review Quarantine Logs] | | |
+Chain Succession[Perform Patch Management, Verify Patch Installation] | | |0,1,h
+Co-Existence[Configure Firewall Settings, Monitor Network Traffic] | | |
+Not Co-Existence[Educate Users on Security Practices, Conduct Security Audit] | | |
+Precedence[Perform Full System Scan, Update Virus Definitions] | | |0,1,d
+Not Chain Response[Quarantine Detected Threats, Delete Confirmed Threats] | | |
+Response[Perform Full System Scan, Generate Security Report] |A.Number of Threats > 0 | |0,1,d
+Response[Perform Patch Management, Verify Patch Installation] |A.Patch Status is Installed | |0,1,d
+Response[Install Antivirus Software, Update Virus Definitions] |A.Patch Status is Installed | |0,1,d
+Response[Monitor Network Traffic, Generate Security Report] |A.Network Traffic Volume > 500 | |0,1,d
+Response[Perform Full System Scan, Quarantine Detected Threats] |A.Number of Threats > 0 | |0,2,h

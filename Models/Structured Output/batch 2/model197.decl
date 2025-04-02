@@ -1,0 +1,48 @@
+activity Define Project Scope
+activity Plan Sprint
+activity Conduct Daily Standup
+activity Develop Features
+activity Review Code
+activity Test Features
+activity Deploy to Staging
+activity Conduct Sprint Review
+activity Retrospective Meeting
+activity Release to Production
+activity Update Documentation
+activity Gather Requirements
+activity Prioritize Backlog
+activity Refine Backlog
+activity Conduct User Acceptance Testing
+bind Define Project Scope: Priority Level
+bind Plan Sprint: Sprint Duration
+bind Develop Features: Feature Complexity
+bind Review Code: Code Quality Score, Review Outcome
+bind Test Features: Bug Count
+bind Deploy to Staging: Deployment Environment
+bind Update Documentation: Documentation Pages
+bind Conduct User Acceptance Testing: User Satisfaction Score
+Sprint Duration: integer between 1 and 30
+Feature Complexity: float between 1.0 and 10.0
+Task Status: Not Started, In Progress, Completed
+Priority Level: Low, Medium, High
+Bug Count: integer between 0 and 100
+Code Quality Score: float between 0.0 and 10.0
+Deployment Environment: Staging, Production
+Documentation Pages: integer between 1 and 500
+Review Outcome: Approved, Changes Required
+User Satisfaction Score: float between 0.0 and 5.0
+Init[Define Project Scope] | |
+Existence[Plan Sprint] | |
+Absence20[Conduct Daily Standup] | |
+Chain Succession[Develop Features, Test Features] | | |0,2,d
+Precedence[Review Code, Develop Features] | | |
+Response[Deploy to Staging, Conduct Sprint Review] | | |
+Co-Existence[Conduct Sprint Review, Retrospective Meeting] | | |
+Not Chain Succession[Test Features, Conduct User Acceptance Testing] | | |
+Precedence[Update Documentation, Conduct Sprint Review] | | |
+Succession[Release to Production, Deploy to Staging] | | |
+Precedence[Plan Sprint, Prioritize Backlog] | | |
+Co-Existence[Refine Backlog, Plan Sprint] | | |
+Precedence[Deploy to Staging, Review Code] | |T.Review Outcome is Approved |
+Precedence[Release to Production, Conduct User Acceptance Testing] | |T.User Satisfaction Score > 3.0 |
+Precedence[Review Code, Develop Features] | |T.Feature Complexity <= 5.0 |

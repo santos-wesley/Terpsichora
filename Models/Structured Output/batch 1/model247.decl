@@ -1,0 +1,38 @@
+activity Submit Patent Application
+activity Review Patent Application
+activity Approve Patent Application
+activity Reject Patent Application
+activity File Trademark
+activity Review Trademark Application
+activity Approve Trademark Application
+activity Reject Trademark Application
+activity Conduct Prior Art Search
+activity Issue Patent Certificate
+bind Submit Patent Application: Application ID, Application Fee
+bind Review Patent Application: Review Duration, Application Status
+bind Approve Patent Application: Decision
+bind Reject Patent Application: Decision
+bind File Trademark: Trademark Fee
+bind Review Trademark Application: Trademark Status
+bind Conduct Prior Art Search: Search Duration
+bind Issue Patent Certificate: Certificate Status, Certificate Fee
+Application ID: integer between 1 and 10000
+Application Fee: float between 100.0 and 10000.0
+Application Status: Submitted, Under Review, Approved, Rejected
+Review Duration: integer between 1 and 365
+Decision: Approve, Reject
+Trademark Fee: float between 50.0 and 5000.0
+Trademark Status: Filed, Under Review, Approved, Rejected
+Search Duration: integer between 1 and 30
+Certificate Status: Issued, Not Issued
+Certificate Fee: float between 200.0 and 2000.0
+Init[Submit Patent Application] | |
+End[Issue Patent Certificate] | |
+Precedence[Approve Patent Application, Review Patent Application] | | |
+Precedence[Reject Patent Application, Review Patent Application] | | |
+Response[Approve Patent Application, Issue Patent Certificate] |A.Decision is Approve | |0,30,d
+Precedence[Approve Trademark Application, Review Trademark Application] | | |
+Precedence[Reject Trademark Application, Review Trademark Application] | | |
+Precedence[Review Patent Application, Conduct Prior Art Search] | | |
+Not Co-Existence[Approve Patent Application, Approve Trademark Application] | | |
+Existence[Review Patent Application] | |

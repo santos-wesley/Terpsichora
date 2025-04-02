@@ -1,0 +1,36 @@
+activity Identify Threat
+activity Relocate Witness
+activity Provide New Identity
+activity Monitor Communication
+activity Conduct Risk Assessment
+activity Offer Psychological Support
+activity Ensure Legal Assistance
+activity Review Protection Measures
+activity Terminate Protection
+bind Identify Threat: Threat Level
+bind Relocate Witness: Location Type
+bind Provide New Identity: Identity Status
+bind Monitor Communication: Communication Frequency
+bind Conduct Risk Assessment: Risk Level
+bind Offer Psychological Support: Support Hours
+bind Ensure Legal Assistance: Legal Status
+bind Review Protection Measures: Review Interval
+Threat Level: integer between 1 and 10
+Location Type: Urban, Rural, Suburban
+Budget Allocation: float between 1000.0 and 100000.0
+Identity Status: Pending, Issued, Rejected
+Communication Frequency: integer between 1 and 30
+Risk Level: Low, Medium, High
+Support Hours: float between 1.0 and 40.0
+Legal Status: Available, Not Available
+Review Interval: integer between 1 and 365
+Init[Identify Threat] | |
+End[Terminate Protection] | |
+Existence[Conduct Risk Assessment] | |
+Chain Response[Relocate Witness, Provide New Identity] | | |0,48,h
+Response[Offer Psychological Support, Ensure Legal Assistance] | | |
+Precedence[Review Protection Measures, Monitor Communication] | | |
+Responded Existence[Identify Threat, Relocate Witness] |A.Threat Level > 7 |T.Location Type is Rural |
+Not Responded Existence[Provide New Identity, Monitor Communication] |A.Identity Status is Pending |T.Communication Frequency < 20 |
+Not Co-Existence[Identify Threat, Relocate Witness] | |A.Location Type == T.Location Type |
+Exclusive Choice[Offer Psychological Support, Ensure Legal Assistance] | | |

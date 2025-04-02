@@ -1,0 +1,29 @@
+activity Receive Distress Signal
+activity Dispatch Rescue Team
+activity Assess Situation
+activity Provide Medical Assistance
+activity Evacuate Individuals
+activity Debrief Rescue Team
+activity Report Incident
+activity Coordinate with Authorities
+bind Receive Distress Signal: Signal Strength
+bind Dispatch Rescue Team: Number of Rescuers
+bind Assess Situation: Distance to Location, Weather Condition
+bind Provide Medical Assistance: Medical Severity
+bind Evacuate Individuals: Evacuation Status
+Signal Strength: integer between 1 and 100
+Distance to Location: float between 0.1 and 500.0
+Weather Condition: Clear, Rainy, Stormy, Snowy
+Medical Severity: Minor, Moderate, Severe
+Number of Rescuers: integer between 1 and 50
+Evacuation Status: Not Started, In Progress, Completed
+Init[Receive Distress Signal] | |
+End[Debrief Rescue Team] | |
+Chain Response[Receive Distress Signal, Dispatch Rescue Team] | | |0,30,m
+Response[Assess Situation, Provide Medical Assistance] | |A.Medical Severity in (Moderate, Severe) |
+Precedence[Evacuate Individuals, Provide Medical Assistance] | | |
+Responded Existence[Coordinate with Authorities, Assess Situation] |A.Weather Condition is Stormy | |
+Chain Response[Debrief Rescue Team, Report Incident] | | |0,2,d
+Not Precedence[Dispatch Rescue Team, Receive Distress Signal] |A.Signal Strength < 10 | |
+Exclusive Choice[Evacuate Individuals, Provide Medical Assistance] | | |
+Existence[Receive Distress Signal] | |

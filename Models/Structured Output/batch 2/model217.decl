@@ -1,0 +1,49 @@
+activity Receive Report
+activity Assign Investigator
+activity Conduct Interview
+activity Gather Evidence
+activity Evaluate Evidence
+activity Make Decision
+activity Notify Authorities
+activity Close Case
+activity Document Findings
+activity Provide Support
+activity Review Case
+activity Schedule Follow-up
+activity Conduct Follow-up
+activity Update Records
+activity Archive Case
+bind Receive Report: Case ID
+bind Assign Investigator: Investigation Status
+bind Conduct Interview: Number of Interviews
+bind Gather Evidence: Evidence Weight
+bind Evaluate Evidence: Severity Score
+bind Make Decision: Decision Outcome
+bind Provide Support: Support Type, Support Sessions
+bind Schedule Follow-up: Follow-up Days
+bind Review Case: Case Review Result
+Case ID: integer between 1 and 10000
+Severity Score: float between 0.0 and 10.0
+Investigation Status: Open, In Progress, Closed
+Support Type: Counseling, Medical, Legal
+Number of Interviews: integer between 0 and 10
+Decision Outcome: No Action, Action Required, Refer to Authorities
+Evidence Weight: float between 0.0 and 100.0
+Follow-up Days: integer between 0 and 30
+Case Review Result: Approved, Needs Revision
+Support Sessions: integer between 0 and 20
+Init[Receive Report] | |
+End[Archive Case] | |
+Chain Succession[Receive Report, Assign Investigator] | | |
+Response[Conduct Interview, Gather Evidence] | | |0,2,d
+Precedence[Make Decision, Evaluate Evidence] | | |
+Response[Make Decision, Notify Authorities] |A.Decision Outcome is Action Required | |0,48,h
+Exclusive Choice[Provide Support, Schedule Follow-up] | | |
+Response[Provide Support, Document Findings] | | |0,5,d
+Precedence[Close Case, Review Case] | | |
+Not Succession[Review Case, Close Case] |A.Case Review Result is Needs Revision | |
+Precedence[Conduct Follow-up, Schedule Follow-up] | | |0,30,d
+Precedence[Update Records, Document Findings] | | |
+Existence[Conduct Interview] | |
+Exactly[Review Case] | |
+Co-Existence[Gather Evidence, Evaluate Evidence] | | |

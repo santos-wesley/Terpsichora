@@ -1,0 +1,50 @@
+activity Assess Food Supply
+activity Identify Vulnerable Populations
+activity Allocate Resources
+activity Monitor Food Distribution
+activity Evaluate Nutritional Quality
+activity Conduct Community Surveys
+activity Develop Food Security Plan
+activity Implement Food Security Plan
+activity Review Plan Effectiveness
+activity Adjust Resource Allocation
+activity Train Field Staff
+activity Coordinate with Local Authorities
+activity Conduct Risk Assessment
+activity Secure Funding
+activity Report Outcomes
+bind Assess Food Supply: Stock Level
+bind Identify Vulnerable Populations: Population Risk Level
+bind Allocate Resources: Resource Allocation Status
+bind Evaluate Nutritional Quality: Nutritional Value
+bind Conduct Community Surveys: Survey Responses
+bind Develop Food Security Plan: Plan Status
+bind Secure Funding: Funding Amount
+bind Train Field Staff: Training Completion
+bind Conduct Risk Assessment: Risk Score
+bind Report Outcomes: Outcome Status
+Stock Level: integer between 0 and 10000
+Nutritional Value: float between 0.0 and 100.0
+Population Risk Level: Low, Medium, High
+Resource Allocation Status: Pending, In Progress, Completed
+Survey Responses: integer between 0 and 1000
+Plan Status: Draft, Approved, Implemented
+Funding Amount: float between 0.0 and 1000000.0
+Training Completion: Not Started, Ongoing, Completed
+Risk Score: integer between 0 and 100
+Outcome Status: Successful, Partially Successful, Unsuccessful
+Init[Assess Food Supply] | |
+End[Report Outcomes] | |
+Existence[Conduct Community Surveys] | |
+Exactly[Train Field Staff] | |
+Response[Allocate Resources, Monitor Food Distribution] | | |0,2,d
+Chain Succession[Develop Food Security Plan, Implement Food Security Plan] | | |0,48,h
+Precedence[Adjust Resource Allocation, Evaluate Nutritional Quality] | | |
+Co-Existence[Conduct Risk Assessment, Secure Funding] | | |
+Response[Identify Vulnerable Populations, Allocate Resources] |A.Population Risk Level is High | |0,1,d
+Precedence[Review Plan Effectiveness, Implement Food Security Plan] | | |
+Not Co-Existence[Adjust Resource Allocation, Coordinate with Local Authorities] | | |
+Response[Secure Funding, Train Field Staff] |A.Funding Amount > 50000 | |0,30,d
+Response[Conduct Community Surveys, Develop Food Security Plan] |A.Survey Responses > 100 | |0,7,d
+Not Succession[Evaluate Nutritional Quality, Report Outcomes] | | |
+Exclusive Choice[Assess Food Supply, Conduct Risk Assessment] | | |

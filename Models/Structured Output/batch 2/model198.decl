@@ -1,0 +1,50 @@
+activity Receive Child Abuse Report
+activity Conduct Initial Assessment
+activity Assign Case Worker
+activity Conduct Home Visit
+activity Interview Child
+activity Interview Parents
+activity Develop Safety Plan
+activity Refer to Support Services
+activity Review Case
+activity Close Case
+activity Initiate Legal Action
+activity Conduct Follow-Up Visit
+activity Update Case File
+activity Hold Case Conference
+activity Provide Counseling
+bind Receive Child Abuse Report: Report ID
+bind Conduct Initial Assessment: Assessment Urgency
+bind Assign Case Worker: Case Worker ID
+bind Conduct Home Visit: Home Visit Duration
+bind Interview Child: Interview Outcome
+bind Develop Safety Plan: Safety Plan Effectiveness
+bind Initiate Legal Action: Legal Action Type
+bind Conduct Follow-Up Visit: Follow-Up Visit Count
+bind Close Case: Case Status
+bind Provide Counseling: Counseling Hours
+Report ID: integer between 1 and 10000
+Assessment Urgency: Low, Medium, High
+Case Worker ID: integer between 1 and 500
+Home Visit Duration: float between 0.5 and 8.0
+Interview Outcome: Cooperative, Uncooperative, Inconclusive
+Safety Plan Effectiveness: float between 0.0 and 10.0
+Legal Action Type: None, Protective Order, Custody Change
+Follow-Up Visit Count: integer between 0 and 10
+Case Status: Open, Closed, Pending
+Counseling Hours: float between 0.0 and 100.0
+Init[Receive Child Abuse Report] | |
+End[Close Case] | |
+Existence[Conduct Initial Assessment] | |
+Response[Conduct Initial Assessment, Conduct Home Visit] | | |0,2,d
+Chain Response[Conduct Home Visit, Interview Child] | | |0,1,h
+Precedence[Conduct Home Visit, Assign Case Worker] | | |
+Response[Interview Child, Develop Safety Plan] | | |0,3,d
+Precedence[Initiate Legal Action, Develop Safety Plan] |A.Safety Plan Effectiveness < 5 | |
+Response[Develop Safety Plan, Conduct Follow-Up Visit] | | |0,1,m
+Precedence[Close Case, Review Case] | | |
+Responded Existence[Interview Child, Provide Counseling] |A.Interview Outcome is Uncooperative | |
+Response[Initiate Legal Action, Hold Case Conference] | | |0,5,d
+Chain Response[Conduct Follow-Up Visit, Update Case File] | | |0,1,h
+Response[Interview Child, Interview Parents] | | |0,2,d
+Exclusive Choice[Develop Safety Plan, Initiate Legal Action] | | |

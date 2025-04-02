@@ -1,0 +1,37 @@
+activity Identify Risk Factors
+activity Assess Impact
+activity Evaluate Mitigation Strategies
+activity Conduct Site Inspection
+activity Review Regulatory Requirements
+activity Prepare Risk Report
+activity Approve Risk Assessment
+activity Monitor Environmental Conditions
+activity Update Risk Assessment
+bind Identify Risk Factors: Risk Level
+bind Assess Impact: Impact Score
+bind Evaluate Mitigation Strategies: Mitigation Strategy
+bind Conduct Site Inspection: Inspection Status
+bind Review Regulatory Requirements: Compliance Status
+bind Prepare Risk Report: Report Version
+bind Approve Risk Assessment: Approval Status
+bind Monitor Environmental Conditions: Condition Index
+bind Update Risk Assessment: Update Frequency
+Risk Level: integer between 1 and 5
+Impact Score: float between 0.0 and 10.0
+Mitigation Strategy: Avoidance, Reduction, Transfer, Acceptance
+Inspection Status: Pending, Completed
+Compliance Status: Compliant, Non-Compliant
+Report Version: integer between 1 and 10
+Approval Status: Approved, Rejected
+Condition Index: float between 0.0 and 100.0
+Update Frequency: integer between 1 and 30
+Init[Identify Risk Factors] | |
+End[Approve Risk Assessment] | |
+Chain Response[Conduct Site Inspection, Assess Impact] | | |2,5,d
+Response[Identify Risk Factors, Evaluate Mitigation Strategies] |A.Risk Level > 3 |T.Mitigation Strategy in (Reduction, Transfer) |
+Chain Response[Review Regulatory Requirements, Prepare Risk Report] | | |1,3,d
+Precedence[Approve Risk Assessment, Review Regulatory Requirements] | |T.Compliance Status is Compliant |
+Responded Existence[Conduct Site Inspection, Prepare Risk Report] |A.Inspection Status is Completed | |
+Precedence[Monitor Environmental Conditions, Approve Risk Assessment] | | |
+Existence[Update Risk Assessment] |A.Update Frequency <= 30 |
+Not Chain Succession[Identify Risk Factors, Assess Impact] | | |

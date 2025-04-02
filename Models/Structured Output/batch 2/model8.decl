@@ -1,0 +1,36 @@
+activity Identify Behavior
+activity Assess Behavior
+activity Develop Intervention Plan
+activity Implement Intervention
+activity Monitor Progress
+activity Review Intervention
+activity Adjust Intervention
+activity Conduct Follow-up
+activity Document Outcomes
+activity Provide Feedback
+bind Identify Behavior: Behavior Type
+bind Assess Behavior: Frequency, Severity
+bind Develop Intervention Plan: Intervention Status
+bind Implement Intervention: Duration
+bind Document Outcomes: Outcome
+Frequency: integer between 0 and 1000
+Severity: float between 0.0 and 10.0
+Behavior Type: Aggressive, Passive, Disruptive, Cooperative
+Intervention Status: Planned, In Progress, Completed, Reviewed
+Duration: integer between 1 and 365
+Outcome: Successful, Unsuccessful, Partially Successful
+Init[Identify Behavior] | |
+End[Provide Feedback] | |
+Existence[Assess Behavior] | |
+Exactly[Review Intervention] | |
+Precedence[Implement Intervention, Develop Intervention Plan] | | |
+Response[Implement Intervention, Monitor Progress] | | |0,7,d
+Precedence[Adjust Intervention, Review Intervention] | | |
+Succession[Document Outcomes, Conduct Follow-up] | | |0,30,d
+Chain Succession[Identify Behavior, Assess Behavior] |A.Behavior Type is Aggressive |A.Behavior Type == T.Behavior Type |
+Precedence[Document Outcomes, Develop Intervention Plan] | |T.Intervention Status is Completed |
+Responded Existence[Provide Feedback, Document Outcomes] | |T.Outcome in (Successful, Partially Successful) |
+Precedence[Develop Intervention Plan, Assess Behavior] |A.Severity > 5 | |
+Not Chain Succession[Implement Intervention, Review Intervention] | | |
+Exclusive Choice[Adjust Intervention, Conduct Follow-up] | | |
+Responded Existence[Document Outcomes, Implement Intervention] |A.Outcome is Successful |T.Duration < 30 |

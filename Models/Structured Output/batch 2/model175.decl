@@ -1,0 +1,50 @@
+activity Assess Damage
+activity Deploy Emergency Services
+activity Establish Communication
+activity Provide Medical Aid
+activity Distribute Supplies
+activity Evacuate Area
+activity Conduct Search and Rescue
+activity Set Up Shelter
+activity Coordinate Volunteers
+activity Restore Utilities
+activity Assess Environmental Impact
+activity Provide Psychological Support
+activity Monitor Weather Conditions
+activity Report to Authorities
+activity Conduct Debriefing
+bind Assess Damage: Damage Level
+bind Distribute Supplies: Supply Quantity
+bind Establish Communication: Communication Status
+bind Provide Medical Aid: Medical Aid Status
+bind Conduct Search and Rescue: Number of Rescues
+bind Set Up Shelter: Shelter Status
+bind Restore Utilities: Utility Restoration Progress
+bind Coordinate Volunteers: Volunteer Coordination Status
+bind Monitor Weather Conditions: Weather Alert Level
+bind Conduct Debriefing: Debriefing Status
+Damage Level: integer between 1 and 10
+Supply Quantity: float between 0.0 and 10000.0
+Communication Status: Established, Not Established
+Medical Aid Status: Provided, Not Provided
+Number of Rescues: integer between 0 and 1000
+Shelter Status: Set Up, Not Set Up
+Utility Restoration Progress: float between 0.0 and 100.0
+Volunteer Coordination Status: Coordinated, Not Coordinated
+Weather Alert Level: integer between 1 and 5
+Debriefing Status: Conducted, Not Conducted
+Init[Assess Damage] | |
+End[Conduct Debriefing] | |
+Existence[Establish Communication] | |
+Existence[Provide Medical Aid] | |
+Precedence[Evacuate Area, Deploy Emergency Services] | | |
+Chain Response[Assess Damage, Conduct Search and Rescue] | | |0,1,h
+Response[Set Up Shelter, Distribute Supplies] | | |0,12,h
+Precedence[Restore Utilities, Coordinate Volunteers] | | |
+Precedence[Evacuate Area, Monitor Weather Conditions] | | |
+Response[Establish Communication, Report to Authorities] | | |0,24,h
+Response[Provide Medical Aid, Provide Psychological Support] | | |0,48,h
+Co-Existence[Assess Damage, Assess Environmental Impact] | | |
+Not Chain Succession[Conduct Search and Rescue, Evacuate Area] | | |
+Exclusive Choice[Provide Medical Aid, Provide Psychological Support] | | |
+Not Chain Response[Coordinate Volunteers, Restore Utilities] | | |

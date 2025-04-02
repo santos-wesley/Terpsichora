@@ -1,0 +1,49 @@
+activity Register Livestock
+activity Feed Livestock
+activity Inspect Health
+activity Administer Vaccine
+activity Weigh Livestock
+activity Sell Livestock
+activity Transport Livestock
+activity Record Birth
+activity Record Death
+activity Clean Facility
+activity Purchase Feed
+activity Monitor Environment
+activity Repair Equipment
+activity Hire Staff
+activity Train Staff
+bind Register Livestock: Livestock ID
+bind Feed Livestock: Feed Quantity, Feed Type
+bind Inspect Health: Health Status
+bind Administer Vaccine: Vaccine Type
+bind Weigh Livestock: Weight
+bind Sell Livestock: Sale Price
+bind Transport Livestock: Transport Method
+bind Hire Staff: Staff ID
+bind Clean Facility: Facility Condition
+Livestock ID: integer between 1 and 10000
+Weight: float between 0.5 and 2000.0
+Health Status: Healthy, Sick, Critical
+Vaccine Type: Rabies, Foot and Mouth, Anthrax
+Feed Quantity: float between 0.1 and 100.0
+Transport Method: Truck, Train, Ship
+Staff ID: integer between 1 and 500
+Facility Condition: Clean, Needs Cleaning, Under Repair
+Sale Price: float between 50.0 and 10000.0
+Feed Type: Grain, Hay, Silage
+Init[Register Livestock] | |
+Existence[Feed Livestock] | |
+Exactly2[Inspect Health] | |
+Chain Response[Administer Vaccine, Inspect Health] | | |
+Response[Weigh Livestock, Sell Livestock] | | |
+Not Chain Succession[Transport Livestock, Sell Livestock] | | |
+Not Co-Existence[Record Birth, Record Death] | | |
+Chain Precedence[Clean Facility, Monitor Environment] | | |
+Precedence[Feed Livestock, Purchase Feed] | | |
+Co-Existence[Hire Staff, Train Staff] | | |
+Response[Purchase Feed, Feed Livestock] | | |0,2,d
+Response[Inspect Health, Administer Vaccine] |A.Health Status is Sick | |0,48,h
+Response[Sell Livestock, Transport Livestock] |A.Sale Price > 500 | |0,15,m
+Response[Monitor Environment, Repair Equipment] |A.Facility Condition is Under Repair | |0,1,d
+Not Co-Existence[Weigh Livestock, Administer Vaccine] | |A.Vaccine Type is Rabies |

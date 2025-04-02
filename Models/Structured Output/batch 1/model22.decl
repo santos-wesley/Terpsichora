@@ -1,0 +1,40 @@
+activity Authenticate Device
+activity Encrypt Data
+activity Monitor Network
+activity Update Firmware
+activity Perform Security Audit
+activity Detect Intrusion
+activity Log Security Event
+activity Revoke Access
+activity Backup Data
+activity Notify Admin
+bind Authenticate Device: Device Type
+bind Encrypt Data: Encryption Level
+bind Update Firmware: Firmware Version
+bind Monitor Network: Network Status
+bind Perform Security Audit: Audit Score
+bind Detect Intrusion: Intrusion Type
+bind Backup Data: Data Size
+bind Revoke Access: Access Status
+bind Log Security Event: Event ID
+bind Notify Admin: Admin Notification Type
+Device Type: Sensor, Camera, Router
+Encryption Level: integer between 1 and 5
+Firmware Version: float between 1.0 and 10.0
+Network Status: Active, Inactive
+Audit Score: integer between 0 and 100
+Intrusion Type: Malware, Phishing, DDoS
+Data Size: float between 0.1 and 1000.0
+Access Status: Granted, Revoked
+Event ID: integer between 1 and 10000
+Admin Notification Type: Email, SMS, Push Notification
+Init[Authenticate Device] | |
+End[Notify Admin] | |
+Existence[Monitor Network] | |
+Response[Detect Intrusion, Log Security Event] | | |5,10,m
+Chain Response[Encrypt Data, Backup Data] | | |
+Precedence[Update Firmware, Perform Security Audit] | | |
+Response[Revoke Access, Notify Admin] | | |1,2,h
+Choice[Monitor Network, Detect Intrusion] | | |
+Responded Existence[Backup Data, Encrypt Data] |A.Data Size > 500 |T.Encryption Level >= 3 |
+Co-Existence[Authenticate Device, Log Security Event] | |A.Device Type == T.Device Type |

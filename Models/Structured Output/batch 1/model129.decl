@@ -1,0 +1,27 @@
+activity Collect Threat Data
+activity Analyze Threat Data
+activity Classify Threat
+activity Report Threat
+activity Mitigate Threat
+activity Review Mitigation
+activity Update Threat Database
+activity Notify Stakeholders
+bind Collect Threat Data: Data Volume
+bind Classify Threat: Threat Level, Threat Type
+bind Mitigate Threat: Mitigation Status
+bind Notify Stakeholders: Stakeholder Notification
+Threat Level: integer between 1 and 10
+Data Volume: float between 0.1 and 100.0
+Threat Type: Malware, Phishing, DDoS, Ransomware
+Mitigation Status: Pending, In Progress, Completed
+Stakeholder Notification: Not Notified, Notified
+Init[Collect Threat Data] | |
+End[Update Threat Database] | |
+Chain Response[Analyze Threat Data, Classify Threat] | | |0,2,h
+Response[Classify Threat, Report Threat] | | |
+Precedence[Review Mitigation, Mitigate Threat] | |A.Mitigation Status is Completed |
+Response[Report Threat, Notify Stakeholders] | | |0,1,h
+Co-Existence[Collect Threat Data, Analyze Threat Data] | | |
+Existence[Mitigate Threat] | |
+Chain Succession[Classify Threat, Report Threat] | |A.Threat Type == T.Threat Type |
+Not Responded Existence[Classify Threat, Mitigate Threat] | |A.Threat Level != T.Threat Level |

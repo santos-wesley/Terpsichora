@@ -1,0 +1,25 @@
+activity Draft Contract
+activity Review Contract
+activity Negotiate Terms
+activity Approve Contract
+activity Sign Contract
+activity Archive Contract
+bind Draft Contract: Contract ID, Contract Value
+bind Review Contract: Review Outcome
+bind Approve Contract: Approval Status
+bind Sign Contract: Signature Status
+Contract ID: integer between 1000 and 9999
+Contract Value: float between 10000.0 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Signature Status: Unsigned, Partially Signed, Fully Signed
+Review Outcome: Accepted, Requires Changes, Rejected
+Init[Draft Contract] | |
+End[Archive Contract] | |
+Response[Draft Contract, Review Contract] | | |0,2,d
+Precedence[Sign Contract, Approve Contract] |A.Signature Status is Unsigned |A.Approval Status is Approved |0,1,d
+Response[Review Contract, Negotiate Terms] |A.Review Outcome is Requires Changes | |0,3,d
+Response[Negotiate Terms, Approve Contract] | | |0,2,d
+Response[Approve Contract, Sign Contract] |A.Approval Status is Approved |A.Signature Status is Unsigned |0,1,d
+Response[Sign Contract, Archive Contract] |A.Signature Status is Fully Signed | |
+Existence[Review Contract] | |
+Not Precedence[Sign Contract, Review Contract] |A.Signature Status is Unsigned |A.Review Outcome is Rejected |

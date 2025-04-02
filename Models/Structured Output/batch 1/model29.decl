@@ -1,0 +1,30 @@
+activity Monitor Network Traffic
+activity Detect Anomalies
+activity Generate Alert
+activity Perform Diagnostics
+activity Apply Fix
+activity Verify Resolution
+activity Update Network Configuration
+activity Log Incident
+activity Review Network Performance
+bind Monitor Network Traffic: Traffic Volume
+bind Detect Anomalies: Anomaly Score
+bind Generate Alert: Alert Level
+bind Apply Fix: Fix Status
+bind Perform Diagnostics: Diagnostic Duration
+bind Update Network Configuration: Configuration Change Type
+Traffic Volume: integer between 0 and 10000
+Anomaly Score: float between 0.0 and 1.0
+Alert Level: Low, Medium, High
+Fix Status: Pending, In Progress, Completed
+Diagnostic Duration: integer between 1 and 120
+Configuration Change Type: Security, Performance, Maintenance
+Init[Monitor Network Traffic] | |
+Existence[Detect Anomalies] | |
+Chain Response[Detect Anomalies, Generate Alert] |A.Anomaly Score > 0.7 | |0,0,s
+Response[Perform Diagnostics, Apply Fix] | | |0,2,h
+Response[Generate Alert, Perform Diagnostics] |A.Alert Level is High | |0,30,m
+Chain Succession[Apply Fix, Verify Resolution] | | |
+Not Co-Existence[Update Network Configuration, Log Incident] | | |
+Precedence[Review Network Performance, Verify Resolution] | | |
+Exclusive Choice[Update Network Configuration, Log Incident] | | |

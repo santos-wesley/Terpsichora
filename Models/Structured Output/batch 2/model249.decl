@@ -1,0 +1,45 @@
+activity File Complaint
+activity Serve Summons
+activity Conduct Discovery
+activity File Motion
+activity Attend Hearing
+activity Negotiate Settlement
+activity Prepare Trial
+activity Conduct Trial
+activity File Appeal
+activity Close Case
+bind File Complaint: Case ID, Case Status
+bind Serve Summons: Case ID
+bind Conduct Discovery: Discovery Type
+bind File Motion: Motion Type
+bind Attend Hearing: Hearing Outcome
+bind Negotiate Settlement: Settlement Amount, Settlement Days
+bind Prepare Trial: Trial Days
+bind Conduct Trial: Trial Outcome
+bind File Appeal: Appeal Cost
+bind Close Case: Case Status
+Case ID: integer between 1 and 10000
+Settlement Amount: float between 1000.0 and 1000000.0
+Case Status: Open, Closed, Pending
+Motion Type: Dismiss, Summary Judgment, Compel
+Trial Days: integer between 1 and 30
+Hearing Outcome: Granted, Denied, Continued
+Appeal Cost: float between 500.0 and 20000.0
+Discovery Type: Interrogatories, Depositions, Document Production
+Settlement Days: integer between 1 and 60
+Trial Outcome: Win, Lose, Mistrial
+Init[File Complaint] | |
+End[Close Case] | |
+Existence[File Complaint] | |
+Precedence[Serve Summons, File Complaint] | | |
+Response[Conduct Discovery, File Motion] | | |0,30,d
+Chain Response[File Motion, Attend Hearing] | | |0,10,d
+Precedence[Prepare Trial, Negotiate Settlement] | | |
+Succession[Conduct Trial, Close Case] | | |0,15,d
+Response[Conduct Trial, File Appeal] | | |0,30,d
+Not Co-Existence[Close Case, File Complaint] |A.Case Status is Pending | |
+Not Chain Succession[Prepare Trial, Conduct Trial] | | |
+Response[Negotiate Settlement, Close Case] | | |0,60,d
+Response[Attend Hearing, Prepare Trial] |A.Hearing Outcome is Granted | |
+Not Succession[File Motion, Conduct Trial] |A.Motion Type is Dismiss | |
+Not Co-Existence[Close Case, Conduct Trial] |A.Trial Outcome is Mistrial | |

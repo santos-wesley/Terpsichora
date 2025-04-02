@@ -1,0 +1,50 @@
+activity Patrol Area
+activity Conduct Surveillance
+activity Gather Intelligence
+activity Investigate Crime
+activity Arrest Suspect
+activity File Report
+activity Interview Witness
+activity Analyze Evidence
+activity Conduct Raid
+activity Coordinate with Agencies
+activity Provide Community Support
+activity Monitor Social Media
+activity Issue Warrant
+activity Secure Crime Scene
+activity Conduct Training
+bind Patrol Area: Patrol Duration
+bind Conduct Surveillance: Surveillance Cost
+bind Gather Intelligence: Intelligence Source
+bind Investigate Crime: Crime Severity
+bind Arrest Suspect: Number of Suspects
+bind Analyze Evidence: Evidence Weight
+bind Provide Community Support: Community Support Type
+bind Monitor Social Media: Social Media Alerts
+bind Issue Warrant: Warrant Type
+bind Conduct Training: Training Hours
+Patrol Duration: integer between 1 and 12
+Surveillance Cost: float between 100.0 and 10000.0
+Intelligence Source: Informant, Public, Technology, Other Agencies
+Crime Severity: Low, Medium, High
+Number of Suspects: integer between 1 and 10
+Evidence Weight: float between 0.1 and 50.0
+Community Support Type: Counseling, Patrol Increase, Workshops
+Social Media Alerts: integer between 0 and 100
+Warrant Type: Arrest, Search
+Training Hours: float between 1.0 and 40.0
+Init[Patrol Area] | |
+Existence[Conduct Training] | |
+End[File Report] | |
+Alternate Response[Conduct Surveillance, Gather Intelligence] | | |0,2,d
+Succession[Investigate Crime, Arrest Suspect] | |A.Crime Severity is High |0,48,h
+Chain Response[Conduct Raid, Secure Crime Scene] | | |0,1,h
+Co-Existence[Monitor Social Media, Provide Community Support] |A.Social Media Alerts > 10 | |
+Not Chain Precedence[Conduct Surveillance, Issue Warrant] | | |
+Not Co-Existence[Gather Intelligence, Coordinate with Agencies] | | |
+Not Succession[Patrol Area, Conduct Surveillance] | | |
+Response[Analyze Evidence, File Report] |A.Evidence Weight > 5.0 | |0,24,h
+Choice[Conduct Training, Provide Community Support] | | |
+Exclusive Choice[Patrol Area, Conduct Surveillance] | | |
+Precedence[Arrest Suspect, Investigate Crime] | |A.Number of Suspects > 2 |
+Not Responded Existence[Conduct Surveillance, Gather Intelligence] |A.Surveillance Cost > 5000.0 | |

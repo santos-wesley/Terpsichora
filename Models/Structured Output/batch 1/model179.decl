@@ -1,0 +1,37 @@
+activity Identify Target Audience
+activity Develop Marketing Strategy
+activity Create Marketing Content
+activity Review Content for Ethics
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Gather Customer Feedback
+activity Analyze Feedback
+activity Adjust Marketing Strategy
+activity Report Campaign Outcomes
+bind Identify Target Audience: Audience Type
+bind Develop Marketing Strategy: Strategy Status, Budget Allocation
+bind Create Marketing Content: Channel Type
+bind Review Content for Ethics: Content Approval Rating, Ethical Compliance
+bind Monitor Campaign Performance: Performance Metric
+bind Gather Customer Feedback: Feedback Score
+bind Report Campaign Outcomes: Outcome Score
+Audience Type: Youth, Adults, Seniors
+Budget Allocation: float between 1000.0 and 100000.0
+Content Approval Rating: integer between 1 and 5
+Channel Type: Social Media, Email, TV
+Feedback Score: integer between 1 and 10
+Strategy Status: Draft, Finalized, Adjusted
+Performance Metric: float between 0.0 and 100.0
+Ethical Compliance: Compliant, Non-Compliant
+Campaign Duration: integer between 1 and 365
+Outcome Score: float between 0.0 and 100.0
+Init[Identify Target Audience] | |
+End[Report Campaign Outcomes] | |
+Existence[Develop Marketing Strategy] | |
+Exactly[Review Content for Ethics] | |
+Precedence[Review Content for Ethics, Create Marketing Content] | | |
+Chain Response[Launch Marketing Campaign, Monitor Campaign Performance] | | |0,2,d
+Response[Gather Customer Feedback, Analyze Feedback] | | |
+Succession[Analyze Feedback, Adjust Marketing Strategy] | | |
+Not Precedence[Launch Marketing Campaign, Review Content for Ethics] |A.Content Approval Rating < 3 | |
+Precedence[Launch Marketing Campaign, Review Content for Ethics] |A.Ethical Compliance is Compliant | |

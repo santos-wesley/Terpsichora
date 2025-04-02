@@ -1,0 +1,45 @@
+activity Define Requirements
+activity Design Architecture
+activity Develop Code
+activity Perform Unit Testing
+activity Conduct Integration Testing
+activity Execute System Testing
+activity Review Code
+activity Deploy Software
+activity Gather User Feedback
+activity Plan Maintenance
+bind Define Requirements: Priority, Estimated Time
+bind Design Architecture: Complexity, Budget
+bind Develop Code: Status, Team Size
+bind Perform Unit Testing: Testing Type, Defect Count
+bind Conduct Integration Testing: Testing Type, Defect Count
+bind Execute System Testing: Testing Type, Defect Count
+bind Review Code: Actual Time, Priority
+bind Deploy Software: Status, Budget
+bind Gather User Feedback: Feedback Type, Actual Time
+bind Plan Maintenance: Team Size, Estimated Time
+Priority: integer between 1 and 5
+Estimated Time: float between 0.5 and 100.0
+Status: Not Started, In Progress, Completed
+Complexity: Low, Medium, High
+Testing Type: Unit, Integration, System
+Defect Count: integer between 0 and 100
+Budget: float between 1.0 and 500.0
+Feedback Type: Positive, Negative, Neutral
+Team Size: integer between 1 and 20
+Actual Time: float between 0.5 and 150.0
+Existence[Define Requirements] | |
+End[Deploy Software] | |
+Chain Response[Design Architecture, Develop Code] | | |0,1,h
+Response[Perform Unit Testing, Conduct Integration Testing] | | |0,2,d
+Precedence[Execute System Testing, Conduct Integration Testing] | | |
+Not Co-Existence[Review Code, Deploy Software] | | |
+Response[Gather User Feedback, Plan Maintenance] | | |0,3,d
+Succession[Develop Code, Perform Unit Testing] | | |
+Not Chain Succession[Conduct Integration Testing, Execute System Testing] | | |
+Choice[Define Requirements, Design Architecture] | | |
+Co-Existence[Perform Unit Testing, Conduct Integration Testing] | | |
+Not Response[Review Code, Deploy Software] | | |
+Not Chain Response[Gather User Feedback, Plan Maintenance] | | |0,5,d
+Chain Precedence[Develop Code, Design Architecture] | | |0,2,h
+Exactly[Plan Maintenance] | |

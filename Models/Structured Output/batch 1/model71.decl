@@ -1,0 +1,31 @@
+activity Log Incident
+activity Categorize Incident
+activity Prioritize Incident
+activity Assign Technician
+activity Resolve Incident
+activity Verify Resolution
+activity Close Incident
+activity Escalate Incident
+bind Log Incident: Incident ID
+bind Categorize Incident: Category
+bind Prioritize Incident: Priority
+bind Assign Technician: Technician ID
+bind Resolve Incident: Resolution Time, Resolution Status
+bind Verify Resolution: Verification Status
+Incident ID: integer between 1 and 10000
+Category: Hardware, Software, Network, Security
+Priority: Low, Medium, High, Critical
+Technician ID: integer between 1 and 1000
+Resolution Time: float between 0.1 and 72.0
+Resolution Status: Resolved, Unresolved
+Verification Status: Verified, Not Verified
+Init[Log Incident] | |
+End[Close Incident] | |
+Response[Categorize Incident, Prioritize Incident] | | |0,2,h
+Precedence[Resolve Incident, Assign Technician] | | |
+Response[Resolve Incident, Verify Resolution] |A.Resolution Status is Resolved | |0,1,d
+Precedence[Close Incident, Verify Resolution] | | |0,1,h
+Not Co-Existence[Escalate Incident, Resolve Incident] | | |
+Response[Resolve Incident, Escalate Incident] |A.Resolution Time > 48 | |0,2,h
+Existence[Log Incident] | |
+Chain Precedence[Assign Technician, Prioritize Incident] | | |

@@ -1,0 +1,38 @@
+activity Create Virtual Machine
+activity Allocate Resources
+activity Install Operating System
+activity Configure Network
+activity Deploy Application
+activity Monitor Performance
+activity Backup Virtual Machine
+activity Update Software
+activity Migrate Virtual Machine
+activity Decommission Virtual Machine
+bind Create Virtual Machine: CPU Cores, Memory Size, Storage Size
+bind Install Operating System: Operating System
+bind Configure Network: Network Type
+bind Deploy Application: Application Type
+bind Monitor Performance: Performance Threshold
+bind Backup Virtual Machine: Backup Frequency
+bind Update Software: Update Type
+bind Migrate Virtual Machine: Migration Type
+CPU Cores: integer between 1 and 64
+Memory Size: integer between 1 and 512
+Storage Size: float between 0.1 and 10.0
+Operating System: Windows, Linux, macOS
+Network Type: NAT, Bridged, Host-Only
+Application Type: Web Server, Database, Application Server
+Performance Threshold: float between 0.0 and 100.0
+Backup Frequency: Daily, Weekly, Monthly
+Update Type: Security, Feature, Bug Fix
+Migration Type: Live, Cold
+Init[Create Virtual Machine] | |
+End[Decommission Virtual Machine] | |
+Chain Response[Create Virtual Machine, Allocate Resources] | | |0,5,m
+Chain Succession[Install Operating System, Configure Network] | | |0,10,m
+Precedence[Deploy Application, Create Virtual Machine] |A.CPU Cores >= 4 | |
+Response[Deploy Application, Monitor Performance] | | |0,1,h
+Responded Existence[Create Virtual Machine, Backup Virtual Machine] | | |
+Not Co-Existence[Update Software, Migrate Virtual Machine] | | |
+Precedence[Decommission Virtual Machine, Backup Virtual Machine] | | |
+Exclusive Choice[Migrate Virtual Machine, Decommission Virtual Machine] |A.Migration Type is Live |T.Migration Type is Cold |

@@ -1,0 +1,30 @@
+activity Submit Expense Report
+activity Approve Expense Report
+activity Reject Expense Report
+activity Process Payment
+activity Audit Expense Report
+activity Notify Employee
+activity Review Budget
+activity Allocate Funds
+activity Generate Financial Report
+bind Submit Expense Report: Expense Amount
+bind Approve Expense Report: Approval Status
+bind Reject Expense Report: Approval Status
+bind Process Payment: Budget Balance
+bind Notify Employee: Notification Type
+bind Audit Expense Report: Audit Score
+Expense Amount: integer between 1 and 10000
+Approval Status: Pending, Approved, Rejected
+Budget Balance: float between 0.0 and 100000.0
+Notification Type: Email, SMS, In-App
+Audit Score: integer between 0 and 100
+Init[Submit Expense Report] | |
+End[Generate Financial Report] | |
+Precedence[Process Payment, Approve Expense Report] | |A.Approval Status is Approved |
+Response[Reject Expense Report, Notify Employee] |A.Approval Status is Rejected | |0,1,d
+Succession[Approve Expense Report, Process Payment] |A.Approval Status is Approved | |
+Precedence[Approve Expense Report, Audit Expense Report] | | |
+Precedence[Reject Expense Report, Audit Expense Report] | | |
+Choice[Submit Expense Report, Approve Expense Report] | | |0,2,d
+Choice[Submit Expense Report, Reject Expense Report] | | |0,2,d
+Existence[Audit Expense Report] | |

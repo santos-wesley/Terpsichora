@@ -1,0 +1,25 @@
+activity Request Maintenance
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Inspect Work
+activity Approve Work
+activity Close Request
+bind Request Maintenance: Priority Level, Maintenance Type
+bind Schedule Maintenance: Estimated Cost
+bind Approve Work: Approval Status
+bind Inspect Work: Inspection Result
+Priority Level: integer between 1 and 5
+Estimated Cost: float between 50.0 and 5000.0
+Maintenance Type: Electrical, Plumbing, HVAC, General
+Approval Status: Pending, Approved, Rejected
+Inspection Result: Pass, Fail
+Existence[Request Maintenance] | |
+Init[Request Maintenance] | |
+Exactly[Close Request] | |
+Precedence[Schedule Maintenance, Request Maintenance] | | |
+Response[Schedule Maintenance, Perform Maintenance] | | |0,2,d
+Chain Response[Perform Maintenance, Inspect Work] | | |0,48,h
+Not Chain Succession[Inspect Work, Approve Work] | | |0,24,h
+Precedence[Close Request, Approve Work] | | |
+Not Responded Existence[Inspect Work, Approve Work] |A.Inspection Result is Fail |T.Approval Status is Approved |
+Exclusive Choice[Approve Work, Close Request] | | |

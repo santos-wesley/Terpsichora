@@ -1,0 +1,50 @@
+activity Identify Victim
+activity Provide Shelter
+activity Conduct Medical Examination
+activity Offer Psychological Support
+activity Initiate Legal Proceedings
+activity Collect Evidence
+activity Coordinate with Law Enforcement
+activity Educate Community
+activity Train Volunteers
+activity Monitor High-Risk Areas
+activity Reintegrate Victim
+activity Provide Legal Aid
+activity Assess Risk
+activity Develop Safety Plan
+activity Report Trafficking Incident
+bind Identify Victim: Victim Age
+bind Provide Shelter: Shelter Type
+bind Conduct Medical Examination: Medical Cost
+bind Offer Psychological Support: Support Type
+bind Initiate Legal Proceedings: Legal Status
+bind Collect Evidence: Evidence Type
+bind Train Volunteers: Training Hours
+bind Assess Risk: Risk Level
+bind Educate Community: Community Awareness Level
+bind Reintegrate Victim: Reintegration Cost
+Victim Age: integer between 1 and 100
+Medical Cost: float between 50.0 and 5000.0
+Shelter Type: Temporary, Permanent
+Legal Status: Pending, Ongoing, Closed
+Risk Level: integer between 1 and 10
+Support Type: Counseling, Therapy
+Training Hours: float between 1.0 and 100.0
+Evidence Type: Documentary, Testimonial, Physical
+Community Awareness Level: integer between 1 and 5
+Reintegration Cost: float between 100.0 and 10000.0
+Init[Identify Victim] | |
+Existence[Conduct Medical Examination] | |
+Exactly[Initiate Legal Proceedings] | |
+Chain Response[Identify Victim, Provide Shelter] | | |0,1,h
+Response[Provide Shelter, Offer Psychological Support] | | |0,2,d
+Precedence[Initiate Legal Proceedings, Collect Evidence] | | |
+Exclusive Choice[Train Volunteers, Educate Community] | | |
+Not Chain Succession[Assess Risk, Monitor High-Risk Areas] | | |
+Succession[Provide Legal Aid, Reintegrate Victim] | | |0,30,d
+Responded Existence[Identify Victim, Report Trafficking Incident] | | |
+Response[Collect Evidence, Coordinate with Law Enforcement] | | |0,5,d
+Co-Existence[Offer Psychological Support, Identify Victim] |A.Support Type is Counseling |A.Victim Age > 18 |
+Not Precedence[Initiate Legal Proceedings, Assess Risk] | |A.Risk Level < 3 |
+Alternate Succession[Train Volunteers, Educate Community] | | |
+Existence2[Assess Risk] | |

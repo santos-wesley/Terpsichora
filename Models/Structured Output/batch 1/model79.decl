@@ -1,0 +1,40 @@
+activity Authenticate User
+activity Monitor Network Traffic
+activity Update Security Protocols
+activity Conduct Security Audit
+activity Respond to Threat
+activity Log Security Event
+activity Encrypt Data
+activity Access Control Check
+activity Patch Vulnerability
+activity Notify Security Team
+bind Authenticate User: User ID
+bind Monitor Network Traffic: Data Packet Size
+bind Respond to Threat: Threat Level
+bind Update Security Protocols: Protocol Status
+bind Log Security Event: Event ID
+bind Encrypt Data: Encryption Strength
+bind Access Control Check: Access Level
+bind Patch Vulnerability: Patch Version
+bind Notify Security Team: Notification Status
+bind Conduct Security Audit: Audit Score
+User ID: integer between 1 and 10000
+Data Packet Size: float between 0.1 and 1500.0
+Threat Level: Low, Medium, High, Critical
+Protocol Status: Active, Inactive, Pending
+Event ID: integer between 1 and 50000
+Encryption Strength: float between 128.0 and 256.0
+Access Level: Guest, User, Admin
+Patch Version: integer between 1 and 100
+Notification Status: Sent, Failed, Pending
+Audit Score: float between 0.0 and 100.0
+Init[Authenticate User] | |
+Existence[Monitor Network Traffic] | |
+Precedence[Update Security Protocols, Conduct Security Audit] | | |
+Chain Response[Respond to Threat, Log Security Event] | | |2,5,m
+Chain Succession[Access Control Check, Encrypt Data] | | |
+Response[Patch Vulnerability, Log Security Event] |A.Patch Version > 10 | |
+Chain Response[Respond to Threat, Notify Security Team] |A.Threat Level is Critical | |10,20,s
+End[Notify Security Team] | |
+Responded Existence[Authenticate User, Encrypt Data] |A.Access Level is Admin |T.Encryption Strength >= 192 |
+Not Co-Existence[Conduct Security Audit, Update Security Protocols] | | |

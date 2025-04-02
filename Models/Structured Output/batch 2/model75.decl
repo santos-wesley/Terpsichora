@@ -1,0 +1,50 @@
+activity Collect Data
+activity Clean Data
+activity Transform Data
+activity Analyze Data
+activity Visualize Data
+activity Report Findings
+activity Review Analysis
+activity Store Data
+activity Archive Data
+activity Validate Data
+activity Prepare Presentation
+activity Conduct Meeting
+activity Gather Feedback
+activity Revise Report
+activity Finalize Report
+bind Collect Data: Data Source Type
+bind Clean Data: Data Quality Score
+bind Analyze Data: Analysis Duration
+bind Visualize Data: Visualization Type
+bind Report Findings: Report Status
+bind Gather Feedback: Feedback Score
+bind Store Data: Storage Size
+bind Conduct Meeting: Meeting Outcome
+bind Revise Report: Revision Count
+bind Prepare Presentation: Presentation Duration
+Data Quality Score: integer between 1 and 100
+Analysis Duration: float between 0.5 and 100.0
+Visualization Type: Bar Chart, Line Graph, Pie Chart, Scatter Plot
+Report Status: Draft, Under Review, Final
+Feedback Score: integer between 1 and 10
+Storage Size: float between 0.1 and 1000.0
+Data Source Type: Database, API, CSV File, Excel Sheet
+Meeting Outcome: Approved, Needs Revision, Rejected
+Revision Count: integer between 0 and 10
+Presentation Duration: float between 10.0 and 120.0
+Init[Collect Data] | |
+End[Store Data] | |
+Existence[Clean Data] | |
+Exactly[Analyze Data] | |
+Chain Succession[Visualize Data, Report Findings] | | |
+Response[Report Findings, Conduct Meeting] | | |0,2,d
+Alternate Response[Conduct Meeting, Gather Feedback] | | |0,48,h
+Alternate Precedence[Revise Report, Gather Feedback] | | |5,13,m
+Chain Response[Prepare Presentation, Conduct Meeting] | | |10,15,s
+Co-Existence[Analyze Data, Visualize Data] | | |
+Not Chain Succession[Store Data, Archive Data] | | |
+Not Co-Existence[Collect Data, Validate Data] | | |
+Not Responded Existence[Clean Data, Validate Data] | | |
+Choice[Archive Data, Finalize Report] | | |
+Exclusive Choice[Review Analysis, Revise Report] | | |

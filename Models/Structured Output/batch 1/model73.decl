@@ -1,0 +1,40 @@
+activity Inspect Cargo
+activity Verify Documentation
+activity Approve Shipment
+activity Seal Container
+activity Track Shipment
+activity Receive Shipment
+activity Report Discrepancy
+activity Conduct Risk Assessment
+activity Authorize Personnel
+activity Review Security Protocols
+bind Inspect Cargo: Cargo Weight, Inspection Time
+bind Verify Documentation: Documentation Status
+bind Approve Shipment: Shipment Status
+bind Seal Container: 
+bind Track Shipment: Transit Time
+bind Receive Shipment: 
+bind Report Discrepancy: Discrepancy Count
+bind Conduct Risk Assessment: Risk Level
+bind Authorize Personnel: Personnel Authorization
+bind Review Security Protocols: Security Protocol Status
+Cargo Weight: integer between 1 and 50000
+Cargo Value: float between 100.0 and 1000000.0
+Documentation Status: Complete, Incomplete
+Shipment Status: Pending, Approved, In Transit, Delivered
+Risk Level: Low, Medium, High
+Personnel Authorization: Authorized, Unauthorized
+Discrepancy Count: integer between 0 and 10
+Inspection Time: float between 0.5 and 10.0
+Security Protocol Status: Updated, Not Updated
+Transit Time: float between 0.1 and 30.0
+Existence[Inspect Cargo] | |
+End[Approve Shipment] | |
+Response[Report Discrepancy, Review Security Protocols] | | |2,5,h
+Precedence[Approve Shipment, Verify Documentation] | | |
+Co-Existence[Seal Container, Inspect Cargo] | | |
+Response[Approve Shipment, Track Shipment] | | |0,10,d
+Precedence[Authorize Personnel, Conduct Risk Assessment] |A.Risk Level is High | |
+Chain Response[Inspect Cargo, Inspect Cargo] |A.Cargo Weight > 10000 |A.Inspection Time > 2 |
+Chain Response[Seal Container, Track Shipment] | |T.Shipment Status is In Transit |1,3,h
+Precedence[Approve Shipment, Verify Documentation] | |T.Documentation Status is Complete |

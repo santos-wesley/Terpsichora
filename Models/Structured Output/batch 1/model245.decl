@@ -1,0 +1,30 @@
+activity Design Product
+activity Procure Materials
+activity Assemble Product
+activity Test Product
+activity Package Product
+activity Ship Product
+activity Receive Feedback
+activity Revise Design
+bind Design Product: Product Cost
+bind Procure Materials: Material Quantity
+bind Test Product: Test Result
+bind Package Product: Packaging Type
+bind Receive Feedback: Feedback Score
+bind Ship Product: Shipping Method
+Material Quantity: integer between 1 and 1000
+Product Cost: float between 10.0 and 10000.0
+Test Result: Pass, Fail
+Packaging Type: Box, Bag, Wrap
+Feedback Score: integer between 1 and 10
+Shipping Method: Air, Sea, Land
+Init[Design Product] | |
+End[Receive Feedback] | |
+Chain Response[Procure Materials, Assemble Product] | | |2,5,d
+Response[Test Product, Package Product] | | |
+Precedence[Ship Product, Package Product] | | |
+Not Chain Succession[Package Product, Ship Product] | | |
+Responded Existence[Design Product, Receive Feedback] |A.Product Cost > 5000 |T.Feedback Score >= 8 |
+Response[Receive Feedback, Revise Design] |A.Feedback Score < 5 | |
+Chain Response[Assemble Product, Test Product] | | |0,48,h
+Not Co-Existence[Package Product, Ship Product] | |A.Packaging Type != T.Shipping Method |

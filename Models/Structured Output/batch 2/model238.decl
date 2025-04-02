@@ -1,0 +1,43 @@
+activity Survey Site
+activity Excavate Area
+activity Document Findings
+activity Analyze Artifacts
+activity Preserve Artifacts
+activity Catalog Artifacts
+activity Conduct Research
+activity Prepare Report
+activity Present Findings
+activity Store Artifacts
+bind Survey Site: Survey Duration, Site Area
+bind Excavate Area: Excavation Method, Number of Artifacts
+bind Document Findings: Artifact Condition
+bind Analyze Artifacts: Artifact Weight
+bind Preserve Artifacts: Preservation Cost
+bind Conduct Research: Research Focus
+bind Prepare Report: Report Status
+bind Present Findings: Presentation Duration
+Survey Duration: integer between 1 and 30
+Artifact Weight: float between 0.1 and 100.0
+Artifact Condition: Excellent, Good, Fair, Poor
+Excavation Method: Manual, Mechanical
+Number of Artifacts: integer between 0 and 500
+Site Area: float between 10.0 and 10000.0
+Research Focus: Cultural, Historical, Technological
+Preservation Cost: float between 50.0 and 10000.0
+Report Status: Draft, Finalized
+Presentation Duration: integer between 10 and 120
+Init[Survey Site] | |
+End[Present Findings] | |
+Existence[Excavate Area] | |
+Exactly2[Document Findings] | |
+Chain Succession[Analyze Artifacts, Preserve Artifacts] | | |0,1,h
+Precedence[Analyze Artifacts, Document Findings] | | |
+Response[Preserve Artifacts, Catalog Artifacts] | | |0,2,d
+Response[Document Findings, Conduct Research] | | |0,3,d
+Response[Conduct Research, Prepare Report] | | |0,5,d
+Precedence[Present Findings, Prepare Report] | |A.Report Status is Finalized |
+Not Precedence[Store Artifacts, Catalog Artifacts] | | |
+Response[Catalog Artifacts, Store Artifacts] | | |0,1,d
+Not Co-Existence[Survey Site, Excavate Area] |A.Excavation Method is Manual |T.Excavation Method is not Manual |
+Responded Existence[Document Findings, Preserve Artifacts] |A.Artifact Condition is Poor | |
+Responded Existence[Document Findings, Analyze Artifacts] |A.Artifact Weight > 10 | |

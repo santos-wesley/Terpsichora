@@ -1,0 +1,40 @@
+activity Submit Ethics Application
+activity Review Ethics Application
+activity Request Additional Information
+activity Provide Additional Information
+activity Approve Ethics Application
+activity Reject Ethics Application
+activity Conduct Ethics Training
+activity Submit Final Report
+activity Review Final Report
+activity Issue Completion Certificate
+bind Submit Ethics Application: Application ID, Application Status, Funding Amount
+bind Review Ethics Application: Application ID, Review Score
+bind Request Additional Information: Application ID
+bind Provide Additional Information: Application ID, Additional Info Score
+bind Approve Ethics Application: Application ID, Application Status
+bind Reject Ethics Application: Application ID, Application Status
+bind Conduct Ethics Training: Training ID, Training Status
+bind Submit Final Report: Report ID, Report Status
+bind Review Final Report: Report ID, Report Status
+bind Issue Completion Certificate: Report ID, Certificate Status
+Application ID: integer between 1 and 10000
+Application Status: Submitted, Under Review, Approved, Rejected
+Funding Amount: float between 1000.0 and 100000.0
+Training Status: Completed, Not Completed
+Report ID: integer between 1 and 5000
+Report Status: Submitted, Reviewed, Approved
+Review Score: float between 0.0 and 10.0
+Certificate Status: Issued, Not Issued
+Training ID: integer between 1 and 1000
+Additional Info Score: float between 0.0 and 10.0
+Existence[Submit Ethics Application] | |
+Exactly[Review Ethics Application] | |
+Response[Request Additional Information, Provide Additional Information] | |A.Application ID == T.Application ID |5,10,d
+Precedence[Approve Ethics Application, Review Ethics Application] |A.Application Status is Approved |T.Review Score > 7 |
+Precedence[Reject Ethics Application, Review Ethics Application] |A.Application Status is Rejected |T.Review Score < 4 |
+Precedence[Submit Final Report, Conduct Ethics Training] |A.Report Status is Submitted |T.Training Status is Completed |
+Response[Submit Final Report, Review Final Report] |A.Report Status is Submitted |A.Report ID == T.Report ID |2,5,d
+Precedence[Issue Completion Certificate, Review Final Report] |A.Certificate Status is Issued |T.Report Status is Approved |
+End[Issue Completion Certificate] | |
+Exclusive Choice[Approve Ethics Application, Reject Ethics Application] | |A.Application ID == T.Application ID |

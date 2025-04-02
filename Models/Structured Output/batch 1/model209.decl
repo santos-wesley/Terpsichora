@@ -1,0 +1,38 @@
+activity Identify Outsourcing Needs
+activity Select Vendor
+activity Negotiate Contract
+activity Approve Contract
+activity Monitor Performance
+activity Review Deliverables
+activity Process Payment
+activity Provide Feedback
+activity Renew Contract
+activity Terminate Contract
+bind Select Vendor: Vendor Rating
+bind Negotiate Contract: Contract Value, Negotiation Rounds
+bind Approve Contract: Contract Status
+bind Monitor Performance: Performance Score
+bind Process Payment: Payment Status
+bind Provide Feedback: Feedback Type
+bind Renew Contract: Renewal Decision
+bind Terminate Contract: Termination Reason
+Vendor Rating: integer between 1 and 5
+Contract Value: float between 1000.0 and 100000.0
+Contract Status: Pending, Approved, Active, Terminated
+Feedback Type: Positive, Neutral, Negative
+Performance Score: integer between 0 and 100
+Payment Status: Pending, Completed, Failed
+Penalty Amount: float between 0.0 and 5000.0
+Renewal Decision: Renew, Do Not Renew
+Negotiation Rounds: integer between 1 and 10
+Termination Reason: Mutual Agreement, Breach of Contract, End of Term
+Init[Identify Outsourcing Needs] | |
+Existence[Approve Contract] | |
+Precedence[Negotiate Contract, Select Vendor] | | |
+Chain Response[Monitor Performance, Provide Feedback] | | |0,2,d
+Not Succession[Terminate Contract, Renew Contract] | | |
+Response[Review Deliverables, Process Payment] | | |
+Precedence[Approve Contract, Select Vendor] |A.Vendor Rating >= 3 | |
+Precedence[Approve Contract, Negotiate Contract] |A.Negotiation Rounds <= 5 | |
+Responded Existence[Provide Feedback, Monitor Performance] |A.Feedback Type is Positive |A.Performance Score > 80 |
+Responded Existence[Negotiate Contract, Terminate Contract] |A.Contract Value > 50000 |T.Penalty Amount > 0 |

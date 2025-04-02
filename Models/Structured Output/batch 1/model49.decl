@@ -1,0 +1,37 @@
+activity Conduct Survey
+activity Analyze Data
+activity Draft Policy
+activity Review Policy
+activity Approve Policy
+activity Implement Policy
+activity Evaluate Impact
+activity Hold Press Conference
+activity Gather Feedback
+activity Revise Policy
+bind Conduct Survey: Sample Size, Survey Type, Response Rate
+bind Draft Policy: Policy Status
+bind Evaluate Impact: Impact Score
+bind Gather Feedback: Feedback Type
+bind Implement Policy: Budget Allocation
+bind Hold Press Conference: Media Coverage
+bind Revise Policy: Revision Count
+Sample Size: integer between 100 and 10000
+Approval Rating: float between 0.0 and 100.0
+Policy Status: Drafted, Reviewed, Approved, Implemented
+Feedback Type: Positive, Negative, Neutral
+Impact Score: integer between 1 and 10
+Budget Allocation: float between 1000.0 and 1000000.0
+Media Coverage: Low, Medium, High
+Revision Count: integer between 0 and 5
+Survey Type: Online, In-person, Telephone
+Response Rate: float between 0.0 and 100.0
+Existence[Conduct Survey] | |
+Exactly[Approve Policy] | |
+End[Implement Policy] | |
+Precedence[Approve Policy, Review Policy] | | |
+Chain Response[Revise Policy, Review Policy] | | |0,2,d
+Co-Existence[Conduct Survey, Analyze Data] | | |
+Not Chain Succession[Approve Policy, Hold Press Conference] | | |
+Response[Gather Feedback, Revise Policy] |A.Feedback Type is Negative | |
+Response[Approve Policy, Implement Policy] | | |0,48,h
+Precedence[Evaluate Impact, Implement Policy] | |T.Budget Allocation > 50000 |

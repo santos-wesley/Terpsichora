@@ -1,0 +1,47 @@
+activity Research Art Movement
+activity Analyze Artwork
+activity Visit Art Museum
+activity Write Art Critique
+activity Attend Art Lecture
+activity Prepare Presentation
+activity Submit Research Paper
+activity Discuss Art with Peers
+activity Curate Art Exhibition
+activity Evaluate Art Techniques
+activity Document Art Findings
+activity Review Art Literature
+activity Conduct Artist Interview
+activity Plan Art Workshop
+activity Publish Art Article
+bind Research Art Movement: Year, Art Style
+bind Analyze Artwork: Artwork Value, Art Style
+bind Write Art Critique: Critique Rating
+bind Attend Art Lecture: Lecture Topic, Participants
+bind Prepare Presentation: Presentation Duration
+bind Submit Research Paper: Pages, Publication Status
+bind Curate Art Exhibition: Exhibition Theme
+Year: integer between 1000 and 2023
+Artwork Value: float between 1000.0 and 1000000.0
+Art Style: Baroque, Renaissance, Modern, Impressionism, Cubism
+Critique Rating: Poor, Fair, Good, Very Good, Excellent
+Pages: integer between 1 and 100
+Lecture Topic: Sculpture, Painting, Photography, Architecture
+Presentation Duration: float between 10.0 and 120.0
+Exhibition Theme: Abstract, Realism, Surrealism
+Participants: integer between 1 and 500
+Publication Status: Draft, Submitted, Published
+Init[Research Art Movement] | |
+End[Publish Art Article] | |
+Existence[Write Art Critique] | |
+Absence3[Attend Art Lecture] | |
+Chain Response[Analyze Artwork, Write Art Critique] | | |0,5,m
+Response[Attend Art Lecture, Prepare Presentation] | | |0,2,d
+Co-Existence[Research Art Movement, Analyze Artwork] | | |
+Precedence[Curate Art Exhibition, Research Art Movement] | | |
+Response[Prepare Presentation, Submit Research Paper] | | |0,3,d
+Not Co-Existence[Write Art Critique, Submit Research Paper] | | |
+Not Chain Response[Attend Art Lecture, Prepare Presentation] | | |
+Response[Curate Art Exhibition, Write Art Critique] | | |0,2,d
+Choice[Prepare Presentation, Submit Research Paper] | | |
+Precedence[Publish Art Article, Conduct Artist Interview] | | |
+Not Co-Existence[Plan Art Workshop, Attend Art Lecture] | | |

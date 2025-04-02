@@ -1,0 +1,27 @@
+activity Book Eco Tour
+activity Confirm Payment
+activity Assign Tour Guide
+activity Conduct Safety Briefing
+activity Start Eco Tour
+activity End Eco Tour
+activity Collect Feedback
+activity Process Refund
+bind Book Eco Tour: Tourist Count, Tour Price
+bind Confirm Payment: Payment Status
+bind Assign Tour Guide: Guide Language
+bind Collect Feedback: Feedback Score
+Tourist Count: integer between 1 and 50
+Tour Price: float between 50.0 and 500.0
+Payment Status: Pending, Completed, Failed
+Guide Language: English, Spanish, French
+Feedback Score: integer between 1 and 10
+Init[Book Eco Tour] | |
+End[Collect Feedback] | |
+Existence[Conduct Safety Briefing] | |
+Precedence[Start Eco Tour, Confirm Payment] | |A.Payment Status is Completed |
+Chain Response[Book Eco Tour, Assign Tour Guide] | | |0,10,m
+Response[Start Eco Tour, End Eco Tour] | | |0,8,h
+Not Co-Existence[Collect Feedback, Process Refund] | | |
+Response[Collect Feedback, Process Refund] |A.Feedback Score < 5 | |0,3,d
+Co-Existence[Assign Tour Guide, Book Eco Tour] | |A.Guide Language == T.Guide Language |
+Absence2[Book Eco Tour] | |

@@ -1,0 +1,41 @@
+activity Receive Support Ticket
+activity Assign Support Agent
+activity Analyze Issue
+activity Provide Solution
+activity Escalate Issue
+activity Close Ticket
+activity Follow Up with Customer
+activity Log Customer Feedback
+activity Update Knowledge Base
+activity Reopen Ticket
+bind Receive Support Ticket: Ticket ID, Priority Level, Issue Type
+bind Assign Support Agent: Agent ID, Agent Skill Level
+bind Provide Solution: Resolution Time
+bind Log Customer Feedback: Feedback Rating, Customer Satisfaction Score
+bind Escalate Issue: Escalation Level
+bind Update Knowledge Base: Knowledge Base Update Type
+Ticket ID: integer between 1 and 10000
+Priority Level: Low, Medium, High, Critical
+Agent Skill Level: Junior, Mid, Senior
+Resolution Time: float between 0.1 and 100.0
+Feedback Rating: Poor, Average, Good, Excellent
+Agent ID: integer between 1 and 500
+Issue Type: Technical, Billing, General Inquiry
+Customer Satisfaction Score: float between 0.0 and 10.0
+Escalation Level: integer between 1 and 5
+Knowledge Base Update Type: New Entry, Update Existing, Remove Entry
+Init[Receive Support Ticket] | |
+End[Close Ticket] | |
+Existence[Analyze Issue] | |
+Absence3[Reopen Ticket] | |
+Chain Response[Receive Support Ticket, Assign Support Agent] | |A.Ticket ID == T.Ticket ID |
+Response[Escalate Issue, Analyze Issue] | |A.Ticket ID == T.Ticket ID |0,2,h
+Succession[Provide Solution, Close Ticket] | |A.Ticket ID == T.Ticket ID |
+Chain Response[Log Customer Feedback, Follow Up with Customer] | |A.Ticket ID == T.Ticket ID |0,1,d
+Not Chain Succession[Analyze Issue, Escalate Issue] | |A.Ticket ID == T.Ticket ID |
+Not Co-Existence[Update Knowledge Base, Log Customer Feedback] | | |
+Response[Reopen Ticket, Assign Support Agent] | |A.Ticket ID == T.Ticket ID |0,30,m
+Precedence[Assign Support Agent, Receive Support Ticket] |A.Priority Level is High |A.Agent Skill Level is Senior |
+Responded Existence[Provide Solution, Close Ticket] |A.Resolution Time < 48 |A.Ticket ID == T.Ticket ID |
+Precedence[Follow Up with Customer, Close Ticket] | |A.Ticket ID == T.Ticket ID |
+Response[Receive Support Ticket, Escalate Issue] |A.Priority Level is Critical |A.Ticket ID == T.Ticket ID |24,24,h

@@ -1,0 +1,40 @@
+activity Submit Disability Claim
+activity Review Medical Records
+activity Schedule Medical Examination
+activity Conduct Medical Examination
+activity Approve Disability Claim
+activity Reject Disability Claim
+activity Notify Claimant
+activity Appeal Decision
+activity Review Appeal
+activity Finalize Claim
+bind Submit Disability Claim: Claim ID, Claim Amount, Claim Status
+bind Review Medical Records: Medical Record ID
+bind Schedule Medical Examination: Medical Examination Required
+bind Conduct Medical Examination: Examination Cost
+bind Approve Disability Claim: Decision Outcome
+bind Reject Disability Claim: Decision Outcome
+bind Notify Claimant: Notification Method
+bind Appeal Decision: Appeal ID, Appeal Status
+bind Review Appeal: Appeal Status
+bind Finalize Claim: Claim Status
+Claim ID: integer between 1 and 1000000
+Claim Amount: float between 100.0 and 10000.0
+Claim Status: Pending, Approved, Rejected, Under Review
+Medical Examination Required: Yes, No
+Appeal Status: Not Filed, Filed, Under Review, Resolved
+Medical Record ID: integer between 1 and 100000
+Decision Outcome: Approved, Rejected
+Examination Cost: float between 50.0 and 500.0
+Appeal ID: integer between 1 and 10000
+Notification Method: Email, Phone, Mail
+Init[Submit Disability Claim] | |
+End[Finalize Claim] | |
+Chain Succession[Schedule Medical Examination, Conduct Medical Examination] | | |0,7,d
+Precedence[Approve Disability Claim, Review Medical Records] | | |
+Precedence[Reject Disability Claim, Review Medical Records] | | |
+Chain Response[Approve Disability Claim, Notify Claimant] | | |0,2,d
+Chain Response[Reject Disability Claim, Notify Claimant] | | |0,2,d
+Chain Succession[Appeal Decision, Review Appeal] | | |0,5,d
+Precedence[Finalize Claim, Notify Claimant] | | |
+Existence[Conduct Medical Examination] |A.Medical Examination Required is Yes |

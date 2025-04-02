@@ -1,0 +1,31 @@
+activity Collect Timesheets
+activity Verify Timesheets
+activity Calculate Payroll
+activity Approve Payroll
+activity Disburse Salaries
+activity Generate Payslips
+activity Distribute Payslips
+activity Handle Payroll Queries
+bind Collect Timesheets: Employee ID
+bind Verify Timesheets: Hours Worked
+bind Calculate Payroll: Hourly Rate, Total Salary
+bind Approve Payroll: Approval Status
+bind Disburse Salaries: Payment Method
+bind Handle Payroll Queries: Query Type
+Hours Worked: integer between 0 and 300
+Hourly Rate: float between 10.0 and 100.0
+Approval Status: Pending, Approved, Rejected
+Payment Method: Bank Transfer, Cheque
+Employee ID: integer between 1 and 10000
+Total Salary: float between 0.0 and 100000.0
+Query Type: Missing Hours, Incorrect Rate, Other
+Init[Collect Timesheets] | |
+End[Distribute Payslips] | |
+Existence[Approve Payroll] | |
+Response[Verify Timesheets, Calculate Payroll] | | |0,2,d
+Chain Response[Calculate Payroll, Approve Payroll] | | |0,48,h
+Co-Existence[Approve Payroll, Disburse Salaries] | | |
+Precedence[Disburse Salaries, Approve Payroll] | |A.Approval Status is Approved |
+Not Chain Succession[Disburse Salaries, Handle Payroll Queries] | | |
+Response[Disburse Salaries, Generate Payslips] | | |0,1,d
+Chain Succession[Collect Timesheets, Verify Timesheets] | | |0,24,h

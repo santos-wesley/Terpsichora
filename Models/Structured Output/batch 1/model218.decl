@@ -1,0 +1,38 @@
+activity Assess Current State
+activity Identify Change Needs
+activity Develop Change Strategy
+activity Communicate Change Plan
+activity Implement Change
+activity Monitor Change Progress
+activity Evaluate Change Impact
+activity Conduct Training
+activity Gather Feedback
+activity Review and Adjust Strategy
+bind Assess Current State: Employee Satisfaction
+bind Develop Change Strategy: Budget Allocation, Change Type
+bind Communicate Change Plan: Stakeholder Approval
+bind Conduct Training: Training Hours, Training Completion
+bind Monitor Change Progress: Progress Percentage
+bind Gather Feedback: Feedback Type
+bind Review and Adjust Strategy: Strategy Revisions
+bind Evaluate Change Impact: Impact Score
+Employee Satisfaction: integer between 1 and 10
+Budget Allocation: float between 1000.0 and 100000.0
+Change Type: Structural, Process, Cultural
+Stakeholder Approval: Pending, Approved, Rejected
+Training Hours: integer between 1 and 40
+Progress Percentage: float between 0.0 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Strategy Revisions: integer between 0 and 10
+Impact Score: float between 0.0 and 10.0
+Training Completion: Not Started, In Progress, Completed
+Init[Assess Current State] | |
+Existence[Implement Change] | |
+Response[Develop Change Strategy, Communicate Change Plan] | | |2,5,d
+Precedence[Conduct Training, Implement Change] | | |
+Response[Implement Change, Gather Feedback] | | |
+Precedence[Monitor Change Progress, Evaluate Change Impact] |A.Progress Percentage >= 80 | |
+Responded Existence[Gather Feedback, Review and Adjust Strategy] |A.Feedback Type is Negative | |
+Chain Succession[Develop Change Strategy, Implement Change] | |A.Change Type == T.Change Type |
+Precedence[Conduct Training, Implement Change] |A.Training Completion is Completed | |
+Precedence[Communicate Change Plan, Implement Change] |A.Stakeholder Approval is Approved | |

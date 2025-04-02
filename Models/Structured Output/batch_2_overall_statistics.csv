@@ -1,0 +1,16 @@
+Metric,Min,Mean,Median,Max,Std
+Activities,10.0,13.96,15.0,15.0,2.003596766
+Attributes,5.0,9.58,10.0,10.0,1.23757828
+Binds,3.0,9.228,10.0,15.0,2.411641764
+Attributes per Bind,0.0,1.199393151,1.0,4.0,0.44080902
+Constraints,14.0,14.976,15.0,16.0,0.177268158
+Unary Constraints,2.0,3.66,4.0,6.0,0.687313611
+Binary Constraints,9.0,11.316,11.0,13.0,0.710030985
+Integer Attributes,1.0,2.82,3.0,4.0,0.46
+Float Attributes,1.0,2.46,3.0,4.0,0.632771681
+Enumeration Attributes,2.0,4.3,4.0,6.0,0.716937933
+Cardinality,1.0,1.392484342,1.0,20.0,1.141559699
+Activation Conditions,0.0,2.596,2.5,10.0,2.069005558
+Correlation Conditions,0.0,2.256,1.0,12.0,2.856302505
+Time Conditions,1.0,3.904,4.0,11.0,1.399565647
+Templates per Model,3.0,10.484,11.0,15.0,2.245382818

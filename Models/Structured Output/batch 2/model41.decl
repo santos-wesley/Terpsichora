@@ -1,0 +1,35 @@
+activity Draft Policy Document
+activity Review Policy Document
+activity Approve Policy Document
+activity Distribute Policy Document
+activity Conduct Risk Assessment
+activity Update Policy Document
+activity Hold Policy Meeting
+activity Gather Stakeholder Feedback
+activity Finalize Policy Document
+activity Archive Policy Document
+bind Draft Policy Document: Document Version
+bind Conduct Risk Assessment: Risk Score
+bind Approve Policy Document: Approval Status
+bind Gather Stakeholder Feedback: Feedback Type
+bind Hold Policy Meeting: Meeting Participants
+Document Version: integer between 1 and 100
+Risk Score: float between 0.0 and 10.0
+Approval Status: Pending, Approved, Rejected
+Feedback Type: Positive, Negative, Neutral
+Meeting Participants: integer between 1 and 50
+Existence[Draft Policy Document] | |
+Exactly[Finalize Policy Document] | |
+End[Archive Policy Document] | |
+Precedence[Approve Policy Document, Review Policy Document] | | |
+Response[Approve Policy Document, Distribute Policy Document] |A.Approval Status is Approved | |0,2,d
+Chain Response[Draft Policy Document, Hold Policy Meeting] | | |
+Response[Gather Stakeholder Feedback, Update Policy Document] |A.Feedback Type is Negative | |
+Precedence[Finalize Policy Document, Conduct Risk Assessment] | | |
+Not Chain Response[Approve Policy Document, Distribute Policy Document] | | |
+Chain Succession[Review Policy Document, Approve Policy Document] | | |
+Exclusive Choice[Approve Policy Document, Update Policy Document] |A.Approval Status is Approved |T.Approval Status is Rejected |
+Responded Existence[Approve Policy Document, Distribute Policy Document] |A.Approval Status is Approved | |
+Not Precedence[Finalize Policy Document, Conduct Risk Assessment] | |T.Risk Score > 7 |
+Response[Gather Stakeholder Feedback, Update Policy Document] |A.Feedback Type is Negative | |0,48,h
+Response[Finalize Policy Document, Archive Policy Document] | | |0,5,d

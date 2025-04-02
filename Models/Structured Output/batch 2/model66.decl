@@ -1,0 +1,55 @@
+activity Capture Fingerprint
+activity Capture Iris
+activity Verify Fingerprint
+activity Verify Iris
+activity Enroll Fingerprint
+activity Enroll Iris
+activity Update Fingerprint
+activity Update Iris
+activity Delete Fingerprint
+activity Delete Iris
+activity Audit Log
+activity Generate Report
+activity Alert Security
+activity Backup Data
+activity Restore Data
+bind Capture Fingerprint: User ID
+bind Capture Iris: User ID
+bind Verify Fingerprint: Match Score, Verification Status
+bind Verify Iris: Match Score, Verification Status
+bind Enroll Fingerprint: User ID, Action Type
+bind Enroll Iris: User ID, Action Type
+bind Update Fingerprint: User ID, Action Type
+bind Update Iris: User ID, Action Type
+bind Delete Fingerprint: User ID, Action Type
+bind Delete Iris: User ID, Action Type
+bind Audit Log: Log ID
+bind Generate Report: Report Type
+bind Alert Security: Alert Level
+bind Backup Data: Data Size, Backup Status
+bind Restore Data: Data Size
+User ID: integer between 1 and 10000
+Match Score: float between 0.0 and 100.0
+Verification Status: Success, Failure
+Action Type: Enroll, Verify, Update, Delete
+Log ID: integer between 1 and 100000
+Alert Level: Low, Medium, High
+Data Size: float between 0.1 and 500.0
+Backup Status: Completed, Failed
+Retry Count: integer between 0 and 5
+Report Type: Daily, Weekly, Monthly
+Existence[Capture Fingerprint] | |
+Existence[Capture Iris] | |
+Response[Verify Fingerprint, Alert Security] |A.Verification Status is Failure | |0,5,m
+Response[Verify Iris, Alert Security] |A.Verification Status is Failure | |0,5,m
+Co-Existence[Enroll Fingerprint, Enroll Iris] | |A.User ID == T.User ID |
+Co-Existence[Update Fingerprint, Update Iris] | |A.User ID == T.User ID |
+Not Co-Existence[Delete Fingerprint, Delete Iris] | |A.User ID == T.User ID |
+Response[Backup Data, Restore Data] |A.Backup Status is Completed |A.Data Size == T.Data Size |0,48,h
+Chain Response[Capture Fingerprint, Verify Fingerprint] | |A.User ID == T.User ID |0,10,m
+Chain Response[Capture Iris, Verify Iris] | |A.User ID == T.User ID |0,10,m
+Precedence[Generate Report, Audit Log] | | |
+Absence[Alert Security] | |
+Not Succession[Enroll Fingerprint, Verify Fingerprint] | |A.User ID == T.User ID |
+Not Succession[Enroll Iris, Verify Iris] | |A.User ID == T.User ID |
+Choice[Backup Data, Generate Report] | | |

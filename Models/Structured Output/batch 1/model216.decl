@@ -1,0 +1,31 @@
+activity Collect Sample
+activity Prepare Slide
+activity Conduct Experiment
+activity Analyze Data
+activity Record Observations
+activity Review Findings
+activity Publish Results
+activity Store Sample
+bind Collect Sample: Sample ID, Sample Volume
+bind Prepare Slide: Slide Preparation Method
+bind Conduct Experiment: Experiment Type
+bind Record Observations: Observation Count
+bind Publish Results: Publication Status
+bind Analyze Data: Data Accuracy
+Sample ID: integer between 1 and 1000
+Sample Volume: float between 0.1 and 100.0
+Experiment Type: Genetic, Chemical, Physical
+Slide Preparation Method: Wet Mount, Dry Mount
+Observation Count: integer between 1 and 100
+Publication Status: Draft, Submitted, Published
+Data Accuracy: float between 0.0 and 100.0
+Init[Collect Sample] | |
+End[Store Sample] | |
+Chain Succession[Collect Sample, Prepare Slide] | |A.Sample ID == T.Sample ID |0,5,m
+Precedence[Conduct Experiment, Prepare Slide] | |A.Sample ID == T.Sample ID |
+Response[Conduct Experiment, Analyze Data] | |A.Experiment Type == T.Experiment Type |0,2,d
+Alternate Response[Conduct Experiment, Record Observations] | |A.Experiment Type == T.Experiment Type |
+Precedence[Publish Results, Review Findings] | |A.Publication Status is Draft |
+Existence[Conduct Experiment] | |
+Not Chain Succession[Analyze Data, Store Sample] | |A.Sample ID == T.Sample ID |
+Exclusive Choice[Record Observations, Publish Results] | | |

@@ -1,0 +1,38 @@
+activity Register Patient
+activity Schedule Appointment
+activity Conduct Examination
+activity Prescribe Medication
+activity Perform Lab Test
+activity Review Lab Results
+activity Provide Treatment
+activity Discharge Patient
+activity Follow-up Consultation
+activity Update Medical Records
+bind Register Patient: Patient ID
+bind Schedule Appointment: Appointment Status
+bind Prescribe Medication: Medication Dosage
+bind Perform Lab Test: Lab Test Type, Lab Test ID
+bind Provide Treatment: Treatment Type
+bind Follow-up Consultation: Follow-up Days
+bind Discharge Patient: Discharge Status
+bind Conduct Examination: Patient Weight
+Patient ID: integer between 1 and 10000
+Appointment Status: Scheduled, Completed, Cancelled
+Medication Dosage: float between 0.5 and 500.0
+Lab Test Type: Blood Test, X-Ray, MRI
+Lab Test ID: integer between 1 and 5000
+Treatment Type: Surgery, Therapy, Medication
+Consultation Fee: float between 50.0 and 500.0
+Follow-up Days: integer between 1 and 30
+Discharge Status: Pending, Completed
+Patient Weight: float between 30.0 and 200.0
+Init[Register Patient] | |
+End[Update Medical Records] | |
+Existence[Conduct Examination] | |
+Precedence[Review Lab Results, Perform Lab Test] | |A.Lab Test ID == T.Lab Test ID |
+Response[Prescribe Medication, Provide Treatment] | |A.Treatment Type is Medication |0,2,d
+Precedence[Conduct Examination, Schedule Appointment] | |A.Appointment Status is Scheduled |
+Response[Provide Treatment, Follow-up Consultation] | |A.Follow-up Days <= 30 |0,30,d
+Precedence[Discharge Patient, Provide Treatment] | |A.Discharge Status is Completed |
+Response[Perform Lab Test, Review Lab Results] |A.Lab Test Type is Blood Test |A.Lab Test ID == T.Lab Test ID |0,48,h
+Exactly[Conduct Examination] |A.Patient Weight > 0 |

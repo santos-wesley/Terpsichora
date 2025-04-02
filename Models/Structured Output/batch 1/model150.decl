@@ -1,0 +1,38 @@
+activity Submit Invention Disclosure
+activity Conduct Prior Art Search
+activity Evaluate Patentability
+activity Draft Patent Application
+activity File Patent Application
+activity Review Office Action
+activity Amend Patent Claims
+activity Grant Patent
+activity Maintain Patent
+activity License Patent
+bind Submit Invention Disclosure: Invention ID, Estimated Value
+bind Conduct Prior Art Search: Search Outcome
+bind Evaluate Patentability: Evaluation Result
+bind Draft Patent Application: Patent Status
+bind Review Office Action: Office Action Count
+bind Amend Patent Claims: Amendment Type
+bind Maintain Patent: Maintenance Fee
+bind License Patent: License Agreement, License Duration
+Invention ID: integer between 1 and 10000
+Estimated Value: float between 1000.0 and 1000000.0
+Patent Status: Draft, Filed, Granted, Rejected
+Search Outcome: Novel, Not Novel
+Office Action Count: integer between 0 and 10
+Amendment Type: Minor, Major
+Maintenance Fee: float between 100.0 and 10000.0
+License Agreement: Exclusive, Non-Exclusive
+License Duration: integer between 1 and 20
+Evaluation Result: Patentable, Not Patentable
+Init[Submit Invention Disclosure] | |
+Existence[File Patent Application] | |
+Exactly[Grant Patent] | |
+Precedence[Evaluate Patentability, Conduct Prior Art Search] |A.Evaluation Result is Patentable |A.Search Outcome is Novel |
+Chain Response[Review Office Action, Amend Patent Claims] |A.Office Action Count > 0 | |0,30,d
+Chain Succession[Draft Patent Application, File Patent Application] |A.Patent Status is Draft |A.Patent Status == T.Patent Status |0,60,d
+Succession[Grant Patent, Maintain Patent] | | |
+Precedence[License Patent, Grant Patent] |A.License Agreement is Exclusive | |
+Responded Existence[Conduct Prior Art Search, Evaluate Patentability] |A.Search Outcome is Not Novel |T.Evaluation Result is Not Patentable |
+Not Co-Existence[License Patent, Amend Patent Claims] |A.License Agreement is Exclusive |T.Amendment Type is Major |

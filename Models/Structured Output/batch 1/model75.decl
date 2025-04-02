@@ -1,0 +1,28 @@
+activity Receive Emergency Call
+activity Dispatch Patrol Unit
+activity Conduct Investigation
+activity Arrest Suspect
+activity File Report
+activity Review Case
+activity Close Case
+bind Receive Emergency Call: Priority Level, Incident Type
+bind Dispatch Patrol Unit: Response Time
+bind Conduct Investigation: Evidence Count
+bind Arrest Suspect: Suspect Status
+bind File Report: Case Status
+Priority Level: integer between 1 and 5
+Response Time: float between 0.1 and 60.0
+Incident Type: Theft, Assault, Accident, Vandalism
+Suspect Status: Arrested, Released
+Evidence Count: integer between 0 and 100
+Case Status: Open, Closed, Pending
+Init[Receive Emergency Call] | |
+End[Close Case] | |
+Existence[Receive Emergency Call] | |
+Chain Response[Receive Emergency Call, Dispatch Patrol Unit] | | |0,15,m
+Response[Arrest Suspect, File Report] |A.Suspect Status is Arrested | |
+Precedence[Conduct Investigation, Dispatch Patrol Unit] | | |
+Chain Succession[File Report, Review Case] | | |0,2,d
+Response[Receive Emergency Call, Arrest Suspect] |A.Priority Level > 3 AND A.Incident Type is Assault | |
+Not Chain Succession[Conduct Investigation, Arrest Suspect] | | |
+Precedence[Close Case, Review Case] | | |

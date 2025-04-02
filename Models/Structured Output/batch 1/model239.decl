@@ -1,0 +1,32 @@
+activity Draft Speech
+activity Review Speech
+activity Approve Speech
+activity Deliver Speech
+activity Conduct Interview
+activity Release Statement
+activity Hold Press Conference
+activity Analyze Feedback
+activity Update Communication Strategy
+bind Draft Speech: Speech Length, Speech Tone
+bind Deliver Speech: Public Approval Rating
+bind Conduct Interview: Interview Type
+bind Hold Press Conference: Number of Journalists
+bind Release Statement: Statement Urgency
+bind Analyze Feedback: Feedback Score
+Speech Length: integer between 5 and 120
+Speech Tone: Formal, Informal, Aggressive, Conciliatory
+Public Approval Rating: float between 0.0 and 100.0
+Interview Type: Live, Recorded
+Number of Journalists: integer between 1 and 100
+Statement Urgency: High, Medium, Low
+Feedback Score: float between 0.0 and 10.0
+Init[Draft Speech] | |
+Existence[Deliver Speech] | |
+Precedence[Deliver Speech, Approve Speech] | | |
+Chain Response[Hold Press Conference, Analyze Feedback] | | |0,2,d
+Not Co-Existence[Release Statement, Conduct Interview] | | |
+Responded Existence[Draft Speech, Deliver Speech] |A.Speech Tone is Formal |T.Public Approval Rating > 80 |
+Response[Conduct Interview, Hold Press Conference] |A.Interview Type is Live |T.Number of Journalists > 50 |
+Existence[Analyze Feedback] | |
+Response[Analyze Feedback, Update Communication Strategy] | | |
+Precedence[Approve Speech, Review Speech] | | |

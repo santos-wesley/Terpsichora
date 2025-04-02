@@ -1,0 +1,50 @@
+activity Synthesize Nanoparticles
+activity Characterize Nanoparticles
+activity Functionalize Nanoparticles
+activity Purify Nanoparticles
+activity Store Nanoparticles
+activity Transport Nanoparticles
+activity Conduct Toxicity Test
+activity Perform Quality Control
+activity Package Nanoparticles
+activity Distribute Nanoparticles
+activity Develop Nanoparticle Application
+activity Evaluate Application Performance
+activity Obtain Regulatory Approval
+activity Market Nanoparticle Products
+activity Dispose Nanoparticles
+bind Synthesize Nanoparticles: Particle Size
+bind Characterize Nanoparticles: Purity Level
+bind Store Nanoparticles: Storage Condition
+bind Transport Nanoparticles: Transport Method
+bind Conduct Toxicity Test: Toxicity Level
+bind Perform Quality Control: Quality Status
+bind Evaluate Application Performance: Application Efficiency
+bind Obtain Regulatory Approval: Regulatory Status
+bind Market Nanoparticle Products: Market Region
+bind Dispose Nanoparticles: Disposal Method
+Particle Size: integer between 1 and 1000
+Purity Level: float between 90.0 and 100.0
+Storage Condition: Room Temperature, Refrigerated, Frozen
+Transport Method: Air, Ground, Sea
+Toxicity Level: integer between 1 and 10
+Quality Status: Pass, Fail
+Application Efficiency: float between 0.0 and 100.0
+Regulatory Status: Pending, Approved, Rejected
+Market Region: North America, Europe, Asia, Other
+Disposal Method: integer between 1 and 5
+Init[Synthesize Nanoparticles] | |
+Existence[Characterize Nanoparticles] | |
+End[Dispose Nanoparticles] | |
+Response[Functionalize Nanoparticles, Purify Nanoparticles] | | |0,48,h
+Chain Succession[Transport Nanoparticles, Store Nanoparticles] | | |0,2,d
+Precedence[Perform Quality Control, Conduct Toxicity Test] | | |
+Precedence[Evaluate Application Performance, Develop Nanoparticle Application] | | |
+Co-Existence[Obtain Regulatory Approval, Market Nanoparticle Products] | | |
+Not Chain Succession[Package Nanoparticles, Distribute Nanoparticles] | | |
+Not Co-Existence[Synthesize Nanoparticles, Characterize Nanoparticles] | | |
+Response[Transport Nanoparticles, Store Nanoparticles] | | |0,2,d
+Not Response[Functionalize Nanoparticles, Purify Nanoparticles] | | |
+Not Succession[Conduct Toxicity Test, Perform Quality Control] | | |
+Not Succession[Develop Nanoparticle Application, Evaluate Application Performance] | | |
+Not Precedence[Obtain Regulatory Approval, Market Nanoparticle Products] | | |

@@ -1,0 +1,50 @@
+activity Draft Policy
+activity Review Policy
+activity Approve Policy
+activity Publish Policy
+activity Revise Policy
+activity Consult Stakeholders
+activity Conduct Impact Analysis
+activity Finalize Policy
+activity Archive Policy
+activity Distribute Policy
+activity Evaluate Policy
+activity Update Policy
+activity Withdraw Policy
+activity Train Staff
+activity Monitor Compliance
+bind Draft Policy: Revision Number
+bind Review Policy: Stakeholder Feedback
+bind Approve Policy: Approval Status
+bind Conduct Impact Analysis: Impact Score
+bind Train Staff: Training Hours
+bind Monitor Compliance: Compliance Rate
+bind Publish Policy: Publication Status
+bind Evaluate Policy: Evaluation Score
+bind Update Policy: Update Frequency
+bind Withdraw Policy: Policy Status
+Revision Number: integer between 1 and 10
+Impact Score: float between 0.0 and 10.0
+Approval Status: Pending, Approved, Rejected
+Stakeholder Feedback: Positive, Negative, Neutral
+Compliance Rate: integer between 0 and 100
+Training Hours: float between 0.0 and 40.0
+Publication Status: Draft, Published, Archived
+Evaluation Score: integer between 1 and 5
+Policy Status: Active, Inactive, Withdrawn
+Update Frequency: float between 0.0 and 4.0
+Existence[Draft Policy] | |
+Existence[Publish Policy] | |
+Absence2[Archive Policy] | |
+Precedence[Approve Policy, Review Policy] | | |
+Response[Revise Policy, Review Policy] | | |
+Succession[Consult Stakeholders, Finalize Policy] | | |
+Chain Succession[Approve Policy, Publish Policy] | | |0,2,d
+Not Chain Succession[Publish Policy, Withdraw Policy] | | |
+Response[Publish Policy, Evaluate Policy] | | |
+Responded Existence[Evaluate Policy, Update Policy] |A.Evaluation Score < 3 | |
+Succession[Publish Policy, Distribute Policy] | | |
+Response[Distribute Policy, Monitor Compliance] | | |
+Not Co-Existence[Archive Policy, Withdraw Policy] | |A.Policy Status is Active |
+Chain Response[Publish Policy, Train Staff] | | |0,48,h
+Precedence[Conduct Impact Analysis, Consult Stakeholders] | | |

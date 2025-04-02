@@ -1,0 +1,31 @@
+activity Brainstorm Ideas
+activity Outline Story
+activity Write Draft
+activity Edit Draft
+activity Conduct Research
+activity Review Feedback
+activity Finalize Manuscript
+activity Submit Manuscript
+bind Brainstorm Ideas: 
+bind Outline Story: 
+bind Write Draft: Word Count, Draft Quality
+bind Edit Draft: Number of Revisions
+bind Conduct Research: Research Type
+bind Review Feedback: Feedback Type
+bind Finalize Manuscript: 
+bind Submit Manuscript: 
+Word Count: integer between 1000 and 1000000
+Draft Quality: float between 0.0 and 10.0
+Research Type: Historical, Scientific, Cultural
+Feedback Type: Positive, Constructive, Negative
+Number of Revisions: integer between 0 and 50
+Init[Brainstorm Ideas] | |
+End[Submit Manuscript] | |
+Succession[Write Draft, Edit Draft] | | |
+Co-Existence[Conduct Research, Write Draft] | | |
+Precedence[Review Feedback, Edit Draft] | | |
+Response[Review Feedback, Finalize Manuscript] | | |0,2,d
+Existence[Write Draft] | |
+Not Chain Succession[Edit Draft, Review Feedback] | | |
+Responded Existence[Conduct Research, Review Feedback] |A.Research Type is Historical |T.Feedback Type is Constructive |
+Precedence[Finalize Manuscript, Write Draft] |A.Draft Quality >= 7 | |

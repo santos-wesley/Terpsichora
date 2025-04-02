@@ -1,0 +1,39 @@
+activity Capture Network Traffic
+activity Analyze Packet Content
+activity Identify Anomalies
+activity Generate Report
+activity Archive Data
+activity Review Security Logs
+activity Correlate Events
+activity Notify Security Team
+activity Update Threat Database
+activity Conduct Follow-up Investigation
+bind Capture Network Traffic: Packet Size, Traffic Volume
+bind Analyze Packet Content: Anomaly Score
+bind Identify Anomalies: Threat Level
+bind Generate Report: Report Status
+bind Review Security Logs: Log Entries
+bind Correlate Events: Event Type
+bind Notify Security Team: Response Time
+bind Update Threat Database: Database Update Status
+bind Conduct Follow-up Investigation: Investigation Depth
+Packet Size: integer between 64 and 1500
+Anomaly Score: float between 0.0 and 1.0
+Threat Level: Low, Medium, High
+Report Status: Draft, Final
+Log Entries: integer between 1 and 10000
+Event Type: Intrusion, Malware, DDoS
+Response Time: float between 0.1 and 24.0
+Database Update Status: Pending, Completed
+Investigation Depth: integer between 1 and 5
+Traffic Volume: float between 0.1 and 100.0
+Init[Capture Network Traffic] | |
+End[Archive Data] | |
+Existence[Identify Anomalies] | |
+Response[Analyze Packet Content, Identify Anomalies] | | |0,2,h
+Succession[Generate Report, Notify Security Team] | | |
+Co-Existence[Review Security Logs, Correlate Events] | | |
+Not Chain Succession[Update Threat Database, Conduct Follow-up Investigation] | | |
+Response[Capture Network Traffic, Analyze Packet Content] | | |0,1,d
+Choice[Generate Report, Update Threat Database] | | |
+Precedence[Notify Security Team, Identify Anomalies] | |T.Threat Level is High |

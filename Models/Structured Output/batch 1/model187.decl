@@ -1,0 +1,26 @@
+activity Initiate International Transfer
+activity Verify Recipient Details
+activity Approve Transfer
+activity Execute Transfer
+activity Notify Recipient
+activity Reconcile Accounts
+activity Generate Transfer Report
+bind Initiate International Transfer: Transfer Amount, Transfer ID
+bind Verify Recipient Details: Recipient Country
+bind Approve Transfer: Transfer Status
+bind Execute Transfer: Exchange Rate
+Transfer Amount: integer between 100 and 1000000
+Transfer Status: Pending, Verified, Approved, Executed, Completed
+Exchange Rate: float between 0.5 and 2.0
+Recipient Country: USA, UK, Germany, India, China
+Transfer ID: integer between 1 and 100000
+Init[Initiate International Transfer] | |
+End[Generate Transfer Report] | |
+Precedence[Approve Transfer, Verify Recipient Details] | | |
+Chain Response[Approve Transfer, Execute Transfer] | | |0,2,h
+Response[Execute Transfer, Notify Recipient] | | |
+Succession[Execute Transfer, Reconcile Accounts] | | |
+Not Co-Existence[Initiate International Transfer, Approve Transfer] | | |
+Precedence[Execute Transfer, Initiate International Transfer] |A.Transfer Amount > 5000 | |
+Precedence[Execute Transfer, Approve Transfer] |A.Transfer Status is Approved | |
+Precedence[Verify Recipient Details, Initiate International Transfer] |A.Recipient Country in (USA, UK) | |

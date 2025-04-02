@@ -1,0 +1,49 @@
+activity Identify Target Audience
+activity Conduct Market Research
+activity Develop Marketing Strategy
+activity Design Marketing Materials
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Adjust Marketing Strategy
+activity Engage with Customers
+activity Collect Customer Feedback
+activity Analyze Feedback
+activity Update Product Features
+activity Prepare Sales Report
+activity Evaluate Marketing ROI
+activity Plan Future Campaigns
+activity Conduct Post-Campaign Review
+bind Identify Target Audience: Audience Size
+bind Conduct Market Research: Market Research Type
+bind Develop Marketing Strategy: Budget Allocation
+bind Launch Marketing Campaign: Campaign Channel
+bind Engage with Customers: Customer Engagement Level
+bind Collect Customer Feedback: Feedback Score
+bind Update Product Features: Product Feature Update
+bind Evaluate Marketing ROI: ROI Evaluation
+bind Plan Future Campaigns: Future Campaign Budget
+Audience Size: integer between 100 and 10000
+Budget Allocation: float between 1000.0 and 100000.0
+Market Research Type: Survey, Focus Group, Interview
+Campaign Channel: Social Media, Email, TV, Radio
+Customer Engagement Level: integer between 1 and 10
+Feedback Score: float between 1.0 and 5.0
+Product Feature Update: Design, Functionality, Packaging
+Sales Increase Percentage: integer between 0 and 100
+ROI Evaluation: Positive, Negative, Neutral
+Future Campaign Budget: float between 5000.0 and 200000.0
+Init[Identify Target Audience] | |
+Existence[Conduct Market Research] | |
+Response[Develop Marketing Strategy, Launch Marketing Campaign] | | |0,5,d
+Chain Response[Launch Marketing Campaign, Engage with Customers] | | |0,2,d
+Succession[Collect Customer Feedback, Analyze Feedback] | | |0,3,d
+Co-Existence[Update Product Features, Prepare Sales Report] | | |
+Not Precedence[Evaluate Marketing ROI, Adjust Marketing Strategy] | | |
+Precedence[Plan Future Campaigns, Conduct Post-Campaign Review] | | |
+Exactly2[Monitor Campaign Performance] | |
+Not Co-Existence[Adjust Marketing Strategy, Engage with Customers] | | |
+Chain Succession[Design Marketing Materials, Launch Marketing Campaign] | | |0,1,d
+Exclusive Choice[Conduct Market Research, Analyze Feedback] | | |
+Not Chain Response[Prepare Sales Report, Evaluate Marketing ROI] | | |
+Alternate Succession[Identify Target Audience, Develop Marketing Strategy] | | |
+Not Response[Collect Customer Feedback, Update Product Features] | | |

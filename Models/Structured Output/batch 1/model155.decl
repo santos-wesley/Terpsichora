@@ -1,0 +1,34 @@
+activity Initiate Purchase Request
+activity Approve Purchase Request
+activity Select Supplier
+activity Create Purchase Order
+activity Receive Goods
+activity Inspect Goods
+activity Approve Invoice
+activity Make Payment
+activity Close Purchase Order
+bind Initiate Purchase Request: Request ID, Order Amount
+bind Approve Purchase Request: Approval Status
+bind Select Supplier: Supplier Rating
+bind Receive Goods: Goods Quantity
+bind Inspect Goods: Inspection Result
+bind Approve Invoice: Invoice Amount
+bind Make Payment: Payment Status
+Request ID: integer between 1 and 10000
+Order Amount: float between 0.01 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Supplier Rating: Excellent, Good, Average, Poor
+Goods Quantity: integer between 1 and 1000
+Inspection Result: Passed, Failed
+Invoice Amount: float between 0.01 and 1000000.0
+Payment Status: Pending, Completed, Failed
+Init[Initiate Purchase Request] | |
+End[Close Purchase Order] | |
+Existence[Approve Purchase Request] | |
+Precedence[Approve Purchase Request, Initiate Purchase Request] | | |
+Response[Select Supplier, Create Purchase Order] | | |0,2,d
+Chain Succession[Receive Goods, Inspect Goods] | | |
+Alternate Precedence[Approve Invoice, Inspect Goods] | | |0,48,h
+Not Chain Response[Approve Invoice, Make Payment] | | |
+Exclusive Choice[Approve Purchase Request, Close Purchase Order] |A.Approval Status is Approved | |
+Precedence[Approve Invoice, Inspect Goods] | |T.Inspection Result is Passed |0,24,h

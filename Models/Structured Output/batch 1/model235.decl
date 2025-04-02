@@ -1,0 +1,34 @@
+activity Produce Hydrogen
+activity Store Hydrogen
+activity Transport Hydrogen
+activity Generate Electricity
+activity Monitor System
+activity Perform Maintenance
+activity Dispose Waste
+activity Refuel System
+bind Produce Hydrogen: Hydrogen Volume
+bind Store Hydrogen: Storage Pressure
+bind Transport Hydrogen: Transport Method
+bind Generate Electricity: Electricity Output
+bind Monitor System: System Status
+bind Perform Maintenance: Maintenance Duration
+bind Dispose Waste: Waste Type
+bind Refuel System: Refuel Amount
+Hydrogen Volume: integer between 1 and 1000
+Storage Pressure: float between 1.0 and 700.0
+Transport Method: Truck, Pipeline, Rail
+Electricity Output: float between 0.1 and 1000.0
+System Status: Operational, Maintenance Required, Shutdown
+Maintenance Duration: integer between 1 and 48
+Waste Type: Water, Solid Residue
+Refuel Amount: integer between 1 and 500
+Init[Produce Hydrogen] | |
+End[Refuel System] | |
+Existence[Generate Electricity] | |
+Chain Succession[Produce Hydrogen, Store Hydrogen] | | |0,10,m
+Response[Store Hydrogen, Transport Hydrogen] | | |0,24,h
+Precedence[Monitor System, Perform Maintenance] |A.System Status is Maintenance Required | |
+Succession[Generate Electricity, Dispose Waste] | | |0,48,h
+Chain Precedence[Store Hydrogen, Transport Hydrogen] | |A.Transport Method == T.Transport Method |
+Responded Existence[Monitor System, Refuel System] |A.System Status is Shutdown | |
+Response[Produce Hydrogen, Generate Electricity] |A.Hydrogen Volume > 500 |T.Electricity Output > 500 |

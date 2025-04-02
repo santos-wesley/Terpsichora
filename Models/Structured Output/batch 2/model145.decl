@@ -1,0 +1,48 @@
+activity Define Marketing Strategy
+activity Conduct Market Research
+activity Create Marketing Campaign
+activity Set Marketing Budget
+activity Approve Marketing Plan
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Adjust Marketing Strategy
+activity Generate Marketing Report
+activity Evaluate Customer Feedback
+activity Develop Brand Guidelines
+activity Organize Promotional Events
+activity Manage Social Media Presence
+activity Negotiate Advertising Contracts
+activity Conduct Post-Campaign Analysis
+bind Set Marketing Budget: Budget Amount
+bind Create Marketing Campaign: Market Segment, Campaign Status
+bind Monitor Campaign Performance: Campaign ROI
+bind Evaluate Customer Feedback: Customer Feedback Score
+bind Develop Brand Guidelines: Brand Consistency
+bind Organize Promotional Events: Event Attendance
+bind Manage Social Media Presence: Social Media Platform
+bind Negotiate Advertising Contracts: Advertising Contract Value
+Budget Amount: integer between 1000 and 1000000
+Campaign ROI: float between 0.0 and 10.0
+Market Segment: B2B, B2C, Enterprise, SME
+Campaign Status: Planned, Active, Completed, Cancelled
+Customer Feedback Score: integer between 1 and 10
+Market Share: float between 0.0 and 100.0
+Brand Consistency: High, Medium, Low
+Event Attendance: float between 0.0 and 10000.0
+Social Media Platform: Facebook, Twitter, Instagram, LinkedIn
+Advertising Contract Value: integer between 500 and 50000
+Init[Define Marketing Strategy] | |
+End[Generate Marketing Report] | |
+Existence[Launch Marketing Campaign] | |
+Absence2[Approve Marketing Plan] | |
+Precedence[Create Marketing Campaign, Conduct Market Research] | | |
+Response[Create Marketing Campaign, Launch Marketing Campaign] | | |
+Response[Monitor Campaign Performance, Adjust Marketing Strategy] | | |0,48,h
+Response[Launch Marketing Campaign, Organize Promotional Events] | | |0,7,d
+Co-Existence[Manage Social Media Presence, Launch Marketing Campaign] | | |
+Not Chain Succession[Set Marketing Budget, Negotiate Advertising Contracts] | | |
+Not Precedence[Launch Marketing Campaign, Set Marketing Budget] |A.Budget Amount < 5000 | |
+Chain Response[Launch Marketing Campaign, Create Marketing Campaign] | |T.Campaign Status is Active |
+Precedence[Evaluate Customer Feedback, Conduct Post-Campaign Analysis] | | |0,5,d
+Chain Precedence[Develop Brand Guidelines, Define Marketing Strategy] | |A.Brand Consistency is High |
+Chain Precedence[Negotiate Advertising Contracts, Set Marketing Budget] | |A.Advertising Contract Value > 1000 |

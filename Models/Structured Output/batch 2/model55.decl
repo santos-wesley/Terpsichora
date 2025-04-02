@@ -1,0 +1,50 @@
+activity Initiate Audit
+activity Gather Evidence
+activity Conduct Interviews
+activity Analyze Data
+activity Evaluate Controls
+activity Identify Issues
+activity Draft Report
+activity Review Report
+activity Finalize Report
+activity Present Findings
+activity Follow Up
+activity Close Audit
+activity Approve Audit Plan
+activity Schedule Audit
+activity Conduct Risk Assessment
+bind Initiate Audit: Audit Status
+bind Gather Evidence: Evidence Type
+bind Conduct Interviews: Interview Count
+bind Analyze Data: Finding Severity
+bind Evaluate Controls: Control Effectiveness
+bind Identify Issues: Number of Issues
+bind Draft Report: Report Status
+bind Conduct Risk Assessment: Risk Level
+bind Close Audit: Audit Duration
+bind Finalize Report: Budget Utilization
+Audit Duration: integer between 1 and 365
+Budget Utilization: float between 0.0 and 100.0
+Audit Status: Not Started, In Progress, Completed
+Evidence Type: Document, Interview, Observation
+Number of Issues: integer between 0 and 100
+Control Effectiveness: float between 0.0 and 100.0
+Report Status: Draft, Reviewed, Final
+Interview Count: integer between 0 and 50
+Risk Level: Low, Medium, High
+Finding Severity: float between 0.0 and 10.0
+Init[Initiate Audit] | |
+End[Close Audit] | |
+Existence[Initiate Audit] | |
+Chain Response[Gather Evidence, Analyze Data] | | |0,2,d
+Response[Conduct Interviews, Identify Issues] | | |
+Chain Response[Draft Report, Review Report] | | |0,5,d
+Precedence[Schedule Audit, Approve Audit Plan] | | |
+Response[Evaluate Controls, Identify Issues] |A.Control Effectiveness < 50 | |
+Co-Existence[Conduct Risk Assessment, Initiate Audit] | | |
+Succession[Review Report, Finalize Report] | | |
+Response[Finalize Report, Present Findings] | | |
+Not Precedence[Close Audit, Follow Up] | | |
+Chain Succession[Close Audit, Initiate Audit] |A.Audit Status is Completed | |
+Precedence[Close Audit, Identify Issues] |A.Number of Issues < 10 | |
+Not Response[Finalize Report, Initiate Audit] |A.Budget Utilization > 80 | |

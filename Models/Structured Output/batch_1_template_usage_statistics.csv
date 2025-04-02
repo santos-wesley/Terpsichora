@@ -1,0 +1,27 @@
+Template,Count,Percentage of Total Constraints,Models Using Template
+Response,449,17.96718687,243
+Precedence,406,16.2464986,238
+Existence,239,9.56382553,235
+Init,222,8.883553421,222
+End,209,8.363345338,208
+Chain Response,200,8.003201281,169
+Co-Existence,100,4.00160064,100
+Not Chain Succession,86,3.441376551,86
+Chain Succession,85,3.401360544,78
+Not Co-Existence,84,3.361344538,82
+Responded Existence,78,3.121248499,74
+Exclusive Choice,63,2.521008403,63
+Choice,50,2.00080032,48
+Succession,49,1.960784314,47
+Exactly,38,1.520608243,38
+Not Precedence,30,1.200480192,30
+Not Responded Existence,23,0.920368147,23
+Chain Precedence,19,0.760304122,19
+Not Succession,14,0.56022409,14
+Alternate Succession,12,0.480192077,12
+Alternate Response,10,0.400160064,10
+Absence,9,0.360144058,9
+Not Response,7,0.280112045,7
+Not Chain Response,7,0.280112045,7
+Not Chain Precedence,6,0.240096038,6
+Alternate Precedence,4,0.160064026,4

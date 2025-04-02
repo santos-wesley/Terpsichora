@@ -1,0 +1,44 @@
+activity Identify Conflict
+activity Gather Information
+activity Analyze Conflict
+activity Develop Solutions
+activity Evaluate Solutions
+activity Select Solution
+activity Implement Solution
+activity Monitor Implementation
+activity Review Outcome
+activity Document Resolution
+bind Identify Conflict: Conflict Type, Conflict Severity
+bind Gather Information: Information Sources
+bind Analyze Conflict: Stakeholder Count
+bind Develop Solutions: Solution Feasibility
+bind Evaluate Solutions: Solution Cost
+bind Select Solution: Solution Approval
+bind Implement Solution: Time to Resolve
+bind Review Outcome: Outcome Satisfaction
+bind Document Resolution: Resolution Status
+Conflict Severity: integer between 1 and 10
+Solution Cost: float between 0.0 and 10000.0
+Conflict Type: Interpersonal, Organizational, Resource
+Resolution Status: Pending, In Progress, Resolved
+Solution Feasibility: High, Medium, Low
+Stakeholder Count: integer between 1 and 100
+Time to Resolve: float between 0.0 and 500.0
+Outcome Satisfaction: Satisfied, Neutral, Dissatisfied
+Solution Approval: Approved, Not Approved
+Information Sources: integer between 1 and 50
+Init[Identify Conflict] | |
+End[Document Resolution] | |
+Existence[Analyze Conflict] | |
+Precedence[Analyze Conflict, Gather Information] | | |
+Response[Develop Solutions, Evaluate Solutions] | | |
+Succession[Select Solution, Implement Solution] | | |
+Alternate Response[Implement Solution, Monitor Implementation] | | |0,48,h
+Alternate Succession[Monitor Implementation, Review Outcome] | | |
+Chain Succession[Review Outcome, Document Resolution] | | |0,2,d
+Responded Existence[Identify Conflict, Develop Solutions] |A.Conflict Type is Resource |T.Solution Feasibility is High |
+Response[Evaluate Solutions, Select Solution] |A.Solution Cost > 5000 |T.Solution Approval is Approved |
+Response[Identify Conflict, Document Resolution] |A.Conflict Severity <= 5 |T.Resolution Status is Resolved |
+Response[Analyze Conflict, Review Outcome] |A.Stakeholder Count < 10 |T.Outcome Satisfaction is Satisfied |
+Not Responded Existence[Implement Solution, Review Outcome] |A.Time to Resolve > 100 |T.Outcome Satisfaction is not Dissatisfied |
+Precedence[Select Solution, Develop Solutions] |A.Solution Approval is Approved |T.Solution Feasibility is High |

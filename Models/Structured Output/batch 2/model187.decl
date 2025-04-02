@@ -1,0 +1,45 @@
+activity Receive Service Request
+activity Assign Technician
+activity Schedule Service Visit
+activity Perform Diagnosis
+activity Provide Estimate
+activity Obtain Customer Approval
+activity Perform Service
+activity Conduct Quality Check
+activity Close Service Request
+activity Generate Invoice
+activity Receive Payment
+activity Update Service Records
+activity Notify Customer
+activity Handle Customer Feedback
+activity Review Technician Performance
+bind Receive Service Request: Service Request ID, Service Status
+bind Assign Technician: Technician Skill Level, Technician ID
+bind Provide Estimate: Service Cost, Service Duration
+bind Receive Payment: Payment Status, Invoice Amount
+bind Handle Customer Feedback: Feedback Type, Customer Satisfaction Rating
+Service Request ID: integer between 1 and 10000
+Service Cost: float between 50.0 and 5000.0
+Service Status: Pending, In Progress, Completed, Closed
+Technician Skill Level: Junior, Mid, Senior
+Customer Satisfaction Rating: integer between 1 and 5
+Payment Status: Unpaid, Paid, Overdue
+Service Duration: float between 0.5 and 48.0
+Feedback Type: Positive, Neutral, Negative
+Technician ID: integer between 1 and 500
+Invoice Amount: float between 50.0 and 5000.0
+Init[Receive Service Request] | |
+End[Close Service Request] | |
+Existence[Receive Service Request] | |
+Precedence[Perform Service, Assign Technician] | | |
+Response[Provide Estimate, Obtain Customer Approval] | | |0,2,d
+Chain Succession[Perform Service, Conduct Quality Check] | | |0,48,h
+Response[Close Service Request, Generate Invoice] | | |0,2,d
+Precedence[Receive Payment, Generate Invoice] | | |
+Responded Existence[Handle Customer Feedback, Notify Customer] | | |
+Not Precedence[Perform Service, Close Service Request] |A.Service Status is Closed | |
+Co-Existence[Assign Technician, Perform Service] |A.Technician Skill Level is Senior |A.Technician Skill Level == T.Technician Skill Level |
+Precedence[Perform Service, Provide Estimate] |A.Service Cost > 100 | |
+Response[Receive Service Request, Close Service Request] | | |0,5,d
+Chain Response[Generate Invoice, Provide Estimate] | |A.Invoice Amount == T.Service Cost |
+Response[Handle Customer Feedback, Notify Customer] | | |0,2,d

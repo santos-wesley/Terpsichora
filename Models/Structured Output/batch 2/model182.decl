@@ -1,0 +1,55 @@
+activity Inspect Raw Materials
+activity Conduct Initial Testing
+activity Approve Materials
+activity Reject Materials
+activity Monitor Production
+activity Conduct Mid-Production Testing
+activity Approve Production Batch
+activity Reject Production Batch
+activity Conduct Final Inspection
+activity Approve Finished Products
+activity Reject Finished Products
+activity Record Quality Data
+activity Review Quality Reports
+activity Implement Quality Improvements
+activity Train Quality Staff
+bind Inspect Raw Materials: Material Quality Score, Approval Status
+bind Conduct Initial Testing: Test Result, Inspection Time
+bind Approve Materials: Approval Status
+bind Reject Materials: Approval Status
+bind Monitor Production: Production Tolerance
+bind Conduct Mid-Production Testing: Test Result, Inspection Time
+bind Approve Production Batch: Approval Status, Batch Number
+bind Reject Production Batch: Approval Status, Batch Number
+bind Conduct Final Inspection: Inspection Type, Inspection Time
+bind Approve Finished Products: Approval Status
+bind Reject Finished Products: Approval Status
+bind Record Quality Data: Defect Count
+bind Review Quality Reports: Quality Improvement Percentage
+bind Implement Quality Improvements: Quality Improvement Percentage
+bind Train Quality Staff: Training Level
+Material Quality Score: integer between 1 and 100
+Production Tolerance: float between 0.0 and 5.0
+Approval Status: Approved, Rejected
+Inspection Type: Initial, Mid-Production, Final
+Defect Count: integer between 0 and 50
+Quality Improvement Percentage: float between 0.0 and 100.0
+Training Level: Basic, Intermediate, Advanced
+Batch Number: integer between 1 and 10000
+Test Result: Pass, Fail
+Inspection Time: float between 0.1 and 8.0
+Init[Inspect Raw Materials] | |
+End[Approve Finished Products] | |
+Existence[Conduct Mid-Production Testing] | |
+Choice[Conduct Initial Testing, Approve Materials] | | |
+Choice[Conduct Initial Testing, Reject Materials] | | |
+Precedence[Approve Materials, Inspect Raw Materials] | | |
+Response[Conduct Mid-Production Testing, Conduct Final Inspection] | | |0,2,d
+Not Succession[Reject Production Batch, Approve Finished Products] | | |
+Response[Record Quality Data, Review Quality Reports] |A.Defect Count > 0 | |0,48,h
+Precedence[Implement Quality Improvements, Train Quality Staff] | | |
+Not Chain Succession[Conduct Mid-Production Testing, Conduct Final Inspection] | | |
+Chain Response[Conduct Final Inspection, Approve Finished Products] |A.Inspection Type is Final |A.Inspection Time < 5 |0,5,h
+Chain Response[Monitor Production, Reject Production Batch] |A.Production Tolerance > 3.0 | |0,24,h
+Chain Response[Conduct Initial Testing, Reject Materials] |A.Test Result is Fail | |0,12,h
+Chain Response[Implement Quality Improvements, Train Quality Staff] |A.Quality Improvement Percentage < 10 | |0,7,d

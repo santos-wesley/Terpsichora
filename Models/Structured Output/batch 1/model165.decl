@@ -1,0 +1,38 @@
+activity Inspect Farm
+activity Install Security Cameras
+activity Monitor Livestock
+activity Secure Perimeter
+activity Review Security Footage
+activity Report Incident
+activity Conduct Training
+activity Upgrade Security System
+activity Evaluate Security Measures
+activity Authorize Access
+bind Install Security Cameras: Camera Count
+bind Monitor Livestock: Livestock Count
+bind Report Incident: Incident Severity
+bind Conduct Training: Training Duration, Training Type
+bind Authorize Access: Access Level
+bind Upgrade Security System: Security System Status
+bind Review Security Footage: Footage Review Count
+bind Secure Perimeter: Fence Height, Perimeter Breach Time
+Camera Count: integer between 1 and 50
+Fence Height: float between 1.5 and 3.0
+Incident Severity: Low, Medium, High
+Livestock Count: integer between 10 and 1000
+Access Level: Visitor, Employee, Manager
+Training Duration: float between 1.0 and 8.0
+Security System Status: Operational, Under Maintenance, Upgraded
+Footage Review Count: integer between 1 and 20
+Perimeter Breach Time: float between 0.0 and 60.0
+Training Type: Basic, Advanced
+Init[Inspect Farm] | |
+End[Evaluate Security Measures] | |
+Existence3[Review Security Footage] |A.Footage Review Count >= 3 |
+Response[Install Security Cameras, Review Security Footage] | | |0,2,d
+Chain Response[Report Incident, Secure Perimeter] |A.Incident Severity is High | |0,0,m
+Chain Succession[Conduct Training, Authorize Access] | | |0,1,d
+Co-Existence[Upgrade Security System, Secure Perimeter] | | |
+Precedence[Report Incident, Monitor Livestock] | | |
+Not Co-Existence[Inspect Farm, Install Security Cameras] | | |
+Exclusive Choice[Conduct Training, Upgrade Security System] | | |

@@ -1,0 +1,27 @@
+activity Receive Incident Report
+activity Assess Victim Needs
+activity Provide Immediate Assistance
+activity Develop Support Plan
+activity Assign Case Worker
+activity Conduct Follow-Up
+activity Evaluate Support Plan
+activity Close Case
+bind Receive Incident Report: Incident Severity
+bind Provide Immediate Assistance: Assistance Cost, Assistance Type
+bind Conduct Follow-Up: Follow-Up Frequency
+bind Close Case: Case Status
+Incident Severity: integer between 1 and 10
+Assistance Cost: float between 0.0 and 10000.0
+Case Status: Open, In Progress, Closed
+Assistance Type: Medical, Psychological, Shelter
+Follow-Up Frequency: integer between 1 and 30
+Init[Receive Incident Report] | |
+End[Close Case] | |
+Existence[Receive Incident Report] | |
+Response[Assess Victim Needs, Provide Immediate Assistance] | | |0,2,h
+Response[Provide Immediate Assistance, Develop Support Plan] |A.Assistance Cost > 0 | |0,1,d
+Chain Response[Develop Support Plan, Assign Case Worker] | | |0,30,m
+Response[Assign Case Worker, Conduct Follow-Up] | | |1,5,d
+Response[Conduct Follow-Up, Evaluate Support Plan] |A.Follow-Up Frequency < 7 | |0,10,d
+Precedence[Close Case, Evaluate Support Plan] |A.Case Status is Closed | |
+Not Chain Succession[Provide Immediate Assistance, Conduct Follow-Up] | | |

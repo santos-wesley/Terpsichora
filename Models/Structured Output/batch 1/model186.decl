@@ -1,0 +1,40 @@
+activity Authenticate User
+activity Monitor Transactions
+activity Alert Security Team
+activity Block Account
+activity Review Security Logs
+activity Update Security Protocols
+activity Conduct Security Audit
+activity Grant Access
+activity Report Incident
+activity Reset Password
+bind Authenticate User: User Role
+bind Monitor Transactions: Transaction Amount, Threat Level
+bind Alert Security Team: Threat Level
+bind Block Account: Access Status
+bind Review Security Logs: Security Log ID
+bind Update Security Protocols: Protocol Status
+bind Conduct Security Audit: Audit Score
+bind Grant Access: Access Status
+bind Report Incident: Incident Type
+bind Reset Password: Password Strength
+User Role: Customer, Employee, Admin
+Transaction Amount: integer between 1 and 100000
+Threat Level: Low, Medium, High
+Account Balance: float between 0.0 and 1000000.0
+Access Status: Granted, Blocked
+Security Log ID: integer between 1 and 10000
+Protocol Status: Pending, Completed
+Audit Score: integer between 0 and 100
+Incident Type: Data Breach, Unauthorized Access, Phishing
+Password Strength: float between 0.0 and 10.0
+Init[Authenticate User] | |
+Existence[Monitor Transactions] | |
+Response[Monitor Transactions, Alert Security Team] |A.Threat Level is High | |5,10,m
+Chain Precedence[Block Account, Alert Security Team] | | |
+Co-Existence[Review Security Logs, Update Security Protocols] | | |
+Succession[Conduct Security Audit, Update Security Protocols] | | |
+Not Chain Succession[Grant Access, Block Account] | | |
+Not Precedence[Report Incident, Reset Password] | | |
+Exclusive Choice[Authenticate User, Grant Access] | | |
+Response[Alert Security Team, Block Account] |A.Threat Level is High | |0,2,h

@@ -1,0 +1,39 @@
+activity Initiate Visa Application
+activity Submit Documents
+activity Schedule Appointment
+activity Conduct Interview
+activity Receive Visa Decision
+activity Plan Relocation
+activity Book Travel
+activity Arrange Accommodation
+activity Conduct Orientation
+activity Complete Relocation
+bind Initiate Visa Application: Visa Application ID
+bind Submit Documents: Document Status
+bind Conduct Interview: Interview Score
+bind Receive Visa Decision: Visa Decision
+bind Plan Relocation: Relocation Budget
+bind Book Travel: Travel Class
+bind Arrange Accommodation: Accommodation Duration
+bind Conduct Orientation: Orientation Status
+bind Complete Relocation: Relocation Status
+Visa Application ID: integer between 1000 and 9999
+Document Status: Pending, Submitted, Verified
+Interview Score: float between 0.0 and 10.0
+Visa Decision: Approved, Rejected
+Relocation Budget: float between 1000.0 and 50000.0
+Travel Class: Economy, Business, First
+Accommodation Duration: integer between 1 and 365
+Orientation Status: Scheduled, Completed
+Relocation Distance: float between 0.0 and 20000.0
+Relocation Status: In Progress, Completed
+Init[Initiate Visa Application] | |
+End[Complete Relocation] | |
+Precedence[Conduct Interview, Submit Documents] | | |
+Response[Conduct Interview, Receive Visa Decision] | | |0,2,d
+Co-Existence[Book Travel, Arrange Accommodation] | | |
+Precedence[Book Travel, Plan Relocation] | | |0,48,h
+Response[Book Travel, Conduct Orientation] | | |0,5,d
+Responded Existence[Initiate Visa Application, Receive Visa Decision] | |A.Visa Application ID == T.Visa Application ID |
+Existence[Initiate Visa Application] | |
+Response[Conduct Orientation, Complete Relocation] | | |0,7,d

@@ -1,0 +1,50 @@
+activity Check Passport
+activity Inspect Luggage
+activity Conduct Interview
+activity Scan Biometrics
+activity Issue Visa
+activity Deny Entry
+activity Approve Entry
+activity Collect Customs Declaration
+activity Verify Customs Declaration
+activity Perform Secondary Inspection
+activity Seize Prohibited Items
+activity Provide Information
+activity Record Entry
+activity Record Denial
+activity Escort Traveler
+bind Check Passport: Passport Validity
+bind Inspect Luggage: Luggage Status
+bind Conduct Interview: Interview Score
+bind Scan Biometrics: Biometric Match Score
+bind Issue Visa: Visa Status
+bind Approve Entry: Entry Decision
+bind Collect Customs Declaration: Customs Value
+bind Perform Secondary Inspection: Inspection Level
+bind Seize Prohibited Items: Prohibited Items Count
+bind Escort Traveler: Escort Status
+Passport Validity: integer between 0 and 120
+Luggage Status: Clear, Suspicious, Prohibited
+Biometric Match Score: float between 0.0 and 100.0
+Visa Status: Approved, Pending, Denied
+Interview Score: integer between 0 and 10
+Entry Decision: Approved, Denied
+Customs Value: float between 0.0 and 10000.0
+Inspection Level: Primary, Secondary
+Prohibited Items Count: integer between 0 and 50
+Escort Status: Completed, Not Required
+Init[Check Passport] | |
+End[Approve Entry] | |
+End[Deny Entry] | |
+Response[Inspect Luggage, Perform Secondary Inspection] |A.Luggage Status is Suspicious | |0,2,h
+Precedence[Approve Entry, Issue Visa] |A.Entry Decision is Approved | |
+Chain Response[Inspect Luggage, Seize Prohibited Items] |A.Luggage Status is Prohibited | |
+Precedence[Conduct Interview, Check Passport] | | |
+Response[Scan Biometrics, Collect Customs Declaration] | | |0,1,h
+Response[Conduct Interview, Deny Entry] |A.Interview Score < 5 | |0,30,m
+Response[Collect Customs Declaration, Perform Secondary Inspection] |A.Customs Value > 5000 | |
+Response[Approve Entry, Escort Traveler] |A.Entry Decision is Approved | |
+Response[Deny Entry, Escort Traveler] |A.Entry Decision is Denied | |
+Response[Scan Biometrics, Perform Secondary Inspection] |A.Biometric Match Score < 50 | |
+Precedence[Approve Entry, Inspect Luggage] |A.Luggage Status is Clear | |
+Chain Succession[Perform Secondary Inspection, Perform Secondary Inspection] |A.Inspection Level is Secondary | |

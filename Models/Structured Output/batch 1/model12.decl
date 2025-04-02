@@ -1,0 +1,31 @@
+activity Collect Waste
+activity Transport Waste
+activity Sort Waste
+activity Shred Waste
+activity Dry Waste
+activity Burn Waste
+activity Capture Emissions
+activity Generate Electricity
+activity Dispose Ash
+activity Monitor Emissions
+bind Collect Waste: Waste Volume, Waste Type
+bind Dry Waste: Moisture Level
+bind Capture Emissions: Emission Compliance
+bind Generate Electricity: Energy Output
+bind Dispose Ash: Ash Volume
+Waste Volume: integer between 1 and 1000
+Moisture Level: float between 0.0 and 100.0
+Waste Type: Organic, Plastic, Metal, Paper
+Emission Compliance: Compliant, Non-Compliant
+Energy Output: float between 0.0 and 500.0
+Ash Volume: integer between 0 and 100
+Init[Collect Waste] | |
+End[Dispose Ash] | |
+Precedence[Sort Waste, Transport Waste] | | |
+Chain Response[Dry Waste, Burn Waste] | | |0,2,h
+Response[Burn Waste, Capture Emissions] | | |
+Co-Existence[Generate Electricity, Dispose Ash] | | |
+Chain Succession[Collect Waste, Sort Waste] |A.Waste Type is Organic |A.Waste Type == T.Waste Type |
+Chain Response[Capture Emissions, Monitor Emissions] |A.Emission Compliance is Non-Compliant | |0,1,d
+Existence[Shred Waste] | |
+Not Chain Succession[Transport Waste, Dry Waste] | | |

@@ -1,0 +1,28 @@
+activity Draft Trade Agreement
+activity Review Trade Agreement
+activity Negotiate Terms
+activity Approve Trade Agreement
+activity Implement Trade Policy
+activity Monitor Trade Compliance
+activity Amend Trade Agreement
+activity Terminate Trade Agreement
+bind Draft Trade Agreement: Agreement Version
+bind Review Trade Agreement: Approval Status
+bind Negotiate Terms: Negotiation Rounds
+bind Implement Trade Policy: Trade Volume
+bind Monitor Trade Compliance: Compliance Status
+Agreement Version: integer between 1 and 10
+Trade Volume: float between 0.1 and 1000.0
+Approval Status: Pending, Approved, Rejected
+Compliance Status: Compliant, Non-Compliant
+Negotiation Rounds: integer between 1 and 20
+Existence[Draft Trade Agreement] | |
+Exactly[Review Trade Agreement] | |
+Response[Negotiate Terms, Approve Trade Agreement] | | |0,30,d
+Precedence[Implement Trade Policy, Approve Trade Agreement] | | |
+Response[Implement Trade Policy, Monitor Trade Compliance] | | |0,10,d
+Response[Amend Trade Agreement, Review Trade Agreement] | | |0,15,d
+Not Chain Succession[Approve Trade Agreement, Terminate Trade Agreement] | | |
+Not Precedence[Approve Trade Agreement, Negotiate Terms] |A.Negotiation Rounds > 10 | |
+Precedence[Implement Trade Policy, Approve Trade Agreement] |A.Trade Volume > 100 | |
+Response[Implement Trade Policy, Monitor Trade Compliance] | |T.Compliance Status is Compliant |0,5,d

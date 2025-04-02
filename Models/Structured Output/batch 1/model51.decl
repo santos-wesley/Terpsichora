@@ -1,0 +1,36 @@
+activity Conduct Survey
+activity Analyze Data
+activity Develop Intervention
+activity Implement Intervention
+activity Monitor Impact
+activity Report Findings
+activity Review Literature
+activity Select Participants
+activity Design Survey
+activity Evaluate Results
+bind Conduct Survey: Participant Age, Survey Status, Survey ID
+bind Analyze Data: Data Quality
+bind Develop Intervention: Intervention Type, Budget Allocation
+bind Monitor Impact: Impact Level
+bind Select Participants: Participant Gender
+bind Review Literature: Literature Count
+Participant Age: integer between 18 and 99
+Satisfaction Score: float between 0.0 and 10.0
+Intervention Type: Education, Policy Change, Incentive
+Survey Status: Not Started, In Progress, Completed
+Survey ID: integer between 1 and 1000
+Impact Level: float between 0.0 and 100.0
+Data Quality: Poor, Average, Good
+Literature Count: integer between 1 and 500
+Budget Allocation: float between 1000.0 and 50000.0
+Participant Gender: Male, Female, Other
+Init[Select Participants] | |
+Existence[Conduct Survey] | |
+Precedence[Analyze Data, Conduct Survey] | |A.Survey ID == T.Survey ID |
+Chain Response[Analyze Data, Develop Intervention] |A.Data Quality is Good | |0,2,d
+Response[Develop Intervention, Implement Intervention] | |A.Intervention Type == T.Intervention Type |0,5,d
+Succession[Implement Intervention, Monitor Impact] | | |0,10,d
+Response[Monitor Impact, Report Findings] |A.Impact Level > 50.0 | |0,7,d
+End[Report Findings] | |
+Choice[Review Literature, Design Survey] | | |
+Not Precedence[Conduct Survey, Conduct Survey] |A.Survey Status is Completed | |

@@ -1,0 +1,55 @@
+activity Classify Export Item
+activity Review Export License
+activity Prepare Shipping Documents
+activity Conduct Risk Assessment
+activity Approve Export Request
+activity Verify End User
+activity Inspect Export Item
+activity Submit Export Declaration
+activity Arrange Transportation
+activity Issue Export Certificate
+activity Monitor Export Shipment
+activity Update Export Records
+activity Notify Customs
+activity Conduct Compliance Audit
+activity Close Export Transaction
+bind Classify Export Item: License Status
+bind Review Export License: License Status
+bind Prepare Shipping Documents: Document Count
+bind Conduct Risk Assessment: Risk Level
+bind Approve Export Request: License Status
+bind Verify End User: End User Verification
+bind Inspect Export Item: Item Value
+bind Submit Export Declaration: Customs Notification
+bind Arrange Transportation: Shipping Method
+bind Issue Export Certificate: License Status
+bind Monitor Export Shipment: Shipment Delay
+bind Update Export Records: Audit Result
+bind Notify Customs: Customs Notification
+bind Conduct Compliance Audit: Audit Result
+bind Close Export Transaction: License Status
+Risk Level: integer between 1 and 5
+Item Value: float between 100.0 and 100000.0
+License Status: Pending, Approved, Rejected
+End User Verification: Verified, Unverified
+Shipping Method: Air, Sea, Land
+Document Count: integer between 1 and 10
+Shipping Cost: float between 50.0 and 5000.0
+Audit Result: Pass, Fail
+Customs Notification: Notified, Not Notified
+Shipment Delay: integer between 0 and 30
+Init[Classify Export Item] | |
+End[Close Export Transaction] | |
+Existence[Approve Export Request] | |
+Precedence[Approve Export Request, Review Export License] | |A.License Status == T.License Status |
+Response[Conduct Risk Assessment, Approve Export Request] |A.Risk Level <= 3 | |0,2,d
+Precedence[Submit Export Declaration, Verify End User] |A.End User Verification is Verified | |
+Chain Precedence[Issue Export Certificate, Inspect Export Item] | | |
+Response[Arrange Transportation, Monitor Export Shipment] | |A.Shipping Method == T.Shipping Method |0,48,h
+Response[Submit Export Declaration, Notify Customs] |A.Customs Notification is Notified | |0,24,h
+Co-Existence[Conduct Compliance Audit, Update Export Records] | |A.Audit Result == T.Audit Result |
+Not Co-Existence[Approve Export Request, Issue Export Certificate] |A.License Status is Rejected | |
+Not Chain Succession[Inspect Export Item, Approve Export Request] | | |
+Exclusive Choice[Prepare Shipping Documents, Submit Export Declaration] | | |
+Not Precedence[Close Export Transaction, Monitor Export Shipment] | |T.Shipment Delay > 10 |
+Chain Response[Approve Export Request, Issue Export Certificate] | |A.License Status == T.License Status |0,1,d

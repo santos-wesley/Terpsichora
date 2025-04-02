@@ -1,0 +1,55 @@
+activity Organize Community Meeting
+activity Conduct Survey
+activity Analyze Survey Results
+activity Develop Action Plan
+activity Implement Action Plan
+activity Evaluate Impact
+activity Report Findings
+activity Gather Volunteers
+activity Conduct Training Session
+activity Launch Awareness Campaign
+activity Host Fundraising Event
+activity Distribute Resources
+activity Monitor Progress
+activity Facilitate Feedback Session
+activity Revise Action Plan
+bind Organize Community Meeting: Participants, Budget
+bind Conduct Survey: Survey Type, Participants
+bind Analyze Survey Results: Participants
+bind Develop Action Plan: Budget
+bind Implement Action Plan: Impact Score
+bind Evaluate Impact: Impact Score
+bind Report Findings: Impact Score
+bind Gather Volunteers: Volunteers
+bind Conduct Training Session: Training Level
+bind Launch Awareness Campaign: Campaign Medium
+bind Host Fundraising Event: Funds Raised
+bind Distribute Resources: Resource Type
+bind Monitor Progress: Impact Score
+bind Facilitate Feedback Session: Feedback Score
+bind Revise Action Plan: Budget
+Participants: integer between 10 and 5000
+Budget: float between 1000.0 and 100000.0
+Survey Type: Online, Paper, Interview
+Campaign Medium: Social Media, Print, TV, Radio
+Volunteers: integer between 5 and 1000
+Training Level: Basic, Intermediate, Advanced
+Funds Raised: float between 500.0 and 50000.0
+Resource Type: Food, Clothing, Books, Medical Supplies
+Feedback Score: integer between 1 and 10
+Impact Score: float between 0.0 and 100.0
+Init[Organize Community Meeting] | |
+End[Report Findings] | |
+Existence[Conduct Survey] | |
+Exactly[Evaluate Impact] | |
+Response[Organize Community Meeting, Conduct Survey] | | |0,2,d
+Precedence[Develop Action Plan, Analyze Survey Results] | | |
+Chain Response[Implement Action Plan, Evaluate Impact] | | |
+Co-Existence[Gather Volunteers, Conduct Training Session] | | |
+Not Chain Succession[Host Fundraising Event, Distribute Resources] | | |
+Not Co-Existence[Launch Awareness Campaign, Host Fundraising Event] | | |
+Responded Existence[Monitor Progress, Facilitate Feedback Session] | |A.Feedback Score == T.Feedback Score |
+Response[Facilitate Feedback Session, Revise Action Plan] | | |0,48,h
+Precedence[Conduct Training Session, Gather Volunteers] |A.Volunteers >= 10 | |
+Response[Distribute Resources, Monitor Progress] | | |0,5,d
+Response[Organize Community Meeting, Conduct Survey] | |T.Survey Type is Online |

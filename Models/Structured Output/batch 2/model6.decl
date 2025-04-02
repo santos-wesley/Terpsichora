@@ -1,0 +1,50 @@
+activity Register Patient
+activity Schedule Appointment
+activity Conduct Health Assessment
+activity Administer Vaccine
+activity Issue Health Certificate
+activity Record Health Data
+activity Evaluate Health Policy
+activity Approve Health Policy
+activity Distribute Health Resources
+activity Conduct Health Survey
+activity Analyze Survey Results
+activity Report Health Findings
+activity Plan Health Campaign
+activity Launch Health Campaign
+activity Monitor Campaign Impact
+bind Register Patient: Patient Age
+bind Schedule Appointment: Appointment Status
+bind Administer Vaccine: Vaccine Dose
+bind Issue Health Certificate: Health Certificate Type
+bind Evaluate Health Policy: Health Policy Status
+bind Distribute Health Resources: Resource Type
+bind Conduct Health Survey: Survey Participants
+bind Plan Health Campaign: Campaign Budget
+bind Launch Health Campaign: Campaign Duration
+bind Approve Health Policy: Policy Impact Score
+Patient Age: integer between 0 and 120
+Vaccine Dose: float between 0.5 and 5.0
+Appointment Status: Scheduled, Completed, Cancelled
+Health Policy Status: Draft, Pending Approval, Approved, Rejected
+Survey Participants: integer between 10 and 1000
+Campaign Budget: float between 10.0 and 500.0
+Health Certificate Type: Vaccination, General Health, Special Condition
+Resource Type: Medical Supplies, Personnel, Funding
+Campaign Duration: integer between 1 and 365
+Policy Impact Score: float between 0.0 and 10.0
+Init[Register Patient] | |
+End[Issue Health Certificate] | |
+Existence[Conduct Health Assessment] | |
+Precedence[Conduct Health Assessment, Schedule Appointment] | | |
+Chain Response[Conduct Health Assessment, Administer Vaccine] | | |0,5,m
+Response[Administer Vaccine, Record Health Data] | | |0,1,h
+Co-Existence[Evaluate Health Policy, Approve Health Policy] | | |
+Precedence[Analyze Survey Results, Conduct Health Survey] | | |
+Chain Response[Analyze Survey Results, Report Health Findings] | | |0,2,d
+Precedence[Launch Health Campaign, Plan Health Campaign] | | |
+Response[Launch Health Campaign, Monitor Campaign Impact] | | |0,30,d
+Exclusive Choice[Distribute Health Resources, Plan Health Campaign] | | |
+Not Succession[Schedule Appointment, Issue Health Certificate] |A.Appointment Status is Cancelled | |
+Not Response[Evaluate Health Policy, Approve Health Policy] |A.Policy Impact Score < 5 | |
+Chain Succession[Record Health Data, Issue Health Certificate] | |A.Health Certificate Type == T.Health Certificate Type |

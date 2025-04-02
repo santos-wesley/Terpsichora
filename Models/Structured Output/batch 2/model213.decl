@@ -1,0 +1,50 @@
+activity Conduct Market Research
+activity Develop Business Plan
+activity Secure Funding
+activity Hire Workforce
+activity Launch Marketing Campaign
+activity Establish Partnerships
+activity Monitor Economic Indicators
+activity Evaluate Business Performance
+activity Expand Operations
+activity Implement Sustainability Practices
+activity Conduct Risk Assessment
+activity Negotiate Contracts
+activity Develop New Products
+activity Optimize Supply Chain
+activity Review Regulatory Compliance
+bind Conduct Market Research: Market Size
+bind Secure Funding: Funding Amount
+bind Hire Workforce: Employment Type
+bind Launch Marketing Campaign: Marketing Channel
+bind Establish Partnerships: Partnerships Count
+bind Monitor Economic Indicators: Economic Growth Rate
+bind Implement Sustainability Practices: Sustainability Level
+bind Conduct Risk Assessment: Risk Level
+bind Develop New Products: Product Development Cost
+bind Review Regulatory Compliance: Compliance Status
+Market Size: integer between 1000 and 1000000
+Funding Amount: float between 10000.0 and 1000000.0
+Employment Type: Full-time, Part-time, Contract
+Marketing Channel: Online, Print, TV, Radio
+Partnerships Count: integer between 1 and 100
+Economic Growth Rate: float between 0.0 and 10.0
+Sustainability Level: Low, Medium, High
+Risk Level: integer between 1 and 10
+Product Development Cost: float between 5000.0 and 500000.0
+Compliance Status: Compliant, Non-Compliant
+Existence[Conduct Market Research] | |
+Exactly[Secure Funding] | |
+Succession[Develop Business Plan, Secure Funding] | | |
+Precedence[Hire Workforce, Secure Funding] | | |
+Chain Response[Launch Marketing Campaign, Evaluate Business Performance] | | |0,2,d
+Co-Existence[Establish Partnerships, Expand Operations] | | |
+Response[Monitor Economic Indicators, Conduct Risk Assessment] | | |0,48,h
+Not Co-Existence[Implement Sustainability Practices, Review Regulatory Compliance] | |A.Sustainability Level is High AND T.Compliance Status is Non-Compliant |
+Precedence[Expand Operations, Negotiate Contracts] | | |
+Response[Develop New Products, Optimize Supply Chain] | | |0,5,d
+Not Succession[Conduct Market Research, Launch Marketing Campaign] | | |
+Precedence[Evaluate Business Performance, Expand Operations] | | |
+Response[Conduct Risk Assessment, Review Regulatory Compliance] | | |0,3,d
+Not Chain Succession[Secure Funding, Hire Workforce] | | |
+Existence2[Monitor Economic Indicators] | |

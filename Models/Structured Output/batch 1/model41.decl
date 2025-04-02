@@ -1,0 +1,33 @@
+activity Provision Virtual Machine
+activity Deploy Application
+activity Monitor Performance
+activity Scale Resources
+activity Backup Data
+activity Restore Backup
+activity Terminate Virtual Machine
+activity Update Application
+activity Audit Logs
+bind Provision Virtual Machine: VM ID, VM Status
+bind Deploy Application: VM ID
+bind Monitor Performance: CPU Usage, Memory Usage
+bind Backup Data: Backup Status
+bind Restore Backup: Backup Status
+bind Audit Logs: Log ID
+bind Update Application: Update Type
+VM ID: integer between 1 and 10000
+CPU Usage: float between 0.0 and 100.0
+Memory Usage: float between 0.0 and 64.0
+Backup Status: Completed, Failed, In Progress
+VM Status: Running, Stopped, Terminated
+Log ID: integer between 1 and 100000
+Update Type: Security, Feature, Bug Fix
+Init[Provision Virtual Machine] | |
+End[Terminate Virtual Machine] | |
+Response[Deploy Application, Monitor Performance] | |A.VM ID == T.VM ID |0,2,h
+Chain Response[Backup Data, Restore Backup] |A.Backup Status is Completed | |0,1,h
+Precedence[Scale Resources, Monitor Performance] | |A.CPU Usage > 75 |
+Not Co-Existence[Audit Logs, Update Application] | | |
+Existence3[Monitor Performance] | |
+Chain Succession[Provision Virtual Machine, Terminate Virtual Machine] | |A.VM ID == T.VM ID |0,1,d
+Response[Deploy Application, Update Application] | |A.VM ID == T.VM ID |0,48,h
+Chain Succession[Backup Data, Restore Backup] | |A.Backup Status == T.Backup Status |0,1,h

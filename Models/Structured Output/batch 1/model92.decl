@@ -1,0 +1,36 @@
+activity Conduct Cultural Assessment
+activity Develop Cultural Training Program
+activity Implement Training Program
+activity Evaluate Training Effectiveness
+activity Facilitate Cross-cultural Workshop
+activity Review Cultural Policies
+activity Update Cultural Policies
+activity Monitor Cultural Integration
+activity Provide Feedback on Integration
+activity Report Cultural Integration Outcomes
+bind Conduct Cultural Assessment: Assessment Score
+bind Develop Cultural Training Program: Training Budget
+bind Evaluate Training Effectiveness: Training Effectiveness
+bind Facilitate Cross-cultural Workshop: Workshop Type
+bind Review Cultural Policies: Policy Review Score
+bind Monitor Cultural Integration: Integration Status
+bind Provide Feedback on Integration: Feedback Rating
+bind Report Cultural Integration Outcomes: Report Status
+Assessment Score: integer between 1 and 100
+Training Budget: float between 1000.0 and 50000.0
+Training Effectiveness: High, Medium, Low
+Workshop Type: Virtual, In-Person
+Policy Review Score: integer between 1 and 10
+Integration Status: Complete, In Progress, Not Started
+Feedback Rating: float between 1.0 and 5.0
+Report Status: Draft, Final, Reviewed
+Existence[Conduct Cultural Assessment] | |
+Precedence[Implement Training Program, Develop Cultural Training Program] | |A.Training Budget >= 10000 |
+Response[Facilitate Cross-cultural Workshop, Review Cultural Policies] |A.Workshop Type is In-Person | |0,2,d
+Exactly[Evaluate Training Effectiveness] | |
+Co-Existence[Monitor Cultural Integration, Provide Feedback on Integration] | | |
+Not Precedence[Report Cultural Integration Outcomes, Provide Feedback on Integration] | |A.Report Status is Final |
+Choice[Conduct Cultural Assessment, Facilitate Cross-cultural Workshop] | | |
+End[Report Cultural Integration Outcomes] | |
+Chain Succession[Review Cultural Policies, Update Cultural Policies] | |A.Policy Review Score > 5 |0,48,h
+Not Chain Response[Implement Training Program, Evaluate Training Effectiveness] | | |5,10,m

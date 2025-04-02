@@ -1,0 +1,32 @@
+activity Submit Building Plan
+activity Review Building Plan
+activity Approve Building Plan
+activity Issue Construction Permit
+activity Conduct Site Inspection
+activity Complete Construction
+activity Final Inspection
+activity Grant Occupancy Certificate
+bind Submit Building Plan: Plan ID, Plan Status
+bind Review Building Plan: Plan ID, Plan Status
+bind Approve Building Plan: Plan ID, Plan Status
+bind Issue Construction Permit: Plan ID, Permit Status
+bind Conduct Site Inspection: Inspection ID, Inspection Result
+bind Final Inspection: Inspection ID, Inspection Result
+bind Grant Occupancy Certificate: Plan ID, Certificate Status
+Plan ID: integer between 1 and 10000
+Construction Cost: float between 10000.0 and 1000000.0
+Plan Status: Submitted, Reviewed, Approved, Rejected
+Inspection Result: Passed, Failed
+Inspection ID: integer between 1 and 5000
+Permit Status: Issued, Not Issued
+Certificate Status: Granted, Not Granted
+Init[Submit Building Plan] | |
+End[Grant Occupancy Certificate] | |
+Precedence[Approve Building Plan, Review Building Plan] |A.Plan Status is Approved |A.Plan ID == T.Plan ID |
+Response[Approve Building Plan, Issue Construction Permit] |A.Plan Status is Approved |A.Plan ID == T.Plan ID |5,10,d
+Precedence[Final Inspection, Conduct Site Inspection] |A.Inspection Result is Passed |A.Inspection ID == T.Inspection ID |
+Precedence[Complete Construction, Issue Construction Permit] |A.Permit Status is Issued |A.Plan ID == T.Plan ID |
+Co-Existence[Conduct Site Inspection, Final Inspection] |A.Inspection Result is Passed |A.Inspection ID == T.Inspection ID |
+Precedence[Review Building Plan, Submit Building Plan] |A.Plan Status is Reviewed |A.Plan ID == T.Plan ID |
+Response[Final Inspection, Grant Occupancy Certificate] |A.Inspection Result is Passed |A.Plan ID == T.Plan ID |2,5,d
+Existence[Submit Building Plan] | |

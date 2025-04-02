@@ -1,0 +1,29 @@
+activity Prepare Solution
+activity Measure pH
+activity Heat Solution
+activity Cool Solution
+activity Add Reagent
+activity Stir Solution
+activity Filter Solution
+activity Record Observations
+activity Dispose Waste
+bind Prepare Solution: Temperature
+bind Measure pH: pH Level
+bind Add Reagent: Reagent Type
+bind Stir Solution: Stirring Speed
+bind Dispose Waste: Waste Type
+Temperature: integer between -273 and 5000
+pH Level: float between 0.0 and 14.0
+Reagent Type: Acid, Base, Neutral
+Stirring Speed: integer between 0 and 2000
+Waste Type: Hazardous, Non-Hazardous
+Init[Prepare Solution] | |
+End[Dispose Waste] | |
+Chain Response[Prepare Solution, Measure pH] | | |10,20,m
+Response[Heat Solution, Cool Solution] | | |30,60,m
+Chain Succession[Add Reagent, Stir Solution] | | |
+Precedence[Record Observations, Filter Solution] | | |
+Existence[Stir Solution] | |
+Response[Measure pH, Add Reagent] |A.pH Level < 7 |T.Reagent Type is Acid |
+Responded Existence[Add Reagent, Dispose Waste] |A.Reagent Type is Acid |T.Waste Type is Hazardous |
+Not Chain Succession[Heat Solution, Cool Solution] | | |

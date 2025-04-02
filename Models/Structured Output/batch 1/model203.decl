@@ -1,0 +1,30 @@
+activity Receive Distress Signal
+activity Assess Situation
+activity Deploy Rescue Team
+activity Perform Search Operation
+activity Provide Medical Assistance
+activity Transport to Safety
+activity Debrief Team
+activity Document Operation
+bind Receive Distress Signal: Signal Strength
+bind Deploy Rescue Team: Team Status
+bind Perform Search Operation: Weather Condition
+bind Provide Medical Assistance: Casualties, Medical Supplies Used
+bind Transport to Safety: Transport Method
+Signal Strength: integer between 1 and 1000
+Response Time: float between 0.1 and 24.0
+Weather Condition: Clear, Rainy, Stormy, Snowy
+Team Status: Ready, Deployed, Returning
+Casualties: integer between 0 and 100
+Medical Supplies Used: float between 0.0 and 50.0
+Transport Method: Helicopter, Ambulance, Boat
+Init[Receive Distress Signal] | |
+End[Document Operation] | |
+Existence[Assess Situation] | |
+Response[Assess Situation, Deploy Rescue Team] | | |0,2,h
+Chain Response[Perform Search Operation, Provide Medical Assistance] | | |0,1,h
+Succession[Provide Medical Assistance, Transport to Safety] | | |
+Response[Transport to Safety, Debrief Team] | | |0,3,h
+Not Precedence[Perform Search Operation, Perform Search Operation] |A.Weather Condition is Stormy | |
+Precedence[Deploy Rescue Team, Deploy Rescue Team] |A.Team Status is Deployed |A.Team Status == T.Team Status |
+Response[Debrief Team, Document Operation] | | |0,5,h

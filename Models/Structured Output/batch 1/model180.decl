@@ -1,0 +1,29 @@
+activity Screen Passenger
+activity Inspect Baggage
+activity Verify Identity
+activity Assess Threat Level
+activity Grant Clearance
+activity Deny Entry
+activity Conduct Secondary Screening
+activity Alert Security Personnel
+activity Record Incident
+bind Screen Passenger: Screening Result
+bind Inspect Baggage: Baggage Weight
+bind Verify Identity: Identity Verified
+bind Assess Threat Level: Threat Level
+bind Grant Clearance: Clearance Status
+Threat Level: integer between 1 and 5
+Baggage Weight: float between 0.1 and 50.0
+Clearance Status: Cleared, Not Cleared
+Identity Verified: Verified, Not Verified
+Screening Result: Pass, Fail
+Init[Screen Passenger] | |
+End[Record Incident] | |
+Not Succession[Verify Identity, Grant Clearance] |A.Identity Verified is Not Verified | |
+Response[Screen Passenger, Conduct Secondary Screening] |A.Screening Result is Fail | |0,30,m
+Chain Response[Assess Threat Level, Alert Security Personnel] |A.Threat Level >= 4 | |0,5,m
+Precedence[Grant Clearance, Inspect Baggage] | | |
+Precedence[Grant Clearance, Verify Identity] | |A.Identity Verified is Verified |
+Response[Deny Entry, Record Incident] | | |0,1,h
+Not Co-Existence[Conduct Secondary Screening, Alert Security Personnel] | | |
+Existence[Assess Threat Level] | |

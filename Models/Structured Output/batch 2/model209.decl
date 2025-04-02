@@ -1,0 +1,55 @@
+activity Capture Knowledge
+activity Store Knowledge
+activity Retrieve Knowledge
+activity Share Knowledge
+activity Evaluate Knowledge
+activity Update Knowledge
+activity Delete Knowledge
+activity Create Knowledge Base
+activity Access Knowledge Base
+activity Review Knowledge Base
+activity Approve Knowledge
+activity Reject Knowledge
+activity Classify Knowledge
+activity Integrate Knowledge
+activity Analyze Knowledge
+bind Capture Knowledge: Knowledge ID, Knowledge Type
+bind Store Knowledge: Knowledge ID, Access Level
+bind Retrieve Knowledge: Knowledge ID, Access Level
+bind Share Knowledge: Knowledge ID, Access Level
+bind Evaluate Knowledge: Knowledge ID, Evaluation Outcome
+bind Update Knowledge: Knowledge ID, Update Frequency
+bind Delete Knowledge: Knowledge ID
+bind Create Knowledge Base: Version Number
+bind Access Knowledge Base: Version Number
+bind Review Knowledge Base: Review Cycle
+bind Approve Knowledge: Knowledge ID, Knowledge Status
+bind Reject Knowledge: Knowledge ID, Knowledge Status
+bind Classify Knowledge: Knowledge ID, Knowledge Type
+bind Integrate Knowledge: Knowledge ID, Integration Impact
+bind Analyze Knowledge: Knowledge ID, Relevance Score
+Knowledge ID: integer between 1 and 10000
+Relevance Score: float between 0.0 and 10.0
+Knowledge Status: Draft, Reviewed, Approved, Rejected
+Access Level: Public, Restricted, Confidential
+Version Number: integer between 1 and 100
+Knowledge Type: Technical, Business, Research
+Update Frequency: float between 0.1 and 12.0
+Review Cycle: integer between 1 and 24
+Evaluation Outcome: Pass, Fail
+Integration Impact: float between 0.0 and 5.0
+Init[Capture Knowledge] | |
+Existence[Store Knowledge] | |
+Absence[Delete Knowledge] | |
+Response[Evaluate Knowledge, Approve Knowledge] |A.Evaluation Outcome is Pass |A.Knowledge ID == T.Knowledge ID |0,2,d
+Chain Precedence[Share Knowledge, Retrieve Knowledge] | |A.Knowledge ID == T.Knowledge ID |
+Chain Response[Update Knowledge, Store Knowledge] |A.Update Frequency < 6.0 |A.Knowledge ID == T.Knowledge ID |0,48,h
+Not Co-Existence[Approve Knowledge, Reject Knowledge] |A.Knowledge Status is Approved |A.Knowledge ID == T.Knowledge ID |
+Precedence[Access Knowledge Base, Create Knowledge Base] | |A.Version Number == T.Version Number |
+Response[Analyze Knowledge, Integrate Knowledge] |A.Relevance Score > 5.0 |A.Knowledge ID == T.Knowledge ID |0,3,d
+Succession[Classify Knowledge, Store Knowledge] |A.Knowledge Type is Technical |A.Knowledge ID == T.Knowledge ID |
+Responded Existence[Access Knowledge Base, Review Knowledge Base] | |A.Version Number == T.Version Number |
+Co-Existence[Capture Knowledge, Store Knowledge] | |A.Knowledge ID == T.Knowledge ID |
+Not Chain Succession[Delete Knowledge, Capture Knowledge] | |A.Knowledge ID == T.Knowledge ID |
+Choice[Approve Knowledge, Reject Knowledge] |A.Knowledge Status in (Draft, Reviewed) |A.Knowledge ID == T.Knowledge ID |
+Not Response[Share Knowledge, Delete Knowledge] | |A.Knowledge ID == T.Knowledge ID |0,5,d

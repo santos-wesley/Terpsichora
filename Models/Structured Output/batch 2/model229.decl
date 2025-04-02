@@ -1,0 +1,47 @@
+activity Book Workspace
+activity Check In
+activity Check Out
+activity Request Equipment
+activity Approve Equipment Request
+activity Deny Equipment Request
+activity Schedule Event
+activity Cancel Event
+activity Conduct Event
+activity Provide Feedback
+activity Process Payment
+activity Issue Invoice
+activity Resolve Complaint
+activity Clean Workspace
+activity Maintain Equipment
+bind Book Workspace: Workspace ID, User ID, Booking Duration
+bind Request Equipment: Equipment Type
+bind Schedule Event: Event Status
+bind Provide Feedback: Feedback Rating
+bind Process Payment: Payment Amount, Payment Status
+bind Resolve Complaint: Complaint Status
+bind Maintain Equipment: Maintenance Status
+Workspace ID: integer between 1 and 1000
+User ID: integer between 1 and 10000
+Booking Duration: float between 0.5 and 24.0
+Payment Amount: float between 5.0 and 500.0
+Equipment Type: Projector, Whiteboard, Monitor
+Event Status: Scheduled, Cancelled, Completed
+Feedback Rating: Excellent, Good, Average, Poor
+Payment Status: Pending, Completed, Failed
+Complaint Status: Open, In Progress, Resolved
+Maintenance Status: Scheduled, In Progress, Completed
+Init[Book Workspace] | |
+End[Check Out] | |
+Existence[Provide Feedback] | |
+Absence2[Request Equipment] | |
+Chain Response[Request Equipment, Approve Equipment Request] | | |0,1,h
+Chain Response[Request Equipment, Deny Equipment Request] | | |0,1,h
+Response[Schedule Event, Conduct Event] |A.Event Status is Scheduled |A.Event Status == T.Event Status |
+Not Succession[Cancel Event, Conduct Event] |A.Event Status is Cancelled |A.Event Status == T.Event Status |
+Response[Book Workspace, Process Payment] | |A.User ID == T.User ID |0,2,h
+Response[Process Payment, Issue Invoice] |A.Payment Status is Completed |A.Payment Status == T.Payment Status |0,1,h
+Response[Check Out, Clean Workspace] | |A.Workspace ID == T.Workspace ID |0,3,h
+Response[Resolve Complaint, Resolve Complaint] |A.Complaint Status is Open |A.Complaint Status == T.Complaint Status |
+Response[Maintain Equipment, Maintain Equipment] |A.Maintenance Status is Scheduled |A.Maintenance Status == T.Maintenance Status |
+Exclusive Choice[Book Workspace, Schedule Event] | | |
+Choice[Provide Feedback, Process Payment] |A.Feedback Rating is Excellent |A.User ID == T.User ID |

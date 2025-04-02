@@ -1,0 +1,32 @@
+activity Collect Digital Evidence
+activity Analyze Evidence
+activity Store Evidence
+activity Review Evidence
+activity Generate Report
+activity Approve Report
+activity Archive Evidence
+activity Dispose Evidence
+bind Collect Digital Evidence: Evidence ID, File Size, Evidence Type
+bind Analyze Evidence: Analysis Status
+bind Store Evidence: Storage Location
+bind Review Evidence: Review Score
+bind Generate Report: Report Status
+bind Approve Report: Approval Status
+Evidence ID: integer between 1 and 10000
+File Size: float between 0.1 and 5000.0
+Evidence Type: Image, Document, Video
+Analysis Status: Pending, In Progress, Completed
+Storage Location: Local, Cloud, Offsite
+Review Score: integer between 1 and 10
+Report Status: Draft, Reviewed, Approved
+Approval Status: Approved, Rejected
+Init[Collect Digital Evidence] | |
+End[Archive Evidence] | |
+Existence[Analyze Evidence] | |
+Chain Response[Collect Digital Evidence, Store Evidence] | | |0,2,h
+Response[Review Evidence, Generate Report] |A.Review Score > 5 | |
+Chain Response[Generate Report, Approve Report] | | |0,1,d
+Co-Existence[Collect Digital Evidence, Analyze Evidence] | | |
+Not Co-Existence[Store Evidence, Dispose Evidence] |A.Storage Location is Offsite | |
+Precedence[Approve Report, Generate Report] |A.Approval Status is Approved |T.Report Status is Draft |
+Exclusive Choice[Collect Digital Evidence, Dispose Evidence] | | |

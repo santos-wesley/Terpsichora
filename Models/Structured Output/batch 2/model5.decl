@@ -1,0 +1,46 @@
+activity Receive Order
+activity Verify Stock
+activity Allocate Inventory
+activity Generate Invoice
+activity Schedule Delivery
+activity Dispatch Order
+activity Confirm Delivery
+activity Handle Return
+activity Update Inventory
+activity Process Payment
+activity Notify Customer
+activity Review Order
+activity Cancel Order
+activity Prepare Shipment
+activity Conduct Quality Check
+bind Receive Order: Order Quantity, Order Value, Order Status
+bind Verify Stock: Stock Level
+bind Generate Invoice: Invoice Number, Order Value
+bind Dispatch Order: Delivery Method, Shipping Cost
+bind Handle Return: Return Reason
+bind Process Payment: Payment Status, Discount Rate
+Order Quantity: integer between 1 and 1000
+Order Value: float between 0.01 and 100000.0
+Order Status: Pending, Processed, Shipped, Delivered, Cancelled
+Payment Status: Paid, Unpaid, Refunded
+Stock Level: integer between 0 and 5000
+Delivery Method: Standard, Express, Overnight
+Discount Rate: float between 0.0 and 0.5
+Return Reason: Damaged, Incorrect Item, Not Needed
+Invoice Number: integer between 1000 and 9999
+Shipping Cost: float between 0.0 and 500.0
+Init[Receive Order] | |
+End[Confirm Delivery] | |
+Existence[Dispatch Order] | |
+Absence[Cancel Order] | |
+Precedence[Dispatch Order, Verify Stock] | | |
+Response[Receive Order, Process Payment] | | |0,2,d
+Response[Handle Return, Update Inventory] | | |0,1,d
+Chain Response[Review Order, Generate Invoice] | | |0,5,m
+Chain Precedence[Allocate Inventory, Verify Stock] |A.Order Quantity <= T.Stock Level | |
+Precedence[Schedule Delivery, Dispatch Order] | |A.Delivery Method == T.Delivery Method |
+Precedence[Confirm Delivery, Process Payment] | |T.Payment Status is Paid |
+Not Succession[Cancel Order, Dispatch Order] | | |
+Precedence[Generate Invoice, Receive Order] | |T.Order Status is Processed |
+Precedence[Prepare Shipment, Conduct Quality Check] | | |0,1,d
+Response[Dispatch Order, Notify Customer] | | |0,12,h

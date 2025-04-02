@@ -1,0 +1,39 @@
+activity Identify Victim
+activity Provide Shelter
+activity Conduct Medical Examination
+activity Offer Psychological Support
+activity Initiate Legal Proceedings
+activity Coordinate with Law Enforcement
+activity Facilitate Family Reunification
+activity Conduct Risk Assessment
+activity Develop Rehabilitation Plan
+activity Monitor Progress
+bind Identify Victim: Victim Age, Risk Level
+bind Provide Shelter: Shelter Type
+bind Conduct Medical Examination: Medical Score
+bind Offer Psychological Support: Psychological Support Hours
+bind Initiate Legal Proceedings: Legal Status
+bind Coordinate with Law Enforcement: Law Enforcement Coordination
+bind Facilitate Family Reunification: Family Contact Attempts
+bind Develop Rehabilitation Plan: Rehabilitation Plan Status
+bind Monitor Progress: Progress Score
+Victim Age: integer between 1 and 100
+Medical Score: float between 0.0 and 100.0
+Shelter Type: Temporary, Long-term
+Legal Status: Pending, In Progress, Closed
+Risk Level: Low, Medium, High
+Family Contact Attempts: integer between 0 and 10
+Psychological Support Hours: float between 0.0 and 100.0
+Rehabilitation Plan Status: Not Started, In Progress, Completed
+Progress Score: float between 0.0 and 100.0
+Law Enforcement Coordination: Not Started, Ongoing, Completed
+Init[Identify Victim] | |
+End[Monitor Progress] | |
+Response[Identify Victim, Provide Shelter] | | |0,2,d
+Chain Response[Provide Shelter, Conduct Medical Examination] | | |
+Response[Conduct Medical Examination, Offer Psychological Support] |A.Medical Score < 50 | |
+Precedence[Conduct Risk Assessment, Initiate Legal Proceedings] |A.Risk Level is High | |
+Precedence[Coordinate with Law Enforcement, Initiate Legal Proceedings] | | |
+Not Co-Existence[Facilitate Family Reunification, Conduct Risk Assessment] | |A.Risk Level is High |
+Response[Offer Psychological Support, Develop Rehabilitation Plan] | | |0,5,d
+Existence[Conduct Risk Assessment] | |

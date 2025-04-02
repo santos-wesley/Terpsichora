@@ -1,0 +1,45 @@
+activity Define Project Goals
+activity Identify Key Metrics
+activity Collect Data
+activity Analyze Data
+activity Develop Improvement Plan
+activity Implement Changes
+activity Monitor Results
+activity Conduct Review Meeting
+activity Document Findings
+activity Close Project
+bind Define Project Goals: Project Status
+bind Identify Key Metrics: Project Status
+bind Collect Data: Data Quality
+bind Analyze Data: Data Quality
+bind Develop Improvement Plan: Number of Changes
+bind Implement Changes: Number of Changes, Improvement Percentage
+bind Monitor Results: Improvement Percentage
+bind Conduct Review Meeting: Review Outcome
+bind Document Findings: Documentation Status
+bind Close Project: Project Status
+Project Duration: integer between 1 and 365
+Budget Allocation: float between 0.1 and 1000.0
+Project Status: Not Started, In Progress, Completed
+Data Quality: Poor, Average, Good
+Number of Changes: integer between 0 and 50
+Improvement Percentage: float between 0.0 and 100.0
+Review Outcome: Approved, Rejected, Needs Revision
+Team Size: integer between 1 and 20
+Cost Savings: float between 0.0 and 500.0
+Documentation Status: Incomplete, Complete
+Init[Define Project Goals] | |
+End[Close Project] | |
+Existence[Define Project Goals] |A.Project Status in (In Progress, Completed) |
+Exactly[Collect Data] | |
+Chain Response[Collect Data, Analyze Data] | | |0,2,d
+Precedence[Develop Improvement Plan, Analyze Data] | | |
+Chain Succession[Implement Changes, Monitor Results] | | |0,48,h
+Response[Monitor Results, Conduct Review Meeting] | | |
+Co-Existence[Document Findings, Conduct Review Meeting] | | |
+Not Precedence[Close Project, Implement Changes] |A.Project Status is Completed | |
+Precedence[Close Project, Conduct Review Meeting] | |T.Review Outcome is Approved |
+Precedence[Close Project, Document Findings] | |T.Documentation Status is Complete |
+Responded Existence[Implement Changes, Develop Improvement Plan] |A.Number of Changes > 0 | |
+Response[Implement Changes, Monitor Results] | |T.Improvement Percentage >= 10.0 |
+Response[Implement Changes, Monitor Results] | |T.Cost Savings > 0.0 |

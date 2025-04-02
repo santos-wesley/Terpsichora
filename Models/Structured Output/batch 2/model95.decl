@@ -1,0 +1,48 @@
+activity Screen Passenger
+activity Inspect Baggage
+activity Verify Identity
+activity Conduct Pat-Down
+activity Monitor CCTV
+activity Check Boarding Pass
+activity Perform Random Check
+activity Handle Security Breach
+activity Escort Passenger
+activity Report Incident
+activity Conduct Explosive Detection
+activity Check No-Fly List
+activity Coordinate with Law Enforcement
+activity Conduct Security Briefing
+activity Evaluate Security Measures
+bind Screen Passenger: Passenger Age, Passenger Status
+bind Inspect Baggage: Baggage Weight, Baggage Status
+bind Verify Identity: Identity Verification
+bind Monitor CCTV: CCTV Alert Level
+bind Conduct Explosive Detection: Explosive Detection Level
+bind Report Incident: Incident Severity
+bind Handle Security Breach: Security Breach Type
+bind Evaluate Security Measures: Security Measure Score
+Passenger Age: integer between 0 and 120
+Baggage Weight: float between 0.0 and 50.0
+Passenger Status: Cleared, Flagged, Under Investigation
+Baggage Status: Cleared, Suspicious, Confiscated
+Identity Verification: Verified, Not Verified
+CCTV Alert Level: integer between 0 and 5
+Explosive Detection Level: float between 0.0 and 10.0
+Incident Severity: Low, Medium, High
+Security Breach Type: Minor, Major, Critical
+Security Measure Score: float between 0.0 and 100.0
+Init[Conduct Security Briefing] | |
+End[Evaluate Security Measures] | |
+Existence[Verify Identity] | |
+Absence2[Perform Random Check] | |
+Response[Screen Passenger, Escort Passenger] |A.Passenger Status is Flagged | |0,30,m
+Response[Inspect Baggage, Conduct Explosive Detection] |A.Baggage Status is Suspicious | |0,15,m
+Chain Response[Handle Security Breach, Report Incident] | | |0,10,m
+Response[Monitor CCTV, Report Incident] |A.CCTV Alert Level > 3 | |0,5,m
+Precedence[Check Boarding Pass, Screen Passenger] | | |
+Response[Report Incident, Coordinate with Law Enforcement] |A.Incident Severity is High | |0,1,h
+Precedence[Verify Identity, Check No-Fly List] | | |
+Not Chain Succession[Inspect Baggage, Conduct Explosive Detection] | | |
+Choice[Conduct Security Briefing, Evaluate Security Measures] | | |
+Not Co-Existence[Screen Passenger, Inspect Baggage] |A.Passenger Status is Flagged |A.Passenger Status is Flagged AND T.Baggage Status is Cleared |
+Not Succession[Handle Security Breach, Report Incident] |A.Security Breach Type is Critical |T.Incident Severity is Low |

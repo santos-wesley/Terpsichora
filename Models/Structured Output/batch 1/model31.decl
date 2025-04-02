@@ -1,0 +1,28 @@
+activity Assess Energy Demand
+activity Design Storage Solution
+activity Procure Components
+activity Assemble Storage System
+activity Test Storage System
+activity Install Storage System
+activity Monitor System Performance
+activity Maintain Storage System
+bind Assess Energy Demand: Demand Level
+bind Design Storage Solution: Design Type
+bind Procure Components: Component Cost
+bind Test Storage System: Test Result
+bind Install Storage System: Installation Status
+Demand Level: integer between 1 and 1000
+Component Cost: float between 10.0 and 10000.0
+Design Type: Lithium-Ion, Lead-Acid, Flow Battery
+Test Result: Pass, Fail
+Installation Status: Completed, Pending
+Init[Assess Energy Demand] | |
+End[Monitor System Performance] | |
+Existence[Test Storage System] | |
+Precedence[Design Storage Solution, Assess Energy Demand] | | |
+Chain Succession[Test Storage System, Install Storage System] | | |0,48,h
+Response[Design Storage Solution, Procure Components] | | |
+Chain Response[Test Storage System, Install Storage System] |A.Test Result is Pass |T.Installation Status is Completed |
+Not Co-Existence[Maintain Storage System, Install Storage System] | |T.Installation Status is Pending |
+Chain Succession[Procure Components, Assemble Storage System] | | |0,2,d
+Precedence[Design Storage Solution, Assess Energy Demand] |A.Design Type is Lead-Acid |T.Demand Level < 500 |

@@ -1,0 +1,49 @@
+activity Schedule Training Session
+activity Enroll Participant
+activity Conduct Training
+activity Evaluate Participant
+activity Issue Certificate
+activity Collect Feedback
+activity Review Feedback
+activity Update Training Material
+activity Approve Training Budget
+activity Book Venue
+activity Prepare Training Material
+activity Send Training Invitation
+activity Confirm Attendance
+activity Setup Training Equipment
+activity Close Training Session
+bind Enroll Participant: Participant ID
+bind Conduct Training: Session Duration, Training Type
+bind Evaluate Participant: Participant ID, Feedback Rating
+bind Issue Certificate: Participant ID, Certificate Status
+bind Collect Feedback: Participant ID, Feedback Rating
+bind Approve Training Budget: Budget Amount
+bind Book Venue: Venue Status
+bind Confirm Attendance: Participant ID, Attendance Confirmation
+bind Update Training Material: Material Version
+Participant ID: integer between 1 and 1000
+Training Cost: float between 100.0 and 10000.0
+Feedback Rating: Excellent, Good, Average, Poor
+Certificate Status: Issued, Not Issued
+Session Duration: integer between 1 and 8
+Training Type: Online, In-Person
+Budget Amount: float between 500.0 and 20000.0
+Venue Status: Booked, Pending, Cancelled
+Material Version: integer between 1 and 10
+Attendance Confirmation: Confirmed, Not Confirmed
+Existence[Schedule Training Session] | |
+Exactly[Close Training Session] | |
+Precedence[Conduct Training, Enroll Participant] | |A.Participant ID == T.Participant ID |
+Response[Conduct Training, Collect Feedback] | |A.Participant ID == T.Participant ID |0,2,d
+Precedence[Issue Certificate, Evaluate Participant] |A.Certificate Status is Issued |T.Feedback Rating in (Excellent, Good) |
+Precedence[Conduct Training, Prepare Training Material] | | |0,48,h
+Precedence[Book Venue, Approve Training Budget] |A.Venue Status is Booked |A.Budget Amount >= 500.0 |
+Chain Response[Book Venue, Setup Training Equipment] |A.Venue Status is Booked | |0,1,h
+Response[Collect Feedback, Review Feedback] | | |0,3,d
+Precedence[Confirm Attendance, Send Training Invitation] | |A.Participant ID == T.Participant ID |
+Response[Review Feedback, Update Training Material] | | |0,5,d
+Response[Issue Certificate, Close Training Session] |A.Certificate Status is Issued | |0,1,d
+Precedence[Conduct Training, Confirm Attendance] |A.Attendance Confirmation is Confirmed |A.Participant ID == T.Participant ID |
+Co-Existence[Conduct Training, Enroll Participant] | |A.Training Type == T.Training Type |
+Init[Schedule Training Session] | |

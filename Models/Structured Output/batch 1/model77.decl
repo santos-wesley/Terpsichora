@@ -1,0 +1,39 @@
+activity Report Incident
+activity Categorize Incident
+activity Assign Incident
+activity Investigate Incident
+activity Resolve Incident
+activity Verify Resolution
+activity Close Incident
+activity Escalate Incident
+activity Communicate Status
+activity Review Incident
+bind Report Incident: Incident Type, Incident Severity
+bind Categorize Incident: Incident Type, Incident Severity
+bind Assign Incident: Incident Severity
+bind Investigate Incident: Investigation Duration
+bind Resolve Incident: Resolution Cost, Resolution Status
+bind Verify Resolution: Verification Result
+bind Escalate Incident: Escalation Level
+bind Communicate Status: Communication Frequency
+bind Review Incident: Review Score
+Incident Type: Hardware, Software, Network, Security
+Incident Severity: Low, Medium, High, Critical
+Response Time: integer between 1 and 1440
+Resolution Cost: float between 0.0 and 10000.0
+Resolution Status: Resolved, Unresolved
+Investigation Duration: integer between 1 and 72
+Escalation Level: Level 1, Level 2, Level 3
+Verification Result: Success, Failure
+Communication Frequency: float between 0.5 and 24.0
+Review Score: integer between 1 and 10
+Init[Report Incident] | |
+End[Close Incident] | |
+Precedence[Assign Incident, Categorize Incident] | |A.Incident Severity == T.Incident Severity |
+Chain Response[Resolve Incident, Verify Resolution] |A.Resolution Status is Resolved | |0,2,h
+Response[Escalate Incident, Communicate Status] | | |0,1,d
+Succession[Investigate Incident, Resolve Incident] | | |
+Existence3[Communicate Status] | |
+Not Precedence[Close Incident, Resolve Incident] | | |
+Response[Close Incident, Review Incident] | | |0,3,d
+Exclusive Choice[Escalate Incident, Resolve Incident] | | |

@@ -1,0 +1,34 @@
+activity Receive Support Request
+activity Assign Support Agent
+activity Analyze Issue
+activity Provide Solution
+activity Escalate Issue
+activity Follow Up with Customer
+activity Close Support Ticket
+activity Log Support Activity
+activity Request Customer Feedback
+activity Review Customer Feedback
+bind Receive Support Request: Priority Level, Issue Type
+bind Assign Support Agent: Support Agent Level
+bind Provide Solution: Resolution Time
+bind Request Customer Feedback: Feedback Rating
+Priority Level: integer between 1 and 5
+Resolution Time: float between 0.5 and 72.0
+Support Agent Level: Junior, Mid, Senior
+Issue Type: Technical, Billing, General Inquiry
+Feedback Rating: Poor, Average, Good, Excellent
+Init[Receive Support Request] | |
+End[Close Support Ticket] | |
+Absence[Escalate Issue] | |
+Existence[Analyze Issue] | |
+Precedence[Provide Solution, Assign Support Agent] | | |
+Response[Provide Solution, Follow Up with Customer] | | |0,48,h
+Response[Request Customer Feedback, Review Customer Feedback] | | |
+Co-Existence[Log Support Activity, Receive Support Request] | | |
+Not Chain Response[Provide Solution, Follow Up with Customer] | | |
+Precedence[Assign Support Agent, Receive Support Request] |A.Issue Type is Technical |A.Support Agent Level in (Mid, Senior) |
+Response[Receive Support Request, Escalate Issue] |A.Priority Level = 5 | |
+Not Precedence[Close Support Ticket, Provide Solution] | | |
+Response[Review Customer Feedback, Follow Up with Customer] |A.Feedback Rating is Poor | |0,24,h
+Chain Response[Receive Support Request, Log Support Activity] | | |0,15,m
+Response[Provide Solution, Escalate Issue] |A.Resolution Time > 48 | |

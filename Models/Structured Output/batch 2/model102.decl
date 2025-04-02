@@ -1,0 +1,48 @@
+activity Conduct Site Survey
+activity Prepare Impact Report
+activity Review Environmental Regulations
+activity Submit Report for Approval
+activity Conduct Public Consultation
+activity Revise Impact Report
+activity Approve Project
+activity Monitor Environmental Impact
+activity Conduct Environmental Audit
+activity Issue Compliance Certificate
+activity Identify Mitigation Measures
+activity Implement Mitigation Measures
+activity Evaluate Mitigation Effectiveness
+activity Conduct Risk Assessment
+activity Finalize Environmental Report
+bind Conduct Site Survey: Survey Duration
+bind Prepare Impact Report: Impact Severity, Report Status
+bind Submit Report for Approval: Approval Status
+bind Conduct Public Consultation: Public Feedback Count
+bind Identify Mitigation Measures: Mitigation Status, Mitigation Cost
+bind Conduct Environmental Audit: Audit Score
+bind Conduct Risk Assessment: Risk Level
+bind Issue Compliance Certificate: Compliance Level
+Survey Duration: integer between 1 and 30
+Impact Severity: float between 0.0 and 10.0
+Approval Status: Pending, Approved, Rejected
+Public Feedback Count: integer between 0 and 1000
+Mitigation Status: Not Started, In Progress, Completed
+Audit Score: float between 0.0 and 100.0
+Compliance Level: Non-Compliant, Partially Compliant, Fully Compliant
+Risk Level: integer between 1 and 5
+Mitigation Cost: float between 0.0 and 500.0
+Report Status: Draft, Final, Archived
+Existence[Conduct Site Survey] | |
+Exactly[Prepare Impact Report] | |
+Response[Prepare Impact Report, Submit Report for Approval] | | |0,2,d
+Response[Submit Report for Approval, Conduct Public Consultation] | | |0,5,d
+Responded Existence[Submit Report for Approval, Revise Impact Report] |A.Approval Status is Rejected | |
+Existence[Approve Project] |A.Report Status is Final |
+Precedence[Identify Mitigation Measures, Implement Mitigation Measures] | | |
+Response[Implement Mitigation Measures, Evaluate Mitigation Effectiveness] | | |0,10,d
+Precedence[Conduct Environmental Audit, Issue Compliance Certificate] | | |
+Responded Existence[Conduct Environmental Audit, Issue Compliance Certificate] |A.Compliance Level is Fully Compliant | |
+Precedence[Conduct Risk Assessment, Identify Mitigation Measures] | | |
+End[Finalize Environmental Report] | |
+Precedence[Conduct Site Survey, Conduct Risk Assessment] | | |
+Precedence[Conduct Public Consultation, Revise Impact Report] | | |0,7,d
+Response[Finalize Environmental Report, Approve Project] | | |0,3,d

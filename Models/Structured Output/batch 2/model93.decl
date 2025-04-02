@@ -1,0 +1,50 @@
+activity Create Database
+activity Backup Database
+activity Restore Database
+activity Update Schema
+activity Optimize Performance
+activity Monitor Database
+activity Grant Access
+activity Revoke Access
+activity Audit Database
+activity Migrate Database
+activity Patch Database
+activity Configure Replication
+activity Test Failover
+activity Generate Report
+activity Delete Database
+bind Backup Database: Backup Size
+bind Update Schema: Schema Version
+bind Grant Access: Access Level
+bind Monitor Database: Database Status
+bind Revoke Access: User Count
+bind Optimize Performance: Performance Score
+bind Configure Replication: Replication Status
+bind Audit Database: Audit Frequency
+bind Test Failover: Failover Status
+bind Patch Database: Patch Version
+Backup Size: integer between 1 and 5000
+Schema Version: float between 1.0 and 10.0
+Access Level: Read, Write, Admin
+Database Status: Active, Inactive, Maintenance
+User Count: integer between 1 and 1000
+Performance Score: float between 0.0 and 100.0
+Replication Status: Configured, Not Configured
+Audit Frequency: integer between 1 and 12
+Failover Status: Tested, Not Tested
+Patch Version: float between 1.0 and 5.0
+Init[Create Database] | |
+End[Delete Database] | |
+Existence[Backup Database] | |
+Absence2[Update Schema] | |
+Response[Grant Access, Revoke Access] | | |
+Chain Response[Update Schema, Optimize Performance] | | |0,5,m
+Succession[Create Database, Monitor Database] | | |
+Not Co-Existence[Migrate Database, Patch Database] | | |
+Precedence[Test Failover, Configure Replication] | | |
+Response[Audit Database, Generate Report] | | |0,2,d
+Precedence[Migrate Database, Backup Database] |A.Backup Size < 1000 | |
+Not Chain Succession[Update Schema, Optimize Performance] | | |
+Chain Response[Grant Access, Audit Database] | | |0,1,d
+Not Co-Existence[Test Failover, Delete Database] | | |
+Chain Response[Backup Database, Patch Database] | | |0,48,h

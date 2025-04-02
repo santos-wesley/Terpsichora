@@ -1,0 +1,27 @@
+activity Submit Economic Report
+activity Review Economic Report
+activity Approve Economic Report
+activity Request Additional Data
+activity Provide Additional Data
+activity Conduct Economic Analysis
+activity Publish Economic Findings
+activity Archive Economic Report
+bind Submit Economic Report: Report ID
+bind Review Economic Report: Approval Status
+bind Request Additional Data: Data Completeness
+bind Conduct Economic Analysis: GDP Growth Rate, Analysis Duration
+Report ID: integer between 1 and 10000
+GDP Growth Rate: float between -10.0 and 10.0
+Approval Status: Pending, Approved, Rejected
+Data Completeness: Complete, Incomplete
+Analysis Duration: integer between 1 and 30
+Existence[Submit Economic Report] | |
+End[Archive Economic Report] | |
+Response[Submit Economic Report, Review Economic Report] | | |0,2,d
+Chain Response[Request Additional Data, Provide Additional Data] | |A.Data Completeness is Incomplete |0,1,d
+Precedence[Conduct Economic Analysis, Approve Economic Report] | |T.Approval Status is Approved |
+Response[Conduct Economic Analysis, Publish Economic Findings] | | |0,3,d
+Not Precedence[Archive Economic Report, Approve Economic Report] | |T.Approval Status is Rejected |
+Exclusive Choice[Approve Economic Report, Request Additional Data] | | |
+Response[Conduct Economic Analysis, Publish Economic Findings] |A.GDP Growth Rate > 5 | |0,2,d
+Absence[Conduct Economic Analysis] |A.Analysis Duration > 20 |

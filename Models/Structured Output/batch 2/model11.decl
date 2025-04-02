@@ -1,0 +1,49 @@
+activity Monitor Energy Usage
+activity Analyze Energy Data
+activity Generate Energy Report
+activity Review Energy Report
+activity Implement Energy Saving Measures
+activity Inspect Energy Systems
+activity Upgrade Energy Equipment
+activity Schedule Maintenance
+activity Conduct Maintenance
+activity Evaluate Energy Efficiency
+activity Approve Energy Budget
+activity Request Energy Audit
+activity Conduct Energy Audit
+activity Review Audit Findings
+activity Finalize Energy Strategy
+bind Monitor Energy Usage: Energy Usage
+bind Generate Energy Report: Report Status
+bind Inspect Energy Systems: Equipment Condition
+bind Schedule Maintenance: Maintenance Frequency
+bind Conduct Energy Audit: Audit Status
+bind Evaluate Energy Efficiency: Efficiency Rating
+bind Approve Energy Budget: Budget Approval
+bind Review Audit Findings: Audit Findings
+bind Finalize Energy Strategy: Strategy Impact
+Energy Usage: integer between 0 and 10000
+Cost Savings: float between 0.0 and 100000.0
+Report Status: Draft, Final, Reviewed
+Equipment Condition: New, Good, Needs Repair, Obsolete
+Maintenance Frequency: integer between 1 and 365
+Audit Status: Pending, In Progress, Completed
+Efficiency Rating: float between 0.0 and 100.0
+Budget Approval: Approved, Rejected
+Audit Findings: integer between 0 and 100
+Strategy Impact: float between 0.0 and 100.0
+Init[Monitor Energy Usage] | |
+End[Finalize Energy Strategy] | |
+Existence2[Monitor Energy Usage] | |
+Response[Analyze Energy Data, Generate Energy Report] | | |0,2,h
+Response[Review Energy Report, Implement Energy Saving Measures] | | |0,1,d
+Chain Response[Schedule Maintenance, Conduct Maintenance] | | |0,7,d
+Precedence[Conduct Energy Audit, Request Energy Audit] | | |
+Precedence[Implement Energy Saving Measures, Approve Energy Budget] | |A.Budget Approval is Approved |
+Co-Existence[Conduct Energy Audit, Review Audit Findings] | | |
+Not Chain Precedence[Upgrade Energy Equipment, Inspect Energy Systems] | | |
+Response[Implement Energy Saving Measures, Evaluate Energy Efficiency] | | |0,3,d
+Chain Response[Generate Energy Report, Review Energy Report] | | |0,1,h
+Co-Existence[Monitor Energy Usage, Analyze Energy Data] | | |
+Response[Review Audit Findings, Finalize Energy Strategy] | | |0,5,d
+Co-Existence[Schedule Maintenance, Conduct Maintenance] | | |

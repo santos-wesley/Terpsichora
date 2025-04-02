@@ -1,0 +1,36 @@
+activity Submit Work Report
+activity Review Work Report
+activity Approve Work Report
+activity Request Revision
+activity Conduct Team Meeting
+activity Assign New Task
+activity Submit Task Update
+activity Evaluate Task Performance
+activity Provide Feedback
+activity Plan Next Week's Work
+bind Submit Work Report: Report ID, Report Status
+bind Review Work Report: Report Status
+bind Conduct Team Meeting: Meeting Duration, Meeting Type
+bind Assign New Task: Task Difficulty, Task Status
+bind Provide Feedback: Feedback Type, Feedback Score
+bind Plan Next Week's Work: Weekly Hours Planned
+Report ID: integer between 1 and 1000
+Task Completion Percentage: float between 0.0 and 100.0
+Report Status: Pending, Approved, Needs Revision
+Feedback Type: Positive, Neutral, Negative
+Meeting Duration: integer between 15 and 120
+Task Difficulty: float between 1.0 and 5.0
+Task Status: Not Started, In Progress, Completed
+Feedback Score: integer between 1 and 10
+Weekly Hours Planned: float between 0.0 and 40.0
+Meeting Type: Project Update, Issue Resolution, General Discussion
+Init[Submit Work Report] | |
+Existence[Submit Work Report] | |
+Response[Submit Work Report, Review Work Report] | |A.Report ID == T.Report ID |0,2,d
+Response[Review Work Report, Request Revision] |A.Report Status is Needs Revision | |0,1,d
+Precedence[Assign New Task, Conduct Team Meeting] | |A.Meeting Type is Project Update |0,7,d
+Response[Assign New Task, Submit Task Update] | |A.Task Status in (In Progress, Completed) |0,5,d
+Precedence[Provide Feedback, Evaluate Task Performance] | |A.Feedback Type is Positive |0,1,d
+Response[Provide Feedback, Plan Next Week's Work] | |A.Feedback Score >= 5 |0,3,d
+Not Co-Existence[Approve Work Report, Request Revision] | | |
+Exactly[Conduct Team Meeting] | |

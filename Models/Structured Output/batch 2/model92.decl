@@ -1,0 +1,50 @@
+activity Conduct Market Research
+activity Develop Tourism Strategy
+activity Design Marketing Campaign
+activity Implement Marketing Campaign
+activity Assess Environmental Impact
+activity Secure Funding
+activity Develop Infrastructure
+activity Train Staff
+activity Launch Tourism Services
+activity Monitor Visitor Feedback
+activity Adjust Strategy
+activity Conduct Safety Inspections
+activity Organize Cultural Events
+activity Evaluate Economic Impact
+activity Report to Stakeholders
+bind Conduct Market Research: Budget
+bind Design Marketing Campaign: Campaign Status
+bind Assess Environmental Impact: Environmental Risk
+bind Train Staff: Staff Trained
+bind Develop Infrastructure: Infrastructure Quality
+bind Organize Cultural Events: Event Type
+bind Monitor Visitor Feedback: Visitor Satisfaction
+bind Evaluate Economic Impact: Economic Impact
+bind Conduct Safety Inspections: Safety Compliance
+bind Launch Tourism Services: Visitor Count
+Budget: integer between 10000 and 1000000
+Visitor Satisfaction: float between 1.0 and 5.0
+Campaign Status: Planned, Ongoing, Completed
+Environmental Risk: Low, Medium, High
+Staff Trained: integer between 0 and 500
+Infrastructure Quality: float between 1.0 and 10.0
+Event Type: Festival, Exhibition, Workshop
+Visitor Count: integer between 0 and 100000
+Economic Impact: float between 0.0 and 100.0
+Safety Compliance: Compliant, Non-Compliant
+Init[Conduct Market Research] | |
+End[Report to Stakeholders] | |
+Existence[Develop Tourism Strategy] | |
+Absence2[Conduct Safety Inspections] | |
+Response[Design Marketing Campaign, Implement Marketing Campaign] | |A.Campaign Status is Planned |0,30,d
+Precedence[Develop Infrastructure, Secure Funding] | | |
+Co-Existence[Train Staff, Launch Tourism Services] | | |
+Succession[Monitor Visitor Feedback, Adjust Strategy] |A.Visitor Satisfaction < 3.0 | |0,60,d
+Not Co-Existence[Organize Cultural Events, Evaluate Economic Impact] | | |
+Chain Succession[Conduct Market Research, Develop Tourism Strategy] | | |0,1,d
+Not Chain Succession[Conduct Safety Inspections, Launch Tourism Services] | | |
+Response[Assess Environmental Impact, Secure Funding] |A.Environmental Risk is Low | |0,90,d
+Not Precedence[Develop Infrastructure, Conduct Safety Inspections] | | |
+Co-Existence[Design Marketing Campaign, Assess Environmental Impact] | | |
+Response[Organize Cultural Events, Report to Stakeholders] |A.Event Type is Festival | |0,180,d

@@ -1,0 +1,40 @@
+activity Initiate Employee Onboarding
+activity Conduct Performance Review
+activity Address Employee Grievance
+activity Approve Leave Request
+activity Conduct Exit Interview
+activity Update Employee Records
+activity Organize Team Building Activity
+activity Provide Employee Training
+activity Evaluate Training Effectiveness
+activity Process Payroll
+bind Initiate Employee Onboarding: Employee ID
+bind Conduct Performance Review: Employee ID, Performance Score
+bind Address Employee Grievance: Employee ID, Grievance Status
+bind Approve Leave Request: Employee ID, Leave Type, Leave Days
+bind Conduct Exit Interview: Employee ID, Exit Interview Status
+bind Update Employee Records: Employee ID
+bind Organize Team Building Activity: Team Size
+bind Provide Employee Training: Employee ID, Training Hours
+bind Evaluate Training Effectiveness: Employee ID, Training Effectiveness Score
+bind Process Payroll: Employee ID, Payroll Status
+Employee ID: integer between 1 and 10000
+Performance Score: float between 0.0 and 5.0
+Grievance Status: Pending, Resolved, Dismissed
+Leave Type: Sick, Vacation, Unpaid
+Leave Days: integer between 1 and 30
+Exit Interview Status: Scheduled, Completed, Not Required
+Training Hours: float between 0.0 and 40.0
+Payroll Status: Processed, Pending, Failed
+Team Size: integer between 1 and 100
+Training Effectiveness Score: float between 0.0 and 10.0
+Init[Initiate Employee Onboarding] | |
+Existence[Conduct Performance Review] | |
+Response[Address Employee Grievance, Update Employee Records] |A.Grievance Status in (Pending, Resolved, Dismissed) |A.Employee ID == T.Employee ID |0,2,d
+Precedence[Approve Leave Request, Update Employee Records] |A.Leave Days <= 30 |A.Employee ID == T.Employee ID |0,48,h
+Chain Response[Conduct Exit Interview, Update Employee Records] |A.Exit Interview Status is Scheduled |A.Employee ID == T.Employee ID |0,5,d
+Precedence[Organize Team Building Activity, Update Employee Records] |A.Team Size >= 5 |A.Employee ID == T.Employee ID |0,48,h
+Succession[Provide Employee Training, Evaluate Training Effectiveness] |A.Training Hours > 0 |A.Employee ID == T.Employee ID |0,2,d
+Chain Succession[Process Payroll, Update Employee Records] |A.Payroll Status is Processed |A.Employee ID == T.Employee ID |0,48,h
+End[Process Payroll] | |
+Precedence[Approve Leave Request, Conduct Performance Review] |A.Leave Type in (Sick, Vacation, Unpaid) |A.Employee ID == T.Employee ID |0,48,h

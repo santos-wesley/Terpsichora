@@ -1,0 +1,50 @@
+activity Receive Email
+activity Scan Email
+activity Quarantine Email
+activity Release Email
+activity Delete Email
+activity Notify User
+activity Log Incident
+activity Analyze Attachment
+activity Block Sender
+activity Update Security Rules
+activity Encrypt Email
+activity Decrypt Email
+activity Forward Email
+activity Archive Email
+activity Review Email
+bind Receive Email: Email Status
+bind Scan Email: Threat Level, Scan Duration
+bind Quarantine Email: Email Status, Action Taken
+bind Release Email: Email Status, User Notification
+bind Delete Email: Email Status, Action Taken
+bind Notify User: User Notification
+bind Log Incident: Incident Log Size
+bind Analyze Attachment: Attachment Count
+bind Block Sender: Sender Reputation
+bind Encrypt Email: Encryption Status
+Threat Level: integer between 1 and 10
+Email Size: float between 0.1 and 50.0
+Email Status: Received, Scanned, Quarantined, Released, Deleted
+User Notification: None, Warning, Blocked, Released
+Sender Reputation: Trusted, Unknown, Blocked
+Attachment Count: integer between 0 and 10
+Scan Duration: float between 0.1 and 300.0
+Encryption Status: Encrypted, Decrypted, None
+Action Taken: None, Quarantined, Deleted, Released
+Incident Log Size: float between 0.1 and 100.0
+Init[Receive Email] | |
+End[Release Email] | |
+Existence[Scan Email] | |
+Absence2[Quarantine Email] | |
+Response[Scan Email, Quarantine Email] |A.Threat Level > 5 | |0,5,m
+Choice[Quarantine Email, Release Email] | | |0,1,h
+Not Chain Succession[Quarantine Email, Release Email] | | |
+Not Co-Existence[Delete Email, Release Email] | | |
+Responded Existence[Quarantine Email, Log Incident] | | |
+Precedence[Delete Email, Receive Email] | |A.Sender Reputation is Blocked |0,10,m
+Precedence[Forward Email, Encrypt Email] | | |0,30,m
+Precedence[Review Email, Decrypt Email] | | |0,15,m
+Response[Analyze Attachment, Quarantine Email] |A.Attachment Count > 3 | |0,10,m
+Chain Response[Block Sender, Notify User] | |T.User Notification is Blocked |
+Not Succession[Quarantine Email, Archive Email] | | |

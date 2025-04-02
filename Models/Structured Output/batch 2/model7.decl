@@ -1,0 +1,50 @@
+activity Design Product
+activity Procure Materials
+activity Assemble Product
+activity Inspect Quality
+activity Package Product
+activity Ship Product
+activity Receive Order
+activity Plan Production
+activity Maintain Equipment
+activity Train Staff
+activity Review Design
+activity Test Prototype
+activity Approve Design
+activity Monitor Production
+activity Update Inventory
+bind Receive Order: Order Quantity
+bind Procure Materials: Material Cost
+bind Inspect Quality: Quality Status
+bind Plan Production: Production Status
+bind Update Inventory: Inventory Level
+bind Assemble Product: Production Time
+bind Train Staff: Training Type
+bind Maintain Equipment: Equipment Downtime
+bind Test Prototype: Prototype Test Score
+bind Approve Design: Design Approval Status
+Order Quantity: integer between 1 and 1000
+Material Cost: float between 0.01 and 10000.0
+Quality Status: Pass, Fail
+Production Status: Planned, In Progress, Completed
+Inventory Level: integer between 0 and 5000
+Production Time: float between 0.5 and 100.0
+Training Type: Safety, Technical, Operational
+Equipment Downtime: integer between 0 and 72
+Prototype Test Score: float between 0.0 and 100.0
+Design Approval Status: Pending, Approved, Rejected
+Init[Receive Order] | |
+End[Ship Product] | |
+Existence[Inspect Quality] | |
+Absence2[Maintain Equipment] | |
+Response[Receive Order, Procure Materials] | | |0,2,d
+Chain Response[Assemble Product, Inspect Quality] | | |
+Not Co-Existence[Train Staff, Maintain Equipment] | | |
+Precedence[Plan Production, Approve Design] | | |
+Response[Test Prototype, Review Design] | | |0,48,h
+Succession[Package Product, Ship Product] | | |
+Precedence[Assemble Product, Plan Production] |A.Order Quantity > 500 | |
+Responded Existence[Procure Materials, Inspect Quality] |A.Material Cost > 5000 | |
+Not Precedence[Approve Design, Test Prototype] | |A.Prototype Test Score < 60 |
+Response[Plan Production, Update Inventory] |A.Production Status is Completed | |0,1,d
+Co-Existence[Train Staff, Plan Production] |A.Training Type in (Technical, Operational) |A.Training Type == T.Production Status |

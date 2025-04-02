@@ -1,0 +1,46 @@
+activity Identify Crisis
+activity Assemble Crisis Team
+activity Develop Communication Plan
+activity Draft Initial Statement
+activity Approve Statement
+activity Distribute Statement
+activity Monitor Media
+activity Conduct Press Conference
+activity Update Stakeholders
+activity Evaluate Response
+activity Revise Communication Plan
+activity Conduct Follow-up Meeting
+activity Document Crisis Response
+activity Close Crisis Communication
+activity Review Crisis Management
+bind Identify Crisis: Crisis Type, Crisis Severity
+bind Approve Statement: Approval Status
+bind Monitor Media: Media Type, Public Sentiment Score
+bind Update Stakeholders: Stakeholder Updates
+bind Conduct Press Conference: Press Conference Attendees
+bind Document Crisis Response: Documentation Status
+Crisis Severity: integer between 1 and 5
+Response Time: float between 0.5 and 48.0
+Approval Status: Pending, Approved, Rejected
+Media Type: TV, Radio, Online, Print
+Stakeholder Updates: integer between 0 and 10
+Public Sentiment Score: float between 0.0 and 10.0
+Crisis Type: Natural Disaster, Technical Failure, Human Error, Security Breach
+Press Conference Attendees: integer between 0 and 500
+Budget Utilization: float between 0.0 and 100.0
+Documentation Status: Incomplete, Complete
+Init[Identify Crisis] | |
+End[Close Crisis Communication] | |
+Existence[Assemble Crisis Team] | |
+Exactly[Draft Initial Statement] | |
+Precedence[Distribute Statement, Approve Statement] | |A.Approval Status is Approved |
+Response[Distribute Statement, Conduct Press Conference] | | |0,2,d
+Precedence[Draft Initial Statement, Develop Communication Plan] | | |
+Response[Distribute Statement, Monitor Media] | | |0,48,h
+Response[Conduct Press Conference, Evaluate Response] | | |0,2,d
+Response[Evaluate Response, Revise Communication Plan] | | |0,48,h
+Response[Conduct Follow-up Meeting, Document Crisis Response] | | |0,2,d
+Response[Close Crisis Communication, Review Crisis Management] | | |0,48,h
+Chain Precedence[Develop Communication Plan, Identify Crisis] | |A.Crisis Type == T.Crisis Type |
+Chain Response[Document Crisis Response, Close Crisis Communication] |A.Documentation Status is Complete | |
+Responded Existence[Conduct Press Conference, Identify Crisis] |A.Crisis Severity > 3 | |

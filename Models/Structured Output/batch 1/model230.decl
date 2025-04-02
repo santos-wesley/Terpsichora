@@ -1,0 +1,38 @@
+activity Receive Order
+activity Verify Inventory
+activity Process Payment
+activity Prepare Shipment
+activity Dispatch Shipment
+activity Track Shipment
+activity Handle Returns
+activity Restock Inventory
+activity Evaluate Supplier
+activity Update Records
+bind Receive Order: Order Quantity
+bind Verify Inventory: Inventory Status
+bind Process Payment: Payment Amount, Payment Status
+bind Dispatch Shipment: Shipment Status
+bind Handle Returns: Return Quantity, Return Status
+bind Evaluate Supplier: Supplier Rating
+bind Restock Inventory: Restock Cost
+bind Track Shipment: Shipment Time
+Order Quantity: integer between 1 and 1000
+Payment Amount: float between 0.01 and 10000.0
+Inventory Status: Available, Not Available
+Shipment Status: Pending, Shipped, Delivered
+Return Quantity: integer between 0 and 100
+Supplier Rating: Excellent, Good, Average, Poor
+Restock Cost: float between 0.0 and 5000.0
+Payment Status: Completed, Pending, Failed
+Shipment Time: integer between 1 and 30
+Return Status: Initiated, Completed, Rejected
+Init[Receive Order] | |
+End[Update Records] | |
+Precedence[Process Payment, Verify Inventory] | | |
+Chain Succession[Prepare Shipment, Dispatch Shipment] | | |0,1,d
+Response[Receive Order, Dispatch Shipment] | | |0,5,d
+Precedence[Track Shipment, Dispatch Shipment] | | |
+Not Co-Existence[Handle Returns, Restock Inventory] | | |
+Precedence[Evaluate Supplier, Restock Inventory] | | |0,10,d
+Responded Existence[Process Payment, Process Payment] |A.Payment Status is Completed | |
+Existence[Track Shipment] | |

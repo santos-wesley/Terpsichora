@@ -1,0 +1,39 @@
+activity Conduct Site Survey
+activity Draft Urban Plan
+activity Review Environmental Impact
+activity Approve Urban Plan
+activity Allocate Budget
+activity Public Consultation
+activity Revise Urban Plan
+activity Issue Construction Permits
+activity Monitor Construction
+activity Complete Urban Development
+bind Conduct Site Survey: Survey Duration
+bind Allocate Budget: Budget Allocation
+bind Review Environmental Impact: Environmental Status
+bind Approve Urban Plan: Plan Approval Status
+bind Public Consultation: Public Feedback, Consultation Duration
+bind Revise Urban Plan: Revision Count
+bind Issue Construction Permits: Permit Status
+bind Monitor Construction: Construction Progress
+bind Complete Urban Development: Development Status
+Survey Duration: integer between 1 and 30
+Budget Allocation: float between 0.5 and 100.0
+Environmental Status: Pending, Approved, Rejected
+Plan Approval Status: Approved, Not Approved
+Public Feedback: Positive, Negative, Neutral
+Revision Count: integer between 0 and 10
+Permit Status: Issued, Not Issued
+Construction Progress: float between 0.0 and 100.0
+Development Status: In Progress, Completed
+Consultation Duration: integer between 1 and 15
+Existence[Conduct Site Survey] | |
+Exactly[Approve Urban Plan] | |
+Precedence[Approve Urban Plan, Draft Urban Plan] | | |
+Response[Review Environmental Impact, Approve Urban Plan] |A.Environmental Status is Approved | |10,30,d
+Precedence[Revise Urban Plan, Public Consultation] | | |
+Precedence[Monitor Construction, Issue Construction Permits] | | |
+Precedence[Complete Urban Development, Monitor Construction] | |T.Construction Progress == 100.0 |
+Response[Revise Urban Plan, Approve Urban Plan] | | |5,15,d
+Response[Public Consultation, Revise Urban Plan] |A.Public Feedback is Negative | |
+Response[Allocate Budget, Approve Urban Plan] | | |1,5,d

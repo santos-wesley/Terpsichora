@@ -1,0 +1,39 @@
+activity Receive Import Request
+activity Verify Import Documents
+activity Approve Import Request
+activity Arrange Shipment
+activity Customs Clearance
+activity Transport Goods
+activity Inspect Goods
+activity Store Goods
+activity Notify Stakeholders
+activity Close Import Process
+bind Receive Import Request: Request ID
+bind Verify Import Documents: Document Status
+bind Approve Import Request: Approval Status
+bind Arrange Shipment: Shipment Cost, Shipment Mode
+bind Customs Clearance: Customs Duty
+bind Inspect Goods: Inspection Result
+bind Store Goods: Storage Cost
+bind Notify Stakeholders: Notification Status
+bind Close Import Process: Process Duration
+Request ID: integer between 1 and 10000
+Shipment Cost: float between 100.0 and 10000.0
+Document Status: Valid, Invalid
+Approval Status: Approved, Rejected
+Shipment Mode: Air, Sea, Land
+Customs Duty: integer between 0 and 5000
+Inspection Result: Passed, Failed
+Storage Cost: float between 50.0 and 5000.0
+Notification Status: Notified, Pending
+Process Duration: integer between 1 and 30
+Init[Receive Import Request] | |
+End[Close Import Process] | |
+Existence[Approve Import Request] | |
+Precedence[Approve Import Request, Verify Import Documents] | | |
+Response[Arrange Shipment, Customs Clearance] | | |0,2,d
+Chain Succession[Transport Goods, Inspect Goods] | | |
+Response[Inspect Goods, Store Goods] | | |
+Succession[Store Goods, Notify Stakeholders] | | |
+Co-Existence[Arrange Shipment, Customs Clearance] |A.Shipment Mode is Air |A.Shipment Mode == T.Shipment Mode |
+Not Precedence[Approve Import Request, Verify Import Documents] |A.Document Status is Invalid | |

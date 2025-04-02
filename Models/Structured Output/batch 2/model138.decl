@@ -1,0 +1,47 @@
+activity Initiate Security Assessment
+activity Review Security Policies
+activity Conduct Vulnerability Scan
+activity Analyze Scan Results
+activity Implement Security Controls
+activity Monitor Security Posture
+activity Perform Penetration Testing
+activity Review Compliance Requirements
+activity Update Security Policies
+activity Report Security Findings
+activity Approve Security Measures
+activity Conduct Security Training
+activity Evaluate Third-Party Risks
+activity Audit Security Logs
+activity Respond to Security Incidents
+bind Conduct Vulnerability Scan: Scan Duration
+bind Analyze Scan Results: Severity Level, Risk Score
+bind Review Compliance Requirements: Compliance Status
+bind Implement Security Controls: Security Control Type
+bind Respond to Security Incidents: Incident Response Status, Number of Incidents
+bind Update Security Policies: Policy Version
+bind Evaluate Third-Party Risks: Third-Party Risk Score
+Severity Level: integer between 1 and 5
+Risk Score: float between 0.0 and 10.0
+Compliance Status: Compliant, Non-Compliant
+Security Control Type: Preventive, Detective, Corrective
+Number of Incidents: integer between 0 and 100
+Training Level: Basic, Intermediate, Advanced
+Scan Duration: float between 0.1 and 24.0
+Incident Response Status: Pending, In Progress, Resolved
+Policy Version: integer between 1 and 10
+Third-Party Risk Score: float between 0.0 and 10.0
+Init[Initiate Security Assessment] | |
+End[Report Security Findings] | |
+Existence[Conduct Vulnerability Scan] | |
+Exactly[Conduct Security Training] | |
+Chain Response[Conduct Vulnerability Scan, Analyze Scan Results] | | |0,1,h
+Response[Analyze Scan Results, Implement Security Controls] |A.Severity Level > 3 | |0,24,h
+Precedence[Update Security Policies, Review Security Policies] | | |
+Precedence[Approve Security Measures, Review Compliance Requirements] | |A.Compliance Status is Compliant |
+Chain Response[Audit Security Logs, Respond to Security Incidents] | | |0,48,h
+Co-Existence[Perform Penetration Testing, Conduct Vulnerability Scan] | | |
+Alternate Succession[Monitor Security Posture, Conduct Vulnerability Scan] | | |
+Not Chain Succession[Conduct Vulnerability Scan, Implement Security Controls] | | |
+Not Co-Existence[Conduct Security Training, Evaluate Third-Party Risks] | | |
+Not Precedence[Respond to Security Incidents, Audit Security Logs] | | |
+Choice[Conduct Security Training, Evaluate Third-Party Risks] | | |

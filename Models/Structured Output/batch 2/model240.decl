@@ -1,0 +1,55 @@
+activity Identify Workforce Needs
+activity Develop Job Descriptions
+activity Conduct Skills Assessment
+activity Forecast Workforce Demand
+activity Recruit Candidates
+activity Screen Applications
+activity Interview Candidates
+activity Select Candidates
+activity Negotiate Offers
+activity Onboard Employees
+activity Evaluate Workforce Performance
+activity Plan Training Programs
+activity Implement Training Programs
+activity Monitor Workforce Metrics
+activity Adjust Workforce Plans
+bind Identify Workforce Needs: Number of Positions
+bind Develop Job Descriptions: Job Level
+bind Conduct Skills Assessment: Assessment Result
+bind Forecast Workforce Demand: Forecast Period
+bind Recruit Candidates: Job Level
+bind Screen Applications: Job Level
+bind Interview Candidates: Interview Outcome
+bind Select Candidates: Interview Outcome
+bind Negotiate Offers: Salary Offer, Offer Status
+bind Onboard Employees: Offer Status
+bind Evaluate Workforce Performance: Performance Score
+bind Plan Training Programs: Training Hours
+bind Implement Training Programs: Training Status
+bind Monitor Workforce Metrics: Performance Score
+bind Adjust Workforce Plans: Number of Positions
+Number of Positions: integer between 1 and 1000
+Salary Offer: float between 30000.0 and 200000.0
+Job Level: Entry, Mid, Senior
+Assessment Result: Pass, Fail
+Training Hours: integer between 1 and 100
+Interview Outcome: Selected, Not Selected
+Performance Score: float between 0.0 and 10.0
+Offer Status: Accepted, Rejected, Pending
+Forecast Period: integer between 1 and 60
+Training Status: Completed, In Progress, Not Started
+Init[Identify Workforce Needs] | |
+End[Adjust Workforce Plans] | |
+Existence[Recruit Candidates] | |
+Absence3[Conduct Skills Assessment] | |
+Exactly[Evaluate Workforce Performance] | |
+Chain Response[Screen Applications, Interview Candidates] | | |
+Response[Select Candidates, Negotiate Offers] | | |
+Precedence[Recruit Candidates, Develop Job Descriptions] | | |
+Chain Precedence[Onboard Employees, Negotiate Offers] | | |
+Co-Existence[Plan Training Programs, Implement Training Programs] | | |
+Not Chain Succession[Monitor Workforce Metrics, Adjust Workforce Plans] | | |
+Precedence[Conduct Skills Assessment, Forecast Workforce Demand] | | |
+Not Precedence[Develop Job Descriptions, Recruit Candidates] | | |
+Response[Plan Training Programs, Implement Training Programs] | | |30,60,d
+Response[Select Candidates, Negotiate Offers] | | |1,5,d

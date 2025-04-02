@@ -1,0 +1,50 @@
+activity File Patent Application
+activity Conduct Patent Search
+activity Examine Patent Application
+activity Grant Patent
+activity Reject Patent Application
+activity File Trademark Application
+activity Conduct Trademark Search
+activity Examine Trademark Application
+activity Grant Trademark
+activity Reject Trademark Application
+activity File Copyright Registration
+activity Examine Copyright Application
+activity Grant Copyright
+activity Reject Copyright Application
+activity Appeal Decision
+bind File Patent Application: Application ID, Application Fee
+bind Conduct Patent Search: Search Result
+bind Examine Patent Application: Application Status
+bind Grant Patent: Decision
+bind Reject Patent Application: Decision
+bind File Trademark Application: Application ID, Application Fee
+bind Conduct Trademark Search: Search Result
+bind Examine Trademark Application: Application Status
+bind Grant Trademark: Decision
+bind Reject Trademark Application: Decision
+bind File Copyright Registration: Application ID, Application Fee
+bind Examine Copyright Application: Application Status
+bind Grant Copyright: Decision
+bind Reject Copyright Application: Decision
+bind Appeal Decision: Application ID
+Application ID: integer between 1 and 1000000
+Application Fee: float between 50.0 and 10000.0
+Application Status: Pending, Approved, Rejected
+Search Result: Clear, Conflict
+Decision: Granted, Rejected
+Init[File Patent Application] | |
+End[Grant Patent] | |
+End[Reject Patent Application] | |
+Response[Conduct Patent Search, Examine Patent Application] |A.Search Result is Clear | |0,2,d
+Response[Conduct Trademark Search, Examine Trademark Application] |A.Search Result is Clear | |0,2,d
+Response[File Copyright Registration, Examine Copyright Application] | | |0,2,d
+Choice[Examine Patent Application, Grant Patent] |A.Application Status is Approved | |0,1,d
+Choice[Examine Patent Application, Reject Patent Application] |A.Application Status is Rejected | |0,1,d
+Choice[Examine Trademark Application, Grant Trademark] |A.Application Status is Approved | |0,1,d
+Choice[Examine Trademark Application, Reject Trademark Application] |A.Application Status is Rejected | |0,1,d
+Choice[Examine Copyright Application, Grant Copyright] |A.Application Status is Approved | |0,1,d
+Choice[Examine Copyright Application, Reject Copyright Application] |A.Application Status is Rejected | |0,1,d
+Precedence[Appeal Decision, Reject Patent Application] | |A.Application ID == T.Application ID |
+Precedence[Appeal Decision, Reject Trademark Application] | |A.Application ID == T.Application ID |
+Precedence[Appeal Decision, Reject Copyright Application] | |A.Application ID == T.Application ID |

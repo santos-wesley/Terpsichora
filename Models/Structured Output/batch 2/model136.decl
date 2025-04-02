@@ -1,0 +1,50 @@
+activity Conduct Risk Assessment
+activity Implement Security Measures
+activity Monitor Laboratory Environment
+activity Train Personnel
+activity Review Security Policies
+activity Report Security Incidents
+activity Audit Security Systems
+activity Approve Security Budget
+activity Inspect Equipment
+activity Update Security Software
+activity Dispose Hazardous Materials
+activity Conduct Background Checks
+activity Secure Data Storage
+activity Evaluate Security Breach
+activity Develop Contingency Plans
+bind Conduct Risk Assessment: Risk Level
+bind Implement Security Measures: Budget Allocation, Security Status
+bind Monitor Laboratory Environment: Security Status
+bind Train Personnel: Personnel Trained
+bind Report Security Incidents: Incident Severity
+bind Audit Security Systems: Audit Result
+bind Inspect Equipment: Equipment Compliance Rate
+bind Update Security Software: Software Version
+bind Secure Data Storage: Data Storage Type
+bind Evaluate Security Breach: Breach Impact Score
+Risk Level: integer between 1 and 10
+Budget Allocation: float between 1000.0 and 100000.0
+Security Status: Active, Inactive, Pending
+Incident Severity: Low, Medium, High
+Personnel Trained: integer between 0 and 100
+Equipment Compliance Rate: float between 0.0 and 100.0
+Audit Result: Pass, Fail
+Software Version: integer between 1 and 20
+Data Storage Type: Cloud, Local, Hybrid
+Breach Impact Score: float between 0.0 and 10.0
+Existence[Conduct Risk Assessment] | |
+Exactly[Implement Security Measures] | |
+Existence[Report Security Incidents] | |
+Response[Conduct Risk Assessment, Implement Security Measures] | |A.Risk Level > 5 |
+Response[Monitor Laboratory Environment, Report Security Incidents] |A.Security Status is Active |T.Incident Severity in (Medium, High) |0,2,h
+Precedence[Implement Security Measures, Train Personnel] | |T.Personnel Trained >= 50 |
+Co-Existence[Audit Security Systems, Review Security Policies] |A.Audit Result is Pass | |
+Chain Response[Inspect Equipment, Update Security Software] |A.Equipment Compliance Rate < 90.0 |T.Software Version > 5 |0,1,d
+Precedence[Secure Data Storage, Conduct Background Checks] | | |
+Response[Evaluate Security Breach, Develop Contingency Plans] |A.Breach Impact Score > 5.0 | |0,3,d
+Init[Approve Security Budget] | |
+Not Co-Existence[Dispose Hazardous Materials, Secure Data Storage] | | |
+Exclusive Choice[Conduct Risk Assessment, Approve Security Budget] | | |
+Not Chain Succession[Train Personnel, Monitor Laboratory Environment] | | |
+Not Precedence[Update Security Software, Audit Security Systems] | | |

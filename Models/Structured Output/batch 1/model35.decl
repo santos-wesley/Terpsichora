@@ -1,0 +1,32 @@
+activity Identify Conflict
+activity Gather Information
+activity Analyze Conflict
+activity Develop Solutions
+activity Evaluate Solutions
+activity Select Solution
+activity Implement Solution
+activity Monitor Implementation
+activity Review Outcome
+activity Document Resolution
+bind Identify Conflict: Conflict Severity
+bind Gather Information: Information Source
+bind Develop Solutions: Solution Type
+bind Evaluate Solutions: Solution Feasibility
+bind Implement Solution: Implementation Duration
+bind Review Outcome: Outcome Status
+Conflict Severity: integer between 1 and 5
+Information Source: Internal, External
+Solution Feasibility: float between 0.0 and 1.0
+Solution Type: Mediation, Negotiation, Arbitration
+Implementation Duration: integer between 1 and 30
+Outcome Status: Successful, Unsuccessful
+Init[Identify Conflict] | |
+End[Document Resolution] | |
+Response[Gather Information, Analyze Conflict] | | |0,2,d
+Chain Response[Develop Solutions, Evaluate Solutions] | | |
+Precedence[Select Solution, Evaluate Solutions] |A.Solution Feasibility > 0.5 | |
+Response[Select Solution, Implement Solution] | | |0,30,d
+Co-Existence[Monitor Implementation, Review Outcome] | | |
+Responded Existence[Identify Conflict, Develop Solutions] |A.Conflict Severity = 5 |T.Solution Type is Arbitration |
+Existence[Analyze Conflict] | |
+Not Chain Succession[Review Outcome, Document Resolution] | | |

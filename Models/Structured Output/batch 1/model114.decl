@@ -1,0 +1,34 @@
+activity Initialize Quantum Key
+activity Validate Quantum Key
+activity Encrypt Data
+activity Transmit Encrypted Data
+activity Decrypt Data
+activity Monitor Quantum Channel
+activity Authenticate User
+activity Log Security Event
+activity Terminate Session
+bind Initialize Quantum Key: Key Length
+bind Encrypt Data: Data Size, Encryption Status
+bind Transmit Encrypted Data: Transmission Status
+bind Authenticate User: User ID
+bind Monitor Quantum Channel: Channel Status
+bind Log Security Event: Event Severity
+bind Terminate Session: Session Status
+Key Length: integer between 128 and 512
+Data Size: float between 0.1 and 1024.0
+Encryption Status: Success, Failure
+Transmission Status: Sent, Pending, Failed
+User ID: integer between 1 and 10000
+Channel Status: Stable, Unstable
+Event Severity: float between 0.0 and 10.0
+Session Status: Active, Inactive
+Init[Initialize Quantum Key] | |
+End[Terminate Session] | |
+Existence[Validate Quantum Key] | |
+Chain Response[Encrypt Data, Transmit Encrypted Data] |A.Encryption Status is Success | |2,5,m
+Precedence[Encrypt Data, Authenticate User] | | |
+Co-Existence[Monitor Quantum Channel, Log Security Event] | | |
+Response[Monitor Quantum Channel, Log Security Event] |A.Channel Status is Unstable |T.Event Severity > 5 |
+Precedence[Decrypt Data, Transmit Encrypted Data] | |T.Transmission Status is Sent |
+Chain Response[Log Security Event, Terminate Session] | | |1,3,h
+Exclusive Choice[Encrypt Data, Decrypt Data] | | |

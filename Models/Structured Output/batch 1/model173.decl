@@ -1,0 +1,35 @@
+activity Initialize Robot
+activity Calibrate Sensors
+activity Load Materials
+activity Start Production
+activity Perform Quality Check
+activity Adjust Parameters
+activity Shutdown Robot
+activity Log Data
+activity Dispatch Products
+bind Calibrate Sensors: Sensor Accuracy
+bind Load Materials: Material Load
+bind Start Production: Production Status
+bind Perform Quality Check: Quality Score
+bind Adjust Parameters: Parameter Adjustment
+bind Shutdown Robot: Shutdown Reason
+bind Log Data: Data Log Size
+bind Dispatch Products: Dispatch Method
+Sensor Accuracy: integer between 1 and 100
+Material Load: float between 0.1 and 100.0
+Production Status: Not Started, In Progress, Completed
+Quality Score: integer between 0 and 10
+Parameter Adjustment: float between -10.0 and 10.0
+Shutdown Reason: Routine, Emergency, Maintenance
+Data Log Size: float between 0.0 and 500.0
+Dispatch Method: Courier, Drone, Manual
+Init[Initialize Robot] | |
+End[Shutdown Robot] | |
+Precedence[Start Production, Calibrate Sensors] | | |
+Response[Perform Quality Check, Adjust Parameters] | | |0,2,h
+Co-Existence[Log Data, Dispatch Products] | | |
+Chain Response[Load Materials, Start Production] | | |
+Existence[Perform Quality Check] | |
+Not Responded Existence[Shutdown Robot, Start Production] |A.Shutdown Reason is Maintenance |T.Production Status is In Progress |
+Not Chain Succession[Dispatch Products, Dispatch Products] | |A.Dispatch Method != T.Dispatch Method |
+Response[Start Production, Log Data] | | |0,30,m

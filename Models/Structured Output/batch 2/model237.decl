@@ -1,0 +1,50 @@
+activity Identify Social Issue
+activity Research Solutions
+activity Develop Proposal
+activity Seek Funding
+activity Engage Stakeholders
+activity Pilot Project
+activity Evaluate Results
+activity Revise Proposal
+activity Implement Full Scale
+activity Monitor Progress
+activity Report Outcomes
+activity Disseminate Findings
+activity Gather Feedback
+activity Plan Next Steps
+activity Close Project
+bind Identify Social Issue: Stakeholder Type
+bind Research Solutions: Impact Score
+bind Develop Proposal: Proposal Status
+bind Seek Funding: Funding Amount
+bind Pilot Project: Pilot Duration
+bind Evaluate Results: Satisfaction Rating
+bind Gather Feedback: Feedback Type
+bind Monitor Progress: Progress Percentage
+bind Engage Stakeholders: Stakeholder Type
+bind Report Outcomes: Project Status
+Impact Score: integer between 1 and 10
+Funding Amount: float between 1000.0 and 1000000.0
+Stakeholder Type: Government, NGO, Private Sector, Community
+Project Status: Initiated, In Progress, Completed, On Hold
+Pilot Duration: integer between 1 and 365
+Satisfaction Rating: float between 1.0 and 5.0
+Feedback Type: Positive, Negative, Neutral
+Number of Participants: integer between 1 and 1000
+Proposal Status: Draft, Submitted, Approved, Rejected
+Progress Percentage: float between 0.0 and 100.0
+Init[Identify Social Issue] | |
+End[Close Project] | |
+Existence[Develop Proposal] | |
+Response[Engage Stakeholders, Pilot Project] | | |0,30,d
+Precedence[Develop Proposal, Research Solutions] | | |
+Precedence[Implement Full Scale, Evaluate Results] | | |
+Responded Existence[Seek Funding, Develop Proposal] | | |
+Not Precedence[Report Outcomes, Close Project] |A.Project Status is Completed | |
+Precedence[Implement Full Scale, Evaluate Results] |A.Satisfaction Rating > 3 | |
+Chain Response[Implement Full Scale, Monitor Progress] | | |0,7,d
+Precedence[Seek Funding, Develop Proposal] |A.Proposal Status is Approved | |
+Precedence[Plan Next Steps, Gather Feedback] |A.Feedback Type is Positive | |
+Precedence[Develop Proposal, Research Solutions] |A.Impact Score >= 5 | |
+Precedence[Report Outcomes, Monitor Progress] |A.Progress Percentage == 100 | |
+Not Precedence[Disseminate Findings, Report Outcomes] |A.Project Status is On Hold | |

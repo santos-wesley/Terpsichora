@@ -1,0 +1,52 @@
+activity Submit Work Report
+activity Review Work Report
+activity Approve Work Report
+activity Request Revision
+activity Conduct Team Meeting
+activity Assign New Task
+activity Complete Task
+activity Submit Time Sheet
+activity Review Time Sheet
+activity Approve Time Sheet
+activity Request Time Sheet Correction
+activity Provide Feedback
+activity Conduct Performance Review
+activity Update Project Plan
+activity Conduct Training Session
+bind Submit Work Report: Report Quality
+bind Review Work Report: Approval Status
+bind Approve Work Report: Approval Status
+bind Request Revision: Revision Count
+bind Conduct Team Meeting: Meeting Attendance
+bind Assign New Task: Task Complexity
+bind Complete Task: Task Status
+bind Submit Time Sheet: Hours Worked
+bind Review Time Sheet: Approval Status
+bind Provide Feedback: Feedback Type
+bind Conduct Performance Review: Review Outcome
+bind Conduct Training Session: Training Type
+Report Quality: integer between 1 and 5
+Hours Worked: float between 0.0 and 168.0
+Approval Status: Approved, Not Approved
+Task Status: Completed, Pending, In Progress
+Meeting Attendance: integer between 1 and 50
+Feedback Type: Positive, Negative, Neutral
+Task Complexity: float between 1.0 and 10.0
+Training Type: Technical, Soft Skills, Compliance
+Revision Count: integer between 0 and 5
+Review Outcome: Satisfactory, Needs Improvement, Excellent
+Init[Submit Work Report] | |
+End[Approve Work Report] | |
+Response[Submit Work Report, Review Work Report] | | |0,2,d
+Precedence[Approve Work Report, Review Work Report] |A.Approval Status is Approved | |
+Response[Review Work Report, Request Revision] |A.Approval Status is Not Approved | |0,1,d
+Succession[Assign New Task, Complete Task] | | |0,5,d
+Response[Submit Time Sheet, Review Time Sheet] | | |0,3,d
+Precedence[Approve Time Sheet, Review Time Sheet] |A.Approval Status is Approved | |
+Response[Review Time Sheet, Request Time Sheet Correction] |A.Approval Status is Not Approved | |
+Response[Conduct Performance Review, Provide Feedback] | | |
+Response[Conduct Performance Review, Conduct Training Session] |A.Review Outcome is Needs Improvement | |
+Precedence[Assign New Task, Conduct Team Meeting] | | |
+Co-Existence[Submit Work Report, Submit Time Sheet] | | |
+Existence[Conduct Team Meeting] | |
+Existence[Assign New Task] |A.Task Complexity >= 5 |

@@ -1,0 +1,55 @@
+activity Capture Network Traffic
+activity Analyze Packet Content
+activity Identify Anomalies
+activity Generate Report
+activity Review Security Logs
+activity Correlate Events
+activity Perform Deep Packet Inspection
+activity Validate Findings
+activity Archive Evidence
+activity Notify Security Team
+activity Update Threat Intelligence
+activity Conduct Vulnerability Assessment
+activity Initiate Incident Response
+activity Perform Root Cause Analysis
+activity Close Investigation
+bind Capture Network Traffic: Packet Size, Protocol Type
+bind Analyze Packet Content: Anomaly Score, Protocol Type
+bind Identify Anomalies: Anomaly Score, Threat Level
+bind Generate Report: Report Type
+bind Review Security Logs: Log Entries
+bind Correlate Events: Log Entries
+bind Perform Deep Packet Inspection: Inspection Depth
+bind Validate Findings: Anomaly Score
+bind Archive Evidence: Evidence Count
+bind Notify Security Team: Threat Level
+bind Update Threat Intelligence: Threat Level
+bind Conduct Vulnerability Assessment: Threat Level
+bind Initiate Incident Response: Incident Status
+bind Perform Root Cause Analysis: Incident Status
+bind Close Investigation: Incident Status
+Packet Size: integer between 64 and 1500
+Anomaly Score: float between 0.0 and 1.0
+Threat Level: Low, Medium, High
+Protocol Type: TCP, UDP, ICMP
+Log Entries: integer between 1 and 10000
+Response Time: float between 0.1 and 48.0
+Incident Status: Open, In Progress, Closed
+Evidence Count: integer between 1 and 100
+Inspection Depth: float between 0.0 and 100.0
+Report Type: Summary, Detailed
+Init[Capture Network Traffic] | |
+End[Close Investigation] | |
+Existence[Generate Report] | |
+Response[Analyze Packet Content, Identify Anomalies] | | |
+Chain Response[Perform Deep Packet Inspection, Validate Findings] | | |0,5,m
+Co-Existence[Notify Security Team, Update Threat Intelligence] | | |
+Precedence[Correlate Events, Review Security Logs] | | |
+Not Chain Succession[Conduct Vulnerability Assessment, Initiate Incident Response] | | |0,10,m
+Response[Capture Network Traffic, Analyze Packet Content] | | |
+Not Co-Existence[Archive Evidence, Notify Security Team] | | |
+Succession[Perform Root Cause Analysis, Close Investigation] | | |
+Choice[Capture Network Traffic, Perform Deep Packet Inspection] | | |
+Chain Precedence[Generate Report, Validate Findings] | | |0,10,m
+Responded Existence[Identify Anomalies, Notify Security Team] |A.Anomaly Score > 0.8 | |
+Response[Perform Root Cause Analysis, Initiate Incident Response] | | |

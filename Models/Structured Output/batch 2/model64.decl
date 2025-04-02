@@ -1,0 +1,50 @@
+activity Draft Speech
+activity Review Draft
+activity Revise Draft
+activity Approve Draft
+activity Research Topic
+activity Consult Expert
+activity Finalize Speech
+activity Rehearse Speech
+activity Deliver Speech
+activity Gather Feedback
+activity Analyze Feedback
+activity Incorporate Feedback
+activity Select Topic
+activity Outline Speech
+activity Edit Speech
+bind Draft Speech: Draft Version
+bind Approve Draft: Approval Status
+bind Research Topic: Research Depth
+bind Rehearse Speech: Rehearsal Time
+bind Gather Feedback: Feedback Type
+bind Consult Expert: Expert Consultation
+bind Deliver Speech: Audience Size
+bind Finalize Speech: Speech Complexity
+bind Edit Speech: Editing Time
+bind Deliver Speech: Speech Duration
+Draft Version: integer between 1 and 10
+Speech Duration: float between 5.0 and 60.0
+Approval Status: Pending, Approved, Rejected
+Feedback Type: Positive, Negative, Neutral
+Research Depth: integer between 1 and 5
+Rehearsal Time: float between 0.5 and 10.0
+Expert Consultation: Yes, No
+Audience Size: integer between 10 and 1000
+Speech Complexity: Low, Medium, High
+Editing Time: float between 0.5 and 5.0
+Init[Select Topic] | |
+End[Deliver Speech] | |
+Existence[Research Topic] | |
+Exactly2[Revise Draft] | |
+Precedence[Approve Draft, Review Draft] | | |
+Chain Response[Draft Speech, Review Draft] | | |0,30,m
+Co-Existence[Consult Expert, Finalize Speech] | | |
+Response[Gather Feedback, Analyze Feedback] | | |0,2,d
+Precedence[Deliver Speech, Rehearse Speech] | | |
+Not Chain Precedence[Edit Speech, Draft Speech] | | |
+Responded Existence[Approve Draft, Revise Draft] |A.Approval Status is Rejected | |
+Precedence[Rehearse Speech, Finalize Speech] |A.Rehearsal Time >= 1 |A.Speech Complexity is High |
+Precedence[Deliver Speech, Gather Feedback] |A.Audience Size >= 100 |T.Feedback Type is Positive |
+Precedence[Draft Speech, Outline Speech] | | |
+Not Chain Succession[Finalize Speech, Deliver Speech] | | |0,1,h

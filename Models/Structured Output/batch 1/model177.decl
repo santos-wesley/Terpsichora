@@ -1,0 +1,40 @@
+activity Design Building
+activity Select Materials
+activity Conduct Energy Analysis
+activity Obtain Permits
+activity Construct Building
+activity Install Solar Panels
+activity Perform Quality Inspection
+activity Finalize Landscaping
+activity Conduct Waste Audit
+activity Handover Building
+bind Select Materials: Material Type
+bind Conduct Energy Analysis: Energy Efficiency Rating
+bind Obtain Permits: Permit Number
+bind Perform Quality Inspection: Inspection Status
+bind Install Solar Panels: Solar Capacity
+bind Conduct Waste Audit: Waste Reduction Percentage
+bind Finalize Landscaping: Landscaping Type
+bind Construct Building: Construction Cost
+bind Design Building: Design Version
+bind Handover Building: Handover Status
+Material Type: Recycled, Renewable, Non-toxic
+Energy Efficiency Rating: float between 0.0 and 10.0
+Permit Number: integer between 1000 and 9999
+Inspection Status: Passed, Failed
+Solar Capacity: float between 1.0 and 100.0
+Waste Reduction Percentage: integer between 0 and 100
+Landscaping Type: Native, Drought-resistant
+Construction Cost: float between 100.0 and 10000.0
+Design Version: integer between 1 and 10
+Handover Status: Completed, Pending
+Existence[Design Building] | |
+End[Construct Building] | |
+Precedence[Install Solar Panels, Construct Building] | | |0,2,d
+Precedence[Handover Building, Perform Quality Inspection] |A.Handover Status is Completed |T.Inspection Status is Passed |
+Co-Existence[Select Materials, Conduct Energy Analysis] | | |
+Not Chain Succession[Construct Building, Conduct Waste Audit] | | |
+Exactly[Conduct Energy Analysis] | |
+Response[Construct Building, Finalize Landscaping] | | |0,5,d
+Precedence[Construct Building, Obtain Permits] | | |0,30,d
+Choice[Design Building, Select Materials] | | |

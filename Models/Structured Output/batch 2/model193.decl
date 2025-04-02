@@ -1,0 +1,36 @@
+activity Identify Training Needs
+activity Design Training Program
+activity Allocate Training Budget
+activity Schedule Training Sessions
+activity Conduct Training
+activity Evaluate Training Effectiveness
+activity Collect Feedback
+activity Update Training Materials
+activity Certify Participants
+activity Report Training Outcomes
+bind Allocate Training Budget: Budget Amount
+bind Schedule Training Sessions: Training Duration
+bind Conduct Training: Training Type, Participants Count
+bind Collect Feedback: Feedback Rating
+bind Certify Participants: Certification Status
+Budget Amount: integer between 1000 and 1000000
+Training Duration: float between 1.0 and 40.0
+Training Type: Online, In-Person, Hybrid
+Feedback Rating: Excellent, Good, Average, Poor
+Participants Count: integer between 5 and 100
+Certification Status: Certified, Not Certified
+Init[Identify Training Needs] | |
+End[Report Training Outcomes] | |
+Existence[Evaluate Training Effectiveness] | |
+Exactly[Collect Feedback] | |
+Precedence[Conduct Training, Schedule Training Sessions] | | |
+Co-Existence[Identify Training Needs, Design Training Program] | | |
+Response[Schedule Training Sessions, Conduct Training] | | |5,10,d
+Responded Existence[Collect Feedback, Update Training Materials] |A.Feedback Rating in (Average, Poor) | |
+Precedence[Certify Participants, Conduct Training] | | |
+Response[Evaluate Training Effectiveness, Report Training Outcomes] | | |0,2,d
+Precedence[Schedule Training Sessions, Allocate Training Budget] | | |
+Chain Succession[Schedule Training Sessions, Conduct Training] | |A.Training Type == T.Training Type |
+Chain Response[Conduct Training, Collect Feedback] | | |
+Not Co-Existence[Design Training Program, Allocate Training Budget] | | |
+Response[Conduct Training, Certify Participants] |A.Participants Count > 10 | |

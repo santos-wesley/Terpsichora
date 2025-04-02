@@ -1,0 +1,49 @@
+activity Initiate Security Check
+activity Perform Risk Assessment
+activity Approve Security Measures
+activity Implement Security Protocols
+activity Monitor Network Traffic
+activity Detect Anomalies
+activity Respond to Threats
+activity Conduct Security Audit
+activity Update Security Policies
+activity Report Security Incidents
+activity Review Security Logs
+activity Train Security Personnel
+activity Evaluate Security Performance
+activity Authorize System Access
+activity Revoke System Access
+bind Perform Risk Assessment: Risk Level
+bind Monitor Network Traffic: Network Load
+bind Detect Anomalies: Threat Level
+bind Report Security Incidents: Incident Count
+bind Respond to Threats: Response Time
+bind Authorize System Access: Access Status
+bind Conduct Security Audit: Audit Score
+bind Train Security Personnel: Training Level
+bind Evaluate Security Performance: Performance Rating
+Risk Level: integer between 1 and 10
+Network Load: float between 0.1 and 100.0
+Security Status: Secure, At Risk, Compromised
+Threat Level: Low, Medium, High
+Incident Count: integer between 0 and 100
+Response Time: float between 0.1 and 60.0
+Access Status: Authorized, Unauthorized
+Audit Score: integer between 0 and 100
+Training Level: Basic, Intermediate, Advanced
+Performance Rating: float between 0.0 and 5.0
+Init[Initiate Security Check] | |
+Existence[Conduct Security Audit] | |
+Exactly[Approve Security Measures] | |
+Existence[Update Security Policies] | |
+Chain Response[Detect Anomalies, Respond to Threats] | | |0,30,m
+Precedence[Detect Anomalies, Monitor Network Traffic] | | |
+Responded Existence[Respond to Threats, Report Security Incidents] | | |
+Not Co-Existence[Authorize System Access, Revoke System Access] | | |
+Precedence[Evaluate Security Performance, Train Security Personnel] | | |
+Response[Approve Security Measures, Implement Security Protocols] | | |
+Succession[Report Security Incidents, Review Security Logs] | | |
+Chain Succession[Initiate Security Check, Perform Risk Assessment] | | |0,10,m
+Not Chain Succession[Detect Anomalies, Monitor Network Traffic] | | |
+Response[Perform Risk Assessment, Conduct Security Audit] |A.Risk Level > 7 | |
+Chain Response[Detect Anomalies, Respond to Threats] |A.Threat Level is High | |0,15,m

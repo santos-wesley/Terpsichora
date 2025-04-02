@@ -1,0 +1,41 @@
+activity Receive Shipment
+activity Inspect Goods
+activity Store Goods
+activity Update Inventory
+activity Process Order
+activity Pick Goods
+activity Pack Goods
+activity Dispatch Order
+activity Perform Stock Audit
+activity Reorder Stock
+activity Approve Reorder
+activity Receive Return
+activity Inspect Return
+activity Restock Goods
+activity Dispose Goods
+bind Receive Shipment: Quantity, Price
+bind Inspect Goods: Inspection Result
+bind Reorder Stock: Approval Status
+bind Receive Return: Return Reason
+bind Inspect Return: Condition
+Quantity: integer between 1 and 1000
+Price: float between 0.99 and 9999.99
+Condition: New, Used, Damaged
+Approval Status: Approved, Pending, Rejected
+Inspection Result: Passed, Failed
+Return Reason: Defective, Unwanted, Wrong Item
+Init[Receive Shipment] | |
+End[Dispatch Order] | |
+Existence[Perform Stock Audit] | |
+Precedence[Store Goods, Inspect Goods] | | |
+Chain Response[Inspect Goods, Store Goods] |A.Inspection Result is Passed | |0,10,m
+Response[Approve Reorder, Receive Shipment] |A.Approval Status is Approved | |0,7,d
+Precedence[Restock Goods, Inspect Return] | | |
+Response[Inspect Return, Dispose Goods] |A.Condition is Damaged | |0,2,d
+Precedence[Pack Goods, Pick Goods] | | |
+Precedence[Dispatch Order, Pack Goods] | | |
+Response[Receive Return, Restock Goods] |A.Return Reason is Wrong Item | |0,5,d
+Co-Existence[Reorder Stock, Approve Reorder] | | |
+Not Response[Inspect Goods, Store Goods] |A.Inspection Result is Failed | |
+Not Response[Receive Return, Restock Goods] |A.Return Reason is Unwanted | |
+Choice[Receive Shipment, Receive Return] | | |

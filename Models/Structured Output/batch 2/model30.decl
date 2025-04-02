@@ -1,0 +1,55 @@
+activity Initiate Security Assessment
+activity Identify Vulnerabilities
+activity Implement Security Controls
+activity Monitor Security Events
+activity Conduct Penetration Testing
+activity Review Security Policies
+activity Perform Risk Analysis
+activity Update Security Configuration
+activity Generate Security Report
+activity Approve Security Measures
+activity Train Security Personnel
+activity Audit Security Compliance
+activity Respond to Security Incidents
+activity Evaluate Third-Party Security
+activity Decommission Security Tools
+bind Initiate Security Assessment: Risk Level, Security Status
+bind Identify Vulnerabilities: Vulnerability Count
+bind Implement Security Controls: Mitigation Cost, Security Status
+bind Monitor Security Events: Incident Count
+bind Conduct Penetration Testing: Testing Coverage
+bind Review Security Policies: Compliance Level
+bind Perform Risk Analysis: Risk Level
+bind Update Security Configuration: Security Status
+bind Generate Security Report: Compliance Level
+bind Approve Security Measures: Security Status
+bind Train Security Personnel: Training Level
+bind Audit Security Compliance: Compliance Level
+bind Respond to Security Incidents: Response Time
+bind Evaluate Third-Party Security: Compliance Level
+bind Decommission Security Tools: Tool Status
+Risk Level: integer between 1 and 10
+Mitigation Cost: float between 100.0 and 10000.0
+Security Status: Pending, In Progress, Completed
+Compliance Level: Non-Compliant, Partially Compliant, Fully Compliant
+Incident Count: integer between 0 and 100
+Response Time: float between 0.1 and 48.0
+Training Level: Basic, Intermediate, Advanced
+Vulnerability Count: integer between 0 and 500
+Testing Coverage: float between 0.0 and 100.0
+Tool Status: Active, Inactive, Decommissioned
+Init[Initiate Security Assessment] | |
+Existence[Respond to Security Incidents] | |
+Exactly[Review Security Policies] | |
+Response[Identify Vulnerabilities, Implement Security Controls] | | |0,2,d
+Precedence[Implement Security Controls, Approve Security Measures] | | |
+Response[Implement Security Controls, Conduct Penetration Testing] | | |
+Succession[Initiate Security Assessment, Update Security Configuration] | | |
+Response[Conduct Penetration Testing, Generate Security Report] | | |
+Precedence[Audit Security Compliance, Train Security Personnel] | | |
+Not Chain Response[Monitor Security Events, Respond to Security Incidents] | | |
+Precedence[Decommission Security Tools, Evaluate Third-Party Security] | | |
+Exclusive Choice[Generate Security Report, Audit Security Compliance] | | |
+Precedence[Identify Vulnerabilities, Perform Risk Analysis] | | |
+Co-Existence[Implement Security Controls, Update Security Configuration] | | |
+Response[Initiate Security Assessment, Monitor Security Events] | | |0,48,h

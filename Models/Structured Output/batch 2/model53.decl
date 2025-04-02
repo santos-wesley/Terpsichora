@@ -1,0 +1,50 @@
+activity Enroll Student
+activity Assign Instructor
+activity Schedule Class
+activity Conduct Class
+activity Submit Assignment
+activity Grade Assignment
+activity Provide Feedback
+activity Take Exam
+activity Grade Exam
+activity Publish Results
+activity Request Extension
+activity Approve Extension
+activity Attend Workshop
+activity Evaluate Workshop
+activity Issue Certificate
+bind Enroll Student: Student ID
+bind Assign Instructor: Instructor ID
+bind Submit Assignment: Student ID
+bind Grade Assignment: Assignment Grade
+bind Take Exam: Student ID
+bind Grade Exam: Exam Grade
+bind Request Extension: Extension Status
+bind Attend Workshop: Workshop ID
+bind Evaluate Workshop: Workshop Rating
+bind Issue Certificate: Certificate Type
+Student ID: integer between 1 and 10000
+Instructor ID: integer between 1 and 500
+Assignment Grade: float between 0.0 and 100.0
+Exam Grade: float between 0.0 and 100.0
+Course Status: Active, Completed, Cancelled
+Extension Status: Pending, Approved, Denied
+Feedback Type: Positive, Neutral, Negative
+Workshop ID: integer between 1 and 200
+Workshop Rating: float between 1.0 and 5.0
+Certificate Type: Completion, Excellence
+Init[Enroll Student] | |
+End[Issue Certificate] | |
+Existence[Submit Assignment] | |
+Absence2[Request Extension] | |
+Precedence[Schedule Class, Assign Instructor] | | |
+Chain Response[Conduct Class, Provide Feedback] | | |0,2,d
+Response[Take Exam, Grade Exam] | | |
+Chain Response[Approve Extension, Submit Assignment] | | |0,5,d
+Chain Succession[Attend Workshop, Evaluate Workshop] | | |0,1,d
+Precedence[Provide Feedback, Grade Assignment] | | |
+Response[Attend Workshop, Issue Certificate] | |A.Workshop ID == T.Workshop ID |
+Chain Succession[Submit Assignment, Grade Assignment] |A.Student ID == T.Student ID | |
+Exclusive Choice[Take Exam, Request Extension] | | |
+Chain Response[Publish Results, Issue Certificate] | | |0,3,d
+Responded Existence[Enroll Student, Assign Instructor] |A.Course Status is Active | |

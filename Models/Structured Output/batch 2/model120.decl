@@ -1,0 +1,55 @@
+activity Receive Records
+activity Assess Records
+activity Catalog Records
+activity Preserve Records
+activity Store Records
+activity Retrieve Records
+activity Digitize Records
+activity Dispose Records
+activity Review Access Requests
+activity Grant Access
+activity Deny Access
+activity Audit Records
+activity Update Records
+activity Transfer Records
+activity Report Archival Status
+bind Receive Records: Record ID, Record Status
+bind Assess Records: Record ID, Preservation Method
+bind Catalog Records: Record ID, Record Status
+bind Preserve Records: Record ID, Preservation Method
+bind Store Records: Record ID, Record Status
+bind Retrieve Records: Record ID, Access Level
+bind Digitize Records: Record ID, Digitization Cost
+bind Dispose Records: Record ID, Disposal Method
+bind Review Access Requests: Record ID, Access Level
+bind Grant Access: Record ID, Access Level
+bind Deny Access: Record ID, Access Level
+bind Audit Records: Audit Frequency
+bind Update Records: Record ID, Record Status
+bind Transfer Records: Record ID, Transfer Method
+bind Report Archival Status: Record ID, Record Status
+Record ID: integer between 1 and 1000000
+Record Size: float between 0.1 and 5000.0
+Record Status: Received, Assessed, Cataloged, Preserved, Stored, Disposed
+Access Level: Public, Restricted, Confidential
+Retention Period: integer between 1 and 100
+Preservation Method: Digital, Physical, Hybrid
+Digitization Cost: float between 10.0 and 10000.0
+Disposal Method: Shredding, Incineration, Recycling
+Audit Frequency: integer between 1 and 24
+Transfer Method: Physical, Digital
+Init[Receive Records] | |
+End[Store Records] | |
+Existence[Audit Records] |A.Audit Frequency <= 12 |
+Absence5[Dispose Records] | |
+Response[Assess Records, Preserve Records] | |A.Record ID == T.Record ID |
+Chain Response[Assess Records, Catalog Records] | |A.Record ID == T.Record ID |0,5,m
+Succession[Preserve Records, Store Records] | |A.Record ID == T.Record ID |0,2,h
+Not Chain Succession[Retrieve Records, Dispose Records] | |A.Record ID == T.Record ID |
+Not Succession[Grant Access, Deny Access] | |A.Record ID == T.Record ID |
+Chain Response[Retrieve Records, Digitize Records] | |A.Record ID == T.Record ID |0,1,d
+Precedence[Assess Records, Transfer Records] | |A.Preservation Method == T.Transfer Method |
+Response[Update Records, Report Archival Status] | |A.Record ID == T.Record ID |0,3,d
+Exclusive Choice[Grant Access, Deny Access] | |A.Record ID == T.Record ID |
+Precedence[Review Access Requests, Grant Access] | |A.Record ID == T.Record ID |0,12,h
+Precedence[Review Access Requests, Deny Access] | |A.Record ID == T.Record ID |0,12,h

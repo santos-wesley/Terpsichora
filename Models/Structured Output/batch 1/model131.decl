@@ -1,0 +1,26 @@
+activity Receive Service Request
+activity Assign Technician
+activity Schedule Service Appointment
+activity Perform Service
+activity Update Service Status
+activity Close Service Request
+bind Receive Service Request: Request ID
+bind Assign Technician: Technician Skill Level
+bind Perform Service: Service Cost
+bind Update Service Status: Service Status
+bind Close Service Request: Customer Rating
+Request ID: integer between 1 and 10000
+Technician Skill Level: Junior, Mid, Senior
+Service Cost: float between 50.0 and 5000.0
+Service Status: Pending, In Progress, Completed, Closed
+Customer Rating: integer between 1 and 5
+Init[Receive Service Request] | |
+End[Close Service Request] | |
+Precedence[Perform Service, Assign Technician] | | |
+Chain Response[Perform Service, Update Service Status] | | |0,2,h
+Not Co-Existence[Receive Service Request, Close Service Request] | | |
+Response[Assign Technician, Schedule Service Appointment] | | |
+Chain Succession[Schedule Service Appointment, Perform Service] | | |
+Existence[Update Service Status] | |
+Co-Existence[Assign Technician, Update Service Status] | | |
+Not Chain Succession[Perform Service, Close Service Request] | | |

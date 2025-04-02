@@ -1,0 +1,50 @@
+activity Identify Target Market
+activity Develop Sales Plan
+activity Set Sales Goals
+activity Allocate Budget
+activity Train Sales Team
+activity Launch Marketing Campaign
+activity Monitor Sales Performance
+activity Adjust Sales Strategy
+activity Evaluate Customer Feedback
+activity Close Sales Deals
+activity Conduct Sales Review
+activity Generate Sales Report
+activity Hold Sales Meeting
+activity Identify New Opportunities
+activity Implement Sales Incentives
+bind Set Sales Goals: Sales Goals
+bind Allocate Budget: Budget Allocation
+bind Identify Target Market: Market Type
+bind Launch Marketing Campaign: Campaign Status
+bind Train Sales Team: Team Size
+bind Monitor Sales Performance: Performance Score
+bind Evaluate Customer Feedback: Feedback Type
+bind Close Sales Deals: Deal Status
+bind Implement Sales Incentives: Incentive Amount
+bind Identify New Opportunities: Opportunities Identified
+Sales Goals: integer between 10 and 1000
+Budget Allocation: float between 1000.0 and 100000.0
+Market Type: B2B, B2C, Retail, Wholesale
+Campaign Status: Planned, Active, Completed, Cancelled
+Team Size: integer between 1 and 50
+Performance Score: float between 0.0 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Deal Status: Open, Closed, Pending, Lost
+Incentive Amount: float between 50.0 and 5000.0
+Opportunities Identified: integer between 0 and 100
+Init[Identify Target Market] | |
+End[Generate Sales Report] | |
+Existence[Set Sales Goals] | |
+Absence3[Adjust Sales Strategy] | |
+Precedence[Launch Marketing Campaign, Develop Sales Plan] | | |
+Response[Launch Marketing Campaign, Monitor Sales Performance] |A.Campaign Status is Active | |0,30,d
+Chain Response[Train Sales Team, Launch Marketing Campaign] | | |
+Co-Existence[Evaluate Customer Feedback, Close Sales Deals] | | |
+Not Chain Succession[Hold Sales Meeting, Generate Sales Report] | | |
+Not Precedence[Identify New Opportunities, Close Sales Deals] | | |
+Choice[Implement Sales Incentives, Conduct Sales Review] | | |
+Exclusive Choice[Adjust Sales Strategy, Hold Sales Meeting] | | |
+Responded Existence[Train Sales Team, Allocate Budget] |A.Team Size >= 5 | |
+Response[Monitor Sales Performance, Implement Sales Incentives] |A.Performance Score > 80 | |0,10,d
+Precedence[Develop Sales Plan, Allocate Budget] | |T.Budget Allocation > 10000 |

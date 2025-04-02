@@ -1,0 +1,39 @@
+activity Receive Order
+activity Check Inventory
+activity Schedule Production
+activity Procure Materials
+activity Manufacture Product
+activity Perform Quality Check
+activity Package Product
+activity Dispatch Product
+activity Receive Payment
+activity Update Inventory
+bind Receive Order: Order Quantity, Order Status
+bind Check Inventory: Inventory Level
+bind Procure Materials: Material Cost
+bind Manufacture Product: Production Time
+bind Perform Quality Check: Quality Grade
+bind Package Product: Packaging Cost
+bind Dispatch Product: Dispatch Method
+bind Receive Payment: Payment Status
+bind Update Inventory: Inventory Level
+Order Quantity: integer between 1 and 1000
+Material Cost: float between 0.5 and 10000.0
+Order Status: Pending, Processing, Completed, Cancelled
+Quality Grade: A, B, C, D
+Inventory Level: integer between 0 and 5000
+Product Price: float between 10.0 and 5000.0
+Payment Status: Pending, Completed, Failed
+Production Time: integer between 1 and 100
+Packaging Cost: float between 0.1 and 100.0
+Dispatch Method: Air, Sea, Land
+Init[Receive Order] | |
+End[Update Inventory] | |
+Chain Response[Receive Order, Check Inventory] | | |0,2,h
+Precedence[Manufacture Product, Procure Materials] | | |
+Chain Succession[Manufacture Product, Perform Quality Check] | | |
+Response[Perform Quality Check, Package Product] | | |0,1,d
+Chain Succession[Package Product, Dispatch Product] | | |
+Response[Dispatch Product, Receive Payment] | | |
+Responded Existence[Receive Payment, Receive Order] |A.Payment Status is Completed |A.Order Status is Completed |
+Existence[Check Inventory] | |

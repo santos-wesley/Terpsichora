@@ -1,0 +1,48 @@
+activity Conduct Survey
+activity Analyze Data
+activity Draft Policy
+activity Review Policy
+activity Approve Policy
+activity Implement Policy
+activity Monitor Policy
+activity Amend Policy
+activity Conduct Debate
+activity Vote on Policy
+activity Publish Findings
+activity Hold Press Conference
+activity Gather Feedback
+activity Conduct Public Consultation
+activity Finalize Policy
+bind Conduct Survey: Survey Sample Size
+bind Draft Policy: Policy Budget, Policy Status
+bind Conduct Debate: Debate Duration
+bind Gather Feedback: Feedback Type
+bind Vote on Policy: Vote Outcome
+bind Amend Policy: Amendment Count
+bind Conduct Public Consultation: Consultation Type
+bind Hold Press Conference: Media Coverage
+Survey Sample Size: integer between 100 and 10000
+Policy Budget: float between 10000.0 and 1000000.0
+Policy Status: Draft, Reviewed, Approved, Implemented
+Feedback Type: Positive, Negative, Neutral
+Debate Duration: integer between 30 and 180
+Approval Rating: float between 0.0 and 100.0
+Vote Outcome: Accepted, Rejected
+Amendment Count: integer between 0 and 10
+Consultation Type: Online, In-person
+Media Coverage: float between 0.0 and 100.0
+Existence[Conduct Survey] | |
+Exactly[Finalize Policy] | |
+Precedence[Approve Policy, Review Policy] | | |
+Response[Draft Policy, Implement Policy] | | |0,30,d
+Chain Response[Conduct Debate, Vote on Policy] | | |0,1,d
+Succession[Implement Policy, Monitor Policy] | | |0,15,d
+Responded Existence[Gather Feedback, Amend Policy] |A.Feedback Type in (Negative, Neutral) | |
+Not Chain Succession[Approve Policy, Hold Press Conference] | | |
+Precedence[Amend Policy, Implement Policy] | | |
+Precedence[Finalize Policy, Conduct Public Consultation] | | |
+Succession[Finalize Policy, Publish Findings] | | |0,5,d
+Not Co-Existence[Approve Policy, Vote on Policy] |A.Policy Status is Approved |T.Vote Outcome is Rejected |
+Co-Existence[Draft Policy, Implement Policy] |A.Policy Budget > 50000 | |
+Precedence[Vote on Policy, Conduct Debate] | |T.Debate Duration <= 120 |
+Precedence[Hold Press Conference, Publish Findings] | |T.Media Coverage >= 50 |

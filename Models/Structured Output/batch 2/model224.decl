@@ -1,0 +1,48 @@
+activity Design Circuit
+activity Select Components
+activity Assemble Circuit
+activity Test Circuit
+activity Debug Circuit
+activity Document Design
+activity Review Design
+activity Approve Design
+activity Order Components
+activity Receive Components
+activity Inspect Components
+activity Install Circuit
+activity Monitor Performance
+activity Maintain Circuit
+activity Upgrade Circuit
+bind Design Circuit: Circuit Type
+bind Select Components: Component Quantity
+bind Test Circuit: Test Iterations
+bind Approve Design: Design Approval
+bind Order Components: Component Status
+bind Debug Circuit: Debug Attempts
+bind Monitor Performance: Power Consumption
+bind Install Circuit: Installation Status
+Component Quantity: integer between 1 and 1000
+Voltage Level: float between 0.1 and 240.0
+Component Status: Available, Ordered, Received
+Design Approval: Pending, Approved, Rejected
+Test Iterations: integer between 1 and 50
+Power Consumption: float between 0.1 and 500.0
+Circuit Type: Analog, Digital, Mixed
+Debug Attempts: integer between 0 and 20
+Temperature Range: float between -40.0 and 85.0
+Installation Status: Not Started, In Progress, Completed
+Init[Design Circuit] | |
+End[Approve Design] | |
+Existence3[Test Circuit] | |
+Absence5[Debug Circuit] | |
+Chain Response[Select Components, Order Components] | | |0,2,d
+Response[Order Components, Receive Components] | | |
+Chain Succession[Receive Components, Inspect Components] | | |
+Response[Test Circuit, Debug Circuit] | | |
+Co-Existence[Design Circuit, Review Design] | | |
+Not Chain Succession[Assemble Circuit, Test Circuit] | | |
+Not Precedence[Install Circuit, Approve Design] | | |
+Responded Existence[Install Circuit, Monitor Performance] | | |
+Not Co-Existence[Upgrade Circuit, Maintain Circuit] | | |
+Responded Existence[Review Design, Document Design] | | |
+Exclusive Choice[Select Components, Order Components] | | |

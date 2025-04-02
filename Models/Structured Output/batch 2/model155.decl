@@ -1,0 +1,49 @@
+activity Submit Asylum Application
+activity Conduct Initial Interview
+activity Perform Background Check
+activity Evaluate Application
+activity Issue Decision
+activity Schedule Appeal Hearing
+activity Conduct Appeal Hearing
+activity Finalize Appeal Decision
+activity Provide Legal Assistance
+activity Assign Case Officer
+activity Notify Applicant
+activity Collect Biometric Data
+activity Conduct Health Screening
+activity Arrange Accommodation
+activity Issue Travel Document
+bind Submit Asylum Application: Application ID, Application Status
+bind Conduct Initial Interview: Interview Duration
+bind Perform Background Check: Risk Assessment Score
+bind Issue Decision: Decision Outcome
+bind Conduct Health Screening: Health Status
+bind Arrange Accommodation: Accommodation Cost
+bind Provide Legal Assistance: Legal Assistance Type
+bind Conduct Appeal Hearing: Appeal Attempts
+bind Collect Biometric Data: Biometric Match Score
+Application ID: integer between 1 and 1000000
+Application Status: Submitted, Under Review, Approved, Rejected
+Risk Assessment Score: float between 0.0 and 10.0
+Decision Outcome: Granted, Denied, Pending
+Interview Duration: integer between 30 and 180
+Health Status: Healthy, Needs Attention, Critical
+Accommodation Cost: float between 50.0 and 5000.0
+Legal Assistance Type: Basic, Comprehensive
+Appeal Attempts: integer between 0 and 3
+Biometric Match Score: float between 0.0 and 1.0
+Existence[Submit Asylum Application] | |
+Exactly[Issue Decision] | |
+Precedence[Evaluate Application, Conduct Initial Interview] | | |
+Response[Conduct Appeal Hearing, Finalize Appeal Decision] | | |0,2,d
+Co-Existence[Collect Biometric Data, Perform Background Check] | | |
+Responded Existence[Perform Background Check, Provide Legal Assistance] |A.Risk Assessment Score > 5 | |
+Response[Submit Asylum Application, Arrange Accommodation] | | |0,48,h
+Not Responded Existence[Conduct Appeal Hearing, Conduct Appeal Hearing] |A.Appeal Attempts > 3 | |
+Chain Response[Conduct Initial Interview, Conduct Health Screening] | | |0,1,h
+Response[Issue Decision, Notify Applicant] | | |0,24,h
+Not Co-Existence[Issue Travel Document, Issue Decision] | |T.Decision Outcome is Denied |
+Precedence[Conduct Initial Interview, Assign Case Officer] | | |
+Precedence[Perform Background Check, Collect Biometric Data] | |T.Biometric Match Score > 0.5 |
+Not Chain Succession[Conduct Initial Interview, Conduct Health Screening] | | |
+Exclusive Choice[Issue Decision, Provide Legal Assistance] |A.Decision Outcome is Granted |T.Legal Assistance Type is Comprehensive |

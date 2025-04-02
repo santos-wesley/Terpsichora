@@ -1,0 +1,41 @@
+activity Submit Benefit Request
+activity Review Benefit Request
+activity Approve Benefit Request
+activity Reject Benefit Request
+activity Notify Employee
+activity Process Benefit Payment
+activity Audit Benefit Process
+activity Update Benefit Records
+activity Request Additional Information
+activity Receive Additional Information
+bind Submit Benefit Request: Request ID, Benefit Type, Benefit Amount
+bind Review Benefit Request: Request ID, Request Status
+bind Approve Benefit Request: Request ID, Request Status
+bind Reject Benefit Request: Request ID, Request Status
+bind Notify Employee: Request ID, Request Status
+bind Process Benefit Payment: Request ID, Benefit Amount
+bind Audit Benefit Process: Request ID
+bind Update Benefit Records: Request ID, Request Status
+bind Request Additional Information: Request ID
+bind Receive Additional Information: Request ID
+Request ID: integer between 1 and 10000
+Benefit Type: Health, Retirement, Education, Travel
+Request Status: Pending, Approved, Rejected, In Review
+Benefit Amount: float between 100.0 and 10000.0
+Employee Level: Junior, Mid, Senior, Executive
+Processing Time: integer between 1 and 30
+Init[Submit Benefit Request] | |
+End[Update Benefit Records] | |
+Precedence[Approve Benefit Request, Review Benefit Request] | |A.Request ID == T.Request ID |
+Precedence[Reject Benefit Request, Review Benefit Request] | |A.Request ID == T.Request ID |
+Response[Approve Benefit Request, Notify Employee] | |A.Request ID == T.Request ID |0,2,d
+Response[Reject Benefit Request, Notify Employee] | |A.Request ID == T.Request ID |0,2,d
+Precedence[Process Benefit Payment, Approve Benefit Request] | |A.Request ID == T.Request ID |0,5,d
+Response[Process Benefit Payment, Audit Benefit Process] | |A.Request ID == T.Request ID |0,10,d
+Response[Request Additional Information, Receive Additional Information] | |A.Request ID == T.Request ID |0,15,d
+Exclusive Choice[Approve Benefit Request, Reject Benefit Request] | |A.Request ID == T.Request ID |
+Response[Submit Benefit Request, Review Benefit Request] | |A.Request ID == T.Request ID |0,30,d
+Choice[Review Benefit Request, Approve Benefit Request] | |A.Request ID == T.Request ID |
+Choice[Review Benefit Request, Reject Benefit Request] | |A.Request ID == T.Request ID |
+Existence[Audit Benefit Process] | |
+Absence2[Submit Benefit Request] | |

@@ -1,0 +1,31 @@
+activity Identify Target Audience
+activity Develop Green Product
+activity Design Marketing Strategy
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Collect Customer Feedback
+activity Analyze Feedback
+activity Improve Product
+activity Report Results
+bind Identify Target Audience: Audience Type
+bind Develop Green Product: Product Status
+bind Design Marketing Strategy: Budget
+bind Launch Marketing Campaign: Campaign Status
+bind Monitor Campaign Performance: Performance Metric
+bind Collect Customer Feedback: Feedback Score
+Audience Type: Eco-conscious, General Public, Corporate
+Budget: float between 1000.0 and 50000.0
+Feedback Score: integer between 1 and 10
+Product Status: In Development, Completed, Improvement Needed
+Campaign Status: Not Started, Ongoing, Completed
+Performance Metric: float between 0.0 and 100.0
+Init[Identify Target Audience] | |
+End[Report Results] | |
+Precedence[Launch Marketing Campaign, Develop Green Product] | |A.Product Status is Completed |
+Response[Collect Customer Feedback, Analyze Feedback] | | |0,2,d
+Chain Succession[Design Marketing Strategy, Launch Marketing Campaign] | | |0,1,d
+Co-Existence[Monitor Campaign Performance, Collect Customer Feedback] | | |
+Not Chain Succession[Analyze Feedback, Improve Product] | | |
+Choice[Develop Green Product, Design Marketing Strategy] | | |
+Not Precedence[Launch Marketing Campaign, Design Marketing Strategy] | |T.Budget < 5000 |
+Existence[Monitor Campaign Performance] |A.Performance Metric > 0 |

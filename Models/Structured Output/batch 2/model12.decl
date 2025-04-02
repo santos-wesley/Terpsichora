@@ -1,0 +1,50 @@
+activity Define Axiom
+activity Propose Theorem
+activity Prove Theorem
+activity Review Proof
+activity Publish Paper
+activity Conduct Peer Review
+activity Revise Paper
+activity Submit Final Paper
+activity Present Findings
+activity Attend Conference
+activity Collaborate with Peers
+activity Develop Hypothesis
+activity Test Hypothesis
+activity Analyze Data
+activity Draw Conclusion
+bind Propose Theorem: Complexity Level
+bind Prove Theorem: Proof Length
+bind Review Proof: Review Status
+bind Attend Conference: Conference Type
+bind Conduct Peer Review: Peer Review Score
+bind Analyze Data: Data Accuracy
+bind Collaborate with Peers: Collaboration Type
+bind Develop Hypothesis: Hypothesis Count
+bind Submit Final Paper: Publication Status
+bind Present Findings: Funding Amount
+Complexity Level: integer between 1 and 10
+Proof Length: float between 0.5 and 100.0
+Review Status: Pending, Approved, Rejected
+Conference Type: International, National, Local
+Peer Review Score: integer between 1 and 5
+Data Accuracy: float between 0.0 and 100.0
+Collaboration Type: Formal, Informal
+Hypothesis Count: integer between 1 and 20
+Publication Status: Draft, Submitted, Published
+Funding Amount: float between 0.0 and 500.0
+Init[Define Axiom] | |
+End[Draw Conclusion] | |
+Existence[Propose Theorem] | |
+Exactly2[Attend Conference] | |
+Response[Propose Theorem, Prove Theorem] |A.Complexity Level > 5 | |0,2,d
+Response[Conduct Peer Review, Revise Paper] |A.Review Status is Rejected | |0,5,d
+Precedence[Submit Final Paper, Revise Paper] |A.Publication Status is Submitted | |
+Response[Attend Conference, Present Findings] |A.Conference Type is International | |0,10,d
+Precedence[Develop Hypothesis, Collaborate with Peers] |A.Hypothesis Count > 5 | |
+Response[Conduct Peer Review, Publish Paper] |A.Review Status is Approved | |0,30,d
+Co-Existence[Analyze Data, Test Hypothesis] |A.Data Accuracy > 90 | |
+Not Chain Response[Propose Theorem, Prove Theorem] |A.Complexity Level < 5 | |
+Not Responded Existence[Conduct Peer Review, Publish Paper] |A.Review Status is Rejected | |
+Choice[Develop Hypothesis, Test Hypothesis] | | |
+Exclusive Choice[Collaborate with Peers, Attend Conference] | | |

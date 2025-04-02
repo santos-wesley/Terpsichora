@@ -1,0 +1,27 @@
+activity Post Job Opening
+activity Screen Resumes
+activity Conduct Interview
+activity Evaluate Candidate
+activity Make Offer
+activity Onboard Employee
+activity Close Job Opening
+bind Post Job Opening: Job Status
+bind Screen Resumes: Experience Years
+bind Conduct Interview: Interview Result
+bind Make Offer: Expected Salary, Offer Status
+bind Close Job Opening: Job Status
+Experience Years: integer between 0 and 40
+Expected Salary: float between 20.0 and 200.0
+Interview Result: Pass, Fail
+Job Status: Open, Closed
+Offer Status: Accepted, Rejected, Pending
+Init[Post Job Opening] | |
+End[Close Job Opening] | |
+Precedence[Make Offer, Conduct Interview] | | |
+Chain Response[Conduct Interview, Evaluate Candidate] | | |0,2,d
+Response[Evaluate Candidate, Make Offer] |A.Interview Result is Pass | |
+Succession[Onboard Employee, Close Job Opening] | | |
+Not Response[Make Offer, Close Job Opening] |A.Expected Salary > 150.0 | |
+Precedence[Make Offer, Post Job Opening] | |A.Job Status is Open |
+Chain Response[Screen Resumes, Conduct Interview] |A.Experience Years > 5 | |0,5,d
+Chain Response[Make Offer, Onboard Employee] |A.Offer Status is Accepted | |0,10,d

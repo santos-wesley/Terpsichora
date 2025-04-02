@@ -1,0 +1,38 @@
+activity Report Incident
+activity Categorize Incident
+activity Prioritize Incident
+activity Assign Incident
+activity Investigate Incident
+activity Resolve Incident
+activity Review Resolution
+activity Close Incident
+activity Notify Stakeholders
+activity Escalate Incident
+bind Report Incident: Incident ID, Incident Type
+bind Categorize Incident: Severity Level
+bind Prioritize Incident: Priority Level
+bind Assign Incident: Assigned Team ID
+bind Investigate Incident: Investigation Time
+bind Resolve Incident: Resolution Time, Resolution Status
+bind Notify Stakeholders: Stakeholder Count
+bind Escalate Incident: Escalation Level
+Incident ID: integer between 1 and 10000
+Incident Type: Network, Software, Hardware, Security
+Severity Level: Low, Medium, High, Critical
+Resolution Time: float between 0.1 and 100.0
+Priority Level: P1, P2, P3, P4
+Assigned Team ID: integer between 1 and 100
+Resolution Status: Resolved, Unresolved
+Stakeholder Count: integer between 1 and 50
+Investigation Time: float between 0.1 and 50.0
+Escalation Level: Level 1, Level 2, Level 3
+Init[Report Incident] | |
+End[Close Incident] | |
+Alternate Succession[Report Incident, Categorize Incident] | | |0,10,m
+Response[Categorize Incident, Prioritize Incident] | | |0,5,m
+Chain Response[Prioritize Incident, Assign Incident] | | |0,2,m
+Precedence[Resolve Incident, Investigate Incident] | | |0,24,h
+Response[Resolve Incident, Notify Stakeholders] |A.Resolution Status is Resolved | |0,1,h
+Not Precedence[Escalate Incident, Resolve Incident] |A.Resolution Time > 48 | |
+Chain Succession[Review Resolution, Close Incident] | | |0,1,d
+Existence[Investigate Incident] | |

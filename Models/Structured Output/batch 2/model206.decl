@@ -1,0 +1,50 @@
+activity Conduct Keyword Research
+activity Optimize Website Content
+activity Build Backlinks
+activity Monitor Website Traffic
+activity Analyze Competitor Strategies
+activity Update Meta Tags
+activity Perform Technical SEO Audit
+activity Create SEO Reports
+activity Improve Page Load Speed
+activity Implement Schema Markup
+activity Optimize Images
+activity Conduct A/B Testing
+activity Engage in Social Media Promotion
+activity Review Analytics Data
+activity Update Content Regularly
+bind Conduct Keyword Research: Keyword Volume
+bind Optimize Website Content: Content Update Frequency
+bind Build Backlinks: Backlink Quality
+bind Monitor Website Traffic: Traffic Increase
+bind Analyze Competitor Strategies: Competitor Strategy Type
+bind Update Meta Tags: Meta Tag Status
+bind Perform Technical SEO Audit: Page Load Time
+bind Improve Page Load Speed: Page Load Time
+bind Implement Schema Markup: Schema Elements
+bind Optimize Images: Image Optimization Score
+Keyword Volume: integer between 100 and 1000000
+Page Load Time: float between 0.5 and 10.0
+Backlink Quality: Low, Medium, High
+Traffic Increase: integer between 0 and 500
+Competitor Strategy Type: Content, Technical, Backlink
+Bounce Rate: float between 0.0 and 100.0
+Meta Tag Status: Updated, Outdated
+Schema Elements: integer between 0 and 100
+Image Optimization Score: float between 0.0 and 100.0
+Content Update Frequency: Daily, Weekly, Monthly
+Existence[Conduct Keyword Research] | |
+End[Create SEO Reports] | |
+Response[Optimize Website Content, Update Meta Tags] | | |
+Co-Existence[Build Backlinks, Monitor Website Traffic] | | |
+Chain Succession[Perform Technical SEO Audit, Improve Page Load Speed] | | |
+Precedence[Conduct A/B Testing, Analyze Competitor Strategies] | | |
+Not Co-Existence[Engage in Social Media Promotion, Review Analytics Data] | | |
+Not Response[Conduct Keyword Research, Analyze Competitor Strategies] | | |
+Responded Existence[Optimize Website Content, Update Content Regularly] | | |
+Not Chain Precedence[Conduct A/B Testing, Review Analytics Data] | | |
+Response[Implement Schema Markup, Optimize Images] | | |1,3,d
+Response[Build Backlinks, Monitor Website Traffic] |A.Backlink Quality is High | |2,5,h
+Response[Improve Page Load Speed, Perform Technical SEO Audit] | | |30,60,m
+Response[Optimize Images, Implement Schema Markup] |A.Image Optimization Score > 80 | |10,20,m
+Response[Update Meta Tags, Optimize Website Content] |A.Meta Tag Status is Updated | |5,10,m

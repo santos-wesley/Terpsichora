@@ -1,0 +1,40 @@
+activity Report Incident
+activity Assess Impact
+activity Prioritize Incident
+activity Assign Incident
+activity Investigate Incident
+activity Resolve Incident
+activity Verify Resolution
+activity Close Incident
+activity Escalate Incident
+activity Document Incident
+bind Report Incident: Status
+bind Assess Impact: Impact Level, Assessment Time
+bind Prioritize Incident: Priority
+bind Assign Incident: Assigned Team ID
+bind Investigate Incident: Investigation Time
+bind Resolve Incident: Resolution Time
+bind Verify Resolution: Verification Result
+bind Close Incident: Status
+bind Escalate Incident: Escalation Level
+bind Document Incident: Document ID
+Impact Level: integer between 1 and 5
+Priority: Low, Medium, High, Critical
+Resolution Time: float between 0.1 and 72.0
+Status: New, In Progress, Resolved, Closed
+Assigned Team ID: integer between 1 and 100
+Verification Result: Successful, Failed
+Investigation Time: float between 0.5 and 48.0
+Escalation Level: None, Level 1, Level 2, Level 3
+Document ID: integer between 1000 and 9999
+Assessment Time: float between 0.1 and 24.0
+Init[Report Incident] | |
+End[Close Incident] | |
+Response[Report Incident, Assess Impact] | | |0,24,h
+Succession[Assess Impact, Prioritize Incident] | | |
+Precedence[Assign Incident, Prioritize Incident] | |T.Priority in (High, Critical) |
+Precedence[Resolve Incident, Investigate Incident] | | |
+Response[Resolve Incident, Verify Resolution] | | |0,48,h
+Response[Verify Resolution, Escalate Incident] |A.Verification Result is Failed | |
+Succession[Close Incident, Document Incident] | | |
+Absence2[Escalate Incident] | |

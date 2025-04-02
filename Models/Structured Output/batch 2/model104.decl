@@ -1,0 +1,45 @@
+activity Conduct Market Research
+activity Develop Marketing Strategy
+activity Design Marketing Materials
+activity Select Distribution Channels
+activity Set Pricing Strategy
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Adjust Marketing Strategy
+activity Negotiate with Partners
+activity Evaluate Market Entry
+activity Conduct Competitor Analysis
+activity Train Marketing Team
+activity Manage Marketing Budget
+activity Assess Customer Feedback
+activity Report Marketing Outcomes
+bind Conduct Market Research: Market Size, Competitor Count
+bind Develop Marketing Strategy: Budget Allocation, Pricing Strategy
+bind Launch Marketing Campaign: Campaign Status, Team Size
+bind Monitor Campaign Performance: Performance Index
+bind Evaluate Market Entry: Market Entry Decision
+bind Assess Customer Feedback: Feedback Type
+Market Size: integer between 1000 and 1000000
+Budget Allocation: float between 10000.0 and 1000000.0
+Campaign Status: Planned, Active, Completed, Cancelled
+Distribution Channel: Online, Retail, Wholesale, Direct
+Competitor Count: integer between 1 and 50
+Pricing Strategy: float between 0.5 and 5.0
+Feedback Type: Positive, Neutral, Negative
+Team Size: integer between 1 and 100
+Performance Index: float between 0.0 and 10.0
+Market Entry Decision: Enter, Hold, Exit
+Init[Conduct Market Research] | |
+End[Report Marketing Outcomes] | |
+Existence[Develop Marketing Strategy] | |
+Absence3[Launch Marketing Campaign] | |
+Response[Conduct Market Research, Develop Marketing Strategy] | |A.Market Size > 5000 |0,2,d
+Precedence[Launch Marketing Campaign, Develop Marketing Strategy] |A.Campaign Status is Planned | |
+Chain Response[Launch Marketing Campaign, Monitor Campaign Performance] | |A.Team Size > 5 |0,48,h
+Response[Monitor Campaign Performance, Adjust Marketing Strategy] |A.Performance Index < 3.0 | |0,2,d
+Co-Existence[Negotiate with Partners, Evaluate Market Entry] | | |
+Precedence[Develop Marketing Strategy, Conduct Competitor Analysis] | |A.Competitor Count < 20 |
+Precedence[Launch Marketing Campaign, Train Marketing Team] | |A.Team Size > 10 |
+Exclusive Choice[Manage Marketing Budget, Develop Marketing Strategy] | | |
+Response[Launch Marketing Campaign, Assess Customer Feedback] | |A.Campaign Status is Active |0,5,d
+Response[Evaluate Market Entry, Report Marketing Outcomes] |A.Market Entry Decision is Enter | |

@@ -1,0 +1,33 @@
+activity Register Contractor
+activity Assign Project
+activity Submit Timesheet
+activity Approve Timesheet
+activity Process Payment
+activity Terminate Contract
+activity Evaluate Performance
+activity Renew Contract
+bind Register Contractor: Contractor ID
+bind Assign Project: Contractor ID, Project ID
+bind Submit Timesheet: Contractor ID, Hours Worked, Timesheet Status
+bind Approve Timesheet: Contractor ID, Timesheet Status
+bind Process Payment: Contractor ID, Payment Amount
+bind Terminate Contract: Contractor ID, Contract Status
+bind Evaluate Performance: Contractor ID, Performance Rating
+bind Renew Contract: Contractor ID, Contract Status
+Contractor ID: integer between 1 and 10000
+Project ID: integer between 1 and 5000
+Hours Worked: float between 0.0 and 200.0
+Payment Amount: float between 0.0 and 10000.0
+Timesheet Status: Submitted, Approved, Rejected
+Contract Status: Active, Terminated, Renewed
+Performance Rating: Excellent, Good, Satisfactory, Poor
+Init[Register Contractor] | |
+End[Terminate Contract] | |
+End[Renew Contract] | |
+Precedence[Approve Timesheet, Submit Timesheet] | |A.Contractor ID == T.Contractor ID |
+Chain Response[Approve Timesheet, Process Payment] | |A.Contractor ID == T.Contractor ID |0,2,d
+Precedence[Renew Contract, Evaluate Performance] | |A.Contractor ID == T.Contractor ID |
+Not Chain Succession[Renew Contract, Terminate Contract] | |A.Contractor ID == T.Contractor ID |
+Precedence[Assign Project, Register Contractor] | |A.Contractor ID == T.Contractor ID |
+Existence[Submit Timesheet] | |
+Not Precedence[Approve Timesheet, Submit Timesheet] | |T.Timesheet Status is Rejected |

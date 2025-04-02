@@ -1,0 +1,40 @@
+activity Monitor Entrance
+activity Check Identification
+activity Patrol Premises
+activity Respond to Incident
+activity Log Security Event
+activity Inspect Equipment
+activity Report Maintenance Issue
+activity Authorize Access
+activity Conduct Training
+activity Review Surveillance Footage
+bind Monitor Entrance: Security Level
+bind Check Identification: ID Verification Result
+bind Patrol Premises: Patrol Frequency
+bind Respond to Incident: Incident Type, Response Time
+bind Log Security Event: Incident Type
+bind Inspect Equipment: Equipment Status
+bind Report Maintenance Issue: Maintenance Cost
+bind Authorize Access: Access Decision
+bind Conduct Training: Training Hours
+bind Review Surveillance Footage: Footage Review Duration
+Security Level: integer between 1 and 5
+Incident Type: Theft, Vandalism, Assault, Unauthorized Access
+Response Time: float between 0.1 and 60.0
+Equipment Status: Operational, Faulty
+Training Hours: integer between 1 and 8
+Access Decision: Granted, Denied
+Footage Review Duration: float between 0.5 and 5.0
+Patrol Frequency: integer between 1 and 10
+ID Verification Result: Verified, Not Verified
+Maintenance Cost: float between 10.0 and 500.0
+Init[Monitor Entrance] | |
+Existence2[Log Security Event] | |
+Exactly[Inspect Equipment] | |
+Response[Respond to Incident, Log Security Event] | | |0,2,h
+Chain Precedence[Authorize Access, Check Identification] | | |
+Response[Inspect Equipment, Report Maintenance Issue] |A.Equipment Status is Faulty | |0,1,d
+Co-Existence[Conduct Training, Review Surveillance Footage] | | |
+Not Chain Succession[Patrol Premises, Respond to Incident] | | |
+Not Responded Existence[Check Identification, Authorize Access] |A.ID Verification Result is Not Verified | |
+Choice[Inspect Equipment, Report Maintenance Issue] | | |

@@ -1,0 +1,47 @@
+activity Initiate Research Project
+activity Conduct Literature Review
+activity Develop Research Methodology
+activity Collect Data
+activity Analyze Data
+activity Prepare Research Report
+activity Review Research Report
+activity Approve Research Report
+activity Publish Research Findings
+activity Organize Workshop
+activity Conduct Workshop
+activity Gather Feedback
+activity Evaluate Workshop Impact
+activity Update Research Database
+activity Close Research Project
+bind Initiate Research Project: Project ID, Budget
+bind Conduct Literature Review: Literature Count
+bind Prepare Research Report: Report Quality
+bind Approve Research Report: Approval Status
+bind Conduct Workshop: Participant Count
+bind Gather Feedback: Feedback Rating
+bind Evaluate Workshop Impact: Impact Score
+Project ID: integer between 1 and 1000
+Budget: float between 1000.0 and 100000.0
+Research Status: Initiated, In Progress, Completed, Closed
+Report Quality: Poor, Average, Good, Excellent
+Participant Count: integer between 5 and 100
+Feedback Rating: Negative, Neutral, Positive
+Impact Score: float between 0.0 and 10.0
+Approval Status: Pending, Approved, Rejected
+Literature Count: integer between 1 and 500
+Data Accuracy: float between 0.0 and 100.0
+Init[Initiate Research Project] | |
+End[Close Research Project] | |
+Alternate Response[Analyze Data, Prepare Research Report] | | |
+Precedence[Approve Research Report, Review Research Report] | | |
+Precedence[Publish Research Findings, Approve Research Report] | |A.Approval Status is Approved |
+Response[Publish Research Findings, Organize Workshop] | | |0,7,d
+Chain Response[Conduct Workshop, Gather Feedback] | | |0,1,d
+Response[Gather Feedback, Evaluate Workshop Impact] | | |0,3,d
+Response[Publish Research Findings, Update Research Database] | | |0,5,d
+Response[Update Research Database, Close Research Project] | | |0,2,d
+Existence[Prepare Research Report] | |
+Precedence[Collect Data, Conduct Literature Review] | | |
+Precedence[Collect Data, Develop Research Methodology] | | |
+Co-Existence[Organize Workshop, Conduct Workshop] | | |
+Absence2[Approve Research Report] | |

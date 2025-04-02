@@ -1,0 +1,33 @@
+activity Identify Target Audience
+activity Develop Marketing Strategy
+activity Design Eco-Friendly Packaging
+activity Launch Green Campaign
+activity Monitor Campaign Performance
+activity Collect Customer Feedback
+activity Analyze Feedback
+activity Adjust Marketing Strategy
+activity Report Results
+bind Identify Target Audience: Audience Size
+bind Develop Marketing Strategy: Budget Allocation
+bind Design Eco-Friendly Packaging: Packaging Material
+bind Launch Green Campaign: Campaign Type
+bind Monitor Campaign Performance: Performance Metric
+bind Collect Customer Feedback: Feedback Score
+bind Adjust Marketing Strategy: Strategy Adjustment
+Audience Size: integer between 100 and 10000
+Budget Allocation: float between 1000.0 and 50000.0
+Packaging Material: Recycled, Biodegradable, Compostable
+Campaign Type: Social Media, Email, Event
+Feedback Score: integer between 1 and 10
+Performance Metric: float between 0.0 and 100.0
+Strategy Adjustment: Increase Budget, Change Audience, Modify Message
+Init[Identify Target Audience] | |
+End[Report Results] | |
+Existence[Develop Marketing Strategy] | |
+Response[Launch Green Campaign, Monitor Campaign Performance] | | |0,2,d
+Chain Response[Collect Customer Feedback, Analyze Feedback] | | |0,48,h
+Co-Existence[Design Eco-Friendly Packaging, Launch Green Campaign] | | |
+Not Chain Succession[Analyze Feedback, Adjust Marketing Strategy] | | |
+Precedence[Launch Green Campaign, Develop Marketing Strategy] | | |
+Responded Existence[Monitor Campaign Performance, Launch Green Campaign] |A.Performance Metric > 50 |T.Campaign Type is Social Media |
+Response[Collect Customer Feedback, Adjust Marketing Strategy] |A.Feedback Score >= 8 |T.Strategy Adjustment is Increase Budget |

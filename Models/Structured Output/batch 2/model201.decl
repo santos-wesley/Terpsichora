@@ -1,0 +1,45 @@
+activity Receive Parcel
+activity Verify Parcel
+activity Secure Parcel
+activity Transport Parcel
+activity Deliver Parcel
+activity Obtain Signature
+activity Report Issue
+activity Return Parcel
+activity Update Status
+activity Complete Delivery
+bind Receive Parcel: Parcel ID, Parcel Condition
+bind Verify Parcel: Parcel Condition
+bind Secure Parcel: Security Level
+bind Transport Parcel: Transport Distance
+bind Deliver Parcel: Delivery Status
+bind Obtain Signature: Signature ID
+bind Report Issue: Issue Type
+bind Return Parcel: Return Reason
+bind Update Status: Delivery Status
+bind Complete Delivery: Delivery Attempts
+Parcel ID: integer between 1000 and 9999
+Parcel Condition: Intact, Damaged
+Security Level: Low, Medium, High
+Parcel Weight: float between 0.1 and 50.0
+Delivery Status: Pending, In Transit, Delivered, Failed
+Signature ID: integer between 10000 and 99999
+Issue Type: None, Delay, Damage, Lost
+Transport Distance: float between 0.0 and 1000.0
+Delivery Attempts: integer between 1 and 5
+Return Reason: Recipient Unavailable, Address Incorrect, Refused
+Init[Receive Parcel] | |
+End[Complete Delivery] | |
+Existence[Verify Parcel] | |
+Absence2[Return Parcel] | |
+Chain Succession[Verify Parcel, Secure Parcel] | | |
+Succession[Secure Parcel, Transport Parcel] | | |
+Response[Transport Parcel, Deliver Parcel] | | |0,48,h
+Chain Response[Deliver Parcel, Obtain Signature] | | |
+Responded Existence[Report Issue, Update Status] | | |
+Precedence[Secure Parcel, Verify Parcel] |A.Parcel Condition is Intact | |
+Alternate Response[Obtain Signature, Update Status] | | |0,2,d
+Not Response[Deliver Parcel, Secure Parcel] |A.Security Level is High AND A.Parcel Weight > 30 | |
+Exclusive Choice[Deliver Parcel, Return Parcel] | | |
+Chain Succession[Secure Parcel, Transport Parcel] | | |0,24,h
+Choice[Deliver Parcel, Report Issue] | |A.Delivery Status is Failed |

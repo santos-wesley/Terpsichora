@@ -1,0 +1,49 @@
+activity Screen Passenger
+activity Inspect Baggage
+activity Verify Identity
+activity Conduct Interview
+activity Issue Boarding Pass
+activity Deny Boarding
+activity Patrol Area
+activity Respond to Threat
+activity Check Flight Status
+activity Coordinate with Authorities
+activity Monitor Surveillance
+activity Conduct Security Drill
+activity Provide Assistance
+activity Report Incident
+activity Update Security Protocols
+bind Screen Passenger: Passenger Age, Threat Level
+bind Inspect Baggage: Baggage Weight, Threat Level
+bind Verify Identity: Identity Status
+bind Issue Boarding Pass: Boarding Status
+bind Patrol Area: Patrol Frequency
+bind Check Flight Status: Flight Status
+bind Respond to Threat: Response Time, Threat Level
+bind Provide Assistance: Assistance Type
+bind Report Incident: Incident Reports
+Passenger Age: integer between 0 and 120
+Baggage Weight: float between 0.0 and 50.0
+Identity Status: Verified, Not Verified
+Threat Level: Low, Medium, High
+Boarding Status: Allowed, Denied
+Patrol Frequency: integer between 0 and 10
+Flight Status: On Time, Delayed, Cancelled
+Response Time: float between 0.0 and 60.0
+Assistance Type: Medical, Information, Other
+Incident Reports: integer between 0 and 100
+Existence[Screen Passenger] | |
+Absence[Deny Boarding] | |
+Exactly5[Patrol Area] | |
+Response[Screen Passenger, Verify Identity] | | |
+Chain Response[Inspect Baggage, Respond to Threat] |A.Threat Level is High | |
+Not Co-Existence[Conduct Interview, Deny Boarding] | | |
+Precedence[Issue Boarding Pass, Verify Identity] | | |
+Response[Respond to Threat, Report Incident] | | |0,30,m
+Chain Succession[Check Flight Status, Update Security Protocols] | | |
+Responded Existence[Patrol Area, Provide Assistance] |A.Assistance Type is Medical | |
+Not Chain Succession[Conduct Security Drill, Monitor Surveillance] | | |
+Responded Existence[Respond to Threat, Coordinate with Authorities] |A.Threat Level is High | |
+Chain Succession[Screen Passenger, Inspect Baggage] | | |0,10,m
+Precedence[Issue Boarding Pass, Verify Identity] |A.Identity Status is Verified | |
+Not Response[Conduct Interview, Deny Boarding] | | |

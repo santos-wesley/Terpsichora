@@ -1,0 +1,28 @@
+activity Plan Eco-Friendly Trip
+activity Book Sustainable Accommodation
+activity Choose Green Transportation
+activity Participate in Local Conservation Efforts
+activity Purchase Local Products
+activity Attend Cultural Workshops
+activity Evaluate Environmental Impact
+activity Provide Feedback to Hosts
+activity Share Sustainable Practices
+bind Plan Eco-Friendly Trip: Trip Duration, Carbon Emission
+bind Book Sustainable Accommodation: Accommodation Type
+bind Choose Green Transportation: Transportation Mode
+bind Provide Feedback to Hosts: Feedback Rating
+Trip Duration: integer between 1 and 30
+Carbon Emission: float between 0.0 and 1000.0
+Accommodation Type: Eco-Lodge, Green Hotel, Hostel
+Transportation Mode: Bicycle, Electric Car, Train
+Feedback Rating: Excellent, Good, Average, Poor
+Init[Plan Eco-Friendly Trip] | |
+End[Share Sustainable Practices] | |
+Chain Response[Book Sustainable Accommodation, Provide Feedback to Hosts] | | |0,2,d
+Response[Choose Green Transportation, Evaluate Environmental Impact] | | |
+Co-Existence[Participate in Local Conservation Efforts, Attend Cultural Workshops] | | |
+Not Chain Response[Plan Eco-Friendly Trip, Purchase Local Products] | | |
+Exclusive Choice[Book Sustainable Accommodation, Choose Green Transportation] | | |
+Responded Existence[Plan Eco-Friendly Trip, Participate in Local Conservation Efforts] |A.Trip Duration > 7 | |
+Not Responded Existence[Provide Feedback to Hosts, Evaluate Environmental Impact] |A.Feedback Rating is Poor | |
+Existence[Evaluate Environmental Impact] | |

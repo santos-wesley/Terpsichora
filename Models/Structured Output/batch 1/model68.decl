@@ -1,0 +1,37 @@
+activity Design Structure
+activity Approve Design
+activity Prepare Site
+activity Lay Foundation
+activity Construct Framework
+activity Install Utilities
+activity Conduct Inspection
+activity Finalize Construction
+activity Handover Project
+bind Design Structure: Design Complexity
+bind Approve Design: Approval Status
+bind Prepare Site: Site Area
+bind Lay Foundation: Foundation Type
+bind Construct Framework: Framework Height
+bind Install Utilities: Utility Status
+bind Conduct Inspection: Inspection Score
+bind Finalize Construction: Construction Status
+bind Handover Project: Handover Delay
+Design Complexity: integer between 1 and 10
+Approval Status: Pending, Approved, Rejected
+Site Area: float between 100.0 and 10000.0
+Foundation Type: Pile, Raft, Strip
+Framework Height: integer between 1 and 100
+Utility Status: Not Started, In Progress, Completed
+Inspection Score: float between 0.0 and 100.0
+Construction Status: Ongoing, Completed
+Handover Delay: integer between 0 and 30
+Existence[Design Structure] | |
+End[Handover Project] | |
+Chain Response[Approve Design, Prepare Site] |A.Approval Status is Approved | |
+Response[Lay Foundation, Construct Framework] |A.Foundation Type in (Pile, Raft) | |0,7,d
+Precedence[Finalize Construction, Install Utilities] |A.Construction Status is Ongoing | |
+Alternate Precedence[Conduct Inspection, Construct Framework] |A.Inspection Score > 70 | |0,5,d
+Chain Succession[Conduct Inspection, Finalize Construction] |A.Inspection Score > 80 | |10,15,d
+Not Precedence[Handover Project, Finalize Construction] |A.Handover Delay <= 5 | |
+Co-Existence[Prepare Site, Lay Foundation] |A.Site Area > 500 | |
+Not Co-Existence[Design Structure, Approve Design] |A.Design Complexity > 8 | |

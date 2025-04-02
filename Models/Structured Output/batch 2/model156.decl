@@ -1,0 +1,51 @@
+activity Prepare Tax Report
+activity Review Tax Report
+activity Submit Tax Report
+activity Calculate Tax Liability
+activity Verify Tax Payment
+activity File Tax Return
+activity Audit Tax Records
+activity Resolve Tax Dispute
+activity Issue Tax Refund
+activity Apply Tax Credit
+activity Assess Tax Penalty
+activity Update Tax Regulations
+activity Consult Tax Advisor
+activity Approve Tax Strategy
+activity Monitor Tax Compliance
+bind Prepare Tax Report: Report ID
+bind Review Tax Report: Audit Score
+bind Submit Tax Report: Tax Status
+bind Calculate Tax Liability: Tax Liability
+bind Verify Tax Payment: Tax Liability
+bind Resolve Tax Dispute: Dispute Status
+bind Apply Tax Credit: Tax Credit Amount
+bind Assess Tax Penalty: Penalty Status
+bind Monitor Tax Compliance: Compliance Score
+bind Issue Tax Refund: Refund Amount
+bind Approve Tax Strategy: Strategy Approval
+Report ID: integer between 1 and 10000
+Tax Liability: float between 0.01 and 1000000.0
+Tax Status: Pending, Submitted, Approved, Rejected
+Audit Score: integer between 0 and 100
+Dispute Status: Open, Closed, In Progress
+Tax Credit Amount: float between 0.0 and 50000.0
+Penalty Status: None, Assessed, Paid
+Compliance Score: integer between 0 and 100
+Refund Amount: float between 0.0 and 100000.0
+Strategy Approval: Approved, Not Approved
+Init[Prepare Tax Report] | |
+End[Submit Tax Report] | |
+Existence[Review Tax Report] | |
+Exactly[Calculate Tax Liability] | |
+Precedence[Submit Tax Report, Review Tax Report] | | |
+Response[Resolve Tax Dispute, Issue Tax Refund] |A.Dispute Status is Closed | |0,30,d
+Chain Response[Apply Tax Credit, Calculate Tax Liability] | | |0,1,d
+Not Chain Succession[Assess Tax Penalty, Issue Tax Refund] | | |
+Exclusive Choice[Consult Tax Advisor, Approve Tax Strategy] | | |
+Responded Existence[Assess Tax Penalty, Monitor Tax Compliance] |A.Penalty Status is Assessed | |
+Precedence[Issue Tax Refund, Verify Tax Payment] | | |
+Response[Submit Tax Report, Audit Tax Records] |A.Tax Status is Submitted | |0,60,d
+Succession[Calculate Tax Liability, Verify Tax Payment] | |A.Tax Liability == T.Tax Liability |0,10,d
+Co-Existence[Update Tax Regulations, Consult Tax Advisor] | | |
+Response[Approve Tax Strategy, Monitor Tax Compliance] |A.Strategy Approval is Approved | |0,20,d

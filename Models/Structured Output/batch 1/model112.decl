@@ -1,0 +1,40 @@
+activity Draft Policy
+activity Review Policy
+activity Approve Policy
+activity Implement Policy
+activity Evaluate Policy
+activity Amend Policy
+activity Publish Policy
+activity Conduct Training
+activity Gather Feedback
+activity Archive Policy
+bind Draft Policy: Draft Version
+bind Review Policy: Review Status
+bind Approve Policy: Approval Status
+bind Implement Policy: Budget Allocation
+bind Conduct Training: Training Sessions
+bind Gather Feedback: Feedback Type
+bind Evaluate Policy: Evaluation Score
+bind Amend Policy: Amendment Status
+bind Publish Policy: Publication Version
+bind Archive Policy: Archive Status
+Draft Version: integer between 1 and 10
+Review Status: Pending, In Progress, Completed
+Budget Allocation: float between 100000.0 and 1000000.0
+Approval Status: Approved, Rejected
+Training Sessions: integer between 1 and 20
+Feedback Type: Positive, Negative, Neutral
+Evaluation Score: float between 0.0 and 10.0
+Amendment Status: Required, Not Required
+Publication Version: integer between 1 and 10
+Archive Status: Archived, Not Archived
+Existence[Draft Policy] | |
+End[Archive Policy] | |
+Precedence[Approve Policy, Review Policy] | |A.Review Status is Completed |
+Response[Implement Policy, Conduct Training] | | |0,30,d
+Response[Implement Policy, Evaluate Policy] | | |
+Responded Existence[Gather Feedback, Amend Policy] |A.Feedback Type is Negative | |
+Precedence[Publish Policy, Approve Policy] | |A.Approval Status is Approved |
+Not Precedence[Archive Policy, Publish Policy] | | |
+Response[Evaluate Policy, Amend Policy] |A.Evaluation Score < 5 | |
+Response[Approve Policy, Publish Policy] | | |0,10,d

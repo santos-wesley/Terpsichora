@@ -1,0 +1,39 @@
+activity Identify Change
+activity Assess Impact
+activity Develop Strategy
+activity Communicate Change
+activity Implement Change
+activity Monitor Progress
+activity Evaluate Results
+activity Train Employees
+activity Gather Feedback
+activity Adjust Strategy
+bind Identify Change: Change Type
+bind Assess Impact: Impact Score
+bind Develop Strategy: Budget Allocation
+bind Communicate Change: Communication Channel
+bind Train Employees: Training Hours
+bind Gather Feedback: Feedback Type
+bind Monitor Progress: Progress Percentage
+bind Evaluate Results: Satisfaction Level
+bind Adjust Strategy: Strategy Adjustments
+Impact Score: integer between 1 and 10
+Budget Allocation: float between 1000.0 and 100000.0
+Change Type: Structural, Technological, Cultural
+Stakeholder Group: Employees, Management, Customers
+Training Hours: integer between 1 and 40
+Satisfaction Level: float between 0.0 and 5.0
+Feedback Type: Positive, Negative, Neutral
+Strategy Adjustments: integer between 0 and 10
+Communication Channel: Email, Meeting, Newsletter
+Progress Percentage: float between 0.0 and 100.0
+Init[Identify Change] | |
+End[Evaluate Results] | |
+Existence[Communicate Change] | |
+Response[Identify Change, Assess Impact] | | |0,2,d
+Chain Response[Train Employees, Gather Feedback] | | |0,48,h
+Co-Existence[Develop Strategy, Implement Change] | | |
+Precedence[Monitor Progress, Implement Change] | | |
+Not Chain Succession[Evaluate Results, Adjust Strategy] | | |
+Response[Communicate Change, Communicate Change] |A.Communication Channel in (Email, Meeting) | |
+Responded Existence[Assess Impact, Develop Strategy] |A.Impact Score > 7 |T.Budget Allocation > 50000 |

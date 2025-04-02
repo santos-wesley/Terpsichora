@@ -1,0 +1,29 @@
+activity Report Incident
+activity Categorize Incident
+activity Assign Incident
+activity Investigate Incident
+activity Resolve Incident
+activity Review Resolution
+activity Close Incident
+activity Escalate Incident
+activity Notify User
+bind Report Incident: Incident Type
+bind Categorize Incident: Priority
+bind Resolve Incident: Resolution Time
+bind Notify User: User Notification
+bind Close Incident: Status
+Priority: integer between 1 and 5
+Resolution Time: float between 0.5 and 72.0
+Incident Type: Network, Software, Hardware, Security
+Status: Open, In Progress, Resolved, Closed
+User Notification: Email, SMS, Phone Call
+Init[Report Incident] | |
+End[Close Incident] | |
+Precedence[Assign Incident, Categorize Incident] | | |
+Chain Response[Resolve Incident, Review Resolution] | | |0,48,h
+Chain Response[Escalate Incident, Investigate Incident] | | |0,24,h
+Response[Resolve Incident, Notify User] | | |
+Precedence[Close Incident, Resolve Incident] | | |
+Precedence[Investigate Incident, Assign Incident] | | |
+Exclusive Choice[Resolve Incident, Escalate Incident] | | |
+Responded Existence[Report Incident, Escalate Incident] |A.Incident Type is Security | |

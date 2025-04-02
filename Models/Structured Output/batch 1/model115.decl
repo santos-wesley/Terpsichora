@@ -1,0 +1,30 @@
+activity Detect Threat
+activity Analyze Threat
+activity Mitigate Threat
+activity Report Incident
+activity Update Security Protocols
+activity Conduct Security Audit
+activity Train Staff
+activity Monitor Network
+bind Detect Threat: Threat Level, Threat Type
+bind Analyze Threat: Threat Type
+bind Mitigate Threat: Response Time
+bind Report Incident: Incident Status
+bind Conduct Security Audit: Audit Score
+bind Train Staff: Training Level
+Threat Level: integer between 1 and 10
+Response Time: float between 0.1 and 48.0
+Incident Status: Open, In Progress, Closed
+Threat Type: Malware, Phishing, DDoS, Insider Threat
+Audit Score: integer between 0 and 100
+Training Level: Basic, Intermediate, Advanced
+Init[Detect Threat] | |
+End[Update Security Protocols] | |
+Existence[Conduct Security Audit] | |
+Response[Detect Threat, Analyze Threat] | |A.Threat Type == T.Threat Type |0,2,h
+Chain Response[Analyze Threat, Mitigate Threat] | | |0,1,h
+Response[Mitigate Threat, Report Incident] |A.Response Time <= 24 | |0,1,d
+Co-Existence[Train Staff, Conduct Security Audit] | | |
+Not Chain Succession[Detect Threat, Monitor Network] | | |
+Not Responded Existence[Report Incident, Report Incident] |A.Incident Status is Closed | |
+Choice[Detect Threat, Monitor Network] | | |

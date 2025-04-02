@@ -1,0 +1,31 @@
+activity Enroll in Course
+activity Attend Orientation
+activity Complete Assignment
+activity Take Assessment
+activity Receive Feedback
+activity Attend Workshop
+activity Submit Evaluation
+activity Receive Certification
+bind Enroll in Course: Course ID, Course Level
+bind Complete Assignment: Assignment Score
+bind Take Assessment: Assessment Score
+bind Receive Feedback: Feedback Type
+bind Attend Workshop: Workshop Duration
+bind Receive Certification: Certification Status
+Course ID: integer between 1000 and 9999
+Course Level: Beginner, Intermediate, Advanced
+Assignment Score: float between 0.0 and 100.0
+Assessment Score: integer between 0 and 100
+Feedback Type: Positive, Negative, Neutral
+Workshop Duration: float between 1.0 and 8.0
+Certification Status: Pending, Granted, Denied
+Init[Enroll in Course] | |
+End[Receive Certification] | |
+Precedence[Complete Assignment, Attend Orientation] | | |
+Response[Complete Assignment, Receive Feedback] | | |0,2,d
+Precedence[Take Assessment, Complete Assignment] | | |
+Chain Response[Attend Workshop, Submit Evaluation] | | |0,8,h
+Precedence[Receive Certification, Receive Feedback] | |T.Feedback Type is Positive |
+Choice[Attend Workshop, Take Assessment] | | |
+Not Response[Take Assessment, Receive Feedback] |A.Assessment Score > 70 |T.Feedback Type is Negative |
+Existence[Attend Workshop] | |

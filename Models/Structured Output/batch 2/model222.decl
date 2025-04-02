@@ -1,0 +1,45 @@
+activity File Lawsuit
+activity Review Case
+activity Gather Evidence
+activity Conduct Discovery
+activity Negotiate Settlement
+activity Prepare Trial
+activity Attend Trial
+activity File Appeal
+activity Close Case
+activity Draft Legal Documents
+activity Consult Expert Witness
+activity Schedule Hearing
+activity Submit Evidence
+activity Cross-Examine Witness
+activity Deliver Verdict
+bind File Lawsuit: Case ID, Case Status
+bind Negotiate Settlement: Settlement Amount, Case Status
+bind Attend Trial: Trial Duration, Court Level
+bind Submit Evidence: Evidence Type, Case ID
+bind File Appeal: Appeal Cost, Court Level
+Case ID: integer between 1 and 10000
+Settlement Amount: float between 1000.0 and 1000000.0
+Case Status: Open, Closed, Pending
+Court Level: District, Appellate, Supreme
+Trial Duration: integer between 1 and 30
+Evidence Type: Documentary, Testimonial, Physical
+Legal Fees: float between 500.0 and 50000.0
+Verdict Outcome: Guilty, Not Guilty, Settled
+Number of Witnesses: integer between 0 and 20
+Appeal Cost: float between 1000.0 and 20000.0
+Init[File Lawsuit] | |
+End[Close Case] | |
+Existence[Review Case] | |
+Absence[Attend Trial] |A.Trial Duration > 30 |
+Response[Gather Evidence, Submit Evidence] | |A.Case ID == T.Case ID |
+Succession[Schedule Hearing, Attend Trial] | | |0,30,d
+Precedence[Negotiate Settlement, File Lawsuit] |A.Case Status is Open | |
+Precedence[File Appeal, Attend Trial] |A.Court Level is Appellate |A.Court Level == T.Court Level |
+Chain Response[Review Case, Prepare Trial] | | |0,1,d
+Response[Deliver Verdict, Close Case] | | |0,10,d
+Precedence[Attend Trial, Draft Legal Documents] | | |
+Not Co-Existence[Consult Expert Witness, Cross-Examine Witness] | | |
+Not Chain Succession[Draft Legal Documents, Attend Trial] | | |
+Exclusive Choice[Negotiate Settlement, Close Case] | | |
+Responded Existence[Attend Trial, File Lawsuit] |A.Trial Duration > 20 |T.Legal Fees > 10000 |

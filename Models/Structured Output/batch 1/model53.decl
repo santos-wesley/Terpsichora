@@ -1,0 +1,29 @@
+activity Collect Data
+activity Analyze Data
+activity Prepare Report
+activity Review Report
+activity Approve Report
+activity Publish Report
+activity Gather Feedback
+activity Revise Report
+activity Finalize Report
+bind Collect Data: Data Points
+bind Analyze Data: Report Accuracy
+bind Approve Report: Approval Status
+bind Gather Feedback: Feedback Type
+bind Revise Report: Revision Cost
+Data Points: integer between 100 and 10000
+Report Accuracy: float between 0.0 and 100.0
+Approval Status: Pending, Approved, Rejected
+Feedback Type: Positive, Negative, Neutral
+Revision Cost: float between 0.0 and 5000.0
+Init[Collect Data] | |
+End[Finalize Report] | |
+Chain Succession[Collect Data, Analyze Data] | | |0,1,h
+Alternate Succession[Prepare Report, Review Report] | | |0,2,d
+Precedence[Publish Report, Approve Report] | |A.Approval Status is Approved |
+Response[Publish Report, Gather Feedback] | | |0,5,d
+Response[Gather Feedback, Revise Report] |A.Feedback Type is Negative | |0,10,d
+Succession[Revise Report, Finalize Report] | | |0,3,d
+Existence[Prepare Report] | |
+Absence3[Revise Report] | |

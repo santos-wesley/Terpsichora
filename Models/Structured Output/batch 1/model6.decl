@@ -1,0 +1,30 @@
+activity Assess Site
+activity Design System
+activity Procure Materials
+activity Install System
+activity Inspect Installation
+activity Connect to Grid
+activity Monitor Performance
+activity Maintain System
+bind Assess Site: Site Area, Energy Type
+bind Procure Materials: Material Quality, System Cost
+bind Install System: Installation Duration
+bind Inspect Installation: Inspection Status
+bind Monitor Performance: Performance Efficiency
+Site Area: integer between 100 and 10000
+System Cost: float between 10000.0 and 1000000.0
+Energy Type: Solar, Wind, Hydro
+Material Quality: High, Medium, Low
+Installation Duration: integer between 1 and 30
+Inspection Status: Passed, Failed
+Performance Efficiency: float between 0.0 and 100.0
+Init[Assess Site] | |
+Existence[Inspect Installation] | |
+Precedence[Design System, Assess Site] | | |
+Precedence[Install System, Procure Materials] | | |
+Chain Response[Install System, Connect to Grid] | | |0,2,d
+Response[Connect to Grid, Monitor Performance] | | |
+Not Precedence[Maintain System, Monitor Performance] | | |
+Chain Response[Inspect Installation, Inspect Installation] |A.Inspection Status is Failed | |0,5,d
+Precedence[Install System, Procure Materials] |A.Installation Duration <= 15 |T.Material Quality is High |
+Precedence[Procure Materials, Assess Site] |A.System Cost > 50000 |T.Energy Type is Solar |

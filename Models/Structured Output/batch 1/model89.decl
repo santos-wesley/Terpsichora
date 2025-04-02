@@ -1,0 +1,29 @@
+activity Submit Release Request
+activity Review Release Request
+activity Approve Release
+activity Schedule Release
+activity Deploy Release
+activity Verify Deployment
+activity Close Release
+bind Submit Release Request: Request ID, Priority
+bind Review Release Request: Request Status
+bind Approve Release: Request Status
+bind Schedule Release: Release Version
+bind Deploy Release: Deployment Duration
+bind Verify Deployment: Request Status
+bind Close Release: Request Status
+Request ID: integer between 1 and 10000
+Request Status: Submitted, Reviewed, Approved, Scheduled, Deployed, Closed
+Release Version: float between 1.0 and 10.0
+Priority: Low, Medium, High
+Deployment Duration: integer between 10 and 240
+Existence[Submit Release Request] | |
+Exactly[Close Release] | |
+Response[Submit Release Request, Review Release Request] | |A.Request ID == T.Request ID |0,2,h
+Precedence[Approve Release, Review Release Request] | |A.Request ID == T.Request ID |
+Chain Response[Approve Release, Schedule Release] | |A.Request ID == T.Request ID |0,30,m
+Response[Deploy Release, Verify Deployment] | |A.Request ID == T.Request ID |0,1,h
+Response[Verify Deployment, Close Release] | |A.Request ID == T.Request ID |0,1,h
+Response[Submit Release Request, Approve Release] |A.Priority is High |A.Request ID == T.Request ID |0,1,d
+Chain Succession[Schedule Release, Deploy Release] | |A.Release Version == T.Release Version |
+Not Precedence[Close Release, Verify Deployment] | |A.Request ID == T.Request ID |

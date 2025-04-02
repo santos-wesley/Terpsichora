@@ -1,0 +1,42 @@
+activity Initiate Investigation
+activity Conduct Surveillance
+activity Analyze Financial Records
+activity Interview Witnesses
+activity Collect Forensic Evidence
+activity Arrest Suspects
+activity Interrogate Suspects
+activity Compile Investigation Report
+activity Present Case to Prosecutor
+activity Close Investigation
+bind Initiate Investigation: Investigation Status
+bind Conduct Surveillance: Surveillance Duration
+bind Analyze Financial Records: Amount Laundered
+bind Interview Witnesses: Witnesses Interviewed
+bind Collect Forensic Evidence: Evidence Collected, Evidence Type
+bind Arrest Suspects: Number of Suspects, Arrest Status
+bind Interrogate Suspects: Suspect Cooperation
+bind Compile Investigation Report: Report Completeness
+Number of Suspects: integer between 1 and 100
+Amount Laundered: float between 1000.0 and 1000000.0
+Investigation Status: Ongoing, Completed, Closed
+Evidence Type: Forensic, Financial, Testimonial
+Witnesses Interviewed: integer between 0 and 50
+Suspect Cooperation: Cooperative, Uncooperative
+Surveillance Duration: float between 1.0 and 500.0
+Arrest Status: Successful, Failed
+Evidence Collected: integer between 0 and 200
+Report Completeness: float between 0.0 and 100.0
+Init[Initiate Investigation] | |
+End[Close Investigation] | |
+Existence[Conduct Surveillance] | |
+Chain Response[Conduct Surveillance, Arrest Suspects] | | |0,48,h
+Precedence[Arrest Suspects, Analyze Financial Records] | | |
+Response[Collect Forensic Evidence, Present Case to Prosecutor] |A.Evidence Type is Forensic | |
+Alternate Succession[Arrest Suspects, Interrogate Suspects] | | |
+Succession[Collect Forensic Evidence, Compile Investigation Report] | | |
+Chain Precedence[Present Case to Prosecutor, Compile Investigation Report] | |A.Report Completeness = 100.0 |
+Not Chain Succession[Arrest Suspects, Interrogate Suspects] | | |
+Choice[Interview Witnesses, Collect Forensic Evidence] | | |
+Response[Compile Investigation Report, Present Case to Prosecutor] |A.Investigation Status is Completed | |0,2,d
+Precedence[Close Investigation, Arrest Suspects] | |T.Arrest Status is Successful |
+Response[Analyze Financial Records, Close Investigation] |A.Amount Laundered > 500000.0 | |0,15,d

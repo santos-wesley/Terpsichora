@@ -1,0 +1,45 @@
+activity Create Product Backlog
+activity Plan Sprint
+activity Conduct Daily Standup
+activity Develop Features
+activity Review Sprint
+activity Retrospective Meeting
+activity Release Increment
+activity Update Product Backlog
+activity Estimate Tasks
+activity Assign Tasks
+activity Test Features
+activity Fix Bugs
+activity Demo Features
+activity Gather Feedback
+activity Prioritize Backlog
+bind Plan Sprint: Sprint Duration, Team Size
+bind Estimate Tasks: Task Effort, Task Status
+bind Fix Bugs: Bug Severity, Bug Count
+bind Gather Feedback: Feedback Type, Increment Value
+bind Prioritize Backlog: Priority Level
+Sprint Duration: integer between 7 and 30
+Task Effort: float between 0.5 and 40.0
+Task Status: Not Started, In Progress, Completed
+Bug Severity: Low, Medium, High
+Team Size: integer between 3 and 10
+Feature Complexity: float between 1.0 and 10.0
+Feedback Type: Positive, Negative, Neutral
+Bug Count: integer between 0 and 100
+Priority Level: Low, Medium, High
+Increment Value: float between 0.0 and 1000.0
+Init[Create Product Backlog] | |
+End[Retrospective Meeting] | |
+Existence5[Conduct Daily Standup] | |
+Precedence[Test Features, Develop Features] | | |
+Response[Develop Features, Demo Features] | | |
+Alternate Response[Test Features, Fix Bugs] |A.Bug Count > 0 | |
+Co-Existence[Plan Sprint, Estimate Tasks] | | |
+Chain Response[Demo Features, Gather Feedback] | | |0,2,d
+Precedence[Gather Feedback, Release Increment] | | |
+Chain Response[Release Increment, Review Sprint] | | |0,48,h
+Precedence[Assign Tasks, Estimate Tasks] | | |
+Not Succession[Develop Features, Review Sprint] |A.Task Status is not Completed | |
+Not Chain Succession[Review Sprint, Retrospective Meeting] | | |
+Exclusive Choice[Demo Features, Release Increment] | | |
+Responded Existence[Prioritize Backlog, Update Product Backlog] |A.Priority Level is High |A.Priority Level == T.Priority Level |

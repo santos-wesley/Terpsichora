@@ -1,0 +1,48 @@
+activity Schedule Transport
+activity Assign Driver
+activity Load Goods
+activity Inspect Vehicle
+activity Start Journey
+activity Monitor Transport
+activity Unload Goods
+activity Complete Delivery
+activity Record Transport Data
+activity Review Transport
+activity Authorize Payment
+activity Report Incident
+activity Maintain Vehicle
+activity Update Inventory
+activity Close Transport Order
+bind Assign Driver: Driver ID
+bind Load Goods: Goods Weight
+bind Inspect Vehicle: Vehicle Condition
+bind Start Journey: Transport Status, Journey Duration
+bind Monitor Transport: Fuel Level
+bind Report Incident: Incident Type
+bind Complete Delivery: Delivery Confirmation Code
+bind Authorize Payment: Transport Cost, Payment Status
+Driver ID: integer between 1 and 1000
+Goods Weight: float between 0.1 and 10000.0
+Vehicle Condition: Good, Needs Maintenance, Critical
+Transport Status: Scheduled, In Progress, Completed, Cancelled
+Journey Duration: integer between 1 and 72
+Fuel Level: float between 0.0 and 100.0
+Incident Type: None, Minor, Major
+Delivery Confirmation Code: integer between 1000 and 9999
+Transport Cost: float between 50.0 and 10000.0
+Payment Status: Pending, Authorized, Declined
+Init[Schedule Transport] | |
+End[Close Transport Order] | |
+Existence[Inspect Vehicle] | |
+Absence[Report Incident] | |
+Precedence[Start Journey, Assign Driver] | | |
+Precedence[Start Journey, Load Goods] | | |
+Response[Start Journey, Monitor Transport] | | |0,12,h
+Response[Start Journey, Unload Goods] | | |0,6,h
+Response[Unload Goods, Complete Delivery] | | |0,2,h
+Response[Complete Delivery, Record Transport Data] | | |0,1,h
+Response[Record Transport Data, Review Transport] | | |0,1,h
+Response[Complete Delivery, Authorize Payment] | | |
+Response[Start Journey, Maintain Vehicle] | | |
+Response[Complete Delivery, Update Inventory] | | |
+Precedence[Close Transport Order, Authorize Payment] | | |

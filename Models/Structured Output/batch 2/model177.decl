@@ -1,0 +1,48 @@
+activity Initiate Corporate Citizenship Program
+activity Identify Stakeholders
+activity Conduct Needs Assessment
+activity Develop Program Plan
+activity Allocate Budget
+activity Implement Program
+activity Monitor Program
+activity Evaluate Program Impact
+activity Report Findings
+activity Engage with Community
+activity Review Program Goals
+activity Adjust Program Strategy
+activity Close Program
+activity Celebrate Success
+activity Document Lessons Learned
+bind Initiate Corporate Citizenship Program: Program Status
+bind Identify Stakeholders: Number of Stakeholders, Stakeholder Type
+bind Allocate Budget: Budget Amount
+bind Evaluate Program Impact: Impact Score
+bind Engage with Community: Feedback Type, Community Engagement Level
+bind Monitor Program: Program Phase
+bind Conduct Needs Assessment: Stakeholder Type
+bind Celebrate Success: Satisfaction Level
+Budget Amount: integer between 10000 and 1000000
+Impact Score: float between 0.0 and 10.0
+Stakeholder Type: Internal, External
+Program Status: Planned, In Progress, Completed
+Feedback Type: Positive, Negative, Neutral
+Number of Stakeholders: integer between 1 and 100
+Satisfaction Level: float between 0.0 and 5.0
+Program Phase: Initiation, Planning, Execution, Closure
+Duration Days: integer between 1 and 365
+Community Engagement Level: Low, Medium, High
+Init[Initiate Corporate Citizenship Program] | |
+End[Close Program] | |
+Existence2[Monitor Program] | |
+Exactly[Review Program Goals] | |
+Response[Identify Stakeholders, Conduct Needs Assessment] | |A.Stakeholder Type == T.Stakeholder Type |0,2,d
+Precedence[Implement Program, Allocate Budget] | |A.Budget Amount > 50000 |
+Response[Implement Program, Engage with Community] | |T.Community Engagement Level in (Medium, High) |0,48,h
+Chain Response[Evaluate Program Impact, Report Findings] |A.Impact Score > 5.0 | |0,24,h
+Co-Existence[Celebrate Success, Document Lessons Learned] | | |
+Not Chain Succession[Review Program Goals, Adjust Program Strategy] | | |
+Exclusive Choice[Implement Program, Close Program] | | |
+Not Precedence[Close Program, Celebrate Success] | |T.Satisfaction Level > 3.0 |
+Not Co-Existence[Conduct Needs Assessment, Allocate Budget] | | |
+Succession[Develop Program Plan, Implement Program] | | |0,5,d
+Precedence[Engage with Community, Implement Program] | | |

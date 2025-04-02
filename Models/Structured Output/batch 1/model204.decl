@@ -1,0 +1,29 @@
+activity Book Workspace
+activity Check In
+activity Check Out
+activity Request Equipment
+activity Approve Equipment Request
+activity Deny Equipment Request
+activity Schedule Event
+activity Cancel Booking
+activity Provide Feedback
+bind Book Workspace: Workspace ID, Booking Duration
+bind Request Equipment: Equipment Type, Request Status
+bind Schedule Event: Event ID
+bind Provide Feedback: Feedback Rating
+Workspace ID: integer between 1 and 1000
+Booking Duration: float between 0.5 and 12.0
+Equipment Type: Projector, Whiteboard, Monitor
+Request Status: Pending, Approved, Denied
+Event ID: integer between 1 and 500
+Feedback Rating: Excellent, Good, Average, Poor
+Existence[Book Workspace] | |
+End[Check Out] | |
+Response[Request Equipment, Approve Equipment Request] | |A.Equipment Type == T.Equipment Type |0,2,d
+Response[Request Equipment, Deny Equipment Request] | |A.Equipment Type == T.Equipment Type |0,2,d
+Precedence[Cancel Booking, Book Workspace] | |A.Workspace ID == T.Workspace ID |
+Response[Check Out, Provide Feedback] | | |0,48,h
+Precedence[Schedule Event, Book Workspace] | |A.Event ID == T.Workspace ID |
+Exclusive Choice[Approve Equipment Request, Deny Equipment Request] | |A.Equipment Type == T.Equipment Type |
+Precedence[Check Out, Check In] | | |0,12,h
+Not Co-Existence[Book Workspace, Cancel Booking] | |A.Workspace ID == T.Workspace ID |

@@ -1,0 +1,40 @@
+activity Design User Interface
+activity Develop Backend
+activity Integrate Payment Gateway
+activity Conduct Security Testing
+activity Deploy Application
+activity Gather User Feedback
+activity Optimize Performance
+activity Update Product Catalog
+activity Monitor System
+activity Resolve Issues
+bind Design User Interface: UI Complexity
+bind Develop Backend: Backend Load Time
+bind Integrate Payment Gateway: Payment Status
+bind Conduct Security Testing: Security Level
+bind Gather User Feedback: Feedback Score
+bind Optimize Performance: Performance Score
+bind Update Product Catalog: Catalog Update Type
+bind Monitor System: Issue Count
+bind Resolve Issues: Resolution Status
+bind Deploy Application: Deployment Time
+UI Complexity: integer between 1 and 10
+Backend Load Time: float between 0.1 and 5.0
+Payment Status: Configured, Not Configured
+Security Level: Basic, Advanced
+Feedback Score: integer between 1 and 5
+Performance Score: float between 0.0 and 10.0
+Catalog Update Type: Add, Modify
+Issue Count: integer between 0 and 100
+Resolution Status: Resolved, Unresolved
+Deployment Time: float between 0.5 and 24.0
+Existence[Design User Interface] | |
+Precedence[Integrate Payment Gateway, Develop Backend] | | |
+Chain Response[Develop Backend, Conduct Security Testing] | | |0,2,h
+End[Deploy Application] | |
+Co-Existence[Gather User Feedback, Optimize Performance] | | |
+Response[Update Product Catalog, Monitor System] | | |0,1,d
+Succession[Monitor System, Resolve Issues] | | |
+Exactly[Conduct Security Testing] | |
+Not Chain Succession[Resolve Issues, Deploy Application] | | |
+Not Co-Existence[Integrate Payment Gateway, Conduct Security Testing] | | |

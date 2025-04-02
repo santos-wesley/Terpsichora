@@ -1,0 +1,33 @@
+activity Design Study Protocol
+activity Recruit Participants
+activity Conduct Initial Screening
+activity Administer Treatment
+activity Monitor Participants
+activity Collect Data
+activity Analyze Data
+activity Report Findings
+activity Obtain Informed Consent
+bind Recruit Participants: Participant Age, Consent Status
+bind Administer Treatment: Dosage Amount, Treatment Type
+bind Monitor Participants: Blood Pressure, Cholesterol Level
+bind Collect Data: Data Quality
+bind Design Study Protocol: Study Duration
+Participant Age: integer between 18 and 80
+Dosage Amount: float between 0.1 and 500.0
+Health Status: Healthy, At Risk, Ill
+Consent Status: Consented, Not Consented
+Study Duration: integer between 1 and 365
+Treatment Type: Placebo, Drug A, Drug B
+Blood Pressure: float between 80.0 and 200.0
+Data Quality: High, Medium, Low
+Cholesterol Level: float between 100.0 and 300.0
+Init[Design Study Protocol] | |
+Existence[Obtain Informed Consent] | |
+Precedence[Administer Treatment, Recruit Participants] | |A.Consent Status is Consented |
+Chain Response[Administer Treatment, Collect Data] | | |0,2,d
+Alternate Succession[Administer Treatment, Monitor Participants] | | |
+Response[Collect Data, Analyze Data] | |A.Data Quality is High |
+Chain Response[Analyze Data, Report Findings] | | |0,48,h
+Exactly[Conduct Initial Screening] | |
+Co-Existence[Administer Treatment, Monitor Participants] |A.Treatment Type is Drug A |A.Treatment Type == T.Treatment Type |
+Chain Succession[Design Study Protocol, Recruit Participants] | | |0,5,d

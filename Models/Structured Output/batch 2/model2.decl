@@ -1,0 +1,47 @@
+activity Inspect Train
+activity Verify Passenger Identity
+activity Monitor CCTV
+activity Conduct Baggage Check
+activity Patrol Station
+activity Respond to Incident
+activity Report Security Breach
+activity Coordinate with Police
+activity Check Ticket Validity
+activity Conduct Random Screening
+activity Secure Perimeter
+activity Train Security Staff
+activity Update Security Protocols
+activity Conduct Evacuation Drill
+activity Review Security Footage
+bind Inspect Train: Passenger Count, CCTV Status
+bind Verify Passenger Identity: Identity Status
+bind Conduct Baggage Check: Baggage Weight
+bind Respond to Incident: Incident Severity, Response Time
+bind Check Ticket Validity: Ticket Status
+bind Conduct Evacuation Drill: Drill Type
+bind Update Security Protocols: Protocol Version
+Passenger Count: integer between 0 and 1000
+Baggage Weight: float between 0.0 and 50.0
+Incident Severity: Low, Medium, High
+Identity Status: Verified, Not Verified
+Ticket Status: Valid, Invalid
+Security Staff Count: integer between 0 and 50
+CCTV Status: Operational, Non-Operational
+Response Time: float between 0.0 and 60.0
+Drill Type: Evacuation, Fire, Security
+Protocol Version: integer between 1 and 10
+Init[Inspect Train] | |
+End[Update Security Protocols] | |
+Existence[Conduct Baggage Check] | |
+Absence2[Patrol Station] | |
+Response[Verify Passenger Identity, Check Ticket Validity] | | |0,10,m
+Not Co-Existence[Conduct Evacuation Drill, Report Security Breach] | | |
+Response[Respond to Incident, Coordinate with Police] |A.Incident Severity in (Medium, High) | |0,30,m
+Precedence[Respond to Incident, Monitor CCTV] | | |
+Chain Response[Conduct Random Screening, Verify Passenger Identity] | | |
+Co-Existence[Inspect Train, Conduct Baggage Check] | | |
+Not Chain Succession[Secure Perimeter, Patrol Station] | | |
+Precedence[Update Security Protocols, Train Security Staff] | | |
+Response[Monitor CCTV, Review Security Footage] | | |0,24,h
+Response[Conduct Evacuation Drill, Train Security Staff] |A.Drill Type is Evacuation | |0,1,d
+Exclusive Choice[Check Ticket Validity, Verify Passenger Identity] | | |

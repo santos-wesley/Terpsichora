@@ -1,0 +1,25 @@
+activity Receive Emergency Call
+activity Assess Patient Condition
+activity Provide First Aid
+activity Transport Patient
+activity Handover Patient
+activity Complete Documentation
+activity Return to Base
+bind Receive Emergency Call: Response Time
+bind Assess Patient Condition: Patient Age, Patient Condition
+bind Transport Patient: Transport Mode, Distance to Hospital
+Patient Age: integer between 0 and 120
+Response Time: float between 0.0 and 60.0
+Patient Condition: Stable, Critical, Deceased
+Transport Mode: Ambulance, Helicopter
+Distance to Hospital: float between 0.0 and 100.0
+Init[Receive Emergency Call] | |
+End[Return to Base] | |
+Existence[Assess Patient Condition] | |
+Response[Assess Patient Condition, Transport Patient] |A.Patient Condition is Critical |T.Transport Mode is Helicopter |
+Succession[Transport Patient, Handover Patient] | | |0,2,h
+Chain Succession[Handover Patient, Complete Documentation] | | |0,1,h
+Chain Succession[Complete Documentation, Return to Base] | | |0,3,h
+Not Responded Existence[Receive Emergency Call, Assess Patient Condition] |A.Response Time > 30 |T.Patient Condition is Deceased |
+Precedence[Provide First Aid, Assess Patient Condition] | | |0,30,m
+Responded Existence[Transport Patient, Assess Patient Condition] |A.Distance to Hospital > 50 |T.Transport Mode is Helicopter |

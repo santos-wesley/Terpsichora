@@ -1,0 +1,35 @@
+activity Book Workspace
+activity Check In
+activity Check Out
+activity Request Equipment
+activity Approve Equipment Request
+activity Conduct Maintenance
+activity Report Issue
+activity Resolve Issue
+activity Provide Feedback
+activity Review Feedback
+bind Book Workspace: Workspace ID, Booking Duration
+bind Request Equipment: Equipment Type, Equipment Cost
+bind Report Issue: Issue Severity, Issue ID
+bind Provide Feedback: Feedback Rating, Feedback Type
+bind Conduct Maintenance: Maintenance Type, Maintenance Duration
+Workspace ID: integer between 1 and 1000
+Booking Duration: float between 0.5 and 12.0
+Equipment Type: Projector, Whiteboard, Monitor
+Issue Severity: Low, Medium, High
+Feedback Rating: integer between 1 and 5
+Maintenance Type: Routine, Emergency
+Equipment Cost: float between 10.0 and 500.0
+Issue ID: integer between 1 and 10000
+Feedback Type: Positive, Negative, Neutral
+Maintenance Duration: float between 0.5 and 8.0
+Init[Book Workspace] | |
+End[Check Out] | |
+Response[Book Workspace, Check In] | |A.Workspace ID == T.Workspace ID |0,1,h
+Precedence[Request Equipment, Approve Equipment Request] | |A.Equipment Type == T.Equipment Type |
+Response[Report Issue, Resolve Issue] |A.Issue Severity in (Medium, High) |A.Issue ID == T.Issue ID |0,2,d
+Existence[Provide Feedback] | |
+Not Co-Existence[Conduct Maintenance, Report Issue] | | |
+Response[Provide Feedback, Review Feedback] |A.Feedback Rating <= 3 |A.Feedback Type == T.Feedback Type |0,3,d
+Succession[Check In, Check Out] | |A.Workspace ID == T.Workspace ID |
+Exclusive Choice[Conduct Maintenance, Report Issue] | | |

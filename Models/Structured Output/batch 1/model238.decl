@@ -1,0 +1,37 @@
+activity Initiate Investigation
+activity Conduct Surveillance
+activity Analyze Financial Records
+activity Interrogate Suspects
+activity Collect Forensic Evidence
+activity Coordinate with Other Agencies
+activity Prepare Case Report
+activity Review Case with Legal Team
+activity Arrest Suspects
+activity Close Investigation
+bind Initiate Investigation: Number of Suspects, Amount of Money
+bind Conduct Surveillance: Surveillance Type, Duration of Surveillance
+bind Analyze Financial Records: Amount of Money, Case Complexity
+bind Collect Forensic Evidence: Evidence Type
+bind Coordinate with Other Agencies: Agency Collaboration
+bind Arrest Suspects: Legal Approval Status, Number of Arrests
+bind Close Investigation: Time Spent
+Number of Suspects: integer between 1 and 100
+Amount of Money: float between 1000.0 and 1000000.0
+Surveillance Type: Physical, Electronic, Both
+Evidence Type: DNA, Fingerprint, Ballistic, Digital
+Duration of Surveillance: integer between 1 and 365
+Agency Collaboration: Local, National, International
+Case Complexity: float between 1.0 and 10.0
+Legal Approval Status: Pending, Approved, Denied
+Number of Arrests: integer between 0 and 100
+Time Spent: float between 1.0 and 10000.0
+Init[Initiate Investigation] | |
+End[Close Investigation] | |
+Precedence[Interrogate Suspects, Conduct Surveillance] | | |
+Co-Existence[Analyze Financial Records, Collect Forensic Evidence] | | |
+Precedence[Arrest Suspects, Review Case with Legal Team] |A.Legal Approval Status is Approved | |
+Not Chain Succession[Conduct Surveillance, Interrogate Suspects] | | |
+Response[Initiate Investigation, Coordinate with Other Agencies] | | |5,10,d
+Existence[Collect Forensic Evidence] | |
+Response[Interrogate Suspects, Review Case with Legal Team] | | |0,48,h
+Chain Response[Analyze Financial Records, Prepare Case Report] | | |3,5,d

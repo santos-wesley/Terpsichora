@@ -1,0 +1,50 @@
+activity Register Patient
+activity Schedule Appointment
+activity Conduct Examination
+activity Prescribe Medication
+activity Administer Treatment
+activity Record Vital Signs
+activity Update Medical Records
+activity Process Insurance Claim
+activity Discharge Patient
+activity Follow Up Appointment
+activity Perform Lab Test
+activity Review Test Results
+activity Consult Specialist
+activity Provide Health Education
+activity Evaluate Treatment Plan
+bind Register Patient: Patient ID
+bind Schedule Appointment: Appointment ID
+bind Prescribe Medication: Medication Dosage
+bind Process Insurance Claim: Insurance Status
+bind Administer Treatment: Treatment Type
+bind Record Vital Signs: Vital Signs Score
+bind Perform Lab Test: Lab Test Result
+bind Consult Specialist: Specialist Type
+bind Evaluate Treatment Plan: Treatment Effectiveness
+bind Provide Health Education: Education Material Type
+Patient ID: integer between 1 and 10000
+Appointment ID: integer between 1 and 5000
+Medication Dosage: float between 0.1 and 500.0
+Insurance Status: Pending, Approved, Rejected
+Treatment Type: Surgery, Therapy, Medication
+Vital Signs Score: integer between 1 and 10
+Lab Test Result: float between 0.0 and 100.0
+Specialist Type: Cardiologist, Neurologist, Dermatologist
+Treatment Effectiveness: float between 0.0 and 100.0
+Education Material Type: Brochure, Video, Workshop
+Init[Register Patient] | |
+End[Discharge Patient] | |
+Existence[Conduct Examination] | |
+Response[Schedule Appointment, Conduct Examination] | | |
+Chain Succession[Prescribe Medication, Administer Treatment] | | |0,2,d
+Chain Response[Record Vital Signs, Update Medical Records] | | |0,1,h
+Precedence[Process Insurance Claim, Administer Treatment] | | |
+Response[Discharge Patient, Follow Up Appointment] | | |1,7,d
+Chain Response[Perform Lab Test, Review Test Results] | | |0,3,d
+Responded Existence[Administer Treatment, Consult Specialist] |A.Treatment Type is Surgery | |
+Responded Existence[Evaluate Treatment Plan, Provide Health Education] |A.Treatment Effectiveness < 50 | |
+Not Responded Existence[Consult Specialist, Consult Specialist] | |A.Specialist Type == T.Specialist Type |
+Not Precedence[Process Insurance Claim, Process Insurance Claim] | |A.Insurance Status is Rejected |
+Choice[Discharge Patient, Follow Up Appointment] | | |
+Response[Provide Health Education, Provide Health Education] |A.Education Material Type is Brochure | |

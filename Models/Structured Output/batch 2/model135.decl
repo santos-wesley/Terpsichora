@@ -1,0 +1,44 @@
+activity Collect Sample
+activity Label Sample
+activity Prepare Culture
+activity Inoculate Culture
+activity Incubate Culture
+activity Examine Culture
+activity Perform Gram Staining
+activity Analyze Results
+activity Record Observations
+activity Dispose Sample
+bind Collect Sample: Sample ID, Sample Condition
+bind Label Sample: Sample ID
+bind Prepare Culture: Culture Medium
+bind Inoculate Culture: Sample ID
+bind Incubate Culture: Incubation Temperature, Incubation Time
+bind Examine Culture: Colony Count
+bind Perform Gram Staining: Gram Stain Result, Staining Duration
+bind Record Observations: Observation ID
+bind Dispose Sample: Disposal Method
+Sample ID: integer between 1 and 1000
+Culture Medium: Agar, Broth, Gel
+Incubation Temperature: float between 20.0 and 45.0
+Incubation Time: integer between 1 and 72
+Gram Stain Result: Gram Positive, Gram Negative
+Colony Count: float between 0.0 and 1000.0
+Sample Condition: Fresh, Frozen, Degraded
+Observation ID: integer between 1 and 500
+Staining Duration: float between 1.0 and 60.0
+Disposal Method: Autoclave, Chemical, Incineration
+Init[Collect Sample] | |
+End[Dispose Sample] | |
+Existence[Incubate Culture] | |
+Chain Succession[Collect Sample, Label Sample] | |A.Sample ID == T.Sample ID |
+Precedence[Inoculate Culture, Prepare Culture] | |A.Sample ID == T.Sample ID |
+Response[Incubate Culture, Examine Culture] |A.Incubation Temperature > 30.0 | |0,48,h
+Alternate Response[Examine Culture, Perform Gram Staining] |A.Colony Count > 50.0 | |0,2,d
+Chain Response[Perform Gram Staining, Analyze Results] |A.Staining Duration < 30.0 | |0,1,d
+Succession[Analyze Results, Record Observations] | |A.Observation ID == T.Observation ID |0,24,h
+Not Precedence[Dispose Sample, Record Observations] | | |
+Choice[Prepare Culture, Inoculate Culture] |A.Culture Medium in (Agar, Broth) | |
+Exclusive Choice[Dispose Sample, Record Observations] |A.Disposal Method in (Autoclave, Incineration) | |
+Precedence[Inoculate Culture, Collect Sample] |A.Sample Condition is Fresh | |
+Not Chain Succession[Inoculate Culture, Examine Culture] | | |
+Not Responded Existence[Examine Culture, Perform Gram Staining] |A.Colony Count > 500.0 |T.Gram Stain Result is Gram Negative |

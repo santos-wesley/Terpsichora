@@ -1,0 +1,50 @@
+activity Identify Risk
+activity Assess Risk
+activity Develop Mitigation Plan
+activity Implement Mitigation Plan
+activity Monitor Risk
+activity Review Incident
+activity Report Incident
+activity Conduct Audit
+activity Train Staff
+activity Evaluate Strategy
+activity Update Policy
+activity Investigate Incident
+activity Approve Budget
+activity Allocate Resources
+activity Conduct Risk Analysis
+bind Identify Risk: Risk Level
+bind Develop Mitigation Plan: Mitigation Cost
+bind Review Incident: Incident Severity
+bind Conduct Audit: Audit Result
+bind Train Staff: Training Hours
+bind Approve Budget: Budget Amount
+bind Update Policy: Policy Status
+bind Allocate Resources: Resource Count
+bind Evaluate Strategy: Strategy Effectiveness
+bind Report Incident: Incident Cost
+Risk Level: integer between 1 and 10
+Mitigation Cost: float between 100.0 and 10000.0
+Incident Severity: Low, Medium, High
+Audit Result: Pass, Fail
+Training Hours: integer between 1 and 40
+Budget Amount: float between 1000.0 and 50000.0
+Policy Status: Draft, Approved, Updated
+Resource Count: integer between 1 and 100
+Strategy Effectiveness: Ineffective, Moderate, Effective
+Incident Cost: float between 50.0 and 20000.0
+Init[Identify Risk] | |
+End[Update Policy] | |
+Existence[Assess Risk] | |
+Exactly2[Conduct Audit] | |
+Response[Identify Risk, Assess Risk] | | |0,2,d
+Precedence[Implement Mitigation Plan, Develop Mitigation Plan] | | |
+Chain Response[Review Incident, Report Incident] | | |0,48,h
+Precedence[Evaluate Strategy, Train Staff] | | |
+Responded Existence[Conduct Audit, Evaluate Strategy] |A.Audit Result is Fail | |
+Not Chain Succession[Report Incident, Investigate Incident] | | |
+Succession[Approve Budget, Allocate Resources] | | |0,24,h
+Choice[Conduct Risk Analysis, Assess Risk] | | |
+Not Response[Review Incident, Review Incident] |A.Incident Severity is High |A.Incident Severity != T.Incident Severity |
+Responded Existence[Evaluate Strategy, Update Policy] |A.Strategy Effectiveness is Effective | |
+Chain Response[Review Incident, Report Incident] | | |0,15,m

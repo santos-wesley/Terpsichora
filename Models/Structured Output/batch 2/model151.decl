@@ -1,0 +1,50 @@
+activity Conduct Cultural Assessment
+activity Facilitate Cultural Training
+activity Develop Communication Plan
+activity Implement Feedback Mechanism
+activity Evaluate Team Performance
+activity Resolve Cultural Conflicts
+activity Review Cultural Policies
+activity Conduct Team Building Activities
+activity Monitor Cultural Integration
+activity Adjust Management Strategies
+activity Assess Cultural Competence
+activity Plan Cultural Exchange
+activity Conduct Diversity Audit
+activity Set Cultural Objectives
+activity Celebrate Cultural Events
+bind Facilitate Cultural Training: Training Hours
+bind Implement Feedback Mechanism: Feedback Status
+bind Resolve Cultural Conflicts: Conflict Resolution Status
+bind Evaluate Team Performance: Team Performance Score
+bind Monitor Cultural Integration: Integration Progress
+bind Review Cultural Policies: Policy Review Status
+bind Celebrate Cultural Events: Event Participation
+bind Conduct Diversity Audit: Diversity Audit Score
+bind Develop Communication Plan: Communication Effectiveness
+bind Assess Cultural Competence: Cultural Score
+Training Hours: integer between 1 and 40
+Cultural Score: float between 0.0 and 10.0
+Feedback Status: Pending, Reviewed, Addressed
+Conflict Resolution Status: Unresolved, In Progress, Resolved
+Team Performance Score: integer between 0 and 100
+Integration Progress: float between 0.0 and 100.0
+Policy Review Status: Not Started, In Review, Completed
+Event Participation: Low, Medium, High
+Diversity Audit Score: integer between 0 and 100
+Communication Effectiveness: float between 0.0 and 10.0
+Existence[Facilitate Cultural Training] | |
+Init[Conduct Cultural Assessment] | |
+End[Celebrate Cultural Events] | |
+Response[Implement Feedback Mechanism, Resolve Cultural Conflicts] |A.Feedback Status is Addressed | |0,2,d
+Succession[Develop Communication Plan, Implement Feedback Mechanism] |A.Communication Effectiveness > 7.0 | |0,48,h
+Co-Existence[Conduct Team Building Activities, Monitor Cultural Integration] | | |
+Precedence[Adjust Management Strategies, Review Cultural Policies] | |A.Policy Review Status is Completed |
+Not Chain Succession[Plan Cultural Exchange, Conduct Diversity Audit] | | |
+Not Response[Evaluate Team Performance, Resolve Cultural Conflicts] |A.Team Performance Score > 70 | |
+Exclusive Choice[Conduct Cultural Assessment, Facilitate Cultural Training] | | |
+Response[Conduct Team Building Activities, Evaluate Team Performance] | | |5,13,m
+Precedence[Conduct Cultural Assessment, Set Cultural Objectives] | | |
+Co-Existence[Assess Cultural Competence, Conduct Cultural Assessment] | | |
+Not Chain Precedence[Adjust Management Strategies, Evaluate Team Performance] | | |
+Response[Conduct Diversity Audit, Review Cultural Policies] |A.Diversity Audit Score > 50 | |10,15,s

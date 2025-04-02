@@ -1,0 +1,40 @@
+activity Assess Damage
+activity Activate Emergency Plan
+activity Allocate Resources
+activity Communicate with Stakeholders
+activity Conduct Safety Inspections
+activity Coordinate with External Agencies
+activity Document Recovery Efforts
+activity Evaluate Recovery Progress
+activity Implement Recovery Measures
+activity Review and Update Recovery Plan
+bind Assess Damage: Damage Level
+bind Activate Emergency Plan: Emergency Plan Status
+bind Allocate Resources: Resource Allocation
+bind Communicate with Stakeholders: Stakeholder Communication
+bind Conduct Safety Inspections: Inspection Count
+bind Coordinate with External Agencies: Agency Coordination
+bind Document Recovery Efforts: Documentation Pages
+bind Evaluate Recovery Progress: Recovery Progress
+bind Implement Recovery Measures: Recovery Measures Status
+bind Review and Update Recovery Plan: Plan Review Status
+Damage Level: integer between 1 and 10
+Resource Allocation: float between 1000.0 and 100000.0
+Emergency Plan Status: Activated, Not Activated
+Stakeholder Communication: In Progress, Completed
+Inspection Count: integer between 0 and 50
+Agency Coordination: Pending, Ongoing, Completed
+Recovery Progress: float between 0.0 and 100.0
+Recovery Measures Status: Initiated, In Progress, Completed
+Documentation Pages: integer between 1 and 500
+Plan Review Status: Reviewed, Updated, Not Updated
+Init[Assess Damage] | |
+End[Review and Update Recovery Plan] | |
+Chain Response[Activate Emergency Plan, Allocate Resources] |A.Emergency Plan Status is Activated | |2,5,m
+Response[Communicate with Stakeholders, Coordinate with External Agencies] |A.Stakeholder Communication is Completed | |1,3,h
+Co-Existence[Conduct Safety Inspections, Document Recovery Efforts] | | |
+Precedence[Implement Recovery Measures, Evaluate Recovery Progress] |A.Recovery Measures Status is Initiated | |
+Not Succession[Allocate Resources, Conduct Safety Inspections] | | |
+Exclusive Choice[Activate Emergency Plan, Communicate with Stakeholders] | | |
+Existence3[Conduct Safety Inspections] | |
+Response[Document Recovery Efforts, Review and Update Recovery Plan] |A.Documentation Pages > 50 | |1,2,d

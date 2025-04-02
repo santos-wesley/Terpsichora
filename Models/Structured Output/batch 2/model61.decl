@@ -1,0 +1,48 @@
+activity Book Workspace
+activity Check In
+activity Check Out
+activity Request Equipment
+activity Approve Equipment Request
+activity Deny Equipment Request
+activity Schedule Event
+activity Cancel Event
+activity Conduct Event
+activity Provide Feedback
+activity Process Payment
+activity Issue Invoice
+activity Resolve Issue
+activity Clean Workspace
+activity Maintenance Check
+bind Book Workspace: Workspace ID, Booking Duration
+bind Request Equipment: Equipment Type, Request Status
+bind Schedule Event: Event ID
+bind Provide Feedback: Feedback Rating
+bind Process Payment: Payment Amount
+bind Issue Invoice: Invoice Number
+bind Resolve Issue: Issue Type
+bind Maintenance Check: Maintenance Status
+Workspace ID: integer between 1 and 1000
+Booking Duration: float between 0.5 and 12.0
+Equipment Type: Projector, Whiteboard, Monitor
+Request Status: Pending, Approved, Denied
+Event ID: integer between 1 and 500
+Feedback Rating: Excellent, Good, Average, Poor
+Payment Amount: float between 10.0 and 1000.0
+Issue Type: Technical, Cleaning, Other
+Invoice Number: integer between 1 and 10000
+Maintenance Status: Completed, Pending
+Init[Book Workspace] | |
+End[Check Out] | |
+Existence[Provide Feedback] | |
+Absence2[Deny Equipment Request] | |
+Exactly[Maintenance Check] | |
+Response[Book Workspace, Check In] | | |0,2,h
+Response[Schedule Event, Conduct Event] | | |0,1,d
+Choice[Request Equipment, Approve Equipment Request] | | |
+Choice[Request Equipment, Deny Equipment Request] | | |
+Response[Process Payment, Issue Invoice] | | |0,1,d
+Precedence[Check Out, Check In] | | |
+Not Succession[Cancel Event, Conduct Event] | | |
+Not Chain Succession[Maintenance Check, Clean Workspace] | | |
+Not Succession[Book Workspace, Book Workspace] | | |
+Not Responded Existence[Resolve Issue, Resolve Issue] |A.Issue Type is Technical |A.Issue Type == T.Issue Type |

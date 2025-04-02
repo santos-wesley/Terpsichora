@@ -1,0 +1,36 @@
+activity Enroll in Dance Class
+activity Attend Dance Class
+activity Submit Dance Assignment
+activity Receive Feedback
+activity Perform in Recital
+activity Evaluate Performance
+activity Complete Dance Exam
+activity Receive Exam Results
+activity Join Dance Club
+activity Attend Dance Workshop
+bind Enroll in Dance Class: Class Level
+bind Submit Dance Assignment: Assignment Score
+bind Receive Feedback: Feedback Type
+bind Perform in Recital: Recital Performance Rating
+bind Complete Dance Exam: Exam Score
+bind Receive Exam Results: Exam Status
+bind Join Dance Club: Club Membership Type
+bind Attend Dance Workshop: Workshop Duration
+Class Level: integer between 1 and 5
+Assignment Score: float between 0.0 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Recital Performance Rating: integer between 1 and 10
+Exam Status: Passed, Failed
+Exam Score: float between 0.0 and 100.0
+Club Membership Type: Regular, Premium
+Workshop Duration: integer between 1 and 8
+Init[Enroll in Dance Class] | |
+Existence5[Attend Dance Class] | |
+Response[Submit Dance Assignment, Receive Feedback] | | |0,2,d
+Precedence[Perform in Recital, Attend Dance Class] | | |
+Succession[Complete Dance Exam, Receive Exam Results] | | |
+Not Co-Existence[Join Dance Club, Attend Dance Workshop] | | |
+Responded Existence[Attend Dance Class, Perform in Recital] |A.Class Level >= 3 |T.Recital Performance Rating >= 5 |
+Chain Response[Join Dance Club, Attend Dance Workshop] | | |0,1,d
+Chain Succession[Complete Dance Exam, Receive Exam Results] |A.Exam Score > 70 |T.Exam Status is Passed |
+Not Chain Succession[Submit Dance Assignment, Receive Feedback] | | |

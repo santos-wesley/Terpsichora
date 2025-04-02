@@ -1,0 +1,39 @@
+activity Enroll in Course
+activity Attend Online Lecture
+activity Submit Assignment
+activity Participate in Discussion
+activity Attend In-Person Workshop
+activity Complete Quiz
+activity Receive Feedback
+activity Access Course Material
+activity Schedule Meeting with Instructor
+activity Complete Course Evaluation
+bind Enroll in Course: Student ID, Course Type
+bind Submit Assignment: Assignment Score
+bind Receive Feedback: Feedback Type
+bind Complete Quiz: Quiz Attempts
+bind Complete Course Evaluation: Course Rating
+bind Participate in Discussion: Discussion Participation
+bind Attend In-Person Workshop: Workshop Attendance
+bind Schedule Meeting with Instructor: Meeting Outcome
+bind Access Course Material: Material Access Time
+Student ID: integer between 1 and 10000
+Course Type: Online, Blended
+Assignment Score: float between 0.0 and 100.0
+Feedback Type: Positive, Negative
+Quiz Attempts: integer between 1 and 5
+Course Rating: float between 1.0 and 5.0
+Discussion Participation: Active, Passive
+Workshop Attendance: integer between 0 and 10
+Meeting Outcome: Successful, Unsuccessful
+Material Access Time: float between 0.0 and 100.0
+Init[Enroll in Course] | |
+End[Complete Course Evaluation] | |
+Response[Attend Online Lecture, Participate in Discussion] | | |0,2,d
+Precedence[Receive Feedback, Submit Assignment] | | |
+Chain Response[Schedule Meeting with Instructor, Receive Feedback] |A.Meeting Outcome is Successful | |0,1,d
+Precedence[Attend In-Person Workshop, Complete Quiz] | | |
+Existence3[Access Course Material] | |
+Responded Existence[Participate in Discussion, Receive Feedback] |A.Discussion Participation is Active |T.Feedback Type is Positive |
+Exclusive Choice[Attend Online Lecture, Attend In-Person Workshop] | | |
+Response[Enroll in Course, Attend In-Person Workshop] |A.Course Type is Blended |T.Workshop Attendance > 0 |0,30,d

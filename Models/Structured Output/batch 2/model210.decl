@@ -1,0 +1,55 @@
+activity Draft Contract
+activity Review Contract
+activity Negotiate Terms
+activity Approve Contract
+activity Sign Contract
+activity Archive Contract
+activity Amend Contract
+activity Terminate Contract
+activity Renew Contract
+activity Monitor Compliance
+activity Issue Invoice
+activity Receive Payment
+activity Conduct Audit
+activity Resolve Dispute
+activity Close Contract
+bind Draft Contract: Contract ID, Contract Status
+bind Review Contract: Contract ID, Contract Status
+bind Negotiate Terms: Contract ID
+bind Approve Contract: Contract ID, Contract Status
+bind Sign Contract: Contract ID, Contract Status
+bind Archive Contract: Contract ID, Contract Status
+bind Amend Contract: Contract ID, Amendment Count
+bind Terminate Contract: Contract ID
+bind Renew Contract: Contract ID, Renewal Status
+bind Monitor Compliance: Contract ID, Compliance Status
+bind Issue Invoice: Contract ID, Invoice Amount, Payment Status
+bind Receive Payment: Contract ID, Payment Status
+bind Conduct Audit: Contract ID, Audit Score
+bind Resolve Dispute: Contract ID, Dispute Status
+bind Close Contract: Contract ID
+Contract ID: integer between 1 and 10000
+Contract Value: float between 1000.0 and 1000000.0
+Contract Status: Draft, Reviewed, Approved, Signed, Archived
+Payment Status: Pending, Completed, Overdue
+Amendment Count: integer between 0 and 10
+Compliance Status: Compliant, Non-Compliant
+Invoice Amount: float between 500.0 and 50000.0
+Dispute Status: None, Open, Resolved
+Audit Score: integer between 0 and 100
+Renewal Status: Not Started, In Progress, Completed
+Init[Draft Contract] | |
+Existence[Archive Contract] | |
+Exactly[Review Contract] | |
+Existence[Sign Contract] | |
+Precedence[Sign Contract, Approve Contract] | | |
+Response[Amend Contract, Review Contract] | | |0,2,d
+Precedence[Receive Payment, Issue Invoice] | | |
+Response[Resolve Dispute, Close Contract] | | |0,5,d
+Precedence[Archive Contract, Monitor Compliance] | |A.Compliance Status is Compliant |
+Precedence[Close Contract, Renew Contract] | | |
+Not Chain Succession[Sign Contract, Terminate Contract] | | |
+Precedence[Review Contract, Draft Contract] | | |
+Response[Monitor Compliance, Archive Contract] |A.Compliance Status is Compliant | |0,48,h
+Response[Approve Contract, Sign Contract] | | |0,5,d
+Response[Draft Contract, Review Contract] | | |0,3,d

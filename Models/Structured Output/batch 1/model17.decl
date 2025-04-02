@@ -1,0 +1,40 @@
+activity Verify Identity
+activity Inspect Package
+activity Confirm Delivery Address
+activity Secure Package
+activity Log Delivery Attempt
+activity Obtain Signature
+activity Notify Recipient
+activity Return to Sender
+activity Update Delivery Status
+activity Complete Delivery
+bind Verify Identity: Recipient Identity Verified
+bind Inspect Package: Package Condition
+bind Confirm Delivery Address: Return Reason
+bind Secure Package: Package Weight
+bind Log Delivery Attempt: Attempt Count
+bind Obtain Signature: Signature Obtained
+bind Notify Recipient: Notification Sent
+bind Return to Sender: Return Reason
+bind Update Delivery Status: Delivery Status
+bind Complete Delivery: Time Taken
+Package Weight: integer between 1 and 50
+Delivery Distance: float between 0.1 and 500.0
+Delivery Status: Pending, In Transit, Delivered, Failed
+Recipient Identity Verified: Yes, No
+Package Condition: Intact, Damaged, Tampered
+Attempt Count: integer between 1 and 5
+Signature Obtained: Yes, No
+Time Taken: float between 0.1 and 48.0
+Notification Sent: Yes, No
+Return Reason: Address Incorrect, Recipient Unavailable, Refused
+Init[Verify Identity] | |
+End[Complete Delivery] | |
+Existence[Inspect Package] | |
+Chain Response[Inspect Package, Secure Package] |A.Package Condition is Intact | |0,5,m
+Precedence[Obtain Signature, Log Delivery Attempt] | | |
+Response[Verify Identity, Return to Sender] |A.Recipient Identity Verified is No | |0,1,h
+Chain Response[Notify Recipient, Update Delivery Status] |A.Notification Sent is Yes | |0,2,h
+Response[Obtain Signature, Update Delivery Status] |A.Signature Obtained is Yes |T.Delivery Status is Delivered |
+Response[Confirm Delivery Address, Return to Sender] |A.Return Reason is Address Incorrect | |0,3,h
+Absence3[Log Delivery Attempt] |A.Attempt Count > 3 |

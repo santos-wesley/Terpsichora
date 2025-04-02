@@ -1,0 +1,55 @@
+activity Organize Community Meeting
+activity Conduct Survey
+activity Analyze Survey Results
+activity Develop Action Plan
+activity Implement Action Plan
+activity Evaluate Implementation
+activity Report Findings
+activity Gather Feedback
+activity Revise Action Plan
+activity Approve Budget
+activity Allocate Resources
+activity Engage Volunteers
+activity Conduct Training
+activity Monitor Progress
+activity Celebrate Success
+bind Organize Community Meeting: Meeting Type, Participants
+bind Conduct Survey: Survey Method, Participants
+bind Analyze Survey Results: Feedback Type
+bind Develop Action Plan: Action Plan Status
+bind Implement Action Plan: Action Plan Status, Budget
+bind Evaluate Implementation: Progress Percentage
+bind Report Findings: Feedback Type
+bind Gather Feedback: Feedback Type, Participants
+bind Revise Action Plan: Action Plan Status
+bind Approve Budget: Budget
+bind Allocate Resources: Resource Type
+bind Engage Volunteers: Volunteer Role, Participants
+bind Conduct Training: Training Sessions
+bind Monitor Progress: Progress Percentage
+bind Celebrate Success: Feedback Type
+Participants: integer between 5 and 5000
+Budget: float between 1000.0 and 100000.0
+Feedback Type: Positive, Negative, Neutral
+Survey Method: Online, In-Person, Mail
+Action Plan Status: Draft, Approved, Implemented, Revised
+Volunteer Role: Coordinator, Participant, Trainer
+Training Sessions: integer between 1 and 20
+Progress Percentage: float between 0.0 and 100.0
+Meeting Type: Town Hall, Focus Group, Committee
+Resource Type: Financial, Human, Material
+Init[Organize Community Meeting] | |
+End[Celebrate Success] | |
+Existence[Develop Action Plan] | |
+Absence2[Analyze Survey Results] | |
+Exactly[Revise Action Plan] | |
+Response[Conduct Survey, Analyze Survey Results] | | |0,2,d
+Precedence[Develop Action Plan, Analyze Survey Results] | | |
+Chain Response[Implement Action Plan, Evaluate Implementation] |A.Action Plan Status is Implemented | |
+Co-Existence[Gather Feedback, Revise Action Plan] | | |
+Response[Approve Budget, Allocate Resources] |A.Budget > 5000 | |0,48,h
+Response[Engage Volunteers, Conduct Training] |A.Volunteer Role is Coordinator | |0,1,d
+Response[Monitor Progress, Celebrate Success] |A.Progress Percentage >= 100 | |0,1,d
+Not Co-Existence[Conduct Survey, Organize Community Meeting] | | |
+Not Succession[Conduct Training, Monitor Progress] | | |
+Choice[Organize Community Meeting, Conduct Survey] | | |

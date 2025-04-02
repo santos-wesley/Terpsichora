@@ -1,0 +1,48 @@
+activity Collect Behavioral Data
+activity Analyze Behavioral Patterns
+activity Identify Anomalies
+activity Generate Behavioral Report
+activity Review Behavioral Report
+activity Approve Behavioral Report
+activity Distribute Behavioral Report
+activity Conduct Follow-up Interview
+activity Update Behavioral Database
+activity Archive Behavioral Data
+activity Initiate Behavioral Study
+activity Design Behavioral Experiment
+activity Conduct Behavioral Experiment
+activity Evaluate Experiment Results
+activity Publish Behavioral Findings
+bind Collect Behavioral Data: Data Points
+bind Identify Anomalies: Anomaly Score
+bind Generate Behavioral Report: Report Status
+bind Conduct Follow-up Interview: Interview Outcome, Follow-up Duration
+bind Conduct Behavioral Experiment: Experiment Participants, Experiment Duration
+bind Initiate Behavioral Study: Study Phase
+bind Update Behavioral Database: Database Update Type
+bind Review Behavioral Report: Report Reviewers
+Data Points: integer between 100 and 10000
+Anomaly Score: float between 0.0 and 10.0
+Report Status: Draft, Reviewed, Approved, Distributed
+Interview Outcome: Positive, Negative, Neutral
+Experiment Participants: integer between 5 and 500
+Experiment Duration: float between 0.5 and 48.0
+Study Phase: Initiation, Design, Execution, Evaluation, Publication
+Database Update Type: Addition, Modification, Deletion
+Report Reviewers: integer between 1 and 10
+Follow-up Duration: float between 10.0 and 120.0
+Init[Initiate Behavioral Study] | |
+End[Publish Behavioral Findings] | |
+Existence[Collect Behavioral Data] | |
+Exactly[Review Behavioral Report] | |
+Alternate Response[Generate Behavioral Report, Review Behavioral Report] | | |0,2,d
+Precedence[Generate Behavioral Report, Identify Anomalies] | | |
+Response[Conduct Follow-up Interview, Update Behavioral Database] | | |0,48,h
+Precedence[Distribute Behavioral Report, Approve Behavioral Report] | | |
+Chain Succession[Design Behavioral Experiment, Conduct Behavioral Experiment] | | |0,5,h
+Co-Existence[Initiate Behavioral Study, Design Behavioral Experiment] | | |
+Not Chain Succession[Collect Behavioral Data, Archive Behavioral Data] | | |
+Exclusive Choice[Distribute Behavioral Report, Conduct Follow-up Interview] | | |
+Responded Existence[Identify Anomalies, Conduct Follow-up Interview] |A.Anomaly Score > 7 | |
+Response[Evaluate Experiment Results, Publish Behavioral Findings] | | |0,2,d
+Precedence[Distribute Behavioral Report, Approve Behavioral Report] | |A.Report Status is Approved |

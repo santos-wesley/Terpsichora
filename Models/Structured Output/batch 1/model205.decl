@@ -1,0 +1,37 @@
+activity Identify Land
+activity Conduct Feasibility Study
+activity Secure Financing
+activity Obtain Permits
+activity Design Building
+activity Construct Building
+activity Market Property
+activity Sell Property
+activity Handover Property
+bind Identify Land: Land Size
+bind Conduct Feasibility Study: Feasibility Score
+bind Secure Financing: Financing Status
+bind Obtain Permits: Permit Status
+bind Design Building: Design Cost
+bind Construct Building: Construction Duration
+bind Market Property: Market Strategy
+bind Sell Property: Sale Price
+bind Handover Property: Handover Status
+Land Size: integer between 500 and 10000
+Feasibility Score: float between 0.0 and 10.0
+Financing Status: Pending, Approved, Rejected
+Permit Status: Not Applied, In Process, Granted, Denied
+Design Cost: float between 10000.0 and 500000.0
+Construction Duration: integer between 30 and 365
+Market Strategy: Online, Offline, Mixed
+Sale Price: float between 50000.0 and 1000000.0
+Handover Status: Pending, Completed
+Init[Identify Land] | |
+Existence[Conduct Feasibility Study] | |
+Precedence[Obtain Permits, Secure Financing] |A.Permit Status is Granted | |
+Chain Response[Secure Financing, Design Building] |A.Financing Status is Approved | |0,1,d
+Response[Design Building, Construct Building] |A.Design Cost > 20000 | |0,30,d
+Precedence[Market Property, Construct Building] |A.Market Strategy in (Online, Mixed) | |
+Succession[Market Property, Sell Property] | | |0,60,d
+Response[Sell Property, Handover Property] |A.Sale Price > 100000 | |0,30,d
+End[Handover Property] | |
+Co-Existence[Conduct Feasibility Study, Secure Financing] | | |

@@ -1,0 +1,48 @@
+activity Assess Risk
+activity Develop Recovery Strategy
+activity Implement Backup Solutions
+activity Test Recovery Plan
+activity Review Recovery Plan
+activity Train Staff
+activity Communicate Plan
+activity Monitor Systems
+activity Activate Recovery Plan
+activity Evaluate Recovery Process
+activity Document Lessons Learned
+activity Update Recovery Plan
+activity Conduct Risk Assessment
+activity Allocate Resources
+activity Report to Management
+bind Assess Risk: Risk Level
+bind Develop Recovery Strategy: Plan Status
+bind Implement Backup Solutions: Backup Status
+bind Test Recovery Plan: Test Result
+bind Train Staff: Training Sessions
+bind Allocate Resources: Resource Allocation
+bind Monitor Systems: System Downtime
+bind Evaluate Recovery Process: Evaluation Outcome
+Risk Level: integer between 1 and 10
+Recovery Cost: float between 1000.0 and 100000.0
+Backup Status: Complete, Incomplete
+Test Result: Successful, Failed
+Training Sessions: integer between 0 and 20
+Plan Status: Draft, Finalized, Under Review
+Resource Allocation: float between 0.0 and 100.0
+Communication Method: Email, Meeting, Report
+System Downtime: integer between 0 and 72
+Evaluation Outcome: Effective, Ineffective
+Init[Assess Risk] | |
+End[Report to Management] | |
+Existence[Test Recovery Plan] | |
+Exactly3[Train Staff] | |
+Response[Develop Recovery Strategy, Implement Backup Solutions] | | |0,2,d
+Chain Succession[Activate Recovery Plan, Evaluate Recovery Process] | | |0,48,h
+Co-Existence[Communicate Plan, Monitor Systems] | | |
+Not Chain Succession[Review Recovery Plan, Update Recovery Plan] | | |
+Responded Existence[Test Recovery Plan, Update Recovery Plan] |A.Test Result is Failed | |
+Precedence[Allocate Resources, Conduct Risk Assessment] | | |0,1,d
+Not Co-Existence[Document Lessons Learned, Evaluate Recovery Process] | | |
+Succession[Communicate Plan, Report to Management] | | |0,1,d
+Choice[Train Staff, Communicate Plan] | | |
+Exclusive Choice[Monitor Systems, Evaluate Recovery Process] | | |
+Not Succession[Allocate Resources, Activate Recovery Plan] | | |

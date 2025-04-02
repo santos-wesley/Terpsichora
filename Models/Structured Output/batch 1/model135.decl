@@ -1,0 +1,35 @@
+activity Draft Proposal
+activity Review Proposal
+activity Submit Proposal
+activity Schedule Meeting
+activity Conduct Meeting
+activity Revise Proposal
+activity Approve Proposal
+activity File Report
+activity Evaluate Outcome
+bind Draft Proposal: Proposal ID, Proposal Status
+bind Review Proposal: Proposal ID, Proposal Status
+bind Submit Proposal: Proposal ID, Proposal Status
+bind Schedule Meeting: Proposal ID, Meeting Type, Stakeholder Count
+bind Conduct Meeting: Proposal ID, Meeting Type, Stakeholder Count
+bind Revise Proposal: Proposal ID, Proposal Status
+bind Approve Proposal: Proposal ID, Approval Status
+bind File Report: Proposal ID, Impact Score
+bind Evaluate Outcome: Proposal ID, Impact Score
+Proposal ID: integer between 1 and 1000
+Budget: float between 1000.0 and 100000.0
+Proposal Status: Draft, Reviewed, Submitted, Approved
+Meeting Type: Initial, Follow-up, Final
+Stakeholder Count: integer between 1 and 50
+Approval Status: Pending, Approved, Rejected
+Impact Score: float between 0.0 and 10.0
+Init[Draft Proposal] | |
+End[Evaluate Outcome] | |
+Existence[Review Proposal] | |
+Precedence[Submit Proposal, Review Proposal] | |A.Proposal ID == T.Proposal ID |
+Chain Response[Conduct Meeting, Revise Proposal] | |A.Proposal ID == T.Proposal ID |0,2,d
+Responded Existence[Approve Proposal, File Report] |A.Approval Status is Approved |A.Proposal ID == T.Proposal ID |
+Not Chain Succession[Schedule Meeting, Conduct Meeting] | |A.Proposal ID == T.Proposal ID |
+Not Co-Existence[Draft Proposal, Approve Proposal] | |A.Proposal ID == T.Proposal ID |
+Response[Conduct Meeting, Revise Proposal] | |A.Proposal ID == T.Proposal ID |0,48,h
+Choice[Schedule Meeting, Conduct Meeting] | | |

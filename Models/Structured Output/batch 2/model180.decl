@@ -1,0 +1,50 @@
+activity Monitor Energy Supply
+activity Assess Risk Factors
+activity Implement Security Measures
+activity Conduct Energy Audit
+activity Review Energy Policies
+activity Approve Energy Budget
+activity Dispatch Maintenance Team
+activity Evaluate Energy Alternatives
+activity Report Energy Status
+activity Update Security Protocols
+activity Conduct Emergency Drill
+activity Analyze Energy Data
+activity Authorize Energy Transactions
+activity Inspect Energy Facilities
+activity Train Security Personnel
+bind Monitor Energy Supply: Supply Level
+bind Assess Risk Factors: Risk Assessment Score
+bind Implement Security Measures: Security Status
+bind Conduct Energy Audit: Audit Frequency
+bind Approve Energy Budget: Budget Allocation
+bind Review Energy Policies: Policy Compliance
+bind Dispatch Maintenance Team: Maintenance Urgency
+bind Evaluate Energy Alternatives: Alternative Source
+bind Authorize Energy Transactions: Transaction Amount
+bind Conduct Emergency Drill: Drill Outcome
+Supply Level: integer between 0 and 1000
+Risk Assessment Score: float between 0.0 and 10.0
+Security Status: Secure, Vulnerable, Compromised
+Audit Frequency: integer between 1 and 12
+Budget Allocation: float between 1000.0 and 100000.0
+Policy Compliance: Compliant, Non-Compliant
+Maintenance Urgency: integer between 1 and 5
+Alternative Source: Solar, Wind, Nuclear, Hydro
+Transaction Amount: float between 0.0 and 50000.0
+Drill Outcome: Successful, Failed
+Init[Monitor Energy Supply] | |
+End[Report Energy Status] | |
+Existence2[Assess Risk Factors] | |
+Response[Assess Risk Factors, Implement Security Measures] | | |0,2,d
+Precedence[Review Energy Policies, Conduct Energy Audit] | | |
+Succession[Approve Energy Budget, Dispatch Maintenance Team] | | |
+Co-Existence[Evaluate Energy Alternatives, Analyze Energy Data] | | |
+Not Chain Succession[Conduct Emergency Drill, Authorize Energy Transactions] | | |
+Response[Implement Security Measures, Update Security Protocols] | | |0,48,h
+Precedence[Conduct Emergency Drill, Train Security Personnel] | | |
+Alternate Succession[Monitor Energy Supply, Report Energy Status] | | |
+Not Co-Existence[Conduct Energy Audit, Review Energy Policies] | | |
+Response[Evaluate Energy Alternatives, Report Energy Status] | | |0,3,d
+Precedence[Authorize Energy Transactions, Approve Energy Budget] |A.Transaction Amount > 10000 | |
+Precedence[Dispatch Maintenance Team, Inspect Energy Facilities] | | |

@@ -1,0 +1,41 @@
+activity Create Assessment
+activity Assign Assessment
+activity Submit Assessment
+activity Evaluate Assessment
+activity Review Feedback
+activity Publish Results
+activity Appeal Grade
+activity Review Appeal
+activity Finalize Grade
+activity Archive Assessment
+bind Create Assessment: Assessment ID
+bind Assign Assessment: Assessment ID, Student ID
+bind Submit Assessment: Assessment ID, Student ID
+bind Evaluate Assessment: Assessment ID, Grade
+bind Review Feedback: Assessment ID, Feedback Status
+bind Publish Results: Assessment ID, Result Status
+bind Appeal Grade: Assessment ID, Student ID, Appeal Status
+bind Review Appeal: Assessment ID, Appeal Status
+bind Finalize Grade: Assessment ID, Grade
+bind Archive Assessment: Assessment ID
+Assessment ID: integer between 1 and 1000
+Student ID: integer between 1 and 5000
+Grade: float between 0.0 and 100.0
+Feedback Status: Pending, Reviewed
+Appeal Status: Submitted, Under Review, Resolved
+Result Status: Published, Not Published
+Init[Create Assessment] | |
+End[Archive Assessment] | |
+Existence[Assign Assessment] | |
+Exactly[Review Feedback] | |
+Precedence[Evaluate Assessment, Submit Assessment] | |A.Assessment ID == T.Assessment ID |
+Precedence[Publish Results, Review Feedback] | |A.Assessment ID == T.Assessment ID |
+Chain Response[Appeal Grade, Review Appeal] | |A.Assessment ID == T.Assessment ID |0,2,d
+Precedence[Finalize Grade, Review Appeal] | |A.Assessment ID == T.Assessment ID |
+Succession[Publish Results, Archive Assessment] | |A.Assessment ID == T.Assessment ID |
+Precedence[Evaluate Assessment, Assign Assessment] | |A.Assessment ID == T.Assessment ID |
+Chain Response[Submit Assessment, Evaluate Assessment] | |A.Assessment ID == T.Assessment ID |0,48,h
+Chain Response[Review Feedback, Review Feedback] |A.Feedback Status is Pending |A.Assessment ID == T.Assessment ID |0,5,d
+Precedence[Review Appeal, Appeal Grade] | |A.Assessment ID == T.Assessment ID |
+Precedence[Archive Assessment, Finalize Grade] | |A.Assessment ID == T.Assessment ID |
+Precedence[Submit Assessment, Assign Assessment] | |A.Assessment ID == T.Assessment ID |

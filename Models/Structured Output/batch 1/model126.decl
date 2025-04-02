@@ -1,0 +1,31 @@
+activity Install Solar Panels
+activity Inspect Installation
+activity Monitor Energy Output
+activity Perform Maintenance
+activity Upgrade System
+activity Evaluate Energy Efficiency
+activity Generate Energy Report
+activity Approve Installation
+bind Install Solar Panels: Panel Count, Installation Status
+bind Inspect Installation: Inspection Score
+bind Monitor Energy Output: Energy Output
+bind Perform Maintenance: Maintenance Type
+bind Upgrade System: Upgrade Type
+bind Evaluate Energy Efficiency: Efficiency Rate
+Panel Count: integer between 1 and 1000
+Energy Output: float between 0.0 and 10000.0
+Installation Status: Pending, Completed, Approved
+Maintenance Type: Routine, Emergency
+Efficiency Rate: float between 0.0 and 100.0
+Inspection Score: integer between 0 and 100
+Upgrade Type: Software, Hardware
+Init[Install Solar Panels] | |
+Existence[Inspect Installation] | |
+Response[Install Solar Panels, Inspect Installation] | | |0,2,d
+Precedence[Monitor Energy Output, Approve Installation] | | |
+Chain Response[Perform Maintenance, Evaluate Energy Efficiency] | | |0,48,h
+Precedence[Upgrade System, Evaluate Energy Efficiency] |A.Efficiency Rate < 70 | |
+Response[Monitor Energy Output, Generate Energy Report] | | |
+Precedence[Approve Installation, Install Solar Panels] |A.Installation Status is Completed | |
+Chain Precedence[Perform Maintenance, Monitor Energy Output] |A.Maintenance Type is Emergency | |0,5,h
+End[Generate Energy Report] | |

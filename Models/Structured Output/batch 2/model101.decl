@@ -1,0 +1,50 @@
+activity Conduct Species Survey
+activity Analyze Habitat Data
+activity Develop Conservation Plan
+activity Monitor Population Trends
+activity Assess Threat Levels
+activity Implement Conservation Actions
+activity Evaluate Conservation Outcomes
+activity Report Findings
+activity Review Legislation Impact
+activity Engage Community
+activity Secure Funding
+activity Conduct Environmental Impact Assessment
+activity Identify Key Biodiversity Areas
+activity Coordinate with Stakeholders
+activity Update Conservation Database
+bind Conduct Species Survey: Species Count
+bind Analyze Habitat Data: Habitat Quality Index
+bind Assess Threat Levels: Threat Level
+bind Develop Conservation Plan: Conservation Status
+bind Secure Funding: Funding Amount
+bind Monitor Population Trends: Population Growth Rate
+bind Engage Community: Community Engagement Level
+bind Review Legislation Impact: Legislation Impact Score
+bind Conduct Environmental Impact Assessment: Environmental Impact Score
+bind Coordinate with Stakeholders: Stakeholder Agreement
+Species Count: integer between 1 and 1000
+Habitat Quality Index: float between 0.0 and 10.0
+Threat Level: Low, Medium, High
+Conservation Status: Endangered, Vulnerable, Stable
+Funding Amount: integer between 1000 and 1000000
+Population Growth Rate: float between -1.0 and 1.0
+Community Engagement Level: None, Low, Moderate, High
+Legislation Impact Score: integer between 0 and 100
+Environmental Impact Score: float between 0.0 and 100.0
+Stakeholder Agreement: Disagree, Neutral, Agree
+Existence[Conduct Species Survey] | |
+Exactly[Develop Conservation Plan] | |
+End[Report Findings] | |
+Chain Response[Conduct Species Survey, Analyze Habitat Data] | | |0,2,d
+Response[Develop Conservation Plan, Implement Conservation Actions] | | |
+Succession[Implement Conservation Actions, Monitor Population Trends] | | |
+Response[Monitor Population Trends, Evaluate Conservation Outcomes] | | |
+Precedence[Implement Conservation Actions, Engage Community] |A.Threat Level is High | |
+Not Chain Precedence[Conduct Environmental Impact Assessment, Implement Conservation Actions] | | |
+Exclusive Choice[Review Legislation Impact, Engage Community] | | |
+Precedence[Develop Conservation Plan, Secure Funding] |A.Conservation Status is Endangered | |
+Response[Secure Funding, Coordinate with Stakeholders] | | |
+Co-Existence[Conduct Species Survey, Analyze Habitat Data] | | |
+Chain Response[Evaluate Conservation Outcomes, Update Conservation Database] | | |0,48,h
+Not Response[Conduct Environmental Impact Assessment, Implement Conservation Actions] |A.Environmental Impact Score > 50 | |

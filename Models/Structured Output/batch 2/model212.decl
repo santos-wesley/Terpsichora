@@ -1,0 +1,49 @@
+activity Initiate Security Scan
+activity Analyze Scan Results
+activity Update Security Policies
+activity Deploy Security Patches
+activity Monitor Network Traffic
+activity Respond to Threats
+activity Conduct Security Audit
+activity Review Audit Findings
+activity Train Security Personnel
+activity Evaluate Security Tools
+activity Report Security Incidents
+activity Perform Risk Assessment
+activity Implement Access Controls
+activity Test Disaster Recovery Plan
+activity Review Access Logs
+bind Initiate Security Scan: Scan Duration, Threat Level
+bind Update Security Policies: Policy Status
+bind Deploy Security Patches: Patch Status
+bind Monitor Network Traffic: Traffic Volume
+bind Respond to Threats: Threat Response
+bind Conduct Security Audit: Audit Score
+bind Train Security Personnel: Training Status
+bind Report Security Incidents: Incident Count
+bind Perform Risk Assessment: Risk Level
+Scan Duration: integer between 10 and 2400
+Threat Level: float between 0.0 and 10.0
+Policy Status: Pending, Completed, Failed
+Patch Status: Not Started, In Progress, Completed
+Traffic Volume: integer between 1 and 10000
+Threat Response: Blocked, Quarantined, Ignored
+Audit Score: float between 0.0 and 100.0
+Training Status: Scheduled, Ongoing, Completed
+Incident Count: integer between 0 and 100
+Risk Level: float between 0.0 and 10.0
+Existence[Initiate Security Scan] | |
+Chain Response[Initiate Security Scan, Analyze Scan Results] | | |0,5,m
+Response[Analyze Scan Results, Update Security Policies] | |A.Threat Level > 5 |0,1,h
+Response[Update Security Policies, Deploy Security Patches] |A.Policy Status is Completed | |0,2,h
+Response[Deploy Security Patches, Monitor Network Traffic] |A.Patch Status is Completed | |0,1,h
+Response[Monitor Network Traffic, Respond to Threats] |A.Traffic Volume > 5000 | |0,30,m
+Existence[Conduct Security Audit] | |
+Response[Conduct Security Audit, Review Audit Findings] |A.Audit Score < 70 | |0,1,d
+Response[Review Audit Findings, Train Security Personnel] | |A.Audit Score < 70 |0,2,d
+Response[Train Security Personnel, Evaluate Security Tools] |A.Training Status is Completed | |
+Response[Evaluate Security Tools, Report Security Incidents] | | |
+Response[Report Security Incidents, Perform Risk Assessment] |A.Incident Count > 0 | |
+Response[Perform Risk Assessment, Implement Access Controls] |A.Risk Level > 5 | |
+Response[Implement Access Controls, Test Disaster Recovery Plan] | | |
+Response[Test Disaster Recovery Plan, Review Access Logs] | | |

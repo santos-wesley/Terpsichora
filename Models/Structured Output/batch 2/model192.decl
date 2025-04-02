@@ -1,0 +1,55 @@
+activity Enroll in Course
+activity Attend Lecture
+activity Complete Assignment
+activity Pass Exam
+activity Receive Certificate
+activity Provide Feedback
+activity Schedule Exam
+activity Access Course Material
+activity Participate in Discussion
+activity Submit Assignment
+activity Review Feedback
+activity Request Extension
+activity Attend Workshop
+activity Complete Survey
+activity Register for Workshop
+bind Enroll in Course: Course ID, Student ID
+bind Attend Lecture: Course ID
+bind Complete Assignment: Student ID, Assignment Score
+bind Pass Exam: Student ID, Exam Score
+bind Receive Certificate: Student ID, Certificate Status
+bind Provide Feedback: Student ID, Feedback Rating
+bind Schedule Exam: Student ID
+bind Access Course Material: Student ID, Course Material Access
+bind Participate in Discussion: Student ID
+bind Submit Assignment: Student ID
+bind Review Feedback: Student ID
+bind Request Extension: Student ID, Extension Status
+bind Attend Workshop: Student ID, Workshop Registration
+bind Complete Survey: Student ID, Survey Completion
+bind Register for Workshop: Student ID, Workshop Registration
+Course ID: integer between 1 and 1000
+Student ID: integer between 1 and 10000
+Assignment Score: float between 0.0 and 100.0
+Exam Score: float between 0.0 and 100.0
+Feedback Rating: Poor, Average, Good, Excellent
+Course Material Access: Granted, Revoked
+Certificate Status: Issued, Pending
+Extension Status: Approved, Denied
+Workshop Registration: Registered, Not Registered
+Survey Completion: Completed, Not Completed
+Init[Enroll in Course] | |
+End[Receive Certificate] | |
+Existence[Attend Lecture] | |
+Exactly[Complete Assignment] | |
+Response[Schedule Exam, Pass Exam] | | |0,7,d
+Precedence[Submit Assignment, Request Extension] | | |
+Response[Receive Certificate, Provide Feedback] | | |0,5,d
+Precedence[Attend Lecture, Access Course Material] | | |
+Response[Access Course Material, Participate in Discussion] | | |0,2,d
+Response[Submit Assignment, Review Feedback] | | |0,3,d
+Precedence[Attend Workshop, Register for Workshop] | | |
+Response[Provide Feedback, Complete Survey] | | |0,5,d
+Precedence[Receive Certificate, Pass Exam] | | |
+Not Precedence[Receive Certificate, Pass Exam] | | |
+Choice[Attend Workshop, Complete Survey] | | |

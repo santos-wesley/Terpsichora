@@ -1,0 +1,34 @@
+activity Conduct Team Meeting
+activity Evaluate Employee Performance
+activity Organize Training Session
+activity Approve Leave Request
+activity Conduct Exit Interview
+activity Plan Team Building Activity
+activity Review Workplace Policies
+activity Conduct Feedback Survey
+bind Conduct Team Meeting: Meeting Duration
+bind Evaluate Employee Performance: Performance Score
+bind Organize Training Session: Training Type
+bind Approve Leave Request: Leave Status
+bind Conduct Exit Interview: Interview Duration
+bind Plan Team Building Activity: Activity Type
+bind Review Workplace Policies: Policy Review Score
+bind Conduct Feedback Survey: Survey Type
+Meeting Duration: integer between 30 and 180
+Performance Score: float between 1.0 and 5.0
+Training Type: Technical, Soft Skills, Compliance
+Leave Status: Approved, Rejected, Pending
+Interview Duration: integer between 15 and 60
+Activity Type: Outdoor, Indoor, Virtual
+Policy Review Score: float between 1.0 and 10.0
+Survey Type: Annual, Quarterly, Project-Based
+Init[Conduct Team Meeting] | |
+Existence[Conduct Feedback Survey] | |
+Response[Organize Training Session, Plan Team Building Activity] | |A.Training Type == T.Activity Type |
+Chain Response[Approve Leave Request, Conduct Exit Interview] |A.Leave Status is Approved | |0,1,h
+Precedence[Conduct Feedback Survey, Review Workplace Policies] | | |
+Not Co-Existence[Conduct Team Meeting, Evaluate Employee Performance] | | |
+Not Chain Response[Organize Training Session, Conduct Team Meeting] | | |
+Choice[Conduct Feedback Survey, Plan Team Building Activity] | | |
+Not Precedence[Conduct Exit Interview, Conduct Team Meeting] | | |
+Exactly[Conduct Exit Interview] | |

@@ -1,0 +1,27 @@
+activity Receive Support Request
+activity Assign Support Agent
+activity Diagnose Issue
+activity Provide Solution
+activity Escalate Issue
+activity Close Support Ticket
+activity Verify Solution
+activity Log Support Activity
+bind Receive Support Request: Priority Level, Issue Type
+bind Assign Support Agent: Agent Skill Level
+bind Provide Solution: Resolution Time
+bind Verify Solution: Customer Satisfaction
+Priority Level: integer between 1 and 5
+Issue Type: Software, Hardware, Network, Other
+Resolution Time: float between 0.5 and 72.0
+Agent Skill Level: Junior, Mid, Senior
+Customer Satisfaction: Satisfied, Neutral, Dissatisfied
+Init[Receive Support Request] | |
+End[Close Support Ticket] | |
+Response[Diagnose Issue, Provide Solution] | | |0,48,h
+Precedence[Escalate Issue, Diagnose Issue] | | |
+Existence[Log Support Activity] | |
+Chain Succession[Assign Support Agent, Diagnose Issue] | | |0,2,h
+Chain Precedence[Diagnose Issue, Receive Support Request] |A.Issue Type is Software |A.Issue Type == T.Issue Type |
+Chain Response[Provide Solution, Verify Solution] | | |0,24,h
+Responded Existence[Receive Support Request, Assign Support Agent] |A.Priority Level > 3 |T.Agent Skill Level is Senior |
+Response[Verify Solution, Log Support Activity] | |A.Customer Satisfaction is Satisfied |0,12,h

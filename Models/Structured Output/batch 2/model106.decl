@@ -1,0 +1,50 @@
+activity Inspect Cargo
+activity Verify Crew Identity
+activity Monitor Vessel Traffic
+activity Conduct Safety Drill
+activity Assess Threat Level
+activity Secure Perimeter
+activity Communicate with Authorities
+activity Review Security Protocols
+activity Authorize Departure
+activity Conduct Underwater Inspection
+activity Check Cargo Documentation
+activity Perform Risk Assessment
+activity Train Security Personnel
+activity Implement Security Measures
+activity Evaluate Security Equipment
+bind Inspect Cargo: Cargo Weight
+bind Verify Crew Identity: Crew Identity Status
+bind Monitor Vessel Traffic: Vessel Traffic Status
+bind Conduct Safety Drill: Drill Frequency
+bind Assess Threat Level: Threat Level
+bind Secure Perimeter: Perimeter Security Status
+bind Review Security Protocols: Security Protocol Status
+bind Perform Risk Assessment: Risk Score
+bind Evaluate Security Equipment: Equipment Functionality
+bind Authorize Departure: Departure Authorization Status
+Threat Level: integer between 1 and 5
+Cargo Weight: float between 0.1 and 10000.0
+Crew Identity Status: Verified, Not Verified
+Vessel Traffic Status: Normal, Congested
+Drill Frequency: integer between 1 and 12
+Perimeter Security Status: Secured, Not Secured
+Risk Score: float between 0.0 and 100.0
+Security Protocol Status: Updated, Outdated
+Equipment Functionality: float between 0.0 and 100.0
+Departure Authorization Status: Authorized, Not Authorized
+Existence[Inspect Cargo] | |
+Exactly2[Verify Crew Identity] | |
+Init[Monitor Vessel Traffic] | |
+End[Authorize Departure] | |
+Chain Response[Conduct Safety Drill, Assess Threat Level] | | |0,2,h
+Precedence[Authorize Departure, Secure Perimeter] | | |
+Responded Existence[Inspect Cargo, Perform Risk Assessment] |A.Cargo Weight > 5000 | |
+Not Responded Existence[Verify Crew Identity, Monitor Vessel Traffic] |A.Crew Identity Status is Not Verified |T.Vessel Traffic Status is Congested |
+Response[Assess Threat Level, Review Security Protocols] | | |
+Response[Implement Security Measures, Evaluate Security Equipment] | | |
+Precedence[Authorize Departure, Secure Perimeter] | |T.Perimeter Security Status is Secured |
+Precedence[Authorize Departure, Perform Risk Assessment] | |T.Risk Score < 50 |
+Precedence[Authorize Departure, Review Security Protocols] | |T.Security Protocol Status is Updated |
+Precedence[Authorize Departure, Evaluate Security Equipment] | |T.Equipment Functionality >= 80 |
+Chain Response[Secure Perimeter, Conduct Underwater Inspection] | | |0,1,d

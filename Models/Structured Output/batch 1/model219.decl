@@ -1,0 +1,39 @@
+activity Identify Target Market
+activity Develop Sales Plan
+activity Set Sales Targets
+activity Train Sales Team
+activity Launch Marketing Campaign
+activity Monitor Sales Performance
+activity Adjust Sales Strategy
+activity Negotiate Contracts
+activity Close Sales Deals
+activity Evaluate Sales Strategy
+bind Identify Target Market: Market Size
+bind Set Sales Targets: Sales Target
+bind Train Sales Team: Training Level
+bind Launch Marketing Campaign: Campaign Type, Marketing Budget
+bind Monitor Sales Performance: Performance Score
+bind Negotiate Contracts: Contract Value
+bind Close Sales Deals: Deal Status
+bind Adjust Sales Strategy: Strategy Adjustments
+bind Evaluate Sales Strategy: Evaluation Outcome
+Market Size: integer between 1000 and 1000000
+Sales Target: float between 10000.0 and 1000000.0
+Training Level: Basic, Intermediate, Advanced
+Campaign Type: Digital, Print, TV
+Performance Score: integer between 1 and 100
+Contract Value: float between 5000.0 and 500000.0
+Deal Status: Open, Closed, Pending
+Strategy Adjustments: integer between 0 and 10
+Marketing Budget: float between 1000.0 and 100000.0
+Evaluation Outcome: Successful, Needs Improvement, Failed
+Existence[Identify Target Market] | |
+End[Evaluate Sales Strategy] | |
+Response[Launch Marketing Campaign, Monitor Sales Performance] | | |0,30,d
+Chain Precedence[Close Sales Deals, Negotiate Contracts] | | |0,7,d
+Alternate Response[Set Sales Targets, Train Sales Team] | | |0,14,d
+Co-Existence[Adjust Sales Strategy, Monitor Sales Performance] | | |
+Succession[Develop Sales Plan, Set Sales Targets] | | |0,21,d
+Exclusive Choice[Launch Marketing Campaign, Adjust Sales Strategy] | | |
+Not Chain Precedence[Evaluate Sales Strategy, Adjust Sales Strategy] | | |
+Exactly2[Train Sales Team] | |

@@ -1,0 +1,26 @@
+activity Initiate Negotiation
+activity Present Demands
+activity Evaluate Demands
+activity Counter Offer
+activity Review Counter Offer
+activity Reach Agreement
+activity Sign Agreement
+activity Declare Impasse
+bind Initiate Negotiation: Negotiation Stage
+bind Present Demands: Demand Priority
+bind Counter Offer: Offer Value
+bind Reach Agreement: Agreement Status
+Demand Priority: integer between 1 and 5
+Offer Value: float between 1000.0 and 100000.0
+Agreement Status: Pending, Reached, Not Reached
+Negotiation Stage: Initiation, Demand Presentation, Evaluation, Counter Offer, Review, Agreement, Impasse
+Init[Initiate Negotiation] | |
+End[Reach Agreement] | |
+Precedence[Evaluate Demands, Present Demands] | | |
+Response[Counter Offer, Review Counter Offer] | | |0,2,d
+Precedence[Sign Agreement, Reach Agreement] | |A.Agreement Status is Reached |
+Not Succession[Declare Impasse, Reach Agreement] | | |
+Chain Response[Present Demands, Initiate Negotiation] |A.Negotiation Stage is Initiation |T.Negotiation Stage is Demand Presentation |0,1,d
+Chain Response[Counter Offer, Evaluate Demands] |A.Negotiation Stage is Evaluation |T.Negotiation Stage is Counter Offer |0,1,d
+Chain Response[Reach Agreement, Review Counter Offer] |A.Negotiation Stage is Review |T.Negotiation Stage is Agreement |0,1,d
+Responded Existence[Present Demands, Counter Offer] |A.Demand Priority > 3 |T.Offer Value > 50000 |

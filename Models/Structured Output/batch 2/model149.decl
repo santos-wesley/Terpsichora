@@ -1,0 +1,50 @@
+activity Collect Intelligence
+activity Analyze Data
+activity Validate Sources
+activity Draft Report
+activity Review Report
+activity Approve Report
+activity Disseminate Report
+activity Update Database
+activity Identify Threats
+activity Assess Risk
+activity Plan Response
+activity Execute Response
+activity Monitor Situation
+activity Conduct Briefing
+activity Archive Records
+bind Collect Intelligence: Data Volume
+bind Validate Sources: Source Credibility
+bind Draft Report: Report Status
+bind Identify Threats: Threat Count
+bind Assess Risk: Risk Level
+bind Plan Response: Response Type
+bind Disseminate Report: Stakeholder Group
+bind Update Database: Update Frequency
+bind Conduct Briefing: Briefing Type
+bind Analyze Data: Data Accuracy
+Data Volume: integer between 1 and 1000
+Risk Level: float between 0.0 and 10.0
+Source Credibility: High, Medium, Low
+Report Status: Draft, Reviewed, Approved
+Threat Count: integer between 0 and 100
+Response Type: Immediate, Delayed, Monitored
+Data Accuracy: float between 0.0 and 100.0
+Stakeholder Group: Internal, External
+Update Frequency: integer between 1 and 30
+Briefing Type: Formal, Informal
+Init[Collect Intelligence] | |
+End[Archive Records] | |
+Existence[Review Report] | |
+Absence2[Draft Report] | |
+Chain Response[Analyze Data, Validate Sources] | | |
+Response[Approve Report, Disseminate Report] |A.Report Status is Approved | |0,2,d
+Response[Identify Threats, Assess Risk] | | |0,48,h
+Succession[Plan Response, Execute Response] | | |
+Precedence[Conduct Briefing, Disseminate Report] | | |
+Not Chain Succession[Approve Report, Update Database] | | |
+Responded Existence[Collect Intelligence, Analyze Data] |A.Data Volume > 500 |T.Data Accuracy >= 80.0 |
+Co-Existence[Validate Sources, Analyze Data] | | |
+Not Co-Existence[Monitor Situation, Execute Response] | | |
+Response[Draft Report, Review Report] | | |0,5,d
+Exclusive Choice[Conduct Briefing, Archive Records] | | |

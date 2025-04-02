@@ -1,0 +1,29 @@
+activity Define Requirements
+activity Design UI/UX
+activity Develop Backend
+activity Develop Frontend
+activity Integrate APIs
+activity Conduct Testing
+activity Fix Bugs
+activity Deploy Application
+activity Gather Feedback
+activity Update Application
+bind Define Requirements: Priority, Platform
+bind Design UI/UX: Estimated Time, Status
+bind Conduct Testing: Status
+bind Gather Feedback: Feedback Type
+Priority: integer between 1 and 5
+Estimated Time: float between 0.5 and 100.0
+Status: Not Started, In Progress, Completed
+Platform: iOS, Android, Both
+Feedback Type: Positive, Negative, Neutral
+Init[Define Requirements] | |
+End[Update Application] | |
+Existence[Design UI/UX] | |
+Chain Succession[Develop Backend, Develop Frontend] | | |0,48,h
+Precedence[Integrate APIs, Develop Backend] | | |
+Response[Develop Frontend, Conduct Testing] | | |0,24,h
+Not Co-Existence[Fix Bugs, Deploy Application] | | |
+Succession[Deploy Application, Gather Feedback] | | |
+Exclusive Choice[Update Application, Fix Bugs] | | |
+Response[Gather Feedback, Update Application] |A.Feedback Type is Negative | |

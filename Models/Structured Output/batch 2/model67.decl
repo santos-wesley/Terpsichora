@@ -1,0 +1,55 @@
+activity Receive Order
+activity Validate Payment
+activity Check Inventory
+activity Pack Items
+activity Generate Invoice
+activity Ship Order
+activity Update Inventory
+activity Send Confirmation Email
+activity Handle Return Request
+activity Issue Refund
+activity Restock Items
+activity Cancel Order
+activity Review Order
+activity Apply Discount
+activity Close Order
+bind Receive Order: Order ID, Customer ID
+bind Validate Payment: Payment Status
+bind Check Inventory: Inventory Status
+bind Pack Items: 
+bind Generate Invoice: Order Value
+bind Ship Order: Shipping Status
+bind Update Inventory: 
+bind Send Confirmation Email: 
+bind Handle Return Request: Return Status
+bind Issue Refund: Refund Amount
+bind Restock Items: 
+bind Cancel Order: Order Status
+bind Review Order: 
+bind Apply Discount: Discount Percentage
+bind Close Order: Order Status
+Order ID: integer between 1000 and 9999
+Order Value: float between 0.01 and 10000.0
+Payment Status: Pending, Completed, Failed
+Inventory Status: In Stock, Out of Stock
+Shipping Status: Not Shipped, Shipped, Delivered
+Return Status: Requested, Processed, Completed
+Discount Percentage: integer between 0 and 100
+Order Status: Open, Closed, Cancelled
+Customer ID: integer between 1 and 10000
+Refund Amount: float between 0.0 and 10000.0
+Init[Receive Order] | |
+End[Close Order] | |
+Precedence[Pack Items, Validate Payment] | | |
+Chain Response[Ship Order, Send Confirmation Email] | | |0,2,h
+Precedence[Ship Order, Pack Items] | | |
+Chain Response[Handle Return Request, Restock Items] | | |0,1,d
+Response[Handle Return Request, Issue Refund] | | |
+Not Succession[Cancel Order, Ship Order] | | |
+Chain Response[Apply Discount, Generate Invoice] | | |
+Precedence[Close Order, Review Order] | | |
+Not Precedence[Ship Order, Validate Payment] |A.Payment Status is Failed | |
+Not Precedence[Pack Items, Check Inventory] |A.Inventory Status is Out of Stock | |
+Precedence[Cancel Order, Receive Order] | | |
+Response[Generate Invoice, Apply Discount] |A.Order Value > 500 | |
+Existence[Validate Payment] | |

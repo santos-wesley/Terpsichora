@@ -1,0 +1,50 @@
+activity Initiate Audit
+activity Gather Evidence
+activity Conduct Interviews
+activity Analyze Data
+activity Evaluate Controls
+activity Document Findings
+activity Prepare Audit Report
+activity Review Audit Report
+activity Submit Audit Report
+activity Follow-up Actions
+activity Close Audit
+activity Plan Next Audit
+activity Assess Risk
+activity Verify Compliance
+activity Approve Audit Plan
+bind Initiate Audit: Audit Status
+bind Gather Evidence: Evidence Collected
+bind Conduct Interviews: Interview Outcome
+bind Analyze Data: Control Effectiveness
+bind Evaluate Controls: Compliance Level
+bind Document Findings: Number of Findings
+bind Prepare Audit Report: Report Accuracy
+bind Assess Risk: Risk Level
+bind Follow-up Actions: Audit Duration
+bind Plan Next Audit: Budget Utilization
+Audit Duration: integer between 1 and 365
+Budget Utilization: float between 0.0 and 100.0
+Audit Status: Initiated, In Progress, Completed
+Compliance Level: High, Medium, Low
+Number of Findings: integer between 0 and 100
+Risk Level: Low, Moderate, High
+Control Effectiveness: float between 0.0 and 100.0
+Interview Outcome: Positive, Neutral, Negative
+Evidence Collected: integer between 0 and 500
+Report Accuracy: float between 0.0 and 100.0
+Init[Initiate Audit] | |
+End[Close Audit] | |
+Existence[Prepare Audit Report] | |
+Exactly[Review Audit Report] | |
+Absence2[Approve Audit Plan] | |
+Precedence[Analyze Data, Gather Evidence] | | |
+Response[Conduct Interviews, Document Findings] | | |0,2,d
+Co-Existence[Evaluate Controls, Verify Compliance] | | |
+Chain Precedence[Submit Audit Report, Review Audit Report] | | |
+Response[Submit Audit Report, Follow-up Actions] | | |5,10,d
+Precedence[Plan Next Audit, Assess Risk] | | |
+Not Co-Existence[Initiate Audit, Approve Audit Plan] | | |
+Chain Response[Follow-up Actions, Close Audit] |A.Audit Duration <= 30 | |
+Chain Response[Prepare Audit Report, Review Audit Report] |A.Report Accuracy > 90 | |
+Chain Precedence[Plan Next Audit, Close Audit] |A.Budget Utilization < 80 | |

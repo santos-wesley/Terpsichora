@@ -1,0 +1,40 @@
+activity Collect Employee Data
+activity Analyze Performance Metrics
+activity Generate HR Reports
+activity Review Employee Feedback
+activity Update HR Database
+activity Conduct Training Session
+activity Evaluate Training Effectiveness
+activity Approve HR Budget
+activity Monitor Employee Turnover
+activity Plan Employee Engagement Activities
+bind Collect Employee Data: Employee ID
+bind Analyze Performance Metrics: Performance Score
+bind Review Employee Feedback: Feedback Type
+bind Conduct Training Session: Training Type
+bind Approve HR Budget: Budget Amount
+bind Monitor Employee Turnover: Turnover Rate
+bind Plan Employee Engagement Activities: Engagement Activity Type
+bind Generate HR Reports: Report ID
+bind Update HR Database: Database Update Type
+bind Evaluate Training Effectiveness: Training Effectiveness Score
+Employee ID: integer between 1 and 10000
+Performance Score: float between 0.0 and 5.0
+Feedback Type: Positive, Negative, Neutral
+Training Type: Technical, Soft Skills, Compliance
+Budget Amount: float between 1000.0 and 100000.0
+Turnover Rate: integer between 0 and 100
+Engagement Activity Type: Team Building, Wellness, Social
+Report ID: integer between 1 and 5000
+Database Update Type: Addition, Correction, Deletion
+Training Effectiveness Score: float between 0.0 and 10.0
+Init[Collect Employee Data] | |
+Existence[Generate HR Reports] | |
+Response[Analyze Performance Metrics, Conduct Training Session] | | |0,2,d
+Chain Response[Review Employee Feedback, Update HR Database] | | |
+Response[Conduct Training Session, Evaluate Training Effectiveness] | | |
+Not Co-Existence[Plan Employee Engagement Activities, Monitor Employee Turnover] | | |
+Precedence[Plan Employee Engagement Activities, Approve HR Budget] | | |
+Co-Existence[Collect Employee Data, Generate HR Reports] | | |
+Chain Succession[Conduct Training Session, Evaluate Training Effectiveness] | |A.Training Type == T.Training Type |
+Response[Monitor Employee Turnover, Plan Employee Engagement Activities] |A.Turnover Rate > 50 | |0,1,d

@@ -1,0 +1,30 @@
+activity Register Victim
+activity Assess Needs
+activity Provide Counseling
+activity Arrange Shelter
+activity Legal Assistance
+activity Medical Support
+activity Follow Up
+activity Close Case
+bind Register Victim: Victim ID, Urgency Level
+bind Assess Needs: Urgency Level
+bind Provide Counseling: Counseling Hours
+bind Arrange Shelter: Shelter Required
+bind Legal Assistance: Legal Status
+bind Medical Support: Medical Expenses
+Victim ID: integer between 1 and 10000
+Urgency Level: Low, Medium, High
+Counseling Hours: float between 0.5 and 100.0
+Shelter Required: Yes, No
+Legal Status: Pending, In Progress, Resolved
+Medical Expenses: float between 0.0 and 10000.0
+Init[Register Victim] | |
+End[Close Case] | |
+Existence[Provide Counseling] | |
+Chain Response[Assess Needs, Arrange Shelter] |A.Urgency Level is High |T.Shelter Required is Yes |0,1,h
+Response[Assess Needs, Legal Assistance] |A.Urgency Level in (Medium, High) |T.Legal Status is Pending |0,2,d
+Responded Existence[Assess Needs, Medical Support] |A.Urgency Level is High | |
+Succession[Provide Counseling, Follow Up] | | |1,7,d
+Not Chain Succession[Medical Support, Close Case] | | |
+Exclusive Choice[Legal Assistance, Medical Support] | | |
+Precedence[Close Case, Follow Up] | | |0,3,d

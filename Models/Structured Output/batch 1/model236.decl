@@ -1,0 +1,40 @@
+activity Conduct Wildlife Survey
+activity Analyze Survey Data
+activity Develop Conservation Plan
+activity Implement Conservation Actions
+activity Monitor Wildlife Population
+activity Report Findings
+activity Review Conservation Plan
+activity Engage Community
+activity Secure Funding
+activity Evaluate Conservation Impact
+bind Conduct Wildlife Survey: Survey Duration, Survey Method
+bind Analyze Survey Data: Population Growth Rate
+bind Develop Conservation Plan: Conservation Status
+bind Implement Conservation Actions: Conservation Status
+bind Monitor Wildlife Population: Monitoring Frequency
+bind Report Findings: Report Status
+bind Review Conservation Plan: Plan Revision Rate
+bind Engage Community: Community Engagement Level
+bind Secure Funding: Funding Amount
+bind Evaluate Conservation Impact: Impact Score
+Survey Duration: integer between 1 and 30
+Population Growth Rate: float between -10.0 and 10.0
+Conservation Status: Draft, Approved, Implemented, Reviewed
+Funding Amount: integer between 10 and 500
+Community Engagement Level: Low, Medium, High
+Impact Score: float between 0.0 and 100.0
+Monitoring Frequency: integer between 7 and 365
+Report Status: Pending, Completed, Submitted
+Plan Revision Rate: float between 0.0 and 20.0
+Survey Method: Aerial, Ground, Camera Trap
+Init[Conduct Wildlife Survey] | |
+End[Evaluate Conservation Impact] | |
+Response[Analyze Survey Data, Develop Conservation Plan] |A.Population Growth Rate > 0 | |0,7,d
+Chain Response[Implement Conservation Actions, Monitor Wildlife Population] |A.Conservation Status is Implemented | |0,30,d
+Co-Existence[Report Findings, Review Conservation Plan] | | |
+Precedence[Secure Funding, Engage Community] | | |0,60,d
+Not Succession[Conduct Wildlife Survey, Analyze Survey Data] | | |
+Exclusive Choice[Secure Funding, Engage Community] | | |
+Existence3[Monitor Wildlife Population] | |
+Response[Develop Conservation Plan, Implement Conservation Actions] |A.Conservation Status is Approved | |0,90,d

@@ -1,0 +1,39 @@
+activity Plan Project
+activity Obtain Permits
+activity Procure Materials
+activity Hire Contractors
+activity Conduct Site Survey
+activity Lay Foundation
+activity Build Structure
+activity Install Utilities
+activity Perform Inspections
+activity Finalize Project
+bind Plan Project: Project Duration, Budget
+bind Obtain Permits: Permit Status
+bind Procure Materials: Material Quality
+bind Hire Contractors: Contractor Experience
+bind Conduct Site Survey: Inspection Outcome
+bind Lay Foundation: Foundation Depth
+bind Install Utilities: Utility Status
+bind Perform Inspections: Number of Inspections
+bind Finalize Project: Final Cost
+Project Duration: integer between 30 and 365
+Budget: float between 100000.0 and 10000000.0
+Permit Status: Pending, Approved, Rejected
+Material Quality: Low, Medium, High
+Contractor Experience: integer between 1 and 40
+Inspection Outcome: Pass, Fail
+Foundation Depth: float between 0.5 and 10.0
+Utility Status: Incomplete, Complete
+Number of Inspections: integer between 1 and 20
+Final Cost: float between 100000.0 and 15000000.0
+Init[Plan Project] | |
+End[Finalize Project] | |
+Existence[Obtain Permits] | |
+Precedence[Lay Foundation, Procure Materials] | | |
+Response[Conduct Site Survey, Perform Inspections] | | |2,5,d
+Succession[Build Structure, Install Utilities] | | |
+Response[Perform Inspections, Perform Inspections] |A.Inspection Outcome is Fail | |1,3,d
+Co-Existence[Hire Contractors, Obtain Permits] | | |
+Not Responded Existence[Finalize Project, Plan Project] |A.Final Cost <= A.Budget |A.Project Duration <= 365 |
+Precedence[Build Structure, Lay Foundation] | |T.Foundation Depth > 0.5 and T.Foundation Depth < 10 |

@@ -1,0 +1,40 @@
+activity Collect Soil Sample
+activity Analyze Soil Quality
+activity Collect Water Sample
+activity Analyze Water Quality
+activity Prepare Soil Report
+activity Prepare Water Report
+activity Implement Soil Treatment
+activity Implement Water Treatment
+activity Review Soil and Water Reports
+activity Approve Management Plan
+bind Collect Soil Sample: Sample ID, Soil Type
+bind Analyze Soil Quality: pH Level, Nutrient Level
+bind Collect Water Sample: Sample ID, Water Source
+bind Analyze Water Quality: pH Level, Contaminant Level
+bind Prepare Soil Report: Report Status
+bind Prepare Water Report: Report Status
+bind Implement Soil Treatment: Treatment Type
+bind Implement Water Treatment: Treatment Type
+bind Review Soil and Water Reports: Approval Rating
+bind Approve Management Plan: Approval Rating
+Sample ID: integer between 1 and 1000
+pH Level: float between 0.0 and 14.0
+Soil Type: Clay, Sandy, Loamy
+Water Source: River, Well, Rainwater
+Nutrient Level: integer between 0 and 100
+Contaminant Level: float between 0.0 and 100.0
+Report Status: Draft, Final
+Treatment Type: Chemical, Biological, Physical
+Approval Rating: integer between 1 and 5
+Moisture Content: float between 0.0 and 100.0
+Init[Collect Soil Sample] | |
+End[Approve Management Plan] | |
+Chain Response[Collect Soil Sample, Analyze Soil Quality] | |A.Sample ID == T.Sample ID |0,2,d
+Chain Response[Collect Water Sample, Analyze Water Quality] | |A.Sample ID == T.Sample ID |0,2,d
+Succession[Analyze Soil Quality, Prepare Soil Report] | | |
+Succession[Analyze Water Quality, Prepare Water Report] | | |
+Response[Prepare Soil Report, Implement Soil Treatment] |A.Report Status is Final | |
+Response[Prepare Water Report, Implement Water Treatment] |A.Report Status is Final | |
+Co-Existence[Prepare Soil Report, Prepare Water Report] | | |
+Precedence[Review Soil and Water Reports, Approve Management Plan] |A.Approval Rating >= 4 | |

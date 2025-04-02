@@ -1,0 +1,50 @@
+activity Receive Report
+activity Assign Investigator
+activity Conduct Initial Interview
+activity Gather Evidence
+activity Interview Witnesses
+activity Assess Risk
+activity Develop Safety Plan
+activity Refer to Services
+activity Conduct Follow-up Visit
+activity Review Case
+activity Make Determination
+activity Close Case
+activity Notify Authorities
+activity Document Findings
+activity Provide Feedback
+bind Receive Report: Case Status
+bind Assign Investigator: Investigator Experience
+bind Conduct Initial Interview: Risk Level
+bind Gather Evidence: Evidence Weight, Evidence Items
+bind Interview Witnesses: Number of Witnesses
+bind Assess Risk: Risk Level
+bind Develop Safety Plan: Safety Plan Status
+bind Conduct Follow-up Visit: Follow-up Interval
+bind Provide Feedback: Feedback Type
+bind Notify Authorities: Authority Notified
+Risk Level: integer between 1 and 5
+Evidence Weight: float between 0.1 and 10.0
+Case Status: Open, In Progress, Closed
+Investigator Experience: Novice, Intermediate, Expert
+Number of Witnesses: integer between 0 and 10
+Safety Plan Status: Not Started, In Progress, Completed
+Follow-up Interval: float between 1.0 and 30.0
+Feedback Type: Positive, Neutral, Negative
+Evidence Items: integer between 0 and 50
+Authority Notified: Yes, No
+Init[Receive Report] | |
+End[Close Case] | |
+Existence[Conduct Initial Interview] | |
+Precedence[Conduct Initial Interview, Assign Investigator] | | |
+Response[Gather Evidence, Review Case] | | |0,2,d
+Responded Existence[Interview Witnesses, Assess Risk] | | |
+Chain Response[Develop Safety Plan, Refer to Services] | | |0,48,h
+Chain Succession[Develop Safety Plan, Conduct Follow-up Visit] | |A.Safety Plan Status is Completed |0,30,d
+Not Co-Existence[Notify Authorities, Provide Feedback] | | |
+Precedence[Make Determination, Review Case] | | |
+Responded Existence[Assess Risk, Develop Safety Plan] |A.Risk Level > 3 | |
+Precedence[Close Case, Make Determination] | |A.Case Status is Closed |
+Response[Close Case, Provide Feedback] | | |0,5,d
+Not Precedence[Interview Witnesses, Gather Evidence] | |A.Evidence Items > T.Number of Witnesses |
+Precedence[Assess Risk, Assign Investigator] |A.Risk Level == 5 |T.Investigator Experience is Expert |

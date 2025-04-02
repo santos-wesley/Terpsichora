@@ -1,0 +1,43 @@
+activity Receive Crime Report
+activity Assign Investigator
+activity Conduct Initial Assessment
+activity Gather Evidence
+activity Interview Witnesses
+activity Analyze Evidence
+activity Identify Suspects
+activity Conduct Surveillance
+activity Arrest Suspect
+activity File Charges
+activity Prepare Case Report
+activity Submit Report to Prosecutor
+activity Close Case
+bind Receive Crime Report: Case ID
+bind Assign Investigator: Investigator Experience
+bind Gather Evidence: Evidence Weight
+bind Interview Witnesses: Number of Witnesses
+bind Identify Suspects: Suspect Status
+bind Conduct Surveillance: Surveillance Duration
+bind Close Case: Case Outcome
+Case ID: integer between 1 and 10000
+Evidence Weight: float between 0.1 and 100.0
+Crime Severity: Low, Medium, High
+Investigator Experience: Junior, Mid, Senior
+Number of Witnesses: integer between 0 and 50
+Suspect Status: Identified, Arrested, Charged
+Surveillance Duration: float between 0.0 and 72.0
+Case Outcome: Closed, Ongoing, Dismissed
+Init[Receive Crime Report] | |
+End[Close Case] | |
+Existence[Conduct Initial Assessment] | |
+Response[Assign Investigator, Conduct Initial Assessment] | | |0,2,d
+Chain Response[Gather Evidence, Analyze Evidence] | | |0,48,h
+Precedence[Identify Suspects, Interview Witnesses] | | |
+Response[Conduct Surveillance, Arrest Suspect] | |A.Surveillance Duration > 5 |0,72,h
+Co-Existence[Arrest Suspect, File Charges] | | |
+Chain Response[Prepare Case Report, Submit Report to Prosecutor] | | |0,24,h
+Alternate Succession[Receive Crime Report, Assign Investigator] | | |
+Not Co-Existence[Gather Evidence, Interview Witnesses] | | |
+Not Precedence[File Charges, Identify Suspects] | | |
+Not Chain Precedence[Submit Report to Prosecutor, Prepare Case Report] | | |
+Exclusive Choice[Conduct Initial Assessment, Gather Evidence] | | |
+Response[Arrest Suspect, File Charges] | | |0,48,h

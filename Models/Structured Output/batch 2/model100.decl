@@ -1,0 +1,45 @@
+activity Initiate Security Audit
+activity Perform Vulnerability Assessment
+activity Review Smart Contracts
+activity Implement Security Patches
+activity Monitor Network Traffic
+activity Conduct Penetration Testing
+activity Analyze Security Logs
+activity Verify Identity Management
+activity Update Security Protocols
+activity Generate Security Report
+bind Initiate Security Audit: Audit ID
+bind Perform Vulnerability Assessment: Vulnerability Score
+bind Review Smart Contracts: Contract Status
+bind Implement Security Patches: Patch Status
+bind Monitor Network Traffic: Traffic Anomalies
+bind Conduct Penetration Testing: Penetration Test Score
+bind Analyze Security Logs: Log Analysis Result
+bind Verify Identity Management: Identity Verification Status
+bind Update Security Protocols: Protocol Update Version
+bind Generate Security Report: Report Status
+Audit ID: integer between 1 and 1000
+Vulnerability Score: float between 0.0 and 10.0
+Contract Status: Pending, Reviewed, Approved
+Patch Status: Not Started, In Progress, Completed
+Traffic Anomalies: integer between 0 and 100
+Penetration Test Score: float between 0.0 and 100.0
+Log Analysis Result: No Issues, Minor Issues, Major Issues
+Identity Verification Status: Verified, Not Verified
+Protocol Update Version: float between 1.0 and 10.0
+Report Status: Draft, Finalized
+Existence[Initiate Security Audit] | |
+Exactly[Perform Vulnerability Assessment] | |
+End[Generate Security Report] | |
+Response[Review Smart Contracts, Implement Security Patches] | | |0,2,d
+Precedence[Conduct Penetration Testing, Perform Vulnerability Assessment] | | |
+Succession[Monitor Network Traffic, Analyze Security Logs] | | |
+Co-Existence[Verify Identity Management, Update Security Protocols] | | |
+Precedence[Generate Security Report, Conduct Penetration Testing] | |T.Penetration Test Score > 70 |
+Not Chain Response[Review Smart Contracts, Implement Security Patches] | | |
+Response[Monitor Network Traffic, Analyze Security Logs] |A.Traffic Anomalies > 0 | |0,48,h
+Exclusive Choice[Initiate Security Audit, Perform Vulnerability Assessment] | | |
+Not Precedence[Update Security Protocols, Verify Identity Management] | | |
+Response[Perform Vulnerability Assessment, Conduct Penetration Testing] |A.Vulnerability Score > 8 | |0,5,d
+Precedence[Generate Security Report, Analyze Security Logs] | |T.Log Analysis Result is No Issues |
+Alternate Succession[Initiate Security Audit, Generate Security Report] | | |

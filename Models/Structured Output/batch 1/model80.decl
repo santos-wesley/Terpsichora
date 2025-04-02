@@ -1,0 +1,36 @@
+activity Harvest Crops
+activity Transport Produce
+activity Inspect Quality
+activity Set Price
+activity Negotiate Sale
+activity Finalize Sale
+activity Package Produce
+activity Store Produce
+activity Advertise Produce
+bind Harvest Crops: Quality Score
+bind Transport Produce: Transport Method, Transport Cost
+bind Inspect Quality: Quality Score
+bind Set Price: Price per Unit
+bind Negotiate Sale: Sale Status
+bind Finalize Sale: Sale Status
+bind Package Produce: Packaging Units
+bind Store Produce: Storage Condition
+bind Advertise Produce: Advertisement Channel
+Quality Score: integer between 1 and 10
+Price per Unit: float between 0.5 and 100.0
+Transport Method: Truck, Train, Ship
+Storage Condition: Cold, Dry, Ambient
+Sale Status: Pending, Negotiating, Completed
+Packaging Units: integer between 1 and 1000
+Transport Cost: float between 10.0 and 5000.0
+Advertisement Channel: Online, Print, Radio
+Init[Harvest Crops] | |
+Existence[Inspect Quality] | |
+Chain Response[Transport Produce, Inspect Quality] | |A.Transport Method == T.Transport Method |0,2,h
+Precedence[Set Price, Inspect Quality] |A.Quality Score > 5 | |
+Response[Negotiate Sale, Finalize Sale] |A.Sale Status is Negotiating | |0,1,d
+Not Co-Existence[Package Produce, Store Produce] | | |
+Precedence[Advertise Produce, Set Price] | | |0,3,d
+Not Chain Succession[Transport Produce, Store Produce] | | |
+Choice[Advertise Produce, Negotiate Sale] | | |
+End[Finalize Sale] | |

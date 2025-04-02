@@ -1,0 +1,34 @@
+activity Monitor Water Quality
+activity Assess Water Demand
+activity Develop Water Infrastructure
+activity Implement Conservation Measures
+activity Conduct Risk Assessment
+activity Review Water Policies
+activity Allocate Water Resources
+activity Respond to Water Crisis
+bind Monitor Water Quality: Quality Index
+bind Assess Water Demand: Demand Forecast
+bind Develop Water Infrastructure: Infrastructure Status
+bind Implement Conservation Measures: Conservation Level
+bind Conduct Risk Assessment: Risk Score
+bind Review Water Policies: Policy Status
+bind Allocate Water Resources: Resource Allocation
+bind Respond to Water Crisis: Crisis Level
+Quality Index: integer between 1 and 100
+Demand Forecast: float between 0.0 and 10000.0
+Infrastructure Status: Planned, In Progress, Completed
+Conservation Level: Low, Medium, High
+Risk Score: integer between 0 and 10
+Policy Status: Effective, Needs Update
+Resource Allocation: float between 0.0 and 5000.0
+Crisis Level: Minor, Moderate, Severe
+Init[Monitor Water Quality] | |
+End[Respond to Water Crisis] | |
+Response[Assess Water Demand, Allocate Water Resources] | | |2,5,d
+Precedence[Develop Water Infrastructure, Conduct Risk Assessment] | | |
+Succession[Implement Conservation Measures, Review Water Policies] | | |
+Not Chain Succession[Respond to Water Crisis, Respond to Water Crisis] | | |
+Co-Existence[Monitor Water Quality, Assess Water Demand] | | |
+Precedence[Respond to Water Crisis, Develop Water Infrastructure] | |T.Infrastructure Status is Completed |
+Response[Conduct Risk Assessment, Implement Conservation Measures] |A.Risk Score > 7 | |1,3,d
+Existence2[Monitor Water Quality] | |

@@ -1,0 +1,28 @@
+activity Conduct Workshop
+activity Distribute Materials
+activity Collect Feedback
+activity Evaluate Impact
+activity Plan Next Event
+activity Engage Volunteers
+activity Secure Funding
+activity Promote Event
+bind Conduct Workshop: Participants, Event Type
+bind Collect Feedback: Feedback Quality
+bind Engage Volunteers: Volunteers
+bind Secure Funding: Funding Status, Budget
+Participants: integer between 5 and 1000
+Budget: float between 100.0 and 10000.0
+Feedback Quality: Excellent, Good, Average, Poor
+Event Type: Workshop, Seminar, Webinar
+Volunteers: integer between 1 and 50
+Funding Status: Secured, Pending, Not Secured
+Init[Conduct Workshop] | |
+Existence[Plan Next Event] | |
+Response[Conduct Workshop, Distribute Materials] | | |0,2,d
+Chain Response[Collect Feedback, Evaluate Impact] | | |0,1,d
+Not Co-Existence[Engage Volunteers, Secure Funding] | | |
+Precedence[Promote Event, Conduct Workshop] | | |
+Responded Existence[Secure Funding, Conduct Workshop] |A.Budget > 5000 |T.Participants > 100 |
+Chain Precedence[Distribute Materials, Conduct Workshop] | | |0,1,d
+Choice[Engage Volunteers, Secure Funding] | | |
+Exclusive Choice[Evaluate Impact, Plan Next Event] | | |

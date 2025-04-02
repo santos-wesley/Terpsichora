@@ -1,0 +1,37 @@
+activity Identify Donor
+activity Initiate Contact
+activity Conduct Meeting
+activity Draft Proposal
+activity Review Proposal
+activity Approve Proposal
+activity Submit Proposal
+activity Receive Feedback
+activity Negotiate Terms
+activity Finalize Agreement
+bind Identify Donor: Donor ID
+bind Initiate Contact: Donor ID, Contact Method
+bind Conduct Meeting: Donor ID, Meeting Duration
+bind Draft Proposal: Donor ID, Donation Amount, Proposal Status
+bind Review Proposal: Donor ID, Proposal Status
+bind Approve Proposal: Donor ID, Proposal Status
+bind Submit Proposal: Donor ID, Proposal Status
+bind Receive Feedback: Donor ID, Feedback Type
+bind Negotiate Terms: Donor ID, Feedback Type
+bind Finalize Agreement: Donor ID, Agreement Status
+Donor ID: integer between 1 and 1000
+Donation Amount: float between 1000.0 and 1000000.0
+Contact Method: Email, Phone, In-Person
+Proposal Status: Drafted, Reviewed, Approved, Submitted
+Meeting Duration: integer between 15 and 180
+Feedback Type: Positive, Negative, Neutral
+Agreement Status: Pending, Finalized
+Init[Identify Donor] | |
+End[Finalize Agreement] | |
+Existence[Review Proposal] | |
+Precedence[Submit Proposal, Approve Proposal] | |A.Donor ID == T.Donor ID |
+Response[Receive Feedback, Negotiate Terms] | |A.Donor ID == T.Donor ID |0,2,d
+Chain Response[Conduct Meeting, Draft Proposal] | |A.Donor ID == T.Donor ID |0,48,h
+Responded Existence[Submit Proposal, Receive Feedback] | |A.Donor ID == T.Donor ID |
+Precedence[Review Proposal, Draft Proposal] | |A.Donor ID == T.Donor ID |
+Co-Existence[Initiate Contact, Conduct Meeting] |A.Contact Method is Phone |A.Contact Method == T.Contact Method |
+Not Chain Succession[Receive Feedback, Finalize Agreement] |A.Feedback Type is Negative |A.Donor ID == T.Donor ID |

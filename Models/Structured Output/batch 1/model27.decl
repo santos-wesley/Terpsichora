@@ -1,0 +1,40 @@
+activity Identify Threat
+activity Analyze Vulnerability
+activity Deploy Countermeasure
+activity Monitor Network
+activity Conduct Penetration Test
+activity Report Incident
+activity Update Security Protocols
+activity Perform Forensic Analysis
+activity Initiate Recovery Process
+activity Evaluate Security Measures
+bind Identify Threat: Threat Level
+bind Analyze Vulnerability: Vulnerability Score
+bind Deploy Countermeasure: Countermeasure Type
+bind Monitor Network: Network Status
+bind Conduct Penetration Test: Test Frequency
+bind Report Incident: Incident Severity
+bind Update Security Protocols: Protocol Version
+bind Perform Forensic Analysis: Analysis Result
+bind Initiate Recovery Process: Recovery Time
+bind Evaluate Security Measures: Evaluation Score
+Threat Level: integer between 1 and 10
+Vulnerability Score: float between 0.0 and 10.0
+Countermeasure Type: Firewall, Antivirus, Intrusion Detection
+Network Status: Secure, Under Attack, Compromised
+Test Frequency: integer between 1 and 30
+Incident Severity: Low, Medium, High
+Protocol Version: float between 1.0 and 5.0
+Analysis Result: Inconclusive, Malware Detected, Data Breach
+Recovery Time: integer between 1 and 72
+Evaluation Score: float between 0.0 and 100.0
+Init[Identify Threat] | |
+End[Evaluate Security Measures] | |
+Response[Identify Threat, Analyze Vulnerability] | | |0,2,d
+Chain Succession[Deploy Countermeasure, Monitor Network] | | |
+Precedence[Report Incident, Conduct Penetration Test] | | |
+Co-Existence[Perform Forensic Analysis, Initiate Recovery Process] | | |
+Response[Monitor Network, Deploy Countermeasure] |A.Network Status is Under Attack | |0,1,h
+Existence[Analyze Vulnerability] | |
+Not Chain Succession[Initiate Recovery Process, Perform Forensic Analysis] | | |
+Exclusive Choice[Update Security Protocols, Evaluate Security Measures] | | |

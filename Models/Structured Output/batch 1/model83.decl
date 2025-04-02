@@ -1,0 +1,26 @@
+activity Collect Behavioral Data
+activity Analyze Behavioral Patterns
+activity Identify Behavioral Anomalies
+activity Generate Behavioral Report
+activity Review Behavioral Report
+activity Approve Behavioral Report
+activity Archive Behavioral Data
+activity Conduct Follow-up Study
+bind Collect Behavioral Data: Data Points
+bind Identify Behavioral Anomalies: Anomaly Score
+bind Generate Behavioral Report: Report Status
+bind Conduct Follow-up Study: Study Type
+Data Points: integer between 10 and 1000
+Anomaly Score: float between 0.0 and 10.0
+Report Status: Draft, Reviewed, Approved, Rejected
+Study Type: Longitudinal, Cross-Sectional
+Init[Collect Behavioral Data] | |
+End[Archive Behavioral Data] | |
+Existence[Identify Behavioral Anomalies] | |
+Response[Generate Behavioral Report, Review Behavioral Report] | | |0,48,h
+Precedence[Approve Behavioral Report, Review Behavioral Report] | | |
+Responded Existence[Conduct Follow-up Study, Collect Behavioral Data] |A.Study Type is Longitudinal | |
+Co-Existence[Collect Behavioral Data, Identify Behavioral Anomalies] | | |
+Precedence[Generate Behavioral Report, Identify Behavioral Anomalies] | |A.Anomaly Score > 5 |
+Not Chain Succession[Generate Behavioral Report, Approve Behavioral Report] | | |
+Exclusive Choice[Generate Behavioral Report, Conduct Follow-up Study] | | |

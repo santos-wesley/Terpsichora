@@ -1,0 +1,40 @@
+activity Register Patient
+activity Schedule Appointment
+activity Conduct Health Assessment
+activity Administer Vaccine
+activity Record Vaccine Information
+activity Issue Health Certificate
+activity Update Health Records
+activity Notify Patient
+activity Conduct Follow-Up
+activity Close Case
+bind Register Patient: Patient ID
+bind Schedule Appointment: Patient ID, Appointment Status
+bind Conduct Health Assessment: Patient ID, Assessment Score
+bind Administer Vaccine: Patient ID, Vaccine Type, Vaccine Dose
+bind Record Vaccine Information: Patient ID, Vaccine Type, Vaccine Dose
+bind Issue Health Certificate: Patient ID, Certificate Status
+bind Update Health Records: Patient ID, Record Update Count
+bind Notify Patient: Patient ID, Notification Type
+bind Conduct Follow-Up: Patient ID, Follow-Up Interval
+bind Close Case: Patient ID, Case Status
+Patient ID: integer between 1 and 1000000
+Appointment Status: Scheduled, Completed, Cancelled
+Assessment Score: float between 0.0 and 100.0
+Vaccine Type: COVID-19, Influenza, Hepatitis B
+Vaccine Dose: integer between 1 and 3
+Certificate Status: Issued, Pending, Not Required
+Record Update Count: integer between 0 and 50
+Notification Type: Reminder, Alert, Information
+Follow-Up Interval: float between 0.0 and 365.0
+Case Status: Open, Closed, In Progress
+Init[Register Patient] | |
+End[Close Case] | |
+Precedence[Conduct Health Assessment, Schedule Appointment] | |A.Patient ID == T.Patient ID |
+Chain Response[Conduct Health Assessment, Administer Vaccine] | |A.Patient ID == T.Patient ID |0,10,m
+Response[Administer Vaccine, Record Vaccine Information] | |A.Patient ID == T.Patient ID |0,1,h
+Precedence[Issue Health Certificate, Conduct Health Assessment] |A.Assessment Score > 70 |A.Patient ID == T.Patient ID |
+Response[Issue Health Certificate, Update Health Records] | |A.Patient ID == T.Patient ID |0,2,d
+Succession[Notify Patient, Conduct Follow-Up] | |A.Patient ID == T.Patient ID |1,7,d
+Existence[Update Health Records] | |
+Precedence[Close Case, Conduct Follow-Up] |A.Follow-Up Interval < 30 |A.Patient ID == T.Patient ID |

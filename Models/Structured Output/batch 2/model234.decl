@@ -1,0 +1,36 @@
+activity Receive Currency
+activity Verify Currency Authenticity
+activity Calculate Exchange Rate
+activity Approve Exchange
+activity Reject Exchange
+activity Provide Receipt
+activity Return Currency
+activity Update Exchange Records
+activity Notify Customer
+activity Complete Transaction
+bind Receive Currency: Amount, Currency Type
+bind Verify Currency Authenticity: Currency Type
+bind Calculate Exchange Rate: Exchange Rate
+bind Approve Exchange: Exchange Status
+bind Reject Exchange: Exchange Status
+bind Notify Customer: Notification Method
+Amount: integer between 1 and 10000
+Exchange Rate: float between 0.5 and 1.5
+Currency Type: USD, EUR, GBP, JPY
+Exchange Status: Pending, Approved, Rejected
+Notification Method: Email, SMS, Phone
+Init[Receive Currency] | |
+End[Complete Transaction] | |
+Existence[Verify Currency Authenticity] | |
+Choice[Receive Currency, Approve Exchange] | | |
+Choice[Receive Currency, Reject Exchange] | | |
+Response[Approve Exchange, Provide Receipt] | | |0,1,h
+Response[Reject Exchange, Return Currency] | | |0,1,h
+Precedence[Approve Exchange, Verify Currency Authenticity] | | |
+Precedence[Reject Exchange, Verify Currency Authenticity] | | |
+Responded Existence[Notify Customer, Approve Exchange] | | |
+Responded Existence[Notify Customer, Reject Exchange] | | |
+Response[Provide Receipt, Update Exchange Records] | | |0,2,h
+Response[Return Currency, Update Exchange Records] | | |0,2,h
+Precedence[Approve Exchange, Calculate Exchange Rate] | | |
+Precedence[Reject Exchange, Calculate Exchange Rate] | | |

@@ -1,0 +1,55 @@
+activity Conduct Workshop
+activity Distribute Materials
+activity Collect Feedback
+activity Evaluate Impact
+activity Plan Event
+activity Invite Participants
+activity Register Participants
+activity Conduct Survey
+activity Analyze Data
+activity Publish Report
+activity Follow Up
+activity Organize Cleanup
+activity Provide Incentives
+activity Monitor Progress
+activity Report Findings
+bind Conduct Workshop: Event Type, Number of Participants
+bind Distribute Materials: Number of Participants
+bind Collect Feedback: Feedback Type, Feedback Count
+bind Evaluate Impact: Impact Score
+bind Plan Event: Event Type, Budget Allocation
+bind Invite Participants: Number of Participants
+bind Register Participants: Number of Participants
+bind Conduct Survey: Event Type, Number of Participants
+bind Analyze Data: Satisfaction Score
+bind Publish Report: Report Status
+bind Follow Up: Feedback Count
+bind Organize Cleanup: Event Type, Budget Allocation
+bind Provide Incentives: Incentive Type
+bind Monitor Progress: Impact Score
+bind Report Findings: Report Status
+Participant Age: integer between 10 and 80
+Satisfaction Score: float between 1.0 and 5.0
+Event Type: Workshop, Cleanup, Survey
+Feedback Type: Positive, Negative, Neutral
+Number of Participants: integer between 1 and 500
+Impact Score: float between 0.0 and 10.0
+Incentive Type: Gift, Certificate, Discount
+Feedback Count: integer between 0 and 1000
+Report Status: Draft, Published, Reviewed
+Budget Allocation: float between 100.0 and 10000.0
+Existence[Conduct Workshop] | |
+Init[Plan Event] | |
+End[Report Findings] | |
+Chain Response[Conduct Workshop, Distribute Materials] | | |
+Response[Distribute Materials, Collect Feedback] | | |
+Response[Collect Feedback, Analyze Data] | | |1,2,d
+Response[Analyze Data, Publish Report] | | |
+Response[Publish Report, Follow Up] | | |
+Co-Existence[Plan Event, Organize Cleanup] |A.Event Type is Cleanup | |
+Response[Organize Cleanup, Provide Incentives] | | |
+Response[Provide Incentives, Monitor Progress] | | |5,10,d
+Response[Monitor Progress, Report Findings] | | |
+Precedence[Register Participants, Invite Participants] | | |
+Co-Existence[Plan Event, Conduct Survey] |A.Event Type is Survey | |
+Response[Collect Feedback, Evaluate Impact] | | |0,1,d

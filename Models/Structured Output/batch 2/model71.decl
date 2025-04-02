@@ -1,0 +1,47 @@
+activity Authenticate User
+activity Monitor Transactions
+activity Alert Security Team
+activity Lock Account
+activity Unlock Account
+activity Update Security Protocols
+activity Conduct Security Audit
+activity Review Security Logs
+activity Approve Access Request
+activity Deny Access Request
+activity Initiate Fraud Investigation
+activity Close Fraud Investigation
+activity Report Security Incident
+activity Train Security Personnel
+activity Evaluate Security Measures
+bind Authenticate User: User ID, Access Level
+bind Monitor Transactions: Transaction Amount, Security Score
+bind Alert Security Team: Alert Type
+bind Conduct Security Audit: Audit Score
+bind Initiate Fraud Investigation: Fraud Status
+bind Report Security Incident: Incident Severity
+bind Train Security Personnel: Training Hours
+bind Update Security Protocols: Protocol Status
+User ID: integer between 1 and 1000000
+Transaction Amount: float between 0.01 and 1000000.0
+Access Level: Admin, User, Guest
+Alert Type: Breach, Suspicious Activity, System Failure
+Security Score: integer between 1 and 100
+Fraud Status: Open, Closed, Pending
+Audit Score: float between 0.0 and 100.0
+Incident Severity: Low, Medium, High
+Training Hours: integer between 1 and 1000
+Protocol Status: Completed, In Progress, Not Started
+Init[Authenticate User] | |
+Existence[Monitor Transactions] | |
+Exactly[Alert Security Team] | |
+Response[Alert Security Team, Lock Account] | | |0,2,h
+Chain Precedence[Lock Account, Unlock Account] | | |0,1,h
+Co-Existence[Conduct Security Audit, Update Security Protocols] | | |
+Precedence[Authenticate User, Approve Access Request] | |A.User ID == T.User ID |
+Not Precedence[Approve Access Request, Deny Access Request] | |A.User ID == T.User ID |
+Response[Initiate Fraud Investigation, Close Fraud Investigation] |A.Fraud Status is Open |A.Fraud Status == T.Fraud Status |0,5,d
+Not Chain Succession[Report Security Incident, Train Security Personnel] | |A.Incident Severity != T.Incident Severity |
+Precedence[Update Security Protocols, Evaluate Security Measures] |A.Protocol Status is Completed | |0,3,d
+Existence[Train Security Personnel] |A.Training Hours > 10 |
+Response[Monitor Transactions, Alert Security Team] |A.Security Score < 50 |A.Alert Type is Suspicious Activity |0,1,h
+Choice[Approve Access Request, Deny Access Request] | |A.User ID == T.User ID |

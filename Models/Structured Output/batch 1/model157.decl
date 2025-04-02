@@ -1,0 +1,36 @@
+activity Identify Stakeholders
+activity Conduct Needs Assessment
+activity Develop CSR Strategy
+activity Allocate Budget
+activity Implement CSR Initiatives
+activity Monitor Progress
+activity Evaluate Impact
+activity Report Outcomes
+activity Review and Adjust Strategy
+bind Identify Stakeholders: Stakeholder Type
+bind Allocate Budget: Budget Amount
+bind Evaluate Impact: Impact Score
+bind Develop CSR Strategy: Strategy Status
+bind Implement CSR Initiatives: Implementation Status, Number of Initiatives
+bind Monitor Progress: Progress Percentage
+bind Evaluate Impact: Evaluation Status
+bind Report Outcomes: Report Status
+Stakeholder Type: Employee, Customer, Community, Supplier
+Budget Amount: integer between 1000 and 100000
+Impact Score: float between 0.0 and 10.0
+Strategy Status: Draft, Finalized, Approved
+Implementation Status: Not Started, In Progress, Completed
+Number of Initiatives: integer between 1 and 20
+Progress Percentage: float between 0.0 and 100.0
+Evaluation Status: Not Started, Ongoing, Completed
+Report Status: Draft, Published
+Init[Identify Stakeholders] | |
+End[Review and Adjust Strategy] | |
+Precedence[Allocate Budget, Develop CSR Strategy] | |A.Strategy Status is Approved |
+Chain Response[Implement CSR Initiatives, Monitor Progress] |A.Implementation Status is Completed | |5,10,d
+Response[Implement CSR Initiatives, Evaluate Impact] |A.Implementation Status is Completed | |
+Response[Evaluate Impact, Report Outcomes] |A.Evaluation Status is Completed | |0,7,d
+Co-Existence[Develop CSR Strategy, Conduct Needs Assessment] | | |
+Existence[Implement CSR Initiatives] | |
+Not Precedence[Report Outcomes, Evaluate Impact] |A.Report Status is Published | |
+Exclusive Choice[Develop CSR Strategy, Allocate Budget] | | |

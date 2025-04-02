@@ -1,0 +1,36 @@
+activity Collect Data
+activity Validate Data
+activity Transform Data
+activity Load Data
+activity Analyze Data
+activity Report Findings
+activity Archive Data
+activity Delete Data
+bind Collect Data: Data Volume, Data Format
+bind Validate Data: Data Quality Score, Validation Status
+bind Transform Data: Transformation Steps
+bind Load Data: Load Status
+bind Analyze Data: Analysis Confidence
+bind Report Findings: Report Type
+bind Archive Data: Archive Method
+bind Delete Data: Deletion Reason
+Data Volume: integer between 1 and 10000
+Data Quality Score: float between 0.0 and 1.0
+Data Format: CSV, JSON, XML
+Validation Status: Valid, Invalid
+Transformation Steps: integer between 1 and 10
+Load Status: Success, Failure
+Analysis Confidence: float between 0.0 and 1.0
+Report Type: Summary, Detailed
+Archive Method: Cloud, Local
+Deletion Reason: Expired, Redundant
+Init[Collect Data] | |
+Existence[Validate Data] | |
+Precedence[Transform Data, Validate Data] | | |
+Chain Succession[Transform Data, Load Data] | | |
+Response[Load Data, Analyze Data] | |A.Analysis Confidence > 0.8 |
+Chain Response[Analyze Data, Report Findings] | | |0,2,h
+Not Co-Existence[Archive Data, Delete Data] | | |
+Response[Archive Data, Delete Data] |A.Archive Method is Local | |0,1,d
+Responded Existence[Collect Data, Validate Data] |A.Data Format is JSON |T.Validation Status is Valid |
+Exactly[Delete Data] | |

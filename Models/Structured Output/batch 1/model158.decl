@@ -1,0 +1,40 @@
+activity Generate Key Pair
+activity Request Certificate
+activity Verify Identity
+activity Issue Certificate
+activity Revoke Certificate
+activity Renew Certificate
+activity Install Certificate
+activity Audit Logs
+activity Backup Keys
+activity Update Certificate
+bind Generate Key Pair: Key Length
+bind Request Certificate: Certificate Status
+bind Verify Identity: Identity Verification Method
+bind Issue Certificate: Certificate Validity
+bind Revoke Certificate: Certificate Status
+bind Renew Certificate: Renewal Fee
+bind Install Certificate: Installation Time
+bind Audit Logs: Audit Frequency
+bind Backup Keys: Backup Status
+bind Update Certificate: Update Reason
+Key Length: integer between 1024 and 4096
+Certificate Status: Valid, Revoked, Expired
+Certificate Validity: float between 0.5 and 5.0
+Identity Verification Method: Email, SMS, In-Person
+Audit Frequency: integer between 1 and 365
+Backup Status: Completed, Pending, Failed
+Renewal Fee: float between 10.0 and 500.0
+Log Retention Period: integer between 30 and 365
+Update Reason: Name Change, Key Compromise, Policy Update
+Installation Time: float between 0.1 and 5.0
+Init[Generate Key Pair] | |
+Chain Response[Request Certificate, Verify Identity] | | |0,2,h
+Co-Existence[Verify Identity, Issue Certificate] | | |
+Response[Issue Certificate, Install Certificate] | | |
+Existence[Audit Logs] | |
+Not Chain Succession[Renew Certificate, Update Certificate] | | |
+Precedence[Revoke Certificate, Audit Logs] | | |0,1,d
+Precedence[Update Certificate, Backup Keys] | |A.Backup Status is Completed |
+End[Install Certificate] | |
+Choice[Request Certificate, Renew Certificate] | | |

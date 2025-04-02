@@ -1,0 +1,40 @@
+activity Conduct Exit Interview
+activity Analyze Employee Feedback
+activity Implement Retention Strategies
+activity Monitor Employee Satisfaction
+activity Provide Training Opportunities
+activity Review Compensation Packages
+activity Recognize Employee Achievements
+activity Facilitate Team Building Activities
+activity Conduct Performance Reviews
+activity Update HR Policies
+bind Conduct Exit Interview: Interview Score, Feedback Type
+bind Analyze Employee Feedback: Feedback Type
+bind Implement Retention Strategies: Retention Strategy
+bind Monitor Employee Satisfaction: Satisfaction Level
+bind Provide Training Opportunities: Training Hours
+bind Review Compensation Packages: Compensation Adjustment
+bind Recognize Employee Achievements: Achievement Type
+bind Facilitate Team Building Activities: Team Building Frequency
+bind Conduct Performance Reviews: Performance Rating
+bind Update HR Policies: Policy Update Impact
+Interview Score: integer between 1 and 10
+Satisfaction Level: float between 0.0 and 10.0
+Retention Strategy: Mentorship, Career Development, Flexible Work
+Training Hours: integer between 0 and 100
+Compensation Adjustment: float between -10.0 and 20.0
+Achievement Type: Project Completion, Innovation, Leadership
+Team Building Frequency: integer between 0 and 12
+Performance Rating: Excellent, Good, Satisfactory, Needs Improvement
+Policy Update Impact: float between 0.0 and 5.0
+Feedback Type: Positive, Neutral, Negative
+Init[Conduct Exit Interview] | |
+End[Update HR Policies] | |
+Existence2[Monitor Employee Satisfaction] | |
+Chain Response[Analyze Employee Feedback, Implement Retention Strategies] |A.Feedback Type in (Negative, Neutral) | |5,10,d
+Precedence[Provide Training Opportunities, Review Compensation Packages] |A.Training Hours > 10 | |
+Co-Existence[Recognize Employee Achievements, Facilitate Team Building Activities] | | |
+Not Chain Succession[Conduct Performance Reviews, Recognize Employee Achievements] | | |
+Choice[Conduct Exit Interview, Analyze Employee Feedback] | | |
+Response[Implement Retention Strategies, Monitor Employee Satisfaction] |A.Retention Strategy is Career Development | |3,7,d
+Not Precedence[Update HR Policies, Facilitate Team Building Activities] | | |

@@ -1,0 +1,39 @@
+activity Check Passport
+activity Screen Baggage
+activity Conduct Security Interview
+activity Verify Visa
+activity Perform Body Scan
+activity Issue Boarding Pass
+activity Check Flight Status
+activity Inspect Travel Documents
+activity Approve Security Clearance
+activity Escort to Boarding Gate
+bind Check Passport: Passport Validity
+bind Screen Baggage: Baggage Status, Baggage Weight
+bind Conduct Security Interview: Interview Risk Score
+bind Verify Visa: Visa Status
+bind Perform Body Scan: Body Scan Anomaly Level
+bind Check Flight Status: Flight Status
+bind Inspect Travel Documents: Document Completeness Score
+bind Approve Security Clearance: Security Clearance
+bind Escort to Boarding Gate: Gate Number
+Passport Validity: integer between 0 and 120
+Baggage Status: Clear, Suspicious, Prohibited
+Interview Risk Score: float between 0.0 and 10.0
+Visa Status: Valid, Expired, Not Required
+Body Scan Anomaly Level: float between 0.0 and 5.0
+Flight Status: On Time, Delayed, Cancelled
+Document Completeness Score: integer between 0 and 100
+Security Clearance: Approved, Denied
+Gate Number: integer between 1 and 50
+Baggage Weight: float between 0.0 and 50.0
+Init[Check Passport] | |
+End[Escort to Boarding Gate] | |
+Chain Response[Screen Baggage, Conduct Security Interview] | | |0,10,m
+Response[Conduct Security Interview, Perform Body Scan] |A.Interview Risk Score > 5 | |0,1,h
+Precedence[Issue Boarding Pass, Verify Visa] | |A.Visa Status is Valid |
+Co-Existence[Inspect Travel Documents, Approve Security Clearance] |A.Document Completeness Score >= 80 |T.Security Clearance is Approved |
+Not Chain Succession[Check Flight Status, Issue Boarding Pass] | | |
+Existence[Perform Body Scan] | |
+Exclusive Choice[Check Passport, Verify Visa] | | |
+Not Responded Existence[Screen Baggage, Perform Body Scan] |A.Baggage Status is Suspicious | |

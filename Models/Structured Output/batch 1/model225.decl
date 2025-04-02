@@ -1,0 +1,40 @@
+activity Monitor Surveillance
+activity Patrol Store
+activity Report Incident
+activity Review Security Footage
+activity Check Inventory
+activity Verify Alarm
+activity Escort Customer
+activity Conduct Bag Check
+activity Lock Store
+activity Deactivate Alarm
+bind Monitor Surveillance: Camera ID
+bind Report Incident: Incident Severity
+bind Verify Alarm: Alarm Status
+bind Patrol Store: Patrol Area
+bind Check Inventory: Inventory Count
+bind Review Security Footage: Footage Duration
+bind Escort Customer: Customer Request
+bind Conduct Bag Check: Bag Check Count
+bind Lock Store: Store Status
+bind Deactivate Alarm: Alarm Response Time
+Camera ID: integer between 1 and 100
+Incident Severity: float between 0.0 and 10.0
+Alarm Status: Active, Inactive
+Patrol Area: Entrance, Aisles, Checkout, Storage
+Inventory Count: integer between 0 and 10000
+Footage Duration: float between 0.0 and 120.0
+Customer Request: Escort, Assistance
+Bag Check Count: integer between 0 and 500
+Store Status: Open, Closed
+Alarm Response Time: float between 0.0 and 60.0
+Existence[Monitor Surveillance] | |
+End[Lock Store] | |
+Response[Report Incident, Review Security Footage] |A.Incident Severity > 5.0 | |0,2,h
+Chain Response[Verify Alarm, Deactivate Alarm] |A.Alarm Status is Active | |0,15,m
+Co-Existence[Patrol Store, Check Inventory] | | |
+Not Chain Succession[Escort Customer, Conduct Bag Check] |A.Customer Request is Escort | |
+Precedence[Report Incident, Monitor Surveillance] | | |
+Not Co-Existence[Conduct Bag Check, Escort Customer] | | |
+Response[Report Incident, Review Security Footage] |A.Incident Severity > 7.0 | |0,1,h
+Not Precedence[Deactivate Alarm, Verify Alarm] | | |

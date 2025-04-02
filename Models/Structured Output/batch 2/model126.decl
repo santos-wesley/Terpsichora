@@ -1,0 +1,47 @@
+activity Identify Sensitive Data
+activity Monitor Data Access
+activity Encrypt Data
+activity Audit Data Usage
+activity Alert Security Team
+activity Block Unauthorized Access
+activity Log Data Access
+activity Review Security Policies
+activity Train Employees
+activity Assess Risk
+activity Backup Data
+activity Restore Data
+activity Report Incident
+activity Update Security Software
+activity Conduct Security Audit
+bind Monitor Data Access: Access Frequency, Access Level
+bind Encrypt Data: Encryption Strength, Data Size
+bind Audit Data Usage: Audit Result
+bind Alert Security Team: Incident Severity, Response Time
+bind Assess Risk: Risk Score
+bind Train Employees: Training Status
+bind Backup Data: Backup Frequency
+Access Frequency: integer between 1 and 1000
+Data Size: float between 0.1 and 10000.0
+Access Level: Admin, User, Guest
+Incident Severity: Low, Medium, High
+Encryption Strength: integer between 128 and 256
+Risk Score: float between 0.0 and 10.0
+Training Status: Completed, Pending
+Backup Frequency: integer between 1 and 30
+Audit Result: Pass, Fail
+Response Time: float between 0.1 and 24.0
+Init[Identify Sensitive Data] | |
+End[Conduct Security Audit] | |
+Existence5[Monitor Data Access] | |
+Exactly3[Encrypt Data] | |
+Response[Identify Sensitive Data, Encrypt Data] | | |0,2,h
+Chain Response[Monitor Data Access, Alert Security Team] |A.Access Level is Admin | |0,1,h
+Chain Succession[Monitor Data Access, Block Unauthorized Access] |A.Access Level is not Admin | |0,5,m
+Alternate Succession[Monitor Data Access, Log Data Access] | | |
+Precedence[Train Employees, Review Security Policies] | | |
+Precedence[Backup Data, Assess Risk] | | |
+Responded Existence[Restore Data, Backup Data] | | |
+Response[Alert Security Team, Report Incident] |A.Incident Severity is High | |0,4,h
+Response[Conduct Security Audit, Update Security Software] |A.Audit Result is Fail | |0,24,h
+Alternate Response[Log Data Access, Audit Data Usage] | | |
+Precedence[Conduct Security Audit, Train Employees] |A.Training Status is Completed | |

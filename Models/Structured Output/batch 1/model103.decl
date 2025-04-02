@@ -1,0 +1,30 @@
+activity Monitor Water Quality
+activity Inspect Infrastructure
+activity Report Issue
+activity Initiate Repair
+activity Approve Repair Plan
+activity Conduct Repair
+activity Verify Repair
+activity Update Water Quality Records
+activity Notify Authorities
+activity Conduct Risk Assessment
+bind Monitor Water Quality: Water Quality Status
+bind Inspect Infrastructure: Inspection Score
+bind Initiate Repair: Repair Cost
+bind Approve Repair Plan: Repair Approval Status
+bind Conduct Risk Assessment: Risk Level
+Inspection Score: integer between 1 and 10
+Repair Cost: float between 100.0 and 10000.0
+Water Quality Status: Good, Moderate, Poor
+Repair Approval Status: Approved, Pending, Rejected
+Risk Level: integer between 1 and 5
+Init[Monitor Water Quality] | |
+End[Notify Authorities] | |
+Existence[Inspect Infrastructure] | |
+Response[Report Issue, Initiate Repair] | | |0,2,d
+Precedence[Conduct Repair, Approve Repair Plan] | |A.Repair Approval Status is Approved |
+Chain Response[Monitor Water Quality, Update Water Quality Records] | | |
+Response[Conduct Repair, Verify Repair] | | |0,48,h
+Not Co-Existence[Conduct Risk Assessment, Inspect Infrastructure] | | |
+Response[Inspect Infrastructure, Report Issue] |A.Inspection Score < 5 | |
+Response[Monitor Water Quality, Notify Authorities] |A.Water Quality Status is Poor | |0,1,d

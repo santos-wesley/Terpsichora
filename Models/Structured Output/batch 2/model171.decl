@@ -1,0 +1,49 @@
+activity Book Eco-Friendly Accommodation
+activity Plan Sustainable Itinerary
+activity Purchase Carbon Offsets
+activity Use Public Transportation
+activity Participate in Local Workshops
+activity Visit Protected Areas
+activity Support Local Businesses
+activity Engage in Conservation Activities
+activity Respect Local Cultures
+activity Minimize Waste
+activity Use Renewable Energy Sources
+activity Attend Cultural Festivals
+activity Promote Sustainable Practices
+activity Evaluate Environmental Impact
+activity Share Experiences
+bind Book Eco-Friendly Accommodation: Accommodation Type
+bind Plan Sustainable Itinerary: Duration
+bind Purchase Carbon Offsets: Carbon Offset Cost
+bind Use Public Transportation: Transport Mode
+bind Participate in Local Workshops: Workshop Type, Participants
+bind Minimize Waste: Waste Reduction Percentage
+bind Use Renewable Energy Sources: Energy Source
+bind Respect Local Cultures: Cultural Sensitivity
+bind Support Local Businesses: Local Spending
+Duration: integer between 1 and 30
+Carbon Offset Cost: float between 5.0 and 500.0
+Accommodation Type: Hotel, Lodge, Hostel
+Transport Mode: Bus, Train, Bicycle
+Workshop Type: Artisan, Environmental
+Participants: integer between 1 and 100
+Waste Reduction Percentage: float between 0.0 and 100.0
+Energy Source: Solar, Wind
+Cultural Sensitivity: High, Medium, Low
+Local Spending: float between 10.0 and 1000.0
+Init[Plan Sustainable Itinerary] | |
+End[Evaluate Environmental Impact] | |
+Existence[Book Eco-Friendly Accommodation] | |
+Response[Use Public Transportation, Support Local Businesses] | |A.Transport Mode == T.Transport Mode |0,2,d
+Chain Response[Participate in Local Workshops, Respect Local Cultures] | | |
+Co-Existence[Visit Protected Areas, Engage in Conservation Activities] | | |
+Not Chain Response[Promote Sustainable Practices, Share Experiences] | | |
+Precedence[Use Renewable Energy Sources, Book Eco-Friendly Accommodation] | |A.Accommodation Type == T.Accommodation Type |
+Exclusive Choice[Attend Cultural Festivals, Participate in Local Workshops] | | |
+Response[Purchase Carbon Offsets, Evaluate Environmental Impact] |A.Carbon Offset Cost > 50 | |0,48,h
+Response[Plan Sustainable Itinerary, Book Eco-Friendly Accommodation] |A.Duration > 5 | |0,2,d
+Exactly[Minimize Waste] | |
+Not Co-Existence[Use Renewable Energy Sources, Use Public Transportation] | | |
+Response[Respect Local Cultures, Support Local Businesses] |A.Cultural Sensitivity is High | |0,2,d
+Not Precedence[Share Experiences, Engage in Conservation Activities] | | |

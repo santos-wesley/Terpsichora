@@ -1,0 +1,36 @@
+activity Collect Feedback
+activity Analyze Feedback
+activity Categorize Feedback
+activity Prioritize Issues
+activity Develop Action Plan
+activity Implement Solutions
+activity Monitor Results
+activity Review Feedback Process
+activity Acknowledge Feedback
+activity Report Findings
+bind Collect Feedback: Feedback Type
+bind Analyze Feedback: Feedback Score
+bind Develop Action Plan: Action Plan Status
+bind Prioritize Issues: Issue Priority
+bind Monitor Results: Solution Effectiveness
+Feedback Score: integer between 1 and 10
+Response Time: float between 0.1 and 48.0
+Feedback Type: Complaint, Suggestion, Praise
+Action Plan Status: Drafted, Approved, Implemented
+Issue Priority: integer between 1 and 5
+Solution Effectiveness: Effective, Ineffective
+Existence[Collect Feedback] | |
+Exactly[Analyze Feedback] | |
+Chain Succession[Categorize Feedback, Prioritize Issues] | | |
+Response[Develop Action Plan, Implement Solutions] | | |0,5,d
+Not Co-Existence[Acknowledge Feedback, Report Findings] | | |
+Precedence[Analyze Feedback, Collect Feedback] | | |
+Precedence[Develop Action Plan, Prioritize Issues] | | |
+Response[Monitor Results, Review Feedback Process] | | |0,10,d
+Co-Existence[Collect Feedback, Acknowledge Feedback] | | |
+Chain Precedence[Implement Solutions, Develop Action Plan] | | |
+Precedence[Categorize Feedback, Analyze Feedback] | | |
+Responded Existence[Develop Action Plan, Develop Action Plan] |A.Action Plan Status is Drafted | |
+Responded Existence[Monitor Results, Monitor Results] |A.Solution Effectiveness is Effective | |
+Responded Existence[Prioritize Issues, Prioritize Issues] |A.Issue Priority > 3 | |
+Responded Existence[Collect Feedback, Collect Feedback] |A.Feedback Type in (Complaint, Suggestion) | |

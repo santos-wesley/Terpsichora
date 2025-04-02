@@ -1,0 +1,41 @@
+activity Log Incident
+activity Categorize Incident
+activity Prioritize Incident
+activity Assign Technician
+activity Investigate Incident
+activity Resolve Incident
+activity Close Incident
+activity Reopen Incident
+activity Escalate Incident
+activity Notify User
+bind Log Incident: Incident ID
+bind Categorize Incident: Incident Category
+bind Prioritize Incident: Priority Level
+bind Assign Technician: Technician Skill Level
+bind Resolve Incident: Resolution Time
+bind Notify User: User Notification Status
+bind Reopen Incident: Reopen Count
+bind Escalate Incident: Escalation Level
+Incident ID: integer between 1 and 10000
+Incident Category: Hardware, Software, Network, Security
+Priority Level: Low, Medium, High, Critical
+Technician Skill Level: Junior, Mid, Senior
+Resolution Time: float between 0.5 and 72.0
+User Notification Status: Notified, Pending
+Reopen Count: integer between 0 and 5
+Escalation Level: Level 1, Level 2, Level 3
+Init[Log Incident] | |
+End[Close Incident] | |
+Existence[Categorize Incident] | |
+Absence3[Reopen Incident] | |
+Response[Log Incident, Categorize Incident] | | |0,10,m
+Chain Response[Categorize Incident, Prioritize Incident] | | |
+Chain Response[Prioritize Incident, Assign Technician] | | |0,5,m
+Precedence[Resolve Incident, Investigate Incident] | | |
+Precedence[Close Incident, Resolve Incident] | | |
+Response[Escalate Incident, Notify User] | | |0,2,h
+Precedence[Reopen Incident, Close Incident] | | |
+Not Chain Succession[Log Incident, Resolve Incident] | | |
+Response[Resolve Incident, Notify User] | | |0,1,h
+Not Co-Existence[Escalate Incident, Close Incident] | | |
+Chain Precedence[Assign Technician, Prioritize Incident] | |A.Priority Level == T.Technician Skill Level |

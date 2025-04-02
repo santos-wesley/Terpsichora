@@ -1,0 +1,35 @@
+activity Receive Raw Materials
+activity Inspect Raw Materials
+activity Store Raw Materials
+activity Prepare Ingredients
+activity Cook Ingredients
+activity Package Product
+activity Label Product
+activity Conduct Quality Check
+activity Dispatch Product
+bind Receive Raw Materials: Quality Status
+bind Inspect Raw Materials: Inspection Score
+bind Store Raw Materials: Storage Condition, Temperature
+bind Cook Ingredients: Cooking Time, Temperature
+bind Package Product: Packaging Type
+bind Label Product: Label Compliance
+bind Dispatch Product: Dispatch Status
+Temperature: integer between -20 and 300
+Weight: float between 0.1 and 100.0
+Quality Status: Accepted, Rejected
+Storage Condition: Frozen, Refrigerated, Room Temperature
+Packaging Type: Plastic, Glass, Metal
+Label Compliance: Compliant, Non-Compliant
+Inspection Score: integer between 0 and 100
+Cooking Time: float between 0.5 and 240.0
+Dispatch Status: Pending, Completed
+Init[Receive Raw Materials] | |
+End[Dispatch Product] | |
+Existence[Inspect Raw Materials] | |
+Chain Succession[Inspect Raw Materials, Store Raw Materials] | | |0,5,m
+Response[Prepare Ingredients, Cook Ingredients] | | |0,2,h
+Chain Response[Package Product, Label Product] | | |0,10,m
+Responded Existence[Inspect Raw Materials, Conduct Quality Check] |A.Inspection Score < 50 | |
+Not Succession[Label Product, Dispatch Product] |A.Label Compliance is Non-Compliant | |
+Co-Existence[Store Raw Materials, Receive Raw Materials] |A.Storage Condition is Frozen |A.Storage Condition == T.Storage Condition |
+Response[Label Product, Dispatch Product] | | |0,2,d

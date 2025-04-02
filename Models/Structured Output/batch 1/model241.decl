@@ -1,0 +1,32 @@
+activity Enroll Participant
+activity Conduct Health Assessment
+activity Design Personalized Plan
+activity Schedule Sessions
+activity Conduct Wellness Session
+activity Monitor Progress
+activity Provide Feedback
+activity Adjust Plan
+activity Complete Program
+bind Enroll Participant: Participant ID
+bind Conduct Health Assessment: BMI, Health Status
+bind Design Personalized Plan: Plan Type
+bind Schedule Sessions: Session Count
+bind Monitor Progress: Progress Score
+bind Provide Feedback: Feedback Type
+Participant ID: integer between 1 and 1000
+BMI: float between 10.0 and 50.0
+Health Status: Excellent, Good, Fair, Poor
+Plan Type: Weight Loss, Fitness, Stress Management
+Session Count: integer between 1 and 50
+Progress Score: float between 0.0 and 100.0
+Feedback Type: Positive, Neutral, Negative
+Init[Enroll Participant] | |
+End[Complete Program] | |
+Existence[Conduct Health Assessment] | |
+Response[Conduct Health Assessment, Design Personalized Plan] | | |0,2,d
+Precedence[Conduct Wellness Session, Schedule Sessions] | | |
+Response[Monitor Progress, Provide Feedback] | | |0,48,h
+Precedence[Adjust Plan, Provide Feedback] | | |
+Exclusive Choice[Complete Program, Adjust Plan] | | |
+Chain Succession[Conduct Health Assessment, Design Personalized Plan] |A.Health Status is Poor |A.Health Status is Poor and T.Plan Type is Stress Management |
+Chain Response[Monitor Progress, Provide Feedback] |A.Progress Score < 50 |T.Feedback Type is Negative |0,24,h

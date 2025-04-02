@@ -1,0 +1,30 @@
+activity File Lawsuit
+activity Review Case
+activity Gather Evidence
+activity Conduct Discovery
+activity Negotiate Settlement
+activity Prepare Trial
+activity Attend Trial
+activity File Appeal
+activity Close Case
+bind File Lawsuit: Case ID, Case Status
+bind Gather Evidence: Evidence Type
+bind Negotiate Settlement: Settlement Amount
+bind Attend Trial: Trial Days
+bind File Appeal: Appeal Status
+Case ID: integer between 1 and 10000
+Settlement Amount: float between 1000.0 and 1000000.0
+Case Status: Open, Closed, Pending
+Evidence Type: Documentary, Testimonial, Physical
+Trial Days: integer between 1 and 30
+Appeal Status: Filed, Not Filed
+Init[File Lawsuit] | |
+End[Close Case] | |
+Existence[Gather Evidence] | |
+Choice[Negotiate Settlement, Attend Trial] | | |
+Chain Response[Attend Trial, File Appeal] | | |0,30,d
+Precedence[Gather Evidence, Review Case] | | |
+Response[Conduct Discovery, Prepare Trial] | | |
+Not Co-Existence[File Appeal, Close Case] | | |
+Not Succession[Negotiate Settlement, Attend Trial] |A.Settlement Amount > 500000 | |
+Chain Response[File Lawsuit, Gather Evidence] | |T.Evidence Type is Documentary |0,10,d

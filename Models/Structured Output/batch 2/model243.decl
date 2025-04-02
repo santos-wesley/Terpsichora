@@ -1,0 +1,44 @@
+activity Identify Crisis
+activity Assemble Crisis Team
+activity Develop Action Plan
+activity Communicate with Stakeholders
+activity Implement Action Plan
+activity Monitor Situation
+activity Adjust Plan
+activity Conduct Press Conference
+activity Evaluate Response
+activity Document Lessons Learned
+activity Close Crisis
+bind Identify Crisis: Severity Level, Crisis Type
+bind Assemble Crisis Team: Team Size
+bind Develop Action Plan: Budget Allocation
+bind Communicate with Stakeholders: Stakeholder Group
+bind Monitor Situation: Response Time
+bind Conduct Press Conference: Media Coverage
+bind Adjust Plan: Plan Revisions
+bind Evaluate Response: Public Approval Rating
+bind Close Crisis: Crisis Status
+Severity Level: integer between 1 and 5
+Crisis Type: Natural Disaster, Technical Failure, Security Breach, Health Emergency
+Budget Allocation: float between 1000.0 and 1000000.0
+Stakeholder Group: Internal, External, Both
+Team Size: integer between 1 and 50
+Response Time: float between 0.5 and 72.0
+Media Coverage: Low, Medium, High
+Plan Revisions: integer between 0 and 10
+Public Approval Rating: float between 0.0 and 100.0
+Crisis Status: Active, Under Control, Resolved
+Init[Identify Crisis] | |
+End[Close Crisis] | |
+Existence[Assemble Crisis Team] | |
+Absence3[Adjust Plan] | |
+Precedence[Implement Action Plan, Develop Action Plan] | | |
+Chain Response[Implement Action Plan, Monitor Situation] | | |0,1,h
+Response[Conduct Press Conference, Communicate with Stakeholders] | | |0,2,h
+Precedence[Evaluate Response, Close Crisis] | | |
+Responded Existence[Identify Crisis, Communicate with Stakeholders] |A.Crisis Type is Security Breach | |
+Response[Identify Crisis, Conduct Press Conference] |A.Crisis Type is Natural Disaster |T.Media Coverage is High |
+Precedence[Develop Action Plan, Assemble Crisis Team] | | |
+Response[Implement Action Plan, Monitor Situation] | | |0,24,h
+Response[Evaluate Response, Close Crisis] |A.Public Approval Rating > 75 | |
+Chain Succession[Close Crisis, Document Lessons Learned] | |A.Crisis Status is Resolved |0,1,h

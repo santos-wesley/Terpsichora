@@ -1,0 +1,50 @@
+activity Conduct Team Meeting
+activity Evaluate Employee Performance
+activity Plan Team Building Activity
+activity Provide Feedback
+activity Organize Training Session
+activity Conduct Exit Interview
+activity Approve Leave Request
+activity Conduct Workplace Survey
+activity Implement Diversity Initiative
+activity Resolve Conflict
+activity Review Company Policies
+activity Celebrate Employee Achievement
+activity Conduct Safety Drill
+activity Evaluate Training Effectiveness
+activity Conduct One-on-One Meeting
+bind Evaluate Employee Performance: Performance Score
+bind Plan Team Building Activity: Budget Allocation
+bind Provide Feedback: Feedback Type
+bind Approve Leave Request: Leave Status
+bind Conduct Workplace Survey: Survey Participation
+bind Implement Diversity Initiative: Diversity Initiative Type
+bind Evaluate Training Effectiveness: Training Effectiveness Score
+bind Resolve Conflict: Conflict Resolution Outcome
+bind Conduct Safety Drill: Safety Drill Participation
+bind Celebrate Employee Achievement: Achievement Type
+Performance Score: integer between 1 and 100
+Budget Allocation: float between 1000.0 and 50000.0
+Feedback Type: Positive, Negative, Neutral
+Leave Status: Approved, Pending, Denied
+Survey Participation: integer between 0 and 500
+Diversity Initiative Type: Gender, Ethnicity, Disability
+Training Effectiveness Score: float between 0.0 and 10.0
+Conflict Resolution Outcome: Resolved, Unresolved
+Safety Drill Participation: integer between 0 and 500
+Achievement Type: Individual, Team
+Init[Conduct Team Meeting] | |
+End[Conduct One-on-One Meeting] | |
+Existence[Plan Team Building Activity] | |
+Absence2[Conduct Exit Interview] | |
+Exactly[Conduct Safety Drill] | |
+Response[Provide Feedback, Evaluate Employee Performance] | | |0,2,d
+Precedence[Conduct Workplace Survey, Review Company Policies] | | |
+Chain Response[Implement Diversity Initiative, Celebrate Employee Achievement] | | |0,48,h
+Co-Existence[Conduct Team Meeting, Resolve Conflict] | | |
+Not Chain Succession[Conduct Safety Drill, Conduct Team Meeting] | | |
+Not Co-Existence[Approve Leave Request, Conduct Exit Interview] | | |
+Not Precedence[Conduct One-on-One Meeting, Evaluate Employee Performance] | | |
+Succession[Conduct Workplace Survey, Implement Diversity Initiative] | | |0,5,d
+Exclusive Choice[Conduct Team Meeting, Organize Training Session] | | |
+Response[Evaluate Training Effectiveness, Provide Feedback] | | |0,3,d

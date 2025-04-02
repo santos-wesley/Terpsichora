@@ -1,0 +1,49 @@
+activity Identify Technology
+activity Assess Market Potential
+activity Develop Transfer Plan
+activity Negotiate Terms
+activity Sign Agreement
+activity Implement Technology
+activity Conduct Training
+activity Monitor Implementation
+activity Evaluate Outcomes
+activity Report Findings
+activity Review Feedback
+activity Revise Plan
+activity Finalize Transfer
+activity Archive Documents
+activity Close Project
+bind Identify Technology: Market Size
+bind Negotiate Terms: Agreement Status
+bind Conduct Training: Training Level
+bind Implement Technology: Implementation Duration
+bind Evaluate Outcomes: Outcome Score
+bind Review Feedback: Feedback Type
+bind Archive Documents: Document Type
+bind Revise Plan: Revision Count
+bind Develop Transfer Plan: Project Budget
+Market Size: integer between 1000 and 1000000
+Transfer Cost: float between 1000.0 and 1000000.0
+Agreement Status: Draft, Negotiated, Signed
+Training Level: Basic, Intermediate, Advanced
+Implementation Duration: integer between 1 and 365
+Outcome Score: float between 0.0 and 10.0
+Feedback Type: Positive, Neutral, Negative
+Document Type: Agreement, Report, Training Material
+Revision Count: integer between 0 and 10
+Project Budget: float between 50000.0 and 500000.0
+Init[Identify Technology] | |
+End[Close Project] | |
+Existence[Sign Agreement] | |
+Exactly[Evaluate Outcomes] | |
+Precedence[Sign Agreement, Negotiate Terms] | | |
+Response[Conduct Training, Monitor Implementation] | | |0,2,d
+Co-Existence[Develop Transfer Plan, Negotiate Terms] | | |
+Not Chain Succession[Sign Agreement, Implement Technology] | | |
+Succession[Evaluate Outcomes, Review Feedback] | | |0,5,d
+Precedence[Archive Documents, Close Project] | | |0,1,d
+Not Responded Existence[Revise Plan, Finalize Transfer] | | |
+Chain Precedence[Develop Transfer Plan, Identify Technology] |A.Project Budget > 100000 |A.Project Budget > T.Transfer Cost |
+Responded Existence[Review Feedback, Evaluate Outcomes] |A.Feedback Type in (Positive, Neutral) | |
+Chain Response[Conduct Training, Implement Technology] |A.Training Level is Advanced | |
+Chain Succession[Sign Agreement, Archive Documents] | |T.Document Type is Agreement |0,3,d

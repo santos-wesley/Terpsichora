@@ -1,0 +1,55 @@
+activity Conduct Safety Training
+activity Inspect Safety Equipment
+activity Report Safety Incident
+activity Evaluate Safety Compliance
+activity Update Safety Policies
+activity Perform Risk Assessment
+activity Implement Safety Measures
+activity Conduct Emergency Drill
+activity Review Safety Reports
+activity Approve Safety Budget
+activity Monitor Safety Performance
+activity Investigate Safety Breach
+activity Communicate Safety Updates
+activity Schedule Safety Audit
+activity Certify Safety Personnel
+bind Conduct Safety Training: Training Participants
+bind Inspect Safety Equipment: Safety Equipment Status
+bind Report Safety Incident: Incident Severity
+bind Evaluate Safety Compliance: Compliance Status
+bind Update Safety Policies: 
+bind Perform Risk Assessment: Risk Level
+bind Implement Safety Measures: 
+bind Conduct Emergency Drill: Drill Type
+bind Review Safety Reports: 
+bind Approve Safety Budget: Budget Allocation
+bind Monitor Safety Performance: 
+bind Investigate Safety Breach: Breach Count
+bind Communicate Safety Updates: 
+bind Schedule Safety Audit: Audit Frequency
+bind Certify Safety Personnel: Certification Status
+Incident Severity: integer between 1 and 5
+Budget Allocation: float between 1000.0 and 50000.0
+Compliance Status: Compliant, Non-Compliant
+Drill Type: Fire, Earthquake, Evacuation
+Training Participants: integer between 5 and 100
+Safety Equipment Status: Operational, Needs Repair
+Risk Level: float between 0.1 and 10.0
+Audit Frequency: Monthly, Quarterly, Annually
+Breach Count: integer between 0 and 10
+Certification Status: Certified, Not Certified
+Existence[Conduct Safety Training] | |
+Exactly2[Inspect Safety Equipment] | |
+Response[Report Safety Incident, Investigate Safety Breach] | | |0,2,d
+Co-Existence[Conduct Emergency Drill, Review Safety Reports] | | |
+Precedence[Implement Safety Measures, Approve Safety Budget] | | |
+Exclusive Choice[Conduct Safety Training, Certify Safety Personnel] | | |
+Response[Perform Risk Assessment, Implement Safety Measures] | | |0,48,h
+End[Update Safety Policies] | |
+Succession[Monitor Safety Performance, Review Safety Reports] | | |
+Chain Response[Schedule Safety Audit, Evaluate Safety Compliance] | | |
+Not Chain Succession[Communicate Safety Updates, Conduct Safety Training] | | |
+Responded Existence[Report Safety Incident, Investigate Safety Breach] |A.Incident Severity > 3 | |
+Choice[Conduct Emergency Drill, Monitor Safety Performance] | | |
+Responded Existence[Inspect Safety Equipment, Inspect Safety Equipment] |A.Safety Equipment Status is Needs Repair | |
+Response[Schedule Safety Audit, Schedule Safety Audit] |A.Audit Frequency is Monthly | |0,30,d

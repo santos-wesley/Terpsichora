@@ -1,0 +1,38 @@
+activity Define Value Proposition
+activity Conduct Customer Interviews
+activity Develop Minimum Viable Product
+activity Launch MVP
+activity Collect Feedback
+activity Analyze Feedback
+activity Iterate Product
+activity Measure Key Metrics
+activity Pivot or Persevere Decision
+activity Scale Operations
+bind Conduct Customer Interviews: Customer Segment, Interview Count
+bind Develop Minimum Viable Product: MVP Cost
+bind Collect Feedback: Feedback Type
+bind Iterate Product: Improvement Cost, Iteration Count
+bind Pivot or Persevere Decision: Decision
+bind Measure Key Metrics: Metric Score
+bind Launch MVP: Market Response
+bind Scale Operations: Growth Rate
+Customer Segment: Early Adopters, Mainstream
+Interview Count: integer between 1 and 100
+MVP Cost: float between 1000.0 and 50000.0
+Feedback Type: Positive, Negative, Neutral
+Improvement Cost: float between 500.0 and 20000.0
+Decision: Pivot, Persevere
+Growth Rate: float between 0.0 and 100.0
+Metric Score: integer between 0 and 100
+Market Response: Positive, Negative
+Iteration Count: integer between 0 and 10
+Init[Define Value Proposition] | |
+End[Scale Operations] | |
+Response[Conduct Customer Interviews, Develop Minimum Viable Product] | |A.Customer Segment == T.Customer Segment |0,7,d
+Chain Response[Launch MVP, Collect Feedback] | |A.Market Response is Positive |0,14,d
+Co-Existence[Collect Feedback, Analyze Feedback] | | |
+Response[Analyze Feedback, Iterate Product] |A.Feedback Type is Negative | |0,10,d
+Precedence[Pivot or Persevere Decision, Measure Key Metrics] |A.Decision is Pivot | |
+Existence[Launch MVP] | |
+Not Co-Existence[Pivot or Persevere Decision, Scale Operations] | | |
+Not Chain Succession[Iterate Product, Measure Key Metrics] | | |

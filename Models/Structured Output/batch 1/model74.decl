@@ -1,0 +1,39 @@
+activity Select Film
+activity Watch Film
+activity Analyze Film
+activity Write Review
+activity Submit Review
+activity Discuss Film
+activity Rate Film
+activity Receive Feedback
+activity Revise Review
+activity Finalize Review
+bind Select Film: Genre
+bind Rate Film: Rating
+bind Watch Film: Duration
+bind Submit Review: Review Status
+bind Receive Feedback: Feedback Score, Feedback Type
+bind Discuss Film: Discussion Type
+bind Analyze Film: Analysis Depth
+bind Revise Review: Revision Type
+bind Write Review: Review Length
+Genre: Action, Drama, Comedy, Horror, Documentary
+Rating: integer between 1 and 10
+Duration: float between 0.5 and 3.5
+Review Status: Draft, Submitted, Revised, Final
+Feedback Score: integer between 1 and 5
+Discussion Type: Group, Individual
+Analysis Depth: float between 1.0 and 10.0
+Revision Type: Minor, Major
+Review Length: integer between 1 and 20
+Feedback Type: Positive, Negative, Neutral
+Init[Select Film] | |
+End[Finalize Review] | |
+Existence[Watch Film] | |
+Exactly[Submit Review] | |
+Chain Response[Watch Film, Analyze Film] | | |2,5,h
+Response[Receive Feedback, Revise Review] | | |
+Precedence[Rate Film, Discuss Film] | | |
+Chain Response[Revise Review, Finalize Review] | | |0,1,d
+Response[Analyze Film, Write Review] | | |
+Chain Response[Watch Film, Discuss Film] | | |0,3,h

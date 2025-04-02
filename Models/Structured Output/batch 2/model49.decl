@@ -1,0 +1,50 @@
+activity Authorize Entry
+activity Conduct Security Check
+activity Monitor Surveillance
+activity Report Incident
+activity Lock Down Facility
+activity Issue Security Badge
+activity Revoke Access
+activity Inspect Equipment
+activity Conduct Emergency Drill
+activity Update Security Protocols
+activity Escort Visitor
+activity Perform Background Check
+activity Deactivate Badge
+activity Review Access Logs
+activity Train Security Personnel
+bind Authorize Entry: Security Level, Access Type
+bind Conduct Security Check: Security Level
+bind Monitor Surveillance: Surveillance Status
+bind Report Incident: Incident Severity, Incident Type
+bind Lock Down Facility: Response Time
+bind Issue Security Badge: Badge Status
+bind Revoke Access: Badge Status
+bind Inspect Equipment: Equipment Condition
+bind Conduct Emergency Drill: Drill Frequency
+bind Escort Visitor: Visitor Count
+Security Level: integer between 1 and 5
+Incident Severity: float between 0.1 and 10.0
+Badge Status: Active, Inactive, Revoked
+Access Type: Temporary, Permanent
+Drill Frequency: integer between 1 and 12
+Incident Type: Theft, Vandalism, Unauthorized Access
+Equipment Condition: float between 0.0 and 100.0
+Visitor Count: integer between 0 and 100
+Surveillance Status: Operational, Faulty
+Response Time: float between 0.0 and 60.0
+Init[Authorize Entry] | |
+End[Lock Down Facility] | |
+Existence2[Conduct Security Check] | |
+Absence3[Report Incident] | |
+Response[Conduct Security Check, Authorize Entry] | | |0,10,m
+Chain Response[Authorize Entry, Issue Security Badge] | | |
+Not Co-Existence[Revoke Access, Issue Security Badge] | | |
+Response[Report Incident, Lock Down Facility] | | |0,30,m
+Precedence[Report Incident, Monitor Surveillance] | | |
+Co-Existence[Escort Visitor, Conduct Security Check] | | |
+Chain Succession[Inspect Equipment, Update Security Protocols] | | |
+Precedence[Lock Down Facility, Conduct Emergency Drill] | | |
+Not Succession[Perform Background Check, Authorize Entry] | | |
+Response[Update Security Protocols, Train Security Personnel] | | |0,2,d
+Precedence[Deactivate Badge, Revoke Access] | | |

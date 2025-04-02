@@ -1,0 +1,31 @@
+activity Extract DNA
+activity Amplify DNA
+activity Sequence DNA
+activity Analyze Data
+activity Prepare Sample
+activity Store Sample
+activity Document Results
+activity Validate Results
+bind Extract DNA: Sample ID, DNA Concentration
+bind Amplify DNA: PCR Status
+bind Sequence DNA: Sequencing Quality
+bind Analyze Data: Analysis Time
+bind Store Sample: Storage Condition
+bind Validate Results: Validation Score
+Sample ID: integer between 1 and 10000
+DNA Concentration: float between 0.1 and 1000.0
+PCR Status: Not Started, In Progress, Completed
+Sequencing Quality: Poor, Average, Good, Excellent
+Analysis Time: integer between 1 and 480
+Storage Condition: Frozen, Refrigerated, Room Temperature
+Validation Score: float between 0.0 and 100.0
+Init[Prepare Sample] | |
+End[Document Results] | |
+Existence[Extract DNA] | |
+Chain Response[Amplify DNA, Sequence DNA] | | |0,2,h
+Response[Extract DNA, Store Sample] | |T.Storage Condition is Frozen |
+Precedence[Sequence DNA, Amplify DNA] | | |
+Response[Sequence DNA, Analyze Data] |A.Sequencing Quality in (Average, Good, Excellent) | |
+Chain Response[Analyze Data, Validate Results] | | |0,1,d
+Response[Validate Results, Document Results] | | |
+Not Co-Existence[Amplify DNA, Store Sample] | | |

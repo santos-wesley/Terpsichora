@@ -1,0 +1,43 @@
+activity Log Incident
+activity Categorize Incident
+activity Prioritize Incident
+activity Assign Technician
+activity Investigate Incident
+activity Resolve Incident
+activity Verify Resolution
+activity Close Incident
+activity Escalate Incident
+activity Reopen Incident
+bind Log Incident: Incident ID
+bind Categorize Incident: Category
+bind Prioritize Incident: Priority
+bind Assign Technician: Technician ID
+bind Resolve Incident: Resolution Time, Resolution Status
+bind Verify Resolution: Verification Status
+bind Escalate Incident: Escalation Level
+bind Reopen Incident: Reopen Reason
+Incident ID: integer between 1 and 10000
+Category: Hardware, Software, Network, Security
+Priority: Low, Medium, High, Critical
+Technician ID: integer between 1 and 500
+Resolution Time: float between 0.1 and 72.0
+Resolution Status: Resolved, Unresolved
+Verification Status: Verified, Not Verified
+Escalation Level: integer between 0 and 3
+Customer Satisfaction: float between 1.0 and 5.0
+Reopen Reason: Incomplete Resolution, New Issue, Customer Request
+Init[Log Incident] | |
+End[Close Incident] | |
+Existence[Categorize Incident] | |
+Absence2[Escalate Incident] | |
+Alternate Response[Log Incident, Categorize Incident] | |A.Incident ID == T.Incident ID |
+Chain Response[Prioritize Incident, Assign Technician] | |A.Priority == T.Priority |0,10,m
+Response[Investigate Incident, Resolve Incident] | |A.Incident ID == T.Incident ID |0,48,h
+Response[Resolve Incident, Verify Resolution] |A.Resolution Status is Resolved |A.Incident ID == T.Incident ID |0,24,h
+Precedence[Close Incident, Verify Resolution] | |A.Incident ID == T.Incident ID |
+Not Precedence[Reopen Incident, Close Incident] | |A.Incident ID == T.Incident ID |
+Response[Reopen Incident, Resolve Incident] | |A.Incident ID == T.Incident ID |0,72,h
+Not Chain Succession[Resolve Incident, Escalate Incident] | |A.Incident ID == T.Incident ID |
+Exclusive Choice[Resolve Incident, Escalate Incident] | |A.Incident ID == T.Incident ID |
+Precedence[Assign Technician, Prioritize Incident] | |A.Incident ID == T.Incident ID |
+Precedence[Prioritize Incident, Categorize Incident] | |A.Incident ID == T.Incident ID |

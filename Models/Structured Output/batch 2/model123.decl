@@ -1,0 +1,49 @@
+activity Initiate Ticket Purchase
+activity Select Event
+activity Choose Ticket Type
+activity Enter Customer Details
+activity Apply Discount Code
+activity Calculate Total Price
+activity Process Payment
+activity Generate Ticket
+activity Send Confirmation Email
+activity Cancel Ticket Purchase
+activity Refund Payment
+activity Verify Payment
+activity Update Inventory
+activity Log Transaction
+activity Provide Customer Support
+bind Initiate Ticket Purchase: Customer ID
+bind Select Event: Event Type
+bind Choose Ticket Type: Ticket Type
+bind Enter Customer Details: Customer ID
+bind Apply Discount Code: Discount Code Status, Discount Amount
+bind Calculate Total Price: Ticket Price, Ticket Quantity
+bind Process Payment: Payment Status
+bind Send Confirmation Email: Confirmation Status
+bind Provide Customer Support: Support Request Status
+Ticket Quantity: integer between 1 and 10
+Ticket Price: float between 10.0 and 500.0
+Ticket Type: VIP, General Admission
+Payment Status: Pending, Completed, Failed
+Discount Code Status: Valid, Invalid, Expired
+Event Type: Concert, Theater, Sports
+Customer ID: integer between 1000 and 9999
+Discount Amount: float between 0.0 and 100.0
+Confirmation Status: Sent, Not Sent
+Support Request Status: Open, Closed
+Init[Initiate Ticket Purchase] | |
+End[Send Confirmation Email] | |
+Existence[Select Event] | |
+Absence[Apply Discount Code] | |
+Response[Apply Discount Code, Calculate Total Price] | | |0,5,m
+Chain Response[Calculate Total Price, Process Payment] | | |0,2,m
+Response[Verify Payment, Generate Ticket] | |A.Payment Status is Completed |0,1,h
+Response[Cancel Ticket Purchase, Refund Payment] | | |0,2,d
+Response[Generate Ticket, Update Inventory] | | |0,1,h
+Response[Process Payment, Log Transaction] | | |
+Precedence[Provide Customer Support, Enter Customer Details] | |A.Support Request Status is Open |
+Response[Generate Ticket, Send Confirmation Email] | | |
+Precedence[Calculate Total Price, Choose Ticket Type] | | |
+Not Precedence[Cancel Ticket Purchase, Process Payment] | |A.Payment Status is Pending |
+Precedence[Apply Discount Code, Select Event] | |T.Event Type in (Concert, Theater) |

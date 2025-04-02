@@ -1,0 +1,40 @@
+activity Record Transaction
+activity Approve Invoice
+activity Generate Financial Report
+activity Reconcile Accounts
+activity Process Payroll
+activity Audit Financial Records
+activity Review Budget
+activity Submit Tax Return
+activity Issue Payment
+activity Close Accounting Period
+bind Record Transaction: Transaction ID
+bind Approve Invoice: Invoice Amount, Approval Status
+bind Generate Financial Report: Report Year
+bind Reconcile Accounts: Account Type
+bind Process Payroll: Salary Amount
+bind Audit Financial Records: Audit Status
+bind Review Budget: Budget Year
+bind Submit Tax Return: Tax Amount
+bind Issue Payment: Payment Method
+bind Close Accounting Period: 
+Transaction ID: integer between 1 and 1000000
+Invoice Amount: float between 0.01 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Report Year: integer between 2000 and 2100
+Account Type: Asset, Liability, Equity, Revenue, Expense
+Salary Amount: float between 300.0 and 10000.0
+Audit Status: Not Started, In Progress, Completed
+Budget Year: integer between 2000 and 2100
+Tax Amount: float between 0.0 and 500000.0
+Payment Method: Bank Transfer, Check, Cash
+Init[Record Transaction] | |
+End[Close Accounting Period] | |
+Existence[Approve Invoice] | |
+Response[Record Transaction, Approve Invoice] | | |0,2,d
+Succession[Reconcile Accounts, Generate Financial Report] | | |
+Precedence[Issue Payment, Process Payroll] | | |
+Precedence[Submit Tax Return, Audit Financial Records] | | |
+Chain Response[Review Budget, Generate Financial Report] | | |0,1,d
+Not Chain Succession[Approve Invoice, Issue Payment] | | |
+Exclusive Choice[Submit Tax Return, Audit Financial Records] | | |

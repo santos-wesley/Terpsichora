@@ -1,0 +1,34 @@
+activity Report Issue
+activity Schedule Maintenance
+activity Assign Technician
+activity Perform Maintenance
+activity Inspect Work
+activity Approve Completion
+activity Record Maintenance Data
+activity Notify Stakeholders
+bind Report Issue: Issue ID, Priority Level
+bind Schedule Maintenance: Duration
+bind Assign Technician: Technician Skill Level
+bind Perform Maintenance: Estimated Cost
+bind Inspect Work: 
+bind Approve Completion: Approval Status
+bind Record Maintenance Data: Actual Cost
+bind Notify Stakeholders: Notification Method
+Issue ID: integer between 1 and 10000
+Priority Level: Low, Medium, High
+Estimated Cost: float between 50.0 and 10000.0
+Technician Skill Level: Junior, Mid, Senior
+Duration: integer between 1 and 72
+Approval Status: Pending, Approved, Rejected
+Actual Cost: float between 50.0 and 15000.0
+Notification Method: Email, SMS, Phone Call
+Init[Report Issue] | |
+End[Notify Stakeholders] | |
+Existence[Inspect Work] | |
+Precedence[Perform Maintenance, Schedule Maintenance] | | |
+Precedence[Perform Maintenance, Assign Technician] | | |
+Response[Perform Maintenance, Inspect Work] | | |0,2,d
+Chain Response[Inspect Work, Approve Completion] | | |0,1,d
+Response[Approve Completion, Record Maintenance Data] | | |
+Response[Record Maintenance Data, Notify Stakeholders] | | |
+Co-Existence[Report Issue, Assign Technician] |A.Priority Level is High |A.Priority Level == T.Technician Skill Level |

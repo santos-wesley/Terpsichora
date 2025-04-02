@@ -1,0 +1,36 @@
+activity Report Corruption
+activity Investigate Report
+activity Gather Evidence
+activity Interview Witnesses
+activity Analyze Evidence
+activity Prepare Case File
+activity Submit Case File
+activity Prosecute Case
+activity Monitor Trial
+activity Close Case
+bind Report Corruption: Report ID, Corruption Type
+bind Investigate Report: Report ID, Investigation Duration
+bind Gather Evidence: Evidence Count, Evidence Type
+bind Interview Witnesses: Witness Count
+bind Prosecute Case: Trial Outcome, Trial Duration
+bind Close Case: Case Status
+Report ID: integer between 1 and 10000
+Bribe Amount: float between 100.0 and 1000000.0
+Case Status: Open, Under Investigation, Closed
+Evidence Type: Document, Testimony, Digital
+Witness Count: integer between 0 and 50
+Trial Outcome: Guilty, Not Guilty, Mistrial
+Trial Duration: float between 1.0 and 365.0
+Corruption Type: Bribery, Fraud, Embezzlement
+Evidence Count: integer between 1 and 100
+Investigation Duration: float between 1.0 and 180.0
+Init[Report Corruption] | |
+End[Close Case] | |
+Existence[Investigate Report] | |
+Chain Succession[Gather Evidence, Analyze Evidence] | | |0,2,d
+Precedence[Prepare Case File, Interview Witnesses] | | |
+Response[Prosecute Case, Monitor Trial] | | |0,30,d
+Chain Precedence[Submit Case File, Prepare Case File] | | |0,1,d
+Co-Existence[Report Corruption, Investigate Report] | | |
+Not Chain Succession[Analyze Evidence, Interview Witnesses] | | |
+Choice[Gather Evidence, Interview Witnesses] | | |

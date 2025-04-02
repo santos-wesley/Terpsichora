@@ -1,0 +1,49 @@
+activity Initiate Aid Request
+activity Review Aid Request
+activity Approve Aid Request
+activity Allocate Funds
+activity Monitor Fund Usage
+activity Submit Progress Report
+activity Conduct Field Visit
+activity Evaluate Project Outcome
+activity Close Aid Project
+activity Request Additional Funds
+activity Reject Aid Request
+activity Amend Aid Request
+activity Disburse Funds
+activity Audit Fund Usage
+activity Provide Feedback
+bind Initiate Aid Request: Request ID, Fund Amount, Project Type
+bind Review Aid Request: Request Status
+bind Allocate Funds: Fund Amount
+bind Monitor Fund Usage: Progress Percentage
+bind Conduct Field Visit: Visit Outcome
+bind Request Additional Funds: Additional Fund Amount
+bind Audit Fund Usage: Audit Score
+bind Evaluate Project Outcome: Evaluation Result
+bind Provide Feedback: Feedback Type
+Request ID: integer between 1 and 10000
+Fund Amount: float between 1000.0 and 1000000.0
+Request Status: Pending, Approved, Rejected, Amended
+Project Type: Infrastructure, Healthcare, Education, Agriculture
+Progress Percentage: integer between 0 and 100
+Visit Outcome: Satisfactory, Needs Improvement, Unsatisfactory
+Additional Fund Amount: float between 500.0 and 500000.0
+Feedback Type: Positive, Neutral, Negative
+Audit Score: integer between 1 and 10
+Evaluation Result: Successful, Partially Successful, Unsuccessful
+Existence[Initiate Aid Request] | |
+Exactly[Close Aid Project] | |
+Absence2[Reject Aid Request] | |
+Response[Approve Aid Request, Allocate Funds] |A.Request Status is Approved | |3,5,d
+Response[Allocate Funds, Conduct Field Visit] | | |
+Response[Monitor Fund Usage, Submit Progress Report] |A.Progress Percentage >= 50 | |
+Precedence[Amend Aid Request, Review Aid Request] |A.Request Status is Amended | |
+Not Chain Succession[Allocate Funds, Disburse Funds] | | |
+Response[Request Additional Funds, Allocate Funds] | | |1,2,d
+Precedence[Evaluate Project Outcome, Conduct Field Visit] | | |
+Response[Evaluate Project Outcome, Provide Feedback] | | |
+Response[Disburse Funds, Audit Fund Usage] | | |
+Precedence[Approve Aid Request, Review Aid Request] | | |
+Not Co-Existence[Initiate Aid Request, Reject Aid Request] | | |
+Exclusive Choice[Approve Aid Request, Reject Aid Request] | | |

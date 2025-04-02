@@ -1,0 +1,50 @@
+activity Inspect Ticket
+activity Monitor Surveillance
+activity Report Incident
+activity Conduct Security Check
+activity Patrol Area
+activity Respond to Emergency
+activity Verify Identification
+activity Assist Passengers
+activity Coordinate with Police
+activity Review Security Footage
+activity Issue Warning
+activity Check Equipment
+activity Train Security Staff
+activity Update Security Protocols
+activity Conduct Drill
+bind Inspect Ticket: Ticket Validity
+bind Monitor Surveillance: Surveillance Status
+bind Report Incident: Incident Severity
+bind Conduct Security Check: Security Check Result
+bind Patrol Area: Patrol Frequency
+bind Respond to Emergency: Emergency Type
+bind Verify Identification: Identification Accuracy
+bind Assist Passengers: Assistance Type
+bind Issue Warning: Warning Count
+bind Check Equipment: Equipment Status
+Ticket Validity: integer between 1 and 30
+Incident Severity: float between 0.0 and 10.0
+Surveillance Status: Operational, Non-Operational
+Security Check Result: Clear, Suspicious, Threat
+Patrol Frequency: integer between 1 and 24
+Emergency Type: Medical, Fire, Crime
+Identification Accuracy: float between 0.0 and 100.0
+Assistance Type: Information, Guidance, Emergency
+Warning Count: integer between 0 and 10
+Equipment Status: Functional, Malfunctioning
+Existence[Inspect Ticket] | |
+Exactly2[Monitor Surveillance] | |
+Absence2[Report Incident] | |
+Init[Conduct Security Check] | |
+End[Respond to Emergency] | |
+Response[Inspect Ticket, Verify Identification] | | |0,2,h
+Chain Response[Conduct Security Check, Patrol Area] | | |
+Co-Existence[Patrol Area, Monitor Surveillance] | | |
+Precedence[Report Incident, Monitor Surveillance] | | |
+Not Co-Existence[Assist Passengers, Issue Warning] | | |
+Not Chain Succession[Check Equipment, Update Security Protocols] | | |
+Response[Conduct Drill, Train Security Staff] | | |0,1,d
+Responded Existence[Report Incident, Review Security Footage] |A.Incident Severity > 5.0 | |
+Response[Respond to Emergency, Coordinate with Police] |A.Emergency Type is Crime | |0,3,h
+Not Succession[Verify Identification, Assist Passengers] | | |

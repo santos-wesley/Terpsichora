@@ -1,0 +1,40 @@
+activity Check Passenger ID
+activity Screen Baggage
+activity Perform Body Scan
+activity Verify Boarding Pass
+activity Conduct Manual Inspection
+activity Approve Security Clearance
+activity Deny Security Clearance
+activity Alert Security Personnel
+activity Escort Passenger
+activity Log Security Incident
+bind Check Passenger ID: Passenger Age
+bind Screen Baggage: Baggage Weight
+bind Perform Body Scan: Scan Result, Scan Duration
+bind Verify Boarding Pass: Boarding Pass Status
+bind Conduct Manual Inspection: Inspection Requirement
+bind Approve Security Clearance: Security Clearance Status
+bind Deny Security Clearance: Security Clearance Status
+bind Alert Security Personnel: Alert Level, Security Personnel ID
+bind Escort Passenger: Security Clearance Status
+bind Log Security Incident: Incident Type, Security Personnel ID
+Passenger Age: integer between 0 and 120
+Baggage Weight: float between 0.0 and 50.0
+Boarding Pass Status: Valid, Invalid
+Security Clearance Status: Cleared, Not Cleared
+Scan Result: Clear, Suspicious
+Inspection Requirement: Required, Not Required
+Incident Type: Minor, Major
+Security Personnel ID: integer between 1 and 9999
+Scan Duration: float between 0.0 and 120.0
+Alert Level: Low, Medium, High
+Init[Check Passenger ID] | |
+End[Approve Security Clearance] | |
+Existence[Perform Body Scan] | |
+Response[Perform Body Scan, Conduct Manual Inspection] |A.Scan Result is Suspicious | |5,10,m
+Precedence[Approve Security Clearance, Verify Boarding Pass] |A.Boarding Pass Status is Valid | |
+Response[Log Security Incident, Alert Security Personnel] |A.Incident Type is Major | |2,5,m
+Precedence[Escort Passenger, Approve Security Clearance] |A.Security Clearance Status is Cleared | |
+Not Co-Existence[Approve Security Clearance, Deny Security Clearance] | | |
+Response[Screen Baggage, Conduct Manual Inspection] |A.Baggage Weight > 30 | |
+Not Chain Response[Perform Body Scan, Alert Security Personnel] | |T.Alert Level is High |

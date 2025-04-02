@@ -1,0 +1,45 @@
+activity Create Virtual Machine
+activity Allocate Resources
+activity Deploy Application
+activity Monitor Performance
+activity Backup Virtual Machine
+activity Restore Virtual Machine
+activity Update Virtual Machine
+activity Migrate Virtual Machine
+activity Deallocate Resources
+activity Delete Virtual Machine
+bind Create Virtual Machine: CPU Cores, Memory Size, Storage Size
+bind Allocate Resources: CPU Cores, Memory Size, Storage Size, Resource Allocation Status
+bind Deploy Application: Application Status
+bind Monitor Performance: Performance Score, Network Bandwidth
+bind Backup Virtual Machine: Backup Status
+bind Restore Virtual Machine: Backup Status
+bind Update Virtual Machine: Update Status
+bind Migrate Virtual Machine: Migration Status
+bind Deallocate Resources: Resource Allocation Status
+bind Delete Virtual Machine: 
+CPU Cores: integer between 1 and 64
+Memory Size: integer between 1 and 512
+Storage Size: float between 0.1 and 10.0
+Backup Status: Pending, Completed, Failed
+Migration Status: Not Started, In Progress, Completed
+Update Status: Not Started, In Progress, Completed
+Performance Score: integer between 0 and 100
+Network Bandwidth: float between 0.1 and 10.0
+Application Status: Running, Stopped, Error
+Resource Allocation Status: Allocated, Deallocated
+Init[Create Virtual Machine] | |
+End[Delete Virtual Machine] | |
+Existence[Backup Virtual Machine] | |
+Precedence[Deploy Application, Allocate Resources] | | |
+Chain Response[Create Virtual Machine, Allocate Resources] | | |0,2,h
+Response[Deploy Application, Monitor Performance] | | |
+Not Chain Succession[Create Virtual Machine, Delete Virtual Machine] | | |
+Precedence[Restore Virtual Machine, Backup Virtual Machine] | |A.Backup Status is Completed |
+Response[Create Virtual Machine, Update Virtual Machine] | | |
+Precedence[Migrate Virtual Machine, Deploy Application] |A.Application Status is Running | |
+Response[Migrate Virtual Machine, Deallocate Resources] | | |
+Not Co-Existence[Backup Virtual Machine, Delete Virtual Machine] | | |
+Chain Response[Update Virtual Machine, Monitor Performance] | | |0,1,h
+Chain Response[Update Virtual Machine, Backup Virtual Machine] | | |0,24,h
+Precedence[Delete Virtual Machine, Deallocate Resources] | |A.Resource Allocation Status is Deallocated |

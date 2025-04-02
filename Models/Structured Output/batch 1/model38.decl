@@ -1,0 +1,28 @@
+activity Collect Data
+activity Analyze Data
+activity Draft Report
+activity Review Report
+activity Approve Report
+activity Publish Report
+activity Gather Feedback
+activity Revise Report
+bind Collect Data: Data Points
+bind Analyze Data: Report Accuracy
+bind Approve Report: Approval Status
+bind Gather Feedback: Feedback Type
+bind Revise Report: Revision Count
+Data Points: integer between 100 and 10000
+Report Accuracy: float between 0.0 and 100.0
+Approval Status: Pending, Approved, Rejected
+Feedback Type: Positive, Negative, Neutral
+Revision Count: integer between 0 and 10
+Init[Collect Data] | |
+Existence[Publish Report] | |
+Precedence[Approve Report, Review Report] | | |
+Response[Approve Report, Publish Report] |A.Approval Status is Approved | |0,2,d
+Response[Gather Feedback, Revise Report] |A.Feedback Type is Negative | |0,5,d
+Not Succession[Revise Report, Revise Report] |A.Revision Count > 3 | |
+Precedence[Approve Report, Analyze Data] |A.Report Accuracy >= 90 | |
+Alternate Succession[Analyze Data, Draft Report] | | |0,48,h
+Chain Response[Approve Report, Publish Report] |A.Approval Status is Approved | |0,3,d
+Chain Succession[Draft Report, Review Report] | | |0,1,h

@@ -1,0 +1,39 @@
+activity Assess Site Conditions
+activity Develop Design Concept
+activity Select Sustainable Materials
+activity Conduct Energy Analysis
+activity Review Design Compliance
+activity Optimize Water Usage
+activity Plan Waste Management
+activity Evaluate Indoor Air Quality
+activity Finalize Design
+activity Obtain Green Certification
+bind Assess Site Conditions: Site Area
+bind Select Sustainable Materials: Material Type
+bind Conduct Energy Analysis: Energy Efficiency
+bind Review Design Compliance: Compliance Status
+bind Optimize Water Usage: Water Usage Reduction
+bind Evaluate Indoor Air Quality: Air Quality Index
+bind Obtain Green Certification: Certification Level
+Site Area: integer between 1000 and 10000
+Energy Efficiency: float between 0.1 and 1.0
+Material Type: Recycled, Renewable, Local
+Compliance Status: Pending, Approved, Rejected
+Water Usage Reduction: integer between 10 and 50
+Air Quality Index: float between 0.0 and 100.0
+Certification Level: Bronze, Silver, Gold, Platinum
+Init[Assess Site Conditions] | |
+End[Obtain Green Certification] | |
+Response[Develop Design Concept, Select Sustainable Materials] | | |0,2,d
+Chain Response[Conduct Energy Analysis, Review Design Compliance] | | |0,48,h
+Precedence[Finalize Design, Review Design Compliance] | |T.Compliance Status is Approved |
+Co-Existence[Optimize Water Usage, Evaluate Indoor Air Quality] | | |
+Not Succession[Select Sustainable Materials, Conduct Energy Analysis] | | |
+Existence[Develop Design Concept] | |
+Response[Plan Waste Management, Obtain Green Certification] | | |0,5,d
+Succession[Assess Site Conditions, Develop Design Concept] | | |0,3,d
+Precedence[Finalize Design, Evaluate Indoor Air Quality] | |T.Air Quality Index > 50 |
+Not Co-Existence[Develop Design Concept, Plan Waste Management] | | |
+Alternate Succession[Select Sustainable Materials, Optimize Water Usage] | | |0,1,d
+Response[Review Design Compliance, Obtain Green Certification] | | |0,7,d
+Not Chain Succession[Conduct Energy Analysis, Finalize Design] | | |

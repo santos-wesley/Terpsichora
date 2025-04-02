@@ -1,0 +1,50 @@
+activity Upload Media
+activity Review Media
+activity Approve Media
+activity Reject Media
+activity Publish Media
+activity Archive Media
+activity Delete Media
+activity Edit Media Metadata
+activity Download Media
+activity Tag Media
+activity Rate Media
+activity Comment on Media
+activity Share Media
+activity Report Media
+activity Request Media License
+bind Upload Media: Media Size, Media Type
+bind Review Media: Media Quality, Media Status
+bind Approve Media: Media Status
+bind Reject Media: Media Status
+bind Publish Media: Media Status
+bind Archive Media: Media Status
+bind Download Media: Download Count
+bind Tag Media: Tag Category
+bind Rate Media: Rating Score
+bind Report Media: Report Reason
+Media Size: integer between 1 and 10000
+Media Quality: float between 1.0 and 10.0
+Media Status: Pending, Approved, Rejected, Published, Archived
+Media Type: Image, Video, Audio, Document
+Download Count: integer between 0 and 1000000
+License Type: Standard, Extended, Exclusive
+Rating Score: float between 0.0 and 5.0
+Tag Category: Nature, Technology, Art, Science
+Comment Count: integer between 0 and 10000
+Report Reason: Inappropriate, Copyright, Spam
+Init[Upload Media] | |
+End[Publish Media] | |
+Existence[Review Media] | |
+Absence2[Reject Media] | |
+Response[Approve Media, Publish Media] | | |
+Response[Reject Media, Archive Media] | | |
+Chain Precedence[Download Media, Publish Media] | | |
+Co-Existence[Edit Media Metadata, Tag Media] | | |
+Not Chain Succession[Comment on Media, Rate Media] | | |
+Precedence[Share Media, Comment on Media] | | |
+Not Co-Existence[Request Media License, Approve Media] | | |
+Response[Upload Media, Review Media] | | |0,2,d
+Response[Report Media, Delete Media] | | |0,48,h
+Response[Approve Media, Publish Media] |A.Media Quality > 8.0 | |0,1,d
+Not Responded Existence[Archive Media, Download Media] | | |

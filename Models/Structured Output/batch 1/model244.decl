@@ -1,0 +1,37 @@
+activity Draft Speech
+activity Approve Speech
+activity Conduct Interview
+activity Release Press Statement
+activity Organize Rally
+activity Hold Press Conference
+activity Engage with Constituents
+activity Analyze Public Opinion
+activity Coordinate Social Media Campaign
+activity Monitor Media Coverage
+bind Draft Speech: Speech Length
+bind Approve Speech: Approval Rating
+bind Conduct Interview: Media Type, Interview Duration
+bind Organize Rally: Event Status, Audience Size
+bind Analyze Public Opinion: Public Opinion Index
+bind Coordinate Social Media Campaign: Social Media Platform, Budget Allocation
+bind Monitor Media Coverage: Coverage Type
+Speech Length: integer between 5 and 120
+Approval Rating: float between 0.0 and 100.0
+Media Type: Television, Radio, Online
+Event Status: Planned, Ongoing, Completed
+Audience Size: integer between 50 and 10000
+Public Opinion Index: float between 0.0 and 10.0
+Social Media Platform: Facebook, Twitter, Instagram
+Interview Duration: integer between 10 and 60
+Coverage Type: Positive, Neutral, Negative
+Budget Allocation: float between 1000.0 and 50000.0
+Init[Draft Speech] | |
+Existence[Approve Speech] | |
+Response[Draft Speech, Approve Speech] | | |0,2,d
+Precedence[Conduct Interview, Approve Speech] | | |
+Succession[Release Press Statement, Hold Press Conference] | | |0,48,h
+Precedence[Engage with Constituents, Organize Rally] | | |
+Not Chain Succession[Coordinate Social Media Campaign, Monitor Media Coverage] | | |
+Response[Analyze Public Opinion, Coordinate Social Media Campaign] | |A.Public Opinion Index > 5 |0,5,d
+Co-Existence[Conduct Interview, Monitor Media Coverage] | |A.Media Type == T.Coverage Type |
+Exclusive Choice[Release Press Statement, Hold Press Conference] | | |

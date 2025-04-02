@@ -1,0 +1,37 @@
+activity Prepare Soil
+activity Plant Seeds
+activity Irrigate Field
+activity Apply Fertilizer
+activity Monitor Growth
+activity Control Pests
+activity Harvest Crops
+activity Store Produce
+activity Transport Produce
+bind Prepare Soil: Soil Quality
+bind Plant Seeds: Seed Type
+bind Irrigate Field: Water Volume
+bind Apply Fertilizer: Fertilizer Amount
+bind Monitor Growth: Growth Rate
+bind Control Pests: Pest Control Method
+bind Harvest Crops: Harvest Quality
+bind Store Produce: Storage Temperature
+bind Transport Produce: Transport Method
+Soil Quality: integer between 1 and 10
+Seed Type: Wheat, Corn, Rice
+Water Volume: float between 100.0 and 10000.0
+Fertilizer Amount: float between 1.0 and 100.0
+Pest Control Method: Organic, Chemical
+Growth Rate: integer between 1 and 10
+Harvest Quality: High, Medium, Low
+Storage Temperature: float between 0.0 and 15.0
+Transport Method: Truck, Train, Ship
+Init[Prepare Soil] | |
+End[Transport Produce] | |
+Response[Plant Seeds, Irrigate Field] | | |2,5,d
+Chain Response[Irrigate Field, Apply Fertilizer] | | |
+Precedence[Monitor Growth, Apply Fertilizer] | | |
+Co-Existence[Control Pests, Monitor Growth] | | |
+Existence[Harvest Crops] | |
+Response[Harvest Crops, Store Produce] | | |0,1,d
+Not Chain Succession[Store Produce, Transport Produce] | | |
+Exclusive Choice[Control Pests, Apply Fertilizer] | | |

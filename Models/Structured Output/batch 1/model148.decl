@@ -1,0 +1,30 @@
+activity Receive Order
+activity Check Inventory
+activity Approve Order
+activity Prepare Shipment
+activity Dispatch Shipment
+activity Receive Payment
+activity Update Inventory
+activity Handle Returns
+bind Receive Order: Order Quantity, Order Value, Order Status
+bind Check Inventory: Inventory Level
+bind Receive Payment: Payment Status
+bind Dispatch Shipment: Shipment Method
+bind Handle Returns: Return Value
+Order Quantity: integer between 1 and 1000
+Order Value: float between 10.0 and 10000.0
+Order Status: Pending, Approved, Dispatched, Completed
+Payment Status: Pending, Completed
+Inventory Level: integer between 0 and 5000
+Shipment Method: Air, Ground, Sea
+Return Value: float between 0.0 and 5000.0
+Init[Receive Order] | |
+End[Update Inventory] | |
+Precedence[Dispatch Shipment, Approve Order] | | |
+Response[Dispatch Shipment, Update Inventory] | | |0,48,h
+Alternate Precedence[Approve Order, Check Inventory] | | |
+Responded Existence[Receive Payment, Receive Order] |A.Payment Status is Completed |A.Order Status is Completed |
+Not Chain Succession[Dispatch Shipment, Handle Returns] | | |
+Existence[Check Inventory] | |
+Co-Existence[Dispatch Shipment, Handle Returns] | |A.Shipment Method == T.Shipment Method |
+Chain Response[Check Inventory, Approve Order] | | |0,2,d

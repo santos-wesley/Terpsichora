@@ -1,0 +1,47 @@
+activity Submit Invention Disclosure
+activity Evaluate Patentability
+activity Conduct Prior Art Search
+activity Draft Patent Application
+activity Review Patent Application
+activity File Patent Application
+activity Monitor Application Status
+activity Respond to Office Actions
+activity Grant Patent
+activity Maintain Patent
+activity License Patent
+activity Renew Patent
+activity Terminate Patent
+activity Assess Commercial Potential
+activity Negotiate Licensing Agreement
+bind Submit Invention Disclosure: Invention ID
+bind Evaluate Patentability: Commercial Potential
+bind File Patent Application: Patent Fee, Patent Status
+bind Respond to Office Actions: Office Action Response
+bind License Patent: License Agreement ID, Royalty Rate
+bind Renew Patent: Renewal Decision, Patent Term
+bind Negotiate Licensing Agreement: Negotiation Outcome
+Invention ID: integer between 1 and 10000
+Patent Fee: float between 100.0 and 10000.0
+Patent Status: Pending, Granted, Rejected
+Office Action Response: Amendment, Argument, Withdrawal
+License Agreement ID: integer between 1 and 5000
+Commercial Potential: High, Medium, Low
+Royalty Rate: float between 0.01 and 0.2
+Renewal Decision: Renew, Do Not Renew
+Patent Term: integer between 1 and 20
+Negotiation Outcome: Successful, Unsuccessful
+Init[Submit Invention Disclosure] | |
+End[Grant Patent] | |
+Existence[Evaluate Patentability] | |
+Response[Draft Patent Application, File Patent Application] | | |0,2,d
+Chain Response[Draft Patent Application, Review Patent Application] | | |0,1,d
+Precedence[Evaluate Patentability, Conduct Prior Art Search] | | |
+Response[File Patent Application, Monitor Application Status] | | |0,30,d
+Response[Monitor Application Status, Respond to Office Actions] | | |0,60,d
+Precedence[Grant Patent, File Patent Application] | |A.Patent Status is Pending |
+Response[Grant Patent, Maintain Patent] | | |0,365,d
+Precedence[License Patent, Grant Patent] | | |
+Precedence[License Patent, Negotiate Licensing Agreement] | | |
+Precedence[Renew Patent, Maintain Patent] | |A.Renewal Decision is Renew |
+Not Co-Existence[Terminate Patent, Renew Patent] | | |
+Precedence[Evaluate Patentability, Assess Commercial Potential] | | |

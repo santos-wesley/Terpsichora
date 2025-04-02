@@ -1,0 +1,38 @@
+activity Conduct Experiment
+activity Analyze Data
+activity Formulate Hypothesis
+activity Review Literature
+activity Prepare Report
+activity Submit Report
+activity Design Experiment
+activity Collect Data
+activity Verify Results
+activity Present Findings
+bind Conduct Experiment: Sample Size, Temperature, Experiment Status
+bind Analyze Data: Data Quality, Accuracy
+bind Formulate Hypothesis: Hypothesis ID
+bind Review Literature: Review Count
+bind Prepare Report: Report Status
+bind Submit Report: Report Status
+bind Design Experiment: Pressure
+bind Present Findings: Presentation Type
+Sample Size: integer between 1 and 1000
+Temperature: float between -273.15 and 1000.0
+Experiment Status: Planned, In Progress, Completed
+Data Quality: Poor, Average, Good
+Hypothesis ID: integer between 1 and 10000
+Pressure: float between 0.0 and 500.0
+Report Status: Draft, Finalized, Submitted
+Review Count: integer between 0 and 100
+Presentation Type: Poster, Oral, Webinar
+Accuracy: float between 0.0 and 100.0
+Init[Formulate Hypothesis] | |
+End[Submit Report] | |
+Existence[Conduct Experiment] | |
+Chain Succession[Collect Data, Analyze Data] | | |0,5,m
+Precedence[Conduct Experiment, Design Experiment] | | |
+Precedence[Submit Report, Prepare Report] | | |0,2,d
+Responded Existence[Submit Report, Present Findings] | | |0,30,d
+Co-Existence[Formulate Hypothesis, Review Literature] | | |
+Precedence[Analyze Data, Conduct Experiment] | |A.Experiment Status is Completed |
+Precedence[Submit Report, Prepare Report] | |A.Report Status is Finalized |

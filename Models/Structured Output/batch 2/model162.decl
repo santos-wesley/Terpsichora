@@ -1,0 +1,50 @@
+activity Initiate International Transfer
+activity Verify Recipient Details
+activity Approve Transfer Request
+activity Convert Currency
+activity Calculate Transfer Fees
+activity Execute Transfer
+activity Notify Recipient
+activity Generate Transfer Report
+activity Review Compliance
+activity Update Account Balance
+activity Resolve Transfer Issues
+activity Cancel Transfer
+activity Audit Transfer Process
+activity Confirm Transfer Completion
+activity Log Transfer Activity
+bind Initiate International Transfer: Transfer Amount, Currency Type, Recipient ID
+bind Verify Recipient Details: Recipient ID, Issue Type
+bind Approve Transfer Request: Transfer Status
+bind Convert Currency: Exchange Rate, Currency Type
+bind Calculate Transfer Fees: Transfer Fee
+bind Execute Transfer: Transfer ID, Transfer Status
+bind Notify Recipient: Recipient ID
+bind Review Compliance: Compliance Status
+bind Update Account Balance: Account Balance
+bind Resolve Transfer Issues: Issue Type
+Transfer Amount: integer between 100 and 1000000
+Exchange Rate: float between 0.5 and 2.0
+Transfer Status: Pending, Approved, Completed, Cancelled
+Currency Type: USD, EUR, GBP, JPY
+Recipient ID: integer between 1 and 10000
+Transfer Fee: float between 5.0 and 500.0
+Compliance Status: Compliant, Non-Compliant
+Transfer ID: integer between 1 and 100000
+Issue Type: None, Verification Error, Compliance Issue, Technical Error
+Account Balance: float between 0.0 and 1000000.0
+Init[Initiate International Transfer] | |
+Existence[Execute Transfer] | |
+Exactly[Approve Transfer Request] | |
+Precedence[Execute Transfer, Convert Currency] | | |
+Chain Response[Execute Transfer, Notify Recipient] | | |0,2,h
+Response[Initiate International Transfer, Review Compliance] |A.Transfer Amount > 10000 | |
+Precedence[Confirm Transfer Completion, Resolve Transfer Issues] | | |
+Response[Execute Transfer, Audit Transfer Process] | | |
+Chain Succession[Execute Transfer, Update Account Balance] | | |
+Not Succession[Cancel Transfer, Execute Transfer] | | |
+Precedence[Execute Transfer, Calculate Transfer Fees] | | |
+Precedence[Execute Transfer, Approve Transfer Request] | |A.Transfer Status is Approved |
+Response[Confirm Transfer Completion, Log Transfer Activity] | | |
+Not Succession[Review Compliance, Execute Transfer] |A.Compliance Status is Non-Compliant | |
+Precedence[Approve Transfer Request, Verify Recipient Details] | | |

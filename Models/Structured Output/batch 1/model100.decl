@@ -1,0 +1,35 @@
+activity Assess Food Supply
+activity Identify Vulnerable Populations
+activity Allocate Resources
+activity Implement Food Programs
+activity Monitor Program Effectiveness
+activity Adjust Policies
+activity Conduct Surveys
+activity Report Findings
+activity Engage Stakeholders
+bind Assess Food Supply: Supply Level
+bind Identify Vulnerable Populations: Population Risk Level
+bind Allocate Resources: Resource Allocation
+bind Implement Food Programs: Program Status
+bind Monitor Program Effectiveness: Program Effectiveness
+bind Conduct Surveys: Survey Responses
+bind Adjust Policies: Policy Adjustment
+bind Engage Stakeholders: Stakeholder Engagement
+Supply Level: integer between 0 and 10000
+Population Risk Level: Low, Medium, High
+Resource Allocation: float between 0.0 and 1000000.0
+Program Status: Initiated, In Progress, Completed
+Survey Responses: integer between 0 and 10000
+Policy Adjustment: Minor, Major, None
+Program Effectiveness: float between 0.0 and 10.0
+Stakeholder Engagement: Low, Moderate, High
+Init[Assess Food Supply] | |
+End[Report Findings] | |
+Existence[Identify Vulnerable Populations] | |
+Precedence[Allocate Resources, Assess Food Supply] | | |
+Response[Implement Food Programs, Monitor Program Effectiveness] | | |0,30,d
+Co-Existence[Conduct Surveys, Report Findings] | | |
+Not Chain Succession[Monitor Program Effectiveness, Adjust Policies] | | |
+Precedence[Adjust Policies, Engage Stakeholders] | | |
+Not Responded Existence[Allocate Resources, Identify Vulnerable Populations] |A.Resource Allocation > 500000 |T.Population Risk Level is Low |
+Chain Response[Implement Food Programs, Monitor Program Effectiveness] |A.Program Status is Completed |T.Program Effectiveness > 7 |0,15,d

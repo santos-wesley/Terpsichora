@@ -1,0 +1,49 @@
+activity Select Venue
+activity Send Invitations
+activity Arrange Catering
+activity Hire Entertainment
+activity Set Up Decorations
+activity Confirm RSVPs
+activity Conduct Rehearsal
+activity Finalize Schedule
+activity Coordinate Transportation
+activity Prepare Event Materials
+activity Conduct Sound Check
+activity Review Safety Protocols
+activity Welcome Guests
+activity Oversee Event Execution
+activity Gather Feedback
+bind Select Venue: Venue Type
+bind Send Invitations: Guest Count
+bind Arrange Catering: Catering Type, Budget
+bind Hire Entertainment: Entertainment Type
+bind Confirm RSVPs: RSVP Count
+bind Coordinate Transportation: Transportation Cost
+bind Set Up Decorations: Decoration Cost
+bind Review Safety Protocols: Safety Personnel
+bind Gather Feedback: Feedback Rating
+Guest Count: integer between 50 and 5000
+Budget: float between 1000.0 and 100000.0
+Catering Type: Buffet, Sit-down, Cocktail
+Venue Type: Indoor, Outdoor
+RSVP Count: integer between 0 and 5000
+Entertainment Type: Band, DJ, Speaker
+Transportation Cost: float between 100.0 and 10000.0
+Feedback Rating: Excellent, Good, Average, Poor
+Safety Personnel: integer between 1 and 50
+Decoration Cost: float between 500.0 and 20000.0
+Init[Select Venue] | |
+End[Gather Feedback] | |
+Existence[Send Invitations] | |
+Exactly[Finalize Schedule] | |
+Precedence[Finalize Schedule, Arrange Catering] | | |
+Response[Select Venue, Hire Entertainment] | | |
+Chain Response[Select Venue, Set Up Decorations] | | |
+Response[Send Invitations, Confirm RSVPs] | | |
+Precedence[Oversee Event Execution, Conduct Sound Check] | | |
+Precedence[Welcome Guests, Review Safety Protocols] | | |
+Response[Confirm RSVPs, Coordinate Transportation] | | |0,2,d
+Response[Finalize Schedule, Prepare Event Materials] | | |0,1,d
+Precedence[Oversee Event Execution, Conduct Rehearsal] | | |0,3,d
+Response[Oversee Event Execution, Gather Feedback] | | |0,1,d
+Responded Existence[Set Up Decorations, Arrange Catering] |A.Decoration Cost <= A.Budget | |

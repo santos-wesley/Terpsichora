@@ -1,0 +1,34 @@
+activity Enroll Employee
+activity Verify Eligibility
+activity Calculate Premium
+activity Approve Enrollment
+activity Notify Employee
+activity Process Payment
+activity Update Records
+activity Terminate Benefits
+bind Enroll Employee: Employee ID
+bind Verify Eligibility: Eligibility Status
+bind Calculate Premium: Premium Amount
+bind Approve Enrollment: Enrollment Status
+bind Notify Employee: Notification ID
+bind Process Payment: Payment Status
+bind Update Records: Record ID
+bind Terminate Benefits: Termination Reason
+Employee ID: integer between 1 and 10000
+Eligibility Status: Eligible, Not Eligible
+Premium Amount: float between 50.0 and 1000.0
+Enrollment Status: Pending, Approved, Rejected
+Notification ID: integer between 1 and 5000
+Payment Status: Paid, Unpaid, Pending
+Record ID: integer between 1 and 10000
+Termination Reason: Voluntary, Involuntary, Retirement
+Init[Enroll Employee] | |
+End[Update Records] | |
+Existence[Approve Enrollment] | |
+Precedence[Approve Enrollment, Verify Eligibility] | | |
+Response[Calculate Premium, Process Payment] | | |0,2,d
+Chain Response[Approve Enrollment, Notify Employee] | | |
+Not Co-Existence[Enroll Employee, Terminate Benefits] | | |
+Responded Existence[Terminate Benefits, Update Records] |A.Termination Reason in (Voluntary, Involuntary) | |
+Precedence[Process Payment, Approve Enrollment] |A.Enrollment Status is Approved | |
+Response[Process Payment, Notify Employee] | | |0,48,h

@@ -1,0 +1,50 @@
+activity Draft Contract
+activity Review Contract
+activity Negotiate Terms
+activity Approve Contract
+activity Sign Contract
+activity File Contract
+activity Amend Contract
+activity Terminate Contract
+activity Renew Contract
+activity Consult Legal Team
+activity Prepare Legal Brief
+activity Conduct Due Diligence
+activity Hold Meeting
+activity Send Notification
+activity Archive Contract
+bind Draft Contract: Contract Version, Contract Type
+bind Review Contract: Approval Status
+bind Negotiate Terms: Contract Value
+bind Approve Contract: Approval Status
+bind Amend Contract: Amendment Count
+bind Send Notification: Notification Type
+bind Conduct Due Diligence: Due Diligence Score
+bind Hold Meeting: Meeting Outcome
+bind Prepare Legal Brief: Legal Brief Pages
+bind Archive Contract: Contract Status
+Contract Version: integer between 1 and 10
+Contract Value: float between 1000.0 and 1000000.0
+Approval Status: Pending, Approved, Rejected
+Contract Type: Employment, Sales, Lease, Service
+Amendment Count: integer between 0 and 5
+Notification Type: Change, Reminder, Termination
+Due Diligence Score: float between 0.0 and 100.0
+Meeting Outcome: Successful, Unsuccessful, Pending
+Legal Brief Pages: integer between 1 and 50
+Contract Status: Active, Inactive, Archived
+Init[Draft Contract] | |
+Existence[File Contract] | |
+Exactly[Sign Contract] | |
+Precedence[Approve Contract, Review Contract] | |A.Approval Status is Approved |
+Response[Amend Contract, Send Notification] |A.Amendment Count > 0 |T.Notification Type is Change |0,2,d
+Chain Succession[Approve Contract, Sign Contract] |A.Approval Status is Approved | |0,1,h
+Chain Response[Conduct Due Diligence, Hold Meeting] |A.Due Diligence Score > 50 | |0,48,h
+Succession[Terminate Contract, Archive Contract] | |T.Contract Status is Archived |
+Responded Existence[Amend Contract, Prepare Legal Brief] |A.Amendment Count > 2 | |
+Not Chain Succession[Terminate Contract, Renew Contract] | | |
+Not Response[Hold Meeting, Approve Contract] |A.Meeting Outcome is Unsuccessful | |
+Precedence[Sign Contract, Negotiate Terms] | | |
+Precedence[Review Contract, Draft Contract] | | |
+Response[Terminate Contract, Send Notification] | |T.Notification Type is Termination |0,1,d
+End[Archive Contract] | |

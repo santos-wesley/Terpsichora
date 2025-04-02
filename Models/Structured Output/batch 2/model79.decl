@@ -1,0 +1,46 @@
+activity Submit Environmental Report
+activity Review Environmental Report
+activity Approve Environmental Report
+activity Request Additional Information
+activity Conduct Site Inspection
+activity Issue Compliance Certificate
+activity Record Non-Compliance
+activity Submit Remediation Plan
+activity Review Remediation Plan
+activity Approve Remediation Plan
+activity Conduct Follow-up Inspection
+activity Close Compliance Case
+activity Notify Stakeholders
+activity Update Compliance Records
+activity Archive Compliance Documents
+bind Submit Environmental Report: Report ID, Environmental Impact Score
+bind Review Environmental Report: Compliance Status
+bind Conduct Site Inspection: Inspection Score, Number of Violations
+bind Submit Remediation Plan: Remediation Cost
+bind Notify Stakeholders: Stakeholder Notification
+bind Archive Compliance Documents: Document Status
+Report ID: integer between 1 and 10000
+Inspection Score: float between 0.0 and 100.0
+Compliance Status: Compliant, Non-Compliant, Pending
+Remediation Status: Approved, Rejected, Under Review
+Number of Violations: integer between 0 and 50
+Remediation Cost: float between 1000.0 and 50000.0
+Stakeholder Notification: Notified, Not Notified
+Days to Compliance: integer between 0 and 365
+Document Status: Archived, Pending
+Environmental Impact Score: float between 0.0 and 100.0
+Init[Submit Environmental Report] | |
+Existence[Review Environmental Report] | |
+Response[Review Environmental Report, Approve Environmental Report] | |A.Compliance Status is Compliant |0,2,d
+Chain Response[Request Additional Information, Submit Environmental Report] | | |0,48,h
+Precedence[Issue Compliance Certificate, Conduct Site Inspection] | |A.Inspection Score > 70 |
+Response[Record Non-Compliance, Submit Remediation Plan] | | |0,5,d
+Response[Submit Remediation Plan, Review Remediation Plan] | | |0,3,d
+Response[Review Remediation Plan, Approve Remediation Plan] | |A.Remediation Status is Approved |
+Response[Approve Remediation Plan, Conduct Follow-up Inspection] | | |
+Precedence[Close Compliance Case, Conduct Follow-up Inspection] | | |
+Response[Close Compliance Case, Notify Stakeholders] | |A.Stakeholder Notification is Notified |
+Response[Notify Stakeholders, Archive Compliance Documents] | |A.Document Status is Archived |
+Existence[Close Compliance Case] | |
+Co-Existence[Submit Environmental Report, Conduct Site Inspection] | | |
+Not Precedence[Issue Compliance Certificate, Submit Environmental Report] |A.Environmental Impact Score > 50 | |

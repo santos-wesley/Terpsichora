@@ -1,0 +1,27 @@
+activity Receive Emergency Call
+activity Dispatch Ambulance
+activity Provide On-site Care
+activity Transport Patient
+activity Handover Patient
+activity Complete Report
+activity Restock Ambulance
+bind Receive Emergency Call: Call Priority
+bind Dispatch Ambulance: Ambulance Status
+bind Provide On-site Care: Patient Condition Score, Patient ID
+bind Transport Patient: Patient ID
+bind Complete Report: Response Time
+Response Time: integer between 1 and 60
+Patient Condition Score: float between 0.0 and 10.0
+Ambulance Status: Available, Dispatched, On-site, Transporting, Restocking
+Call Priority: Low, Medium, High
+Patient ID: integer between 1 and 10000
+Init[Receive Emergency Call] | |
+End[Complete Report] | |
+Chain Response[Receive Emergency Call, Dispatch Ambulance] | |A.Call Priority == T.Ambulance Status |0,5,m
+Response[Dispatch Ambulance, Provide On-site Care] | | |0,30,m
+Chain Succession[Provide On-site Care, Transport Patient] | |A.Patient ID == T.Patient ID |0,15,m
+Response[Transport Patient, Handover Patient] | |A.Patient ID == T.Patient ID |0,10,m
+Existence[Restock Ambulance] | |
+Response[Handover Patient, Complete Report] | |A.Patient ID == T.Patient ID |0,20,m
+Absence2[Dispatch Ambulance] | |
+Precedence[Receive Emergency Call, Complete Report] |A.Call Priority is High |T.Response Time < 10 |

@@ -1,0 +1,35 @@
+activity Collect Customer Feedback
+activity Analyze Feedback
+activity Develop Improvement Plan
+activity Implement Changes
+activity Monitor Customer Satisfaction
+activity Conduct Satisfaction Survey
+activity Review Survey Results
+activity Train Customer Service Team
+activity Resolve Customer Complaints
+activity Evaluate Customer Retention
+bind Collect Customer Feedback: Feedback Score, Feedback Type
+bind Develop Improvement Plan: Improvement Cost, Plan Status
+bind Conduct Satisfaction Survey: Survey Participants
+bind Review Survey Results: Survey Score
+bind Resolve Customer Complaints: Complaint Status
+Feedback Score: integer between 1 and 10
+Feedback Type: Positive, Negative, Neutral
+Improvement Cost: float between 100.0 and 10000.0
+Satisfaction Level: integer between 1 and 5
+Complaint Status: Resolved, Pending, Escalated
+Retention Rate: float between 0.0 and 100.0
+Training Type: Online, In-Person
+Survey Participants: integer between 10 and 1000
+Survey Score: float between 1.0 and 5.0
+Plan Status: Draft, Approved, Implemented
+Init[Collect Customer Feedback] | |
+End[Evaluate Customer Retention] | |
+Response[Collect Customer Feedback, Analyze Feedback] | | |2,5,d
+Chain Response[Conduct Satisfaction Survey, Review Survey Results] | | |0,0,d
+Not Co-Existence[Train Customer Service Team, Resolve Customer Complaints] | | |
+Succession[Develop Improvement Plan, Implement Changes] | |A.Plan Status is Implemented |
+Existence[Collect Customer Feedback] | |
+Response[Resolve Customer Complaints, Monitor Customer Satisfaction] |A.Complaint Status is Resolved | |1,3,d
+Choice[Conduct Satisfaction Survey, Evaluate Customer Retention] | | |
+Precedence[Develop Improvement Plan, Analyze Feedback] | | |

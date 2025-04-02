@@ -1,0 +1,43 @@
+activity Receive Emergency Call
+activity Dispatch Emergency Units
+activity Assess Situation
+activity Provide Medical Assistance
+activity Extinguish Fire
+activity Evacuate Area
+activity Secure Incident Scene
+activity Transport Victims
+activity Conduct Investigation
+activity Report Incident
+bind Receive Emergency Call: Emergency Type
+bind Dispatch Emergency Units: Unit Type, Response Time
+bind Assess Situation: Incident Severity
+bind Provide Medical Assistance: Number of Victims
+bind Extinguish Fire: Damage Cost
+bind Evacuate Area: Evacuation Time
+bind Secure Incident Scene: Weather Condition
+bind Conduct Investigation: Investigation Status
+bind Transport Victims: Response Distance
+Response Time: integer between 1 and 60
+Damage Cost: float between 0.0 and 1000.0
+Emergency Type: Fire, Medical, Crime
+Unit Type: Police, Firefighters, Paramedics
+Number of Victims: integer between 0 and 100
+Weather Condition: Clear, Rainy, Snowy
+Response Distance: float between 0.0 and 100.0
+Incident Severity: Low, Medium, High
+Evacuation Time: integer between 0 and 120
+Investigation Status: Pending, Ongoing, Completed
+Init[Receive Emergency Call] | |
+End[Report Incident] | |
+Existence[Assess Situation] | |
+Absence2[Evacuate Area] | |
+Exactly[Provide Medical Assistance] | |
+Chain Response[Dispatch Emergency Units, Assess Situation] | |A.Unit Type == T.Unit Type |0,10,m
+Precedence[Extinguish Fire, Dispatch Emergency Units] |A.Emergency Type is Fire |T.Unit Type is Firefighters |
+Response[Provide Medical Assistance, Transport Victims] |A.Number of Victims > 0 |A.Response Distance <= 50 |0,2,h
+Co-Existence[Secure Incident Scene, Evacuate Area] |A.Weather Condition in (Clear, Rainy) | |
+Not Chain Precedence[Conduct Investigation, Report Incident] |A.Investigation Status is Ongoing | |
+Not Co-Existence[Dispatch Emergency Units, Report Incident] |A.Unit Type is Police | |
+Not Response[Evacuate Area, Extinguish Fire] |A.Evacuation Time > 30 | |0,1,h
+Choice[Extinguish Fire, Provide Medical Assistance] | | |
+Exclusive Choice[Conduct Investigation, Report Incident] |A.Investigation Status in (Pending, Ongoing) | |

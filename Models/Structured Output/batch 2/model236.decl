@@ -1,0 +1,45 @@
+activity Plan Mission
+activity Deploy Troops
+activity Establish Communication
+activity Conduct Reconnaissance
+activity Engage Target
+activity Secure Area
+activity Extract Personnel
+activity Provide Medical Aid
+activity Evaluate Mission
+activity Report Findings
+bind Plan Mission: Mission Budget
+bind Deploy Troops: Troop Count
+bind Establish Communication: Communication Status
+bind Conduct Reconnaissance: Reconnaissance Outcome
+bind Engage Target: Target Status
+bind Secure Area: Area Secured Percentage
+bind Extract Personnel: Injured Personnel
+bind Provide Medical Aid: Medical Supplies Used
+bind Evaluate Mission: Mission Evaluation
+bind Report Findings: Report Status
+Troop Count: integer between 10 and 5000
+Mission Budget: float between 10000.0 and 1000000.0
+Communication Status: Established, Not Established
+Reconnaissance Outcome: Successful, Unsuccessful
+Injured Personnel: integer between 0 and 100
+Target Status: Neutralized, Escaped
+Area Secured Percentage: float between 0.0 and 100.0
+Mission Evaluation: Success, Partial Success, Failure
+Medical Supplies Used: float between 0.0 and 5000.0
+Report Status: Completed, Pending
+Init[Plan Mission] | |
+End[Report Findings] | |
+Existence[Evaluate Mission] | |
+Absence3[Provide Medical Aid] | |
+Precedence[Deploy Troops, Plan Mission] |A.Mission Budget > 50000 | |
+Chain Response[Deploy Troops, Establish Communication] | | |
+Precedence[Engage Target, Conduct Reconnaissance] | | |
+Response[Conduct Reconnaissance, Engage Target] |A.Reconnaissance Outcome is Successful |A.Target Status is Neutralized |
+Chain Response[Secure Area, Extract Personnel] | | |0,2,h
+Responded Existence[Extract Personnel, Provide Medical Aid] |A.Injured Personnel > 10 | |
+Chain Response[Secure Area, Evaluate Mission] | | |0,1,d
+Response[Evaluate Mission, Report Findings] |A.Mission Evaluation is Success | |
+Not Co-Existence[Establish Communication, Evaluate Mission] |A.Communication Status is Not Established |T.Mission Evaluation is Success |
+Precedence[Extract Personnel, Secure Area] | | |
+Not Responded Existence[Plan Mission, Evaluate Mission] |A.Mission Budget >= 500000 |T.Mission Evaluation is Success |

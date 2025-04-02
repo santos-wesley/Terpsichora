@@ -1,0 +1,40 @@
+activity Assess Situation
+activity Alert Emergency Services
+activity Evacuate Area
+activity Provide First Aid
+activity Coordinate Response Team
+activity Establish Communication
+activity Deploy Resources
+activity Conduct Risk Assessment
+activity Review Response Plan
+activity Document Incident
+bind Assess Situation: Severity Level, Emergency Type
+bind Alert Emergency Services: Emergency Type, Response Time
+bind Evacuate Area: Evacuation Time, Number of Casualties
+bind Provide First Aid: Aid Type, Number of Casualties
+bind Coordinate Response Team: Team Members
+bind Establish Communication: Communication Setup Time
+bind Deploy Resources: Resource Type
+bind Conduct Risk Assessment: Risk Level
+bind Review Response Plan: 
+bind Document Incident: 
+Severity Level: integer between 1 and 5
+Emergency Type: Fire, Flood, Earthquake, Medical
+Response Time: float between 0.5 and 24.0
+Number of Casualties: integer between 0 and 100
+Resource Type: Medical, Firefighting, Rescue, Logistical
+Communication Setup Time: float between 0.1 and 5.0
+Team Members: integer between 1 and 50
+Aid Type: Basic, Advanced
+Evacuation Time: float between 0.5 and 10.0
+Risk Level: integer between 1 and 5
+Init[Assess Situation] | |
+End[Document Incident] | |
+Existence[Coordinate Response Team] | |
+Response[Assess Situation, Alert Emergency Services] |A.Severity Level > 2 |A.Emergency Type == T.Emergency Type |0,2,h
+Chain Response[Alert Emergency Services, Evacuate Area] |A.Response Time < 3 | |0,3,h
+Responded Existence[Evacuate Area, Provide First Aid] |A.Number of Casualties > 0 |A.Number of Casualties == T.Number of Casualties |
+Precedence[Deploy Resources, Establish Communication] | |A.Resource Type == T.Resource Type |0,1,h
+Not Chain Succession[Deploy Resources, Conduct Risk Assessment] | | |
+Not Co-Existence[Review Response Plan, Document Incident] | | |
+Exclusive Choice[Review Response Plan, Document Incident] | | |

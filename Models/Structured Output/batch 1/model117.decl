@@ -1,0 +1,28 @@
+activity Collect Data
+activity Clean Data
+activity Analyze Data
+activity Visualize Data
+activity Interpret Results
+activity Report Findings
+activity Review Report
+activity Approve Report
+bind Collect Data: Data Source, Sample Size
+bind Analyze Data: Analysis Type, Error Rate
+bind Visualize Data: Visualization Type
+bind Report Findings: Report Status
+Sample Size: integer between 10 and 10000
+Error Rate: float between 0.0 and 5.0
+Data Source: Survey, Database, Sensor
+Analysis Type: Descriptive, Inferential, Predictive
+Visualization Type: Bar Chart, Line Graph, Pie Chart
+Report Status: Draft, Reviewed, Approved
+Init[Collect Data] | |
+Existence[Clean Data] | |
+Chain Succession[Analyze Data, Visualize Data] | | |0,5,m
+Response[Report Findings, Review Report] | | |0,2,d
+Co-Existence[Review Report, Approve Report] | | |
+Precedence[Analyze Data, Clean Data] | | |
+Not Chain Succession[Collect Data, Visualize Data] | | |
+Choice[Interpret Results, Report Findings] | | |
+Chain Precedence[Analyze Data, Collect Data] |A.Data Source == T.Data Source | |
+Chain Response[Review Report, Approve Report] | | |0,1,d

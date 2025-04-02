@@ -1,0 +1,50 @@
+activity Identify Talent Needs
+activity Post Job Openings
+activity Screen Applications
+activity Conduct Interviews
+activity Evaluate Candidates
+activity Make Job Offer
+activity Onboard New Employee
+activity Conduct Training
+activity Assess Performance
+activity Provide Feedback
+activity Identify Development Needs
+activity Plan Career Path
+activity Conduct Exit Interview
+activity Update Talent Database
+activity Review Talent Strategy
+bind Identify Talent Needs: Job Level
+bind Screen Applications: Experience Years
+bind Conduct Interviews: Interview Score
+bind Make Job Offer: Offer Status
+bind Conduct Training: Training Hours
+bind Assess Performance: Performance Rating
+bind Provide Feedback: Feedback Type
+bind Identify Development Needs: Development Area
+bind Plan Career Path: Career Path Steps
+bind Conduct Exit Interview: Exit Reason
+Experience Years: integer between 0 and 40
+Interview Score: float between 0.0 and 10.0
+Job Level: Entry, Mid, Senior
+Offer Status: Accepted, Rejected, Pending
+Training Hours: integer between 0 and 100
+Performance Rating: float between 0.0 and 5.0
+Feedback Type: Positive, Negative, Neutral
+Development Area: Technical, Leadership, Communication
+Career Path Steps: integer between 1 and 10
+Exit Reason: Resignation, Retirement, Termination
+Init[Identify Talent Needs] | |
+End[Review Talent Strategy] | |
+Existence[Conduct Interviews] | |
+Absence[Conduct Exit Interview] | |
+Precedence[Make Job Offer, Evaluate Candidates] | | |
+Response[Make Job Offer, Onboard New Employee] | |A.Offer Status is Accepted |
+Chain Succession[Onboard New Employee, Conduct Training] | | |0,2,d
+Succession[Assess Performance, Provide Feedback] | | |0,48,h
+Response[Identify Development Needs, Plan Career Path] | | |0,5,d
+Precedence[Conduct Interviews, Screen Applications] | | |
+Not Chain Succession[Provide Feedback, Conduct Exit Interview] | | |
+Choice[Conduct Training, Assess Performance] | | |
+Exclusive Choice[Conduct Exit Interview, Update Talent Database] | | |
+Responded Existence[Conduct Interviews, Evaluate Candidates] |A.Interview Score > 8 | |
+Not Precedence[Make Job Offer, Screen Applications] | |T.Experience Years < 2 |

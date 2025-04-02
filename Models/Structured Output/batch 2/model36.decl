@@ -1,0 +1,41 @@
+activity Design Aircraft
+activity Conduct Wind Tunnel Test
+activity Review Test Results
+activity Manufacture Components
+activity Assemble Aircraft
+activity Perform Quality Assurance
+activity Conduct Flight Test
+activity Analyze Flight Data
+activity Approve Design
+activity Update Design
+activity Document Design
+activity Deliver Aircraft
+bind Conduct Wind Tunnel Test: Test Duration, Test Result, Wind Speed
+bind Perform Quality Assurance: Quality Status
+bind Conduct Flight Test: Flight Hours, Fuel Efficiency
+bind Approve Design: Design Approval
+bind Deliver Aircraft: Delivery Status
+Test Duration: integer between 1 and 24
+Component Weight: float between 0.1 and 500.0
+Test Result: Pass, Fail
+Quality Status: Approved, Rejected
+Flight Hours: integer between 1 and 100
+Fuel Efficiency: float between 0.5 and 10.0
+Design Approval: Approved, Pending
+Wind Speed: float between 0.0 and 100.0
+Delivery Status: Delivered, Pending
+Init[Design Aircraft] | |
+End[Deliver Aircraft] | |
+Existence[Conduct Wind Tunnel Test] | |
+Exactly[Conduct Flight Test] | |
+Precedence[Assemble Aircraft, Manufacture Components] | | |
+Response[Assemble Aircraft, Perform Quality Assurance] | | |
+Response[Analyze Flight Data, Approve Design] | | |0,2,d
+Not Co-Existence[Update Design, Approve Design] | | |
+Chain Response[Conduct Wind Tunnel Test, Review Test Results] | | |0,1,h
+Response[Approve Design, Document Design] | | |0,3,d
+Precedence[Deliver Aircraft, Document Design] | | |
+Precedence[Conduct Flight Test, Perform Quality Assurance] | |T.Quality Status is Approved |
+Response[Review Test Results, Update Design] |A.Test Result is Fail | |0,5,d
+Precedence[Deliver Aircraft, Approve Design] | |T.Design Approval is Approved |
+Co-Existence[Manufacture Components, Assemble Aircraft] | | |

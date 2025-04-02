@@ -1,0 +1,39 @@
+activity Collect Crime Scene Evidence
+activity Interview Witnesses
+activity Analyze Forensic Evidence
+activity Develop Criminal Profile
+activity Review Criminal Database
+activity Conduct Surveillance
+activity Interrogate Suspect
+activity Evaluate Alibi
+activity Arrest Suspect
+activity Prepare Case Report
+bind Collect Crime Scene Evidence: Evidence Type, Evidence Strength
+bind Interview Witnesses: Number of Witnesses
+bind Analyze Forensic Evidence: DNA Match Probability
+bind Develop Criminal Profile: Profile Accuracy
+bind Conduct Surveillance: Surveillance Duration
+bind Interrogate Suspect: Interrogation Duration
+bind Evaluate Alibi: Alibi Verification
+bind Arrest Suspect: Suspect Status
+bind Prepare Case Report: Case Status
+Number of Witnesses: integer between 1 and 50
+DNA Match Probability: float between 0.0 and 100.0
+Evidence Type: Fingerprint, DNA, Weapon, Clothing
+Suspect Status: Identified, Unidentified, Arrested
+Surveillance Duration: integer between 1 and 72
+Alibi Verification: Verified, Unverified
+Evidence Strength: float between 0.0 and 10.0
+Case Status: Open, Closed, Pending
+Interrogation Duration: integer between 10 and 180
+Profile Accuracy: High, Medium, Low
+Init[Collect Crime Scene Evidence] | |
+End[Prepare Case Report] | |
+Existence[Interview Witnesses] | |
+Chain Response[Collect Crime Scene Evidence, Analyze Forensic Evidence] | | |0,48,h
+Response[Develop Criminal Profile, Review Criminal Database] | | |
+Precedence[Interrogate Suspect, Conduct Surveillance] | | |
+Chain Response[Arrest Suspect, Evaluate Alibi] | | |0,24,h
+Responded Existence[Interrogate Suspect, Analyze Forensic Evidence] |A.Interrogation Duration <= 120 |T.DNA Match Probability > 90 |
+Co-Existence[Prepare Case Report, Arrest Suspect] |A.Case Status is Closed |T.Suspect Status is Arrested |
+Not Co-Existence[Collect Crime Scene Evidence, Develop Criminal Profile] |A.Evidence Type is Weapon |T.Profile Accuracy is Low |

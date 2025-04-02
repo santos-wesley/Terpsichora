@@ -1,0 +1,32 @@
+activity Identify At-Risk Customers
+activity Send Promotional Offer
+activity Conduct Customer Survey
+activity Analyze Survey Results
+activity Implement Retention Strategy
+activity Monitor Customer Engagement
+activity Evaluate Retention Outcomes
+activity Update Customer Database
+bind Identify At-Risk Customers: Customer ID, Churn Probability
+bind Send Promotional Offer: Customer ID, Offer Discount
+bind Conduct Customer Survey: Customer ID
+bind Analyze Survey Results: Survey Response
+bind Implement Retention Strategy: Retention Strategy
+bind Monitor Customer Engagement: Engagement Score
+bind Update Customer Database: Database Status
+Customer ID: integer between 1 and 1000000
+Offer Discount: float between 0.0 and 100.0
+Survey Response: Positive, Neutral, Negative
+Engagement Score: integer between 0 and 100
+Retention Strategy: Loyalty Program, Personalized Offers, Customer Support
+Churn Probability: float between 0.0 and 1.0
+Database Status: Pending, Completed
+Init[Identify At-Risk Customers] | |
+Response[Identify At-Risk Customers, Send Promotional Offer] |A.Churn Probability > 0.5 |A.Customer ID == T.Customer ID |0,2,d
+Succession[Conduct Customer Survey, Analyze Survey Results] | | |0,1,d
+Existence[Monitor Customer Engagement] | |
+Precedence[Implement Retention Strategy, Analyze Survey Results] |A.Retention Strategy is Loyalty Program |T.Survey Response is Positive |
+Not Chain Succession[Monitor Customer Engagement, Update Customer Database] | | |
+End[Evaluate Retention Outcomes] | |
+Not Co-Existence[Send Promotional Offer, Conduct Customer Survey] | | |
+Exclusive Choice[Send Promotional Offer, Implement Retention Strategy] | | |
+Chain Response[Monitor Customer Engagement, Update Customer Database] |A.Engagement Score > 80 |T.Database Status is Completed |0,48,h

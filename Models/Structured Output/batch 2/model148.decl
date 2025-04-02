@@ -1,0 +1,50 @@
+activity Post Job Opening
+activity Screen Resumes
+activity Conduct Initial Interview
+activity Evaluate Technical Skills
+activity Conduct HR Interview
+activity Make Job Offer
+activity Negotiate Offer
+activity Finalize Hiring
+activity Onboard Employee
+activity Conduct Background Check
+activity Approve Job Requisition
+activity Schedule Interview
+activity Reject Candidate
+activity Review Job Description
+activity Collect Feedback
+bind Post Job Opening: Requisition Approval Status
+bind Screen Resumes: Experience Years
+bind Conduct Initial Interview: Interview Status
+bind Evaluate Technical Skills: Candidate Score
+bind Make Job Offer: Job Offer Status
+bind Conduct Background Check: Background Check Status
+bind Review Job Description: Job Satisfaction Score
+bind Collect Feedback: Feedback Status
+bind Schedule Interview: Number of Interviews
+bind Negotiate Offer: Expected Salary
+Experience Years: integer between 0 and 40
+Expected Salary: float between 30000.0 and 200000.0
+Interview Status: Scheduled, Completed, Pending
+Job Offer Status: Accepted, Declined, Negotiating
+Candidate Score: integer between 0 and 100
+Background Check Status: Clear, Pending, Failed
+Job Satisfaction Score: float between 1.0 and 5.0
+Feedback Status: Collected, Pending
+Number of Interviews: integer between 1 and 10
+Requisition Approval Status: Approved, Rejected
+Init[Approve Job Requisition] | |
+End[Onboard Employee] | |
+Existence[Post Job Opening] | |
+Exactly[Conduct Initial Interview] | |
+Precedence[Make Job Offer, Conduct Background Check] | |A.Background Check Status is Clear |
+Response[Make Job Offer, Negotiate Offer] | | |
+Chain Succession[Conduct Initial Interview, Evaluate Technical Skills] | | |
+Precedence[Post Job Opening, Review Job Description] | | |
+Response[Conduct HR Interview, Collect Feedback] | | |0,2,d
+Precedence[Post Job Opening, Approve Job Requisition] | |A.Requisition Approval Status is Approved |
+Precedence[Make Job Offer, Schedule Interview] | |T.Number of Interviews <= 5 |
+Not Succession[Reject Candidate, Conduct Background Check] | |T.Background Check Status is Failed |
+Chain Response[Conduct Initial Interview, Evaluate Technical Skills] | | |0,48,h
+Chain Response[Make Job Offer, Negotiate Offer] | | |0,5,d
+Chain Response[Evaluate Technical Skills, Conduct HR Interview] | | |0,3,d

@@ -1,0 +1,50 @@
+activity Conduct Cultural Assessment
+activity Develop Cultural Training Program
+activity Implement Cultural Training
+activity Evaluate Training Effectiveness
+activity Facilitate Cross-cultural Workshop
+activity Conduct Feedback Session
+activity Analyze Feedback
+activity Revise Cultural Strategies
+activity Monitor Cultural Integration
+activity Report Cultural Integration Status
+activity Identify Cultural Conflicts
+activity Resolve Cultural Conflicts
+activity Celebrate Cultural Diversity
+activity Set Cultural Goals
+activity Review Cultural Goals
+bind Develop Cultural Training Program: Training Duration
+bind Evaluate Training Effectiveness: Training Effectiveness Score
+bind Conduct Feedback Session: Feedback Type
+bind Resolve Cultural Conflicts: Cultural Conflict Status
+bind Facilitate Cross-cultural Workshop: Workshop Participants
+bind Monitor Cultural Integration: Integration Progress
+bind Set Cultural Goals: Cultural Goal Status
+bind Conduct Feedback Session: Feedback Sessions Conducted
+bind Resolve Cultural Conflicts: Conflict Resolution Time
+bind Celebrate Cultural Diversity: Diversity Event Type
+Training Duration: integer between 1 and 40
+Training Effectiveness Score: float between 0.0 and 10.0
+Feedback Type: Positive, Negative, Neutral
+Cultural Conflict Status: Resolved, Unresolved
+Workshop Participants: integer between 5 and 100
+Integration Progress: float between 0.0 and 100.0
+Cultural Goal Status: Achieved, In Progress, Not Started
+Feedback Sessions Conducted: integer between 1 and 10
+Conflict Resolution Time: float between 0.5 and 20.0
+Diversity Event Type: Festival, Workshop, Seminar
+Init[Conduct Cultural Assessment] | |
+End[Review Cultural Goals] | |
+Existence[Develop Cultural Training Program] | |
+Exactly3[Conduct Feedback Session] | |
+Response[Conduct Cultural Assessment, Develop Cultural Training Program] | | |0,2,d
+Chain Response[Facilitate Cross-cultural Workshop, Conduct Feedback Session] | | |0,1,d
+Co-Existence[Conduct Feedback Session, Analyze Feedback] | | |
+Precedence[Resolve Cultural Conflicts, Identify Cultural Conflicts] | | |0,48,h
+Precedence[Review Cultural Goals, Set Cultural Goals] | | |
+Response[Develop Cultural Training Program, Implement Cultural Training] | | |0,5,d
+Response[Revise Cultural Strategies, Monitor Cultural Integration] | | |0,3,d
+Not Co-Existence[Celebrate Cultural Diversity, Report Cultural Integration Status] | | |
+Not Succession[Conduct Feedback Session, Resolve Cultural Conflicts] | | |
+Exclusive Choice[Facilitate Cross-cultural Workshop, Celebrate Cultural Diversity] | | |
+Responded Existence[Conduct Feedback Session, Analyze Feedback] |A.Feedback Type in (Positive, Neutral) | |

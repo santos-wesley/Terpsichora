@@ -1,0 +1,50 @@
+activity Define Learning Objectives
+activity Select Course Materials
+activity Design Assessment Methods
+activity Develop Lesson Plans
+activity Review Curriculum
+activity Approve Curriculum
+activity Implement Curriculum
+activity Evaluate Curriculum Effectiveness
+activity Revise Curriculum
+activity Conduct Pilot Testing
+activity Gather Stakeholder Feedback
+activity Align with Educational Standards
+activity Integrate Technology
+activity Train Educators
+activity Publish Curriculum
+bind Define Learning Objectives: Number of Objectives
+bind Select Course Materials: Budget Allocation
+bind Approve Curriculum: Approval Status
+bind Integrate Technology: Technology Integration Level
+bind Design Assessment Methods: Number of Assessments
+bind Gather Stakeholder Feedback: Feedback Type
+bind Evaluate Curriculum Effectiveness: Effectiveness Score
+bind Develop Lesson Plans: Number of Lessons
+bind Conduct Pilot Testing: Pilot Test Result
+bind Train Educators: Training Hours
+Number of Objectives: integer between 1 and 50
+Budget Allocation: float between 1000.0 and 100000.0
+Approval Status: Pending, Approved, Rejected
+Technology Integration Level: None, Basic, Advanced
+Number of Assessments: integer between 1 and 20
+Feedback Type: Positive, Negative, Neutral
+Effectiveness Score: float between 0.0 and 100.0
+Number of Lessons: integer between 1 and 100
+Pilot Test Result: Successful, Needs Improvement, Failed
+Training Hours: float between 1.0 and 40.0
+Init[Define Learning Objectives] | |
+Existence[Evaluate Curriculum Effectiveness] | |
+Exactly[Approve Curriculum] | |
+Precedence[Review Curriculum, Develop Lesson Plans] | | |
+Response[Approve Curriculum, Implement Curriculum] | | |0,2,d
+Precedence[Gather Stakeholder Feedback, Conduct Pilot Testing] | | |
+Co-Existence[Integrate Technology, Align with Educational Standards] | | |
+Response[Evaluate Curriculum Effectiveness, Revise Curriculum] |A.Effectiveness Score < 50 | |0,30,d
+Not Precedence[Publish Curriculum, Approve Curriculum] | | |
+Precedence[Approve Curriculum, Review Curriculum] | | |
+Response[Conduct Pilot Testing, Gather Stakeholder Feedback] | | |0,15,d
+Chain Response[Approve Curriculum, Implement Curriculum] | | |0,48,h
+Precedence[Implement Curriculum, Train Educators] | | |
+Precedence[Implement Curriculum, Approve Curriculum] | |T.Approval Status is Approved |
+Response[Implement Curriculum, Publish Curriculum] | | |0,5,d

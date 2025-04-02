@@ -1,0 +1,49 @@
+activity Initiate Negotiation
+activity Conduct Mediation
+activity Draft Agreement
+activity Review Agreement
+activity Approve Agreement
+activity Implement Agreement
+activity Monitor Compliance
+activity Report Violation
+activity Resolve Dispute
+activity Terminate Agreement
+activity Conduct Arbitration
+activity Hold Grievance Meeting
+activity Evaluate Performance
+activity Renew Agreement
+activity File Legal Action
+bind Initiate Negotiation: Negotiation Duration
+bind Draft Agreement: Agreement Value, Agreement Status
+bind Report Violation: Violation Severity
+bind Monitor Compliance: Compliance Checks
+bind Resolve Dispute: Dispute Resolution Method
+bind Evaluate Performance: Performance Score
+bind Hold Grievance Meeting: Grievance Count
+bind File Legal Action: Legal Action Status
+bind Renew Agreement: Renewal Cost
+Negotiation Duration: integer between 1 and 30
+Agreement Value: float between 1000.0 and 1000000.0
+Agreement Status: Draft, Reviewed, Approved, Implemented
+Violation Severity: Minor, Major, Critical
+Compliance Checks: integer between 0 and 100
+Dispute Resolution Method: Mediation, Arbitration, Legal Action
+Performance Score: float between 0.0 and 10.0
+Grievance Count: integer between 0 and 50
+Legal Action Status: Filed, In Progress, Resolved
+Renewal Cost: float between 500.0 and 50000.0
+Existence[Initiate Negotiation] | |
+Exactly[Approve Agreement] | |
+Absence2[Terminate Agreement] | |
+Response[Draft Agreement, Review Agreement] | | |
+Responded Existence[Hold Grievance Meeting, Report Violation] |A.Grievance Count > 0 | |
+Response[Report Violation, Resolve Dispute] | | |5,10,d
+Succession[Approve Agreement, Implement Agreement] | | |
+Not Chain Succession[Resolve Dispute, File Legal Action] | | |
+Precedence[Conduct Mediation, Conduct Arbitration] | |A.Dispute Resolution Method is Mediation AND T.Dispute Resolution Method is Arbitration |
+Precedence[Review Agreement, Approve Agreement] | | |
+Precedence[Draft Agreement, Renew Agreement] |A.Agreement Value > 5000 | |
+Response[Evaluate Performance, Terminate Agreement] |A.Performance Score < 5 | |0,30,d
+Not Chain Succession[File Legal Action, Hold Grievance Meeting] | | |
+Response[Approve Agreement, Implement Agreement] | | |0,15,d
+Response[Evaluate Performance, Renew Agreement] |A.Performance Score >= 8 | |

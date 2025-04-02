@@ -1,0 +1,49 @@
+activity Report Corruption
+activity Investigate Report
+activity Gather Evidence
+activity Interview Witness
+activity Analyze Evidence
+activity Prepare Case
+activity File Charges
+activity Conduct Trial
+activity Deliver Verdict
+activity Impose Penalty
+activity Appeal Verdict
+activity Review Appeal
+activity Uphold Verdict
+activity Overturn Verdict
+activity Close Case
+bind Report Corruption: Report ID
+bind Gather Evidence: Evidence Weight
+bind Deliver Verdict: Verdict
+bind Impose Penalty: Penalty Type, Penalty Amount
+bind Interview Witness: Witness Count
+bind Appeal Verdict: Appeal Status
+bind Conduct Trial: Trial Duration
+bind Investigate Report: Investigation Cost
+bind Close Case: Case Status
+Report ID: integer between 1 and 10000
+Evidence Weight: float between 0.1 and 100.0
+Verdict: Guilty, Not Guilty
+Penalty Type: Fine, Imprisonment, Community Service
+Witness Count: integer between 0 and 50
+Penalty Amount: float between 100.0 and 1000000.0
+Appeal Status: Pending, Reviewed, Rejected
+Case Status: Open, Closed
+Trial Duration: integer between 1 and 365
+Investigation Cost: float between 1000.0 and 500000.0
+Init[Report Corruption] | |
+End[Close Case] | |
+Precedence[Gather Evidence, Investigate Report] | | |
+Response[Report Corruption, Investigate Report] | | |5,10,d
+Response[Conduct Trial, Deliver Verdict] | | |
+Precedence[Impose Penalty, Deliver Verdict] | |T.Verdict is Guilty |
+Precedence[Appeal Verdict, Deliver Verdict] | | |
+Response[Appeal Verdict, Review Appeal] | | |2,5,d
+Response[Gather Evidence, Analyze Evidence] | | |
+Precedence[Close Case, Impose Penalty] | |T.Case Status is Closed |
+Precedence[File Charges, Prepare Case] | | |
+Response[Overturn Verdict, Close Case] | | |1,3,d
+Existence[Interview Witness] | |
+Responded Existence[Conduct Trial, Deliver Verdict] |A.Trial Duration <= 365 | |
+Responded Existence[Investigate Report, Gather Evidence] |A.Investigation Cost > 1000 AND A.Investigation Cost < 500000 | |

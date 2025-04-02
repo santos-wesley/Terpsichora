@@ -1,0 +1,36 @@
+activity Provision Virtual Machine
+activity Deploy Application
+activity Monitor Performance
+activity Scale Resources
+activity Backup Data
+activity Restore Data
+activity Terminate Virtual Machine
+activity Update Software
+activity Configure Network
+activity Audit Security
+bind Provision Virtual Machine: CPU Cores, Memory Size, Storage Size
+bind Deploy Application: Update Status
+bind Monitor Performance: CPU Utilization, Network Latency
+bind Backup Data: Backup Status, Backup Frequency
+bind Configure Network: Network Type
+bind Audit Security: Security Compliance
+CPU Cores: integer between 1 and 64
+Memory Size: float between 1.0 and 256.0
+Backup Status: Completed, Failed, In Progress
+Network Type: Public, Private, Hybrid
+Storage Size: integer between 10 and 2048
+Security Compliance: Compliant, Non-Compliant
+CPU Utilization: float between 0.0 and 100.0
+Update Status: Pending, In Progress, Completed
+Network Latency: float between 0.1 and 1000.0
+Backup Frequency: integer between 1 and 168
+Init[Provision Virtual Machine] | |
+End[Terminate Virtual Machine] | |
+Existence[Backup Data] | |
+Response[Deploy Application, Monitor Performance] | | |0,1,h
+Chain Precedence[Configure Network, Audit Security] | | |0,30,m
+Alternate Response[Monitor Performance, Scale Resources] |A.CPU Utilization > 80 | |0,2,h
+Co-Existence[Backup Data, Restore Data] | | |
+Not Chain Succession[Update Software, Deploy Application] | | |
+Choice[Provision Virtual Machine, Terminate Virtual Machine] | | |
+Exclusive Choice[Backup Data, Restore Data] | | |

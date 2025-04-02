@@ -1,0 +1,48 @@
+activity Install Middleware
+activity Configure Middleware
+activity Start Middleware
+activity Stop Middleware
+activity Monitor Middleware
+activity Update Middleware
+activity Backup Middleware
+activity Restore Middleware
+activity Uninstall Middleware
+activity Audit Middleware
+activity Scale Middleware
+activity Test Middleware
+activity Deploy Middleware
+activity Rollback Middleware
+activity Document Middleware
+bind Install Middleware: Version Number
+bind Configure Middleware: Environment
+bind Monitor Middleware: CPU Usage, Memory Usage, Status
+bind Update Middleware: Update Type
+bind Backup Middleware: Backup Size
+bind Audit Middleware: Audit Score
+bind Test Middleware: Test Result
+bind Stop Middleware: Downtime
+Version Number: integer between 1 and 1000
+CPU Usage: float between 0.0 and 100.0
+Memory Usage: float between 0.0 and 256.0
+Status: Running, Stopped, Error
+Environment: Development, Testing, Production
+Backup Size: integer between 1 and 1000
+Update Type: Patch, Major, Minor
+Audit Score: integer between 0 and 100
+Test Result: Pass, Fail
+Downtime: float between 0.0 and 48.0
+Init[Install Middleware] | |
+End[Uninstall Middleware] | |
+Existence[Monitor Middleware] | |
+Absence3[Stop Middleware] | |
+Exactly[Backup Middleware] | |
+Precedence[Start Middleware, Configure Middleware] | | |
+Response[Update Middleware, Test Middleware] | | |0,2,d
+Response[Start Middleware, Audit Middleware] | | |0,48,h
+Precedence[Restore Middleware, Backup Middleware] | | |
+Chain Response[Monitor Middleware, Scale Middleware] | | |0,15,m
+Not Co-Existence[Deploy Middleware, Rollback Middleware] | | |
+Response[Configure Middleware, Document Middleware] | | |0,1,d
+Precedence[Test Middleware, Configure Middleware] | |A.Environment is Testing |
+Response[Monitor Middleware, Stop Middleware] |A.CPU Usage > 90 | |0,1,h
+Response[Audit Middleware, Update Middleware] |A.Audit Score < 50 |T.Update Type is Major |

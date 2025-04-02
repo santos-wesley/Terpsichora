@@ -1,0 +1,45 @@
+activity Request Transport
+activity Approve Transport Request
+activity Assign Driver
+activity Schedule Vehicle
+activity Load Goods
+activity Start Transport
+activity Monitor Transport
+activity Complete Transport
+activity Unload Goods
+activity Close Transport Request
+bind Request Transport: Transport ID, Transport Status
+bind Approve Transport Request: Transport ID, Transport Status
+bind Assign Driver: Driver ID, Driver Status
+bind Schedule Vehicle: Vehicle Type
+bind Load Goods: Goods Type, Goods Weight
+bind Start Transport: Distance, Transport Status
+bind Monitor Transport: Transport Status
+bind Complete Transport: Transport Status, Delivery Condition
+bind Unload Goods: Delivery Condition
+bind Close Transport Request: Transport ID, Transport Status
+Transport ID: integer between 1 and 10000
+Transport Status: Pending, Approved, In Progress, Completed
+Transport Cost: float between 100.0 and 10000.0
+Vehicle Type: Truck, Van, Bike
+Driver ID: integer between 1 and 500
+Goods Type: Perishable, Non-Perishable
+Goods Weight: float between 0.1 and 1000.0
+Distance: integer between 1 and 5000
+Driver Status: Available, Assigned, On Leave
+Delivery Condition: Intact, Damaged
+Init[Request Transport] | |
+End[Close Transport Request] | |
+Existence[Approve Transport Request] | |
+Chain Response[Approve Transport Request, Assign Driver] | |A.Transport ID == T.Transport ID |
+Precedence[Start Transport, Load Goods] | |A.Goods Type == T.Goods Type |
+Response[Start Transport, Monitor Transport] | |A.Transport ID == T.Transport ID |0,2,h
+Response[Monitor Transport, Complete Transport] | |A.Transport ID == T.Transport ID |0,4,h
+Response[Complete Transport, Unload Goods] | |A.Delivery Condition == T.Delivery Condition |0,1,h
+Response[Unload Goods, Close Transport Request] | |A.Transport ID == T.Transport ID |0,2,h
+Chain Response[Assign Driver, Schedule Vehicle] | |A.Driver ID == T.Driver ID |
+Precedence[Start Transport, Request Transport] | |A.Transport ID == T.Transport ID |
+Not Co-Existence[Complete Transport, Unload Goods] |A.Delivery Condition is Damaged | |
+Not Precedence[Start Transport, Assign Driver] | |T.Driver Status is On Leave |
+Not Responded Existence[Complete Transport, Unload Goods] |A.Delivery Condition is Damaged | |
+Choice[Schedule Vehicle, Load Goods] |A.Vehicle Type in (Truck, Van) | |

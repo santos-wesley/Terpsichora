@@ -1,0 +1,39 @@
+activity Install Solar Panels
+activity Inspect Installation
+activity Monitor Energy Output
+activity Perform Maintenance
+activity Upgrade System
+activity Analyze Energy Consumption
+activity Generate Energy Report
+activity Approve Installation
+activity Schedule Maintenance
+activity Deactivate System
+bind Install Solar Panels: Panel Count, Installation Status
+bind Inspect Installation: Inspection Score
+bind Monitor Energy Output: Energy Output
+bind Perform Maintenance: Maintenance Type
+bind Upgrade System: Upgrade Version
+bind Analyze Energy Consumption: Consumption Rate
+bind Generate Energy Report: Report Type
+bind Approve Installation: Approval Status
+bind Deactivate System: Downtime Duration
+Panel Count: integer between 1 and 1000
+Energy Output: float between 0.0 and 10000.0
+Installation Status: Pending, Completed, Failed
+Maintenance Type: Routine, Emergency
+Inspection Score: integer between 0 and 100
+Consumption Rate: float between 0.0 and 500.0
+Approval Status: Approved, Not Approved
+Upgrade Version: integer between 1 and 10
+Report Type: Monthly, Quarterly, Annual
+Downtime Duration: float between 0.0 and 48.0
+Init[Install Solar Panels] | |
+Existence[Inspect Installation] | |
+Response[Install Solar Panels, Approve Installation] |A.Installation Status is Completed | |0,2,d
+Precedence[Monitor Energy Output, Approve Installation] | | |
+Response[Inspect Installation, Perform Maintenance] |A.Inspection Score < 50 | |0,48,h
+Precedence[Upgrade System, Deactivate System] | | |
+Response[Analyze Energy Consumption, Generate Energy Report] | | |0,5,d
+Not Co-Existence[Install Solar Panels, Approve Installation] |A.Installation Status is Failed | |
+Chain Response[Monitor Energy Output, Perform Maintenance] |A.Energy Output > 5000 |T.Maintenance Type is Routine |0,24,h
+Exclusive Choice[Upgrade System, Perform Maintenance] | | |

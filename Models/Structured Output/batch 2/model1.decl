@@ -1,0 +1,48 @@
+activity Receive Order
+activity Validate Order
+activity Check Inventory
+activity Allocate Stock
+activity Schedule Delivery
+activity Dispatch Order
+activity Confirm Delivery
+activity Process Payment
+activity Generate Invoice
+activity Handle Returns
+activity Update Inventory
+activity Notify Customer
+activity Review Feedback
+activity Close Order
+activity Analyze Performance
+bind Receive Order: Order Quantity, Order Value
+bind Validate Order: Order Status
+bind Check Inventory: Stock Level
+bind Schedule Delivery: Delivery Method, Delivery Cost
+bind Process Payment: Payment Status
+bind Handle Returns: Return Reason
+bind Review Feedback: Feedback Score
+bind Notify Customer: Customer Notification
+Order Quantity: integer between 1 and 1000
+Order Value: float between 0.01 and 100000.0
+Order Status: Pending, Validated, Dispatched, Delivered
+Payment Status: Pending, Completed, Failed
+Stock Level: integer between 0 and 10000
+Delivery Method: Standard, Express, Overnight
+Delivery Cost: float between 0.0 and 500.0
+Return Reason: Damaged, Incorrect Item, Not Needed
+Feedback Score: integer between 1 and 5
+Customer Notification: Email, SMS, Phone Call
+Init[Receive Order] | |
+End[Close Order] | |
+Existence[Validate Order] | |
+Absence2[Dispatch Order] | |
+Exactly[Process Payment] | |
+Precedence[Check Inventory, Validate Order] | | |
+Response[Check Inventory, Allocate Stock] | | |
+Succession[Schedule Delivery, Dispatch Order] | | |0,2,d
+Chain Succession[Dispatch Order, Confirm Delivery] | | |0,48,h
+Co-Existence[Process Payment, Generate Invoice] | | |
+Alternate Response[Dispatch Order, Notify Customer] | | |5,13,m
+Chain Response[Confirm Delivery, Review Feedback] | | |10,15,s
+Not Co-Existence[Handle Returns, Close Order] | | |
+Not Chain Succession[Close Order, Analyze Performance] | | |
+Choice[Handle Returns, Review Feedback] | | |

@@ -1,0 +1,45 @@
+activity Assess Food Supply
+activity Monitor Market Prices
+activity Implement Subsidy Program
+activity Conduct Nutritional Survey
+activity Develop Emergency Plan
+activity Review Agricultural Policies
+activity Allocate Resources
+activity Engage Stakeholders
+activity Evaluate Program Impact
+activity Update Food Security Strategy
+bind Assess Food Supply: Supply Level
+bind Monitor Market Prices: Market Price
+bind Implement Subsidy Program: Subsidy Status
+bind Conduct Nutritional Survey: Nutritional Score
+bind Develop Emergency Plan: Emergency Plan Status
+bind Review Agricultural Policies: Policy Review Score
+bind Allocate Resources: Resource Allocation
+bind Engage Stakeholders: Stakeholder Engagement Level
+bind Evaluate Program Impact: Program Impact
+bind Update Food Security Strategy: Strategy Update Frequency
+Supply Level: integer between 0 and 10000
+Market Price: float between 0.1 and 1000.0
+Subsidy Status: Not Started, In Progress, Completed
+Nutritional Score: integer between 0 and 100
+Emergency Plan Status: Draft, Finalized, Implemented
+Resource Allocation: float between 0.0 and 500000.0
+Stakeholder Engagement Level: Low, Medium, High
+Policy Review Score: integer between 0 and 10
+Program Impact: Low, Moderate, High
+Strategy Update Frequency: float between 0.0 and 24.0
+Init[Assess Food Supply] | |
+End[Update Food Security Strategy] | |
+Alternate Succession[Monitor Market Prices, Assess Food Supply] | | |0,48,h
+Response[Implement Subsidy Program, Evaluate Program Impact] | |A.Subsidy Status is Completed |0,30,d
+Precedence[Develop Emergency Plan, Conduct Nutritional Survey] | | |
+Co-Existence[Review Agricultural Policies, Engage Stakeholders] | | |
+Existence[Conduct Nutritional Survey] | |
+Not Chain Succession[Review Agricultural Policies, Allocate Resources] | | |
+Precedence[Allocate Resources, Develop Emergency Plan] | |T.Emergency Plan Status is Finalized |
+Exclusive Choice[Implement Subsidy Program, Develop Emergency Plan] | | |
+Chain Response[Review Agricultural Policies, Engage Stakeholders] | | |0,7,d
+Responded Existence[Implement Subsidy Program, Evaluate Program Impact] |A.Subsidy Status is Completed | |
+Exactly[Develop Emergency Plan] | |
+Not Chain Response[Evaluate Program Impact, Update Food Security Strategy] | | |
+Precedence[Allocate Resources, Monitor Market Prices] | | |0,10,d

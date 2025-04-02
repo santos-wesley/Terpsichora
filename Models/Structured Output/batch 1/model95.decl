@@ -1,0 +1,40 @@
+activity Plant Seeds
+activity Irrigate Field
+activity Apply Fertilizer
+activity Harvest Crops
+activity Transport Produce
+activity Store Produce
+activity Sell Produce
+activity Inspect Equipment
+activity Record Data
+activity Plan Crop Rotation
+bind Plant Seeds: Crop Type
+bind Irrigate Field: Water Volume
+bind Apply Fertilizer: Fertilizer Amount
+bind Harvest Crops: Yield Quantity
+bind Transport Produce: Transport Cost
+bind Store Produce: Storage Condition
+bind Sell Produce: Selling Price
+bind Inspect Equipment: Equipment Status
+bind Record Data: Data Accuracy
+bind Plan Crop Rotation: Rotation Cycle
+Water Volume: integer between 100 and 10000
+Fertilizer Amount: float between 0.5 and 50.0
+Crop Type: Wheat, Corn, Rice, Soybean
+Equipment Status: Operational, Needs Repair, Under Maintenance
+Yield Quantity: integer between 100 and 10000
+Selling Price: float between 0.1 and 100.0
+Storage Condition: Optimal, Suboptimal, Critical
+Rotation Cycle: integer between 1 and 10
+Data Accuracy: High, Medium, Low
+Transport Cost: float between 0.5 and 20.0
+Init[Plant Seeds] | |
+End[Sell Produce] | |
+Response[Plant Seeds, Irrigate Field] | | |2,4,d
+Chain Response[Irrigate Field, Apply Fertilizer] | | |
+Precedence[Harvest Crops, Apply Fertilizer] |A.Yield Quantity > 500 | |
+Response[Harvest Crops, Transport Produce] | | |0,1,d
+Chain Precedence[Store Produce, Transport Produce] | |A.Storage Condition is Optimal |
+Precedence[Plant Seeds, Inspect Equipment] | |T.Equipment Status is Operational |
+Responded Existence[Record Data, Plant Seeds] |A.Data Accuracy is High | |
+Precedence[Plant Seeds, Plan Crop Rotation] | |T.Rotation Cycle >= 3 |

@@ -1,0 +1,29 @@
+activity Inspect Road
+activity Plan Maintenance
+activity Allocate Budget
+activity Schedule Maintenance
+activity Perform Maintenance
+activity Conduct Safety Audit
+activity Approve Completion
+activity Update Records
+activity Notify Stakeholders
+bind Inspect Road: Inspection Score
+bind Allocate Budget: Budget Amount
+bind Plan Maintenance: Maintenance Type
+bind Conduct Safety Audit: Safety Status
+bind Approve Completion: Approval Status
+Inspection Score: integer between 1 and 100
+Budget Amount: float between 1000.0 and 100000.0
+Maintenance Type: Routine, Preventive, Corrective
+Safety Status: Passed, Failed
+Approval Status: Approved, Rejected
+Init[Inspect Road] | |
+End[Notify Stakeholders] | |
+Precedence[Plan Maintenance, Allocate Budget] |A.Maintenance Type is Routine |T.Budget Amount <= 50000.0 |
+Response[Perform Maintenance, Conduct Safety Audit] | | |0,48,h
+Precedence[Conduct Safety Audit, Approve Completion] |A.Safety Status is Passed | |
+Response[Approve Completion, Update Records] | | |
+Existence[Perform Maintenance] | |
+Chain Succession[Plan Maintenance, Schedule Maintenance] | |A.Maintenance Type == T.Maintenance Type |
+Precedence[Inspect Road, Plan Maintenance] |A.Inspection Score < 50 |T.Maintenance Type is Corrective |
+Response[Update Records, Notify Stakeholders] | | |0,2,d

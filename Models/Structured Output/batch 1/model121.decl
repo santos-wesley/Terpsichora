@@ -1,0 +1,40 @@
+activity Conduct Health Assessment
+activity Organize Fitness Challenge
+activity Provide Nutritional Counseling
+activity Schedule Mental Health Workshop
+activity Distribute Wellness Newsletter
+activity Evaluate Program Effectiveness
+activity Offer Stress Management Session
+activity Track Participation Rates
+activity Reward Active Participants
+activity Collect Feedback
+bind Conduct Health Assessment: Health Score
+bind Organize Fitness Challenge: Fitness Challenge Type
+bind Provide Nutritional Counseling: Nutritional Focus
+bind Schedule Mental Health Workshop: Workshop Attendees
+bind Distribute Wellness Newsletter: Newsletter Frequency
+bind Evaluate Program Effectiveness: Program Effectiveness Score
+bind Offer Stress Management Session: Stress Management Technique
+bind Track Participation Rates: Participation Rate
+bind Reward Active Participants: Reward Type
+bind Collect Feedback: Feedback Score
+Health Score: integer between 1 and 100
+Participation Rate: float between 0.0 and 100.0
+Fitness Challenge Type: Step Count, Cycling, Yoga
+Nutritional Focus: Weight Loss, Muscle Gain, Balanced Diet
+Workshop Attendees: integer between 0 and 500
+Newsletter Frequency: Weekly, Monthly, Quarterly
+Program Effectiveness Score: float between 0.0 and 10.0
+Stress Management Technique: Meditation, Breathing Exercises, Time Management
+Feedback Score: integer between 1 and 5
+Reward Type: Gift Card, Extra Day Off, Recognition Certificate
+Init[Conduct Health Assessment] | |
+End[Evaluate Program Effectiveness] | |
+Response[Organize Fitness Challenge, Offer Stress Management Session] | | |0,7,d
+Chain Response[Schedule Mental Health Workshop, Distribute Wellness Newsletter] | | |0,1,d
+Precedence[Reward Active Participants, Track Participation Rates] | | |
+Existence[Distribute Wellness Newsletter] |A.Newsletter Frequency is Monthly |
+Responded Existence[Provide Nutritional Counseling, Conduct Health Assessment] |A.Nutritional Focus is Weight Loss |T.Health Score > 50 |
+Not Co-Existence[Offer Stress Management Session, Schedule Mental Health Workshop] | | |
+Not Responded Existence[Collect Feedback, Evaluate Program Effectiveness] |A.Feedback Score < 3 |T.Program Effectiveness Score > 5 |
+Choice[Provide Nutritional Counseling, Organize Fitness Challenge] | | |

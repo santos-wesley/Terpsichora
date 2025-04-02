@@ -1,0 +1,34 @@
+activity Initiate Security Clearance
+activity Conduct Background Check
+activity Verify Identity
+activity Assess Threat Level
+activity Approve Access Request
+activity Deny Access Request
+activity Monitor Security Systems
+activity Report Security Breach
+activity Conduct Security Training
+activity Review Security Policies
+bind Initiate Security Clearance: Clearance Level
+bind Conduct Background Check: Clearance Level
+bind Verify Identity: Identity Status
+bind Assess Threat Level: Threat Score
+bind Approve Access Request: Access Decision
+bind Deny Access Request: Access Decision
+bind Conduct Security Training: Training Hours
+bind Report Security Breach: Breach Severity
+Clearance Level: integer between 1 and 5
+Threat Score: float between 0.0 and 10.0
+Identity Status: Verified, Unverified
+Access Decision: Approved, Denied
+Training Hours: integer between 1 and 40
+Breach Severity: Low, Medium, High
+Init[Initiate Security Clearance] | |
+Existence[Conduct Security Training] | |
+Precedence[Approve Access Request, Conduct Background Check] |A.Access Decision is Approved |A.Clearance Level >= T.Clearance Level |0,2,d
+Response[Report Security Breach, Review Security Policies] |A.Breach Severity in (Medium, High) | |0,48,h
+Chain Response[Initiate Security Clearance, Verify Identity] | |A.Clearance Level == T.Clearance Level |0,15,m
+Response[Verify Identity, Assess Threat Level] |A.Identity Status is Verified | |0,1,d
+Not Co-Existence[Monitor Security Systems, Report Security Breach] | | |
+Exclusive Choice[Approve Access Request, Deny Access Request] | | |
+Precedence[Assess Threat Level, Conduct Security Training] |A.Threat Score > 5.0 |A.Training Hours >= T.Training Hours |0,5,d
+End[Review Security Policies] | |

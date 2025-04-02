@@ -1,0 +1,50 @@
+activity Identify Market Needs
+activity Design Product Concept
+activity Evaluate Environmental Impact
+activity Select Sustainable Materials
+activity Develop Prototype
+activity Conduct Prototype Testing
+activity Analyze Test Results
+activity Refine Product Design
+activity Perform Lifecycle Assessment
+activity Finalize Product Specifications
+activity Plan Production Process
+activity Implement Production Process
+activity Conduct Quality Assurance
+activity Launch Product
+activity Collect Customer Feedback
+bind Identify Market Needs: Market Research Score
+bind Evaluate Environmental Impact: Environmental Impact Score
+bind Select Sustainable Materials: Material Type
+bind Conduct Prototype Testing: Prototype Test Score
+bind Refine Product Design: Design Status
+bind Perform Lifecycle Assessment: Lifecycle Assessment Score
+bind Plan Production Process: Production Plan Status
+bind Conduct Quality Assurance: Quality Assurance Score
+bind Collect Customer Feedback: Customer Feedback
+bind Launch Product: Product Launch Success Rate
+Market Research Score: integer between 1 and 10
+Environmental Impact Score: float between 0.0 and 10.0
+Material Type: Recycled, Biodegradable, Renewable
+Prototype Test Score: integer between 1 and 100
+Design Status: Initial, Refined, Final
+Lifecycle Assessment Score: float between 0.0 and 100.0
+Production Plan Status: Planned, In Progress, Completed
+Quality Assurance Score: integer between 1 and 100
+Customer Feedback: Positive, Neutral, Negative
+Product Launch Success Rate: float between 0.0 and 100.0
+Init[Identify Market Needs] | |
+End[Collect Customer Feedback] | |
+Existence[Evaluate Environmental Impact] | |
+Exactly[Refine Product Design] | |
+Response[Design Product Concept, Evaluate Environmental Impact] | | |0,2,d
+Chain Response[Select Sustainable Materials, Develop Prototype] | | |0,48,h
+Response[Conduct Prototype Testing, Analyze Test Results] | | |0,24,h
+Response[Analyze Test Results, Refine Product Design] | | |0,2,d
+Precedence[Finalize Product Specifications, Perform Lifecycle Assessment] | | |
+Co-Existence[Plan Production Process, Implement Production Process] | | |
+Response[Conduct Quality Assurance, Launch Product] | | |0,3,d
+Not Co-Existence[Design Product Concept, Select Sustainable Materials] | | |
+Not Precedence[Collect Customer Feedback, Launch Product] | | |
+Exclusive Choice[Identify Market Needs, Design Product Concept] | | |
+Choice[Conduct Quality Assurance, Collect Customer Feedback] | | |

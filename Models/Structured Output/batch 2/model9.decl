@@ -1,0 +1,47 @@
+activity Submit Compliance Report
+activity Review Compliance Report
+activity Approve Compliance Report
+activity Request Additional Information
+activity Conduct Compliance Audit
+activity Issue Compliance Certificate
+activity Schedule Compliance Training
+activity Conduct Compliance Training
+activity Evaluate Training Effectiveness
+activity Update Compliance Policies
+activity Notify Stakeholders
+activity Monitor Compliance Activities
+activity Report Non-Compliance
+activity Investigate Non-Compliance
+activity Resolve Non-Compliance
+bind Submit Compliance Report: Report ID, Report Status
+bind Conduct Compliance Audit: Audit Score, Compliance Level
+bind Schedule Compliance Training: Training ID, Training Type
+bind Evaluate Training Effectiveness: Training Effectiveness Score
+bind Report Non-Compliance: Non-Compliance Severity
+bind Update Compliance Policies: Policy Version
+bind Notify Stakeholders: Stakeholder Notification Status
+Report ID: integer between 1 and 10000
+Audit Score: float between 0.0 and 100.0
+Report Status: Draft, Submitted, Reviewed, Approved
+Training Type: Online, In-Person
+Training ID: integer between 1 and 5000
+Training Effectiveness Score: float between 0.0 and 10.0
+Compliance Level: Low, Medium, High
+Non-Compliance Severity: Minor, Major, Critical
+Policy Version: integer between 1 and 100
+Stakeholder Notification Status: Pending, Sent, Acknowledged
+Init[Submit Compliance Report] | |
+End[Resolve Non-Compliance] | |
+Existence[Conduct Compliance Audit] | |
+Response[Submit Compliance Report, Review Compliance Report] | | |0,2,d
+Precedence[Approve Compliance Report, Review Compliance Report] | | |
+Alternate Response[Review Compliance Report, Request Additional Information] | | |0,1,d
+Chain Response[Schedule Compliance Training, Conduct Compliance Training] | | |0,7,d
+Chain Succession[Conduct Compliance Training, Evaluate Training Effectiveness] | | |0,3,d
+Response[Report Non-Compliance, Investigate Non-Compliance] | | |0,5,d
+Succession[Investigate Non-Compliance, Resolve Non-Compliance] | | |
+Precedence[Notify Stakeholders, Update Compliance Policies] | | |
+Response[Update Compliance Policies, Notify Stakeholders] | | |0,1,d
+Co-Existence[Monitor Compliance Activities, Report Non-Compliance] | | |
+Not Chain Succession[Conduct Compliance Audit, Issue Compliance Certificate] | | |
+Exclusive Choice[Approve Compliance Report, Request Additional Information] | | |

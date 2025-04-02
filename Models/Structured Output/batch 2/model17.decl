@@ -1,0 +1,50 @@
+activity Create Patient Record
+activity Update Patient Record
+activity Archive Patient Record
+activity Delete Patient Record
+activity Access Patient Record
+activity Authorize Record Access
+activity Review Patient Record
+activity Request Record Transfer
+activity Approve Record Transfer
+activity Deny Record Transfer
+activity Receive Record Transfer
+activity Audit Patient Record
+activity Schedule Record Audit
+activity Notify Record Update
+activity Generate Record Report
+bind Create Patient Record: Patient ID, Record Status
+bind Update Patient Record: Patient ID, Record Status
+bind Archive Patient Record: Patient ID, Record Status
+bind Access Patient Record: Patient ID, Access Level
+bind Authorize Record Access: Patient ID, Access Level
+bind Request Record Transfer: Transfer Request ID, Transfer Status
+bind Approve Record Transfer: Transfer Request ID, Transfer Status
+bind Audit Patient Record: Audit ID, Audit Score
+bind Notify Record Update: Patient ID, Notification Type
+bind Generate Record Report: Report Type, Record Size
+Patient ID: integer between 1 and 10000
+Record Size: float between 0.1 and 500.0
+Record Status: Active, Archived, Deleted
+Access Level: Read, Write, Admin
+Transfer Request ID: integer between 1 and 5000
+Transfer Status: Pending, Approved, Denied
+Audit Score: float between 0.0 and 100.0
+Notification Type: Email, SMS, Push Notification
+Audit ID: integer between 1 and 2000
+Report Type: Summary, Detailed, Statistical
+Init[Create Patient Record] | |
+End[Archive Patient Record] | |
+Existence[Access Patient Record] | |
+Absence[Delete Patient Record] | |
+Response[Request Record Transfer, Approve Record Transfer] |A.Transfer Status is Pending |A.Transfer Request ID == T.Transfer Request ID |0,2,d
+Response[Request Record Transfer, Deny Record Transfer] |A.Transfer Status is Pending |A.Transfer Request ID == T.Transfer Request ID |0,2,d
+Precedence[Access Patient Record, Authorize Record Access] |A.Access Level in (Read, Write, Admin) |A.Patient ID == T.Patient ID |
+Precedence[Archive Patient Record, Review Patient Record] | |A.Patient ID == T.Patient ID |0,48,h
+Chain Response[Update Patient Record, Notify Record Update] |A.Record Status is Active |A.Patient ID == T.Patient ID |0,15,m
+Succession[Audit Patient Record, Generate Record Report] |A.Audit Score > 50 |A.Audit ID == T.Audit ID |0,1,d
+Response[Approve Record Transfer, Receive Record Transfer] |A.Transfer Status is Approved |A.Transfer Request ID == T.Transfer Request ID |0,2,d
+Not Response[Deny Record Transfer, Receive Record Transfer] |A.Transfer Status is Denied |A.Transfer Request ID == T.Transfer Request ID |
+Not Succession[Delete Patient Record, Archive Patient Record] | |A.Patient ID == T.Patient ID |
+Precedence[Audit Patient Record, Schedule Record Audit] | |A.Audit ID == T.Audit ID |0,5,d
+Exclusive Choice[Generate Record Report, Generate Record Report] |A.Report Type is Summary |T.Report Type is Detailed |

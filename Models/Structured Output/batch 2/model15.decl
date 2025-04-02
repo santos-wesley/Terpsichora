@@ -1,0 +1,48 @@
+activity Identify Policy Issue
+activity Gather Data
+activity Analyze Data
+activity Develop Policy Options
+activity Evaluate Policy Options
+activity Select Policy Option
+activity Draft Policy Document
+activity Review Policy Document
+activity Approve Policy
+activity Implement Policy
+activity Monitor Policy Implementation
+activity Evaluate Policy Impact
+activity Revise Policy
+activity Communicate Policy
+activity Archive Policy Documents
+bind Gather Data: Data Volume
+bind Evaluate Policy Impact: Policy Impact Score
+bind Approve Policy: Approval Status
+bind Communicate Policy: Stakeholder Type, Communication Channel
+bind Review Policy Document: Review Iterations
+bind Implement Policy: Budget Allocation, Implementation Duration
+bind Develop Policy Options: Policy Type
+bind Revise Policy: Revision Cost
+Data Volume: integer between 100 and 10000
+Policy Impact Score: float between 0.0 and 10.0
+Approval Status: Pending, Approved, Rejected
+Stakeholder Type: Government, NGO, Private Sector
+Review Iterations: integer between 1 and 10
+Budget Allocation: float between 1000.0 and 1000000.0
+Policy Type: Economic, Social, Environmental
+Implementation Duration: integer between 1 and 365
+Communication Channel: Email, Press Release, Conference
+Revision Cost: float between 100.0 and 50000.0
+Init[Identify Policy Issue] | |
+End[Archive Policy Documents] | |
+Existence2[Review Policy Document] | |
+Precedence[Analyze Data, Gather Data] | | |
+Precedence[Implement Policy, Approve Policy] | | |
+Chain Response[Select Policy Option, Draft Policy Document] | | |0,1,h
+Response[Implement Policy, Evaluate Policy Impact] | | |0,30,d
+Response[Approve Policy, Communicate Policy] | | |
+Not Chain Response[Evaluate Policy Impact, Revise Policy] | | |
+Not Succession[Approve Policy, Implement Policy] |A.Approval Status is Rejected | |
+Co-Existence[Develop Policy Options, Evaluate Policy Options] |A.Policy Type is Economic |A.Policy Type == T.Policy Type |
+Response[Evaluate Policy Impact, Revise Policy] |A.Policy Impact Score < 5 | |
+Response[Draft Policy Document, Review Policy Document] | | |0,5,d
+Response[Communicate Policy, Communicate Policy] |A.Stakeholder Type is Government |A.Communication Channel is Conference |
+Succession[Communicate Policy, Archive Policy Documents] | | |

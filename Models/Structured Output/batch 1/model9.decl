@@ -1,0 +1,32 @@
+activity Extract DNA
+activity Amplify DNA
+activity Sequence DNA
+activity Analyze Data
+activity Prepare Sample
+activity Store Sample
+activity Validate Results
+activity Report Findings
+bind Extract DNA: Sample ID, DNA Concentration, Sample Type
+bind Amplify DNA: Cycle Count
+bind Sequence DNA: Sequencing Quality
+bind Analyze Data: Analysis Status
+bind Store Sample: Storage Temperature
+bind Validate Results: Validation Status
+Sample ID: integer between 1 and 10000
+DNA Concentration: float between 0.1 and 100.0
+Sample Type: Blood, Tissue, Saliva
+Analysis Status: Pending, In Progress, Completed
+Cycle Count: integer between 1 and 50
+Sequencing Quality: float between 0.0 and 100.0
+Validation Status: Valid, Invalid
+Storage Temperature: float between -80.0 and 25.0
+Init[Prepare Sample] | |
+End[Report Findings] | |
+Chain Response[Extract DNA, Amplify DNA] | | |0,2,h
+Precedence[Amplify DNA, Extract DNA] |A.Cycle Count >= 20 | |
+Alternate Succession[Amplify DNA, Sequence DNA] | | |
+Response[Sequence DNA, Analyze Data] |A.Sequencing Quality > 75 | |
+Chain Precedence[Store Sample, Extract DNA] | |T.Storage Temperature >= -20 AND T.Storage Temperature <= 4 |
+Response[Validate Results, Report Findings] |A.Validation Status is Valid | |0,1,d
+Existence[Extract DNA] | |
+Not Co-Existence[Prepare Sample, Store Sample] | | |

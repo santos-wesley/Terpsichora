@@ -1,0 +1,39 @@
+activity Establish Communication
+activity Assess Situation
+activity Negotiate Demands
+activity Provide Proof of Life
+activity Deploy Tactical Team
+activity Offer Concessions
+activity Gather Intelligence
+activity Ensure Safety
+activity Execute Rescue Operation
+activity Conclude Negotiation
+bind Establish Communication: Communication Status
+bind Assess Situation: Threat Level, Hostage Count
+bind Negotiate Demands: Negotiation Duration
+bind Provide Proof of Life: Proof of Life Status
+bind Deploy Tactical Team: Tactical Units Deployed
+bind Offer Concessions: Concession Value
+bind Gather Intelligence: Intelligence Status
+bind Ensure Safety: Safety Measures
+bind Conclude Negotiation: Negotiation Outcome
+Hostage Count: integer between 1 and 50
+Negotiation Duration: float between 0.5 and 72.0
+Threat Level: Low, Medium, High
+Communication Status: Open, Closed
+Proof of Life Status: Received, Not Received
+Tactical Units Deployed: integer between 0 and 10
+Concession Value: float between 0.0 and 1000000.0
+Intelligence Status: Complete, Incomplete
+Safety Measures: Ensured, Not Ensured
+Negotiation Outcome: Successful, Unsuccessful
+Init[Establish Communication] | |
+End[Conclude Negotiation] | |
+Alternate Response[Negotiate Demands, Provide Proof of Life] |A.Negotiation Duration > 1.0 | |0,12,h
+Alternate Succession[Offer Concessions, Deploy Tactical Team] |A.Concession Value > 50000.0 | |0,24,h
+Co-Existence[Gather Intelligence, Ensure Safety] |A.Intelligence Status is Complete | |
+Precedence[Assess Situation, Gather Intelligence] |A.Threat Level in (Medium, High) | |
+Response[Establish Communication, Negotiate Demands] |A.Communication Status is Open | |0,48,h
+Not Chain Succession[Execute Rescue Operation, Conclude Negotiation] | | |
+Choice[Deploy Tactical Team, Execute Rescue Operation] | | |
+Exclusive Choice[Provide Proof of Life, Offer Concessions] | | |

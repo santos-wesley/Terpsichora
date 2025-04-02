@@ -1,0 +1,39 @@
+activity Secure Crime Scene
+activity Collect Evidence
+activity Interview Witnesses
+activity Document Scene
+activity Analyze Evidence
+activity Identify Suspects
+activity Arrest Suspect
+activity Conduct Interrogation
+activity Prepare Report
+activity Close Case
+bind Secure Crime Scene: Scene Condition
+bind Collect Evidence: Evidence Weight, Evidence Count
+bind Interview Witnesses: Number of Witnesses
+bind Analyze Evidence: Evidence Weight
+bind Identify Suspects: Suspect Status, Suspect Count
+bind Conduct Interrogation: Interrogation Outcome
+bind Prepare Report: Report Accuracy
+bind Close Case: Case Status
+bind Document Scene: Scene Documentation Time
+Number of Witnesses: integer between 0 and 50
+Evidence Weight: float between 0.1 and 10000.0
+Scene Condition: Pristine, Disturbed
+Suspect Status: Identified, Unidentified
+Evidence Count: integer between 0 and 100
+Interrogation Outcome: Confession, Denial, Inconclusive
+Report Accuracy: float between 0.0 and 100.0
+Case Status: Open, Closed
+Suspect Count: integer between 0 and 10
+Scene Documentation Time: float between 0.1 and 24.0
+Init[Secure Crime Scene] | |
+End[Close Case] | |
+Existence[Document Scene] | |
+Response[Collect Evidence, Analyze Evidence] | |A.Evidence Weight == T.Evidence Weight |0,48,h
+Precedence[Identify Suspects, Interview Witnesses] | |A.Number of Witnesses > 0 |
+Chain Response[Conduct Interrogation, Prepare Report] |A.Interrogation Outcome is Confession | |0,2,d
+Co-Existence[Secure Crime Scene, Collect Evidence] | | |
+Precedence[Arrest Suspect, Identify Suspects] | |T.Suspect Status is Identified |
+Not Chain Succession[Document Scene, Close Case] | | |
+Choice[Interview Witnesses, Conduct Interrogation] | | |

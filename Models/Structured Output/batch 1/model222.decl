@@ -1,0 +1,37 @@
+activity Identify Community Needs
+activity Develop Innovative Solutions
+activity Secure Funding
+activity Assemble Project Team
+activity Implement Project
+activity Monitor Progress
+activity Evaluate Impact
+activity Report Findings
+activity Engage Stakeholders
+activity Plan Future Initiatives
+bind Identify Community Needs: Community Type
+bind Secure Funding: Funding Amount
+bind Assemble Project Team: Team Size
+bind Monitor Progress: Project Status
+bind Evaluate Impact: Impact Score
+bind Engage Stakeholders: Stakeholder Feedback
+bind Plan Future Initiatives: Satisfaction Level
+Community Type: Urban, Rural, Suburban
+Funding Amount: integer between 10 and 500
+Impact Score: float between 0.0 and 10.0
+Stakeholder Feedback: Positive, Neutral, Negative
+Team Size: integer between 3 and 50
+Project Status: Not Started, In Progress, Completed
+Budget Utilization: float between 0.0 and 100.0
+Duration: integer between 1 and 24
+Solution Type: Technology, Education, Healthcare
+Satisfaction Level: float between 0.0 and 5.0
+Init[Identify Community Needs] | |
+End[Plan Future Initiatives] | |
+Response[Develop Innovative Solutions, Secure Funding] | | |30,60,d
+Precedence[Assemble Project Team, Secure Funding] | | |
+Chain Response[Implement Project, Monitor Progress] | | |
+Co-Existence[Evaluate Impact, Report Findings] | | |
+Not Chain Succession[Engage Stakeholders, Report Findings] | | |
+Exclusive Choice[Identify Community Needs, Develop Innovative Solutions] | | |
+Existence2[Monitor Progress] | |
+Response[Evaluate Impact, Plan Future Initiatives] |A.Impact Score > 8 |T.Satisfaction Level >= 4 |10,20,d

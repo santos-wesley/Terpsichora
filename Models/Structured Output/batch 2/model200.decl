@@ -1,0 +1,50 @@
+activity Set Performance Goals
+activity Conduct Self Assessment
+activity Gather Peer Feedback
+activity Conduct Manager Review
+activity Provide Performance Rating
+activity Discuss Development Plan
+activity Approve Development Plan
+activity Implement Development Plan
+activity Conduct Mid-Year Review
+activity Adjust Performance Goals
+activity Complete Year-End Review
+activity Acknowledge Performance Review
+activity Submit Performance Improvement Plan
+activity Approve Performance Improvement Plan
+activity Conduct Follow-Up Review
+bind Set Performance Goals: Goal Achievement
+bind Conduct Self Assessment: Rating
+bind Gather Peer Feedback: Feedback Type
+bind Discuss Development Plan: Plan Status
+bind Conduct Manager Review: Review Status
+bind Submit Performance Improvement Plan: Improvement Areas
+bind Approve Development Plan: Plan Approval
+bind Conduct Follow-Up Review: Improvement Progress
+bind Conduct Mid-Year Review: Review Type
+bind Complete Year-End Review: Review Type
+Rating: integer between 1 and 5
+Goal Achievement: float between 0.0 and 100.0
+Feedback Type: Positive, Negative, Neutral
+Plan Status: Pending, Approved, Rejected
+Review Status: Not Started, In Progress, Completed
+Improvement Areas: integer between 0 and 10
+Development Budget: float between 0.0 and 10000.0
+Plan Approval: Approved, Not Approved
+Review Type: Mid-Year, Year-End, Follow-Up
+Improvement Progress: float between 0.0 and 100.0
+Init[Set Performance Goals] | |
+End[Acknowledge Performance Review] | |
+Existence[Provide Performance Rating] | |
+Precedence[Provide Performance Rating, Conduct Manager Review] | | |
+Precedence[Approve Development Plan, Discuss Development Plan] | | |
+Response[Submit Performance Improvement Plan, Approve Performance Improvement Plan] | | |0,7,d
+Co-Existence[Gather Peer Feedback, Conduct Self Assessment] | | |
+Succession[Approve Performance Improvement Plan, Conduct Follow-Up Review] | | |
+Response[Conduct Mid-Year Review, Adjust Performance Goals] | | |0,30,d
+Precedence[Complete Year-End Review, Conduct Mid-Year Review] | | |
+Succession[Approve Development Plan, Implement Development Plan] | | |0,14,d
+Precedence[Acknowledge Performance Review, Complete Year-End Review] | | |
+Responded Existence[Gather Peer Feedback, Submit Performance Improvement Plan] |A.Feedback Type is Negative |T.Improvement Areas > 3 |
+Response[Approve Performance Improvement Plan, Conduct Follow-Up Review] | | |0,60,d
+Existence[Discuss Development Plan] |A.Development Budget <= 10000 |

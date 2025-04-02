@@ -1,0 +1,48 @@
+activity Patrol Area
+activity Identify Suspect
+activity Gather Evidence
+activity Interview Witness
+activity Analyze Data
+activity Report Crime
+activity Arrest Suspect
+activity Conduct Surveillance
+activity File Charges
+activity Release Suspect
+activity Conduct Raid
+activity Secure Crime Scene
+activity Provide Testimony
+activity Close Case
+activity Review Case
+bind Patrol Area: Patrol Area Type
+bind Identify Suspect: Suspect Status, Suspect Age
+bind Gather Evidence: Evidence Count
+bind Interview Witness: Witness Count
+bind Report Crime: Crime Report Time, Crime Severity
+bind Conduct Surveillance: Surveillance Type
+bind File Charges: Charges Filed
+bind Close Case: Case Outcome
+Evidence Count: integer between 0 and 1000
+Suspect Age: float between 0.0 and 100.0
+Crime Severity: Low, Medium, High
+Patrol Area Type: Residential, Commercial, Industrial
+Suspect Status: Identified, Arrested, Released
+Witness Count: integer between 0 and 100
+Crime Report Time: float between 0.0 and 72.0
+Surveillance Type: Covert, Overt
+Charges Filed: integer between 0 and 10
+Case Outcome: Solved, Unsolved, Closed
+Existence[Patrol Area] | |
+Existence[Gather Evidence] | |
+Response[Identify Suspect, Arrest Suspect] |A.Suspect Status is Identified |A.Suspect Status == T.Suspect Status |0,48,h
+Succession[Conduct Surveillance, Gather Evidence] |A.Surveillance Type is Covert | |0,24,h
+Response[Report Crime, File Charges] |A.Crime Severity is High | |0,72,h
+End[Close Case] | |
+Not Succession[Arrest Suspect, Release Suspect] | |A.Suspect Status is Arrested AND T.Charges Filed > 0 |
+Precedence[Analyze Data, Interview Witness] | | |
+Co-Existence[Conduct Raid, Secure Crime Scene] | | |
+Responded Existence[File Charges, Provide Testimony] | |A.Charges Filed > 0 |
+Response[Close Case, Review Case] | | |0,7,d
+Absence5[Patrol Area] | |
+Choice[Conduct Surveillance, Conduct Raid] | | |
+Exclusive Choice[Arrest Suspect, Release Suspect] | | |
+Exactly[Report Crime] | |

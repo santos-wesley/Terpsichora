@@ -1,0 +1,40 @@
+activity Inspect Cargo
+activity Authorize Access
+activity Monitor Surveillance
+activity Report Incident
+activity Conduct Patrol
+activity Verify Identity
+activity Secure Perimeter
+activity Review Security Logs
+activity Deactivate Alarm
+activity Initiate Lockdown
+bind Inspect Cargo: Cargo Risk Level
+bind Authorize Access: Access Duration
+bind Monitor Surveillance: Surveillance Status
+bind Report Incident: Incident Type
+bind Conduct Patrol: Patrol Frequency
+bind Verify Identity: Identity Verification Method
+bind Secure Perimeter: Perimeter Breach Time
+bind Review Security Logs: Log Review Outcome
+bind Deactivate Alarm: Alarm Deactivation Code
+bind Initiate Lockdown: Lockdown Level
+Cargo Risk Level: integer between 1 and 10
+Access Duration: float between 0.5 and 8.0
+Surveillance Status: Active, Inactive, Faulty
+Incident Type: Theft, Vandalism, Unauthorized Access
+Patrol Frequency: integer between 1 and 24
+Identity Verification Method: ID Card, Biometric, Security Code
+Perimeter Breach Time: float between 1.0 and 60.0
+Log Review Outcome: No Issues, Minor Issues, Major Issues
+Alarm Deactivation Code: integer between 1000 and 9999
+Lockdown Level: Partial, Full
+Existence[Inspect Cargo] | |
+Chain Response[Authorize Access, Verify Identity] | | |0,5,m
+Init[Monitor Surveillance] | |
+Co-Existence[Report Incident, Review Security Logs] | | |
+Precedence[Secure Perimeter, Conduct Patrol] | | |
+Not Chain Succession[Initiate Lockdown, Deactivate Alarm] | | |0,10,m
+Exactly2[Secure Perimeter] | |
+Not Co-Existence[Verify Identity, Authorize Access] | | |
+Choice[Conduct Patrol, Monitor Surveillance] | | |
+Response[Report Incident, Review Security Logs] | | |1,2,h

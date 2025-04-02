@@ -1,0 +1,34 @@
+activity Conduct Market Research
+activity Develop Marketing Strategy
+activity Design Marketing Materials
+activity Launch Marketing Campaign
+activity Monitor Campaign Performance
+activity Adjust Marketing Strategy
+activity Negotiate with Local Partners
+activity Evaluate Market Entry Success
+activity Report to Management
+bind Conduct Market Research: Market Size, Research Duration
+bind Develop Marketing Strategy: Strategy Type
+bind Launch Marketing Campaign: Budget Allocation, Campaign Status
+bind Negotiate with Local Partners: Number of Partners
+bind Evaluate Market Entry Success: ROI
+bind Report to Management: Report Type
+Market Size: integer between 1 and 1000
+Budget Allocation: float between 0.1 and 50.0
+Campaign Status: Planned, Active, Completed, Paused
+Market Type: Emerging, Developed
+Number of Partners: integer between 0 and 50
+ROI: float between -100.0 and 500.0
+Strategy Type: Digital, Traditional, Hybrid
+Research Duration: integer between 1 and 365
+Report Type: Summary, Detailed
+Existence[Conduct Market Research] | |
+Exactly[Launch Marketing Campaign] | |
+Precedence[Launch Marketing Campaign, Develop Marketing Strategy] | | |
+Response[Launch Marketing Campaign, Report to Management] | | |0,30,d
+Precedence[Evaluate Market Entry Success, Negotiate with Local Partners] | | |
+Chain Precedence[Monitor Campaign Performance, Launch Marketing Campaign] |A.Campaign Status is Active | |
+Co-Existence[Develop Marketing Strategy, Report to Management] | |A.Strategy Type == T.Report Type |
+Chain Response[Monitor Campaign Performance, Adjust Marketing Strategy] | | |0,15,d
+Choice[Conduct Market Research, Develop Marketing Strategy] |A.Market Type is Emerging |T.Market Type is Emerging |
+End[Report to Management] | |

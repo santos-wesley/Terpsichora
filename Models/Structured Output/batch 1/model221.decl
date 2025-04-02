@@ -1,0 +1,38 @@
+activity Initiate Visa Application
+activity Submit Documents
+activity Review Application
+activity Approve Visa
+activity Book Flight
+activity Arrange Accommodation
+activity Conduct Pre-Departure Orientation
+activity Issue Work Permit
+activity Complete Relocation
+activity Conduct Post-Arrival Check
+bind Initiate Visa Application: Visa Application ID, Visa Fee
+bind Submit Documents: Document Status
+bind Book Flight: Flight Class
+bind Arrange Accommodation: Accommodation Days
+bind Conduct Pre-Departure Orientation: Orientation Status
+bind Issue Work Permit: Work Permit Status
+bind Conduct Post-Arrival Check: Check Status
+bind Complete Relocation: Relocation Budget
+Visa Application ID: integer between 1000 and 9999
+Document Status: Pending, Submitted, Verified
+Visa Fee: float between 50.0 and 500.0
+Flight Class: Economy, Business, First
+Accommodation Days: integer between 1 and 365
+Orientation Status: Scheduled, Completed
+Work Permit Status: Pending, Issued
+Relocation Budget: float between 1000.0 and 10000.0
+Check Status: Pending, Completed
+Employee ID: integer between 100 and 9999
+Init[Initiate Visa Application] | |
+Existence[Complete Relocation] | |
+Precedence[Approve Visa, Submit Documents] | | |
+Chain Response[Book Flight, Arrange Accommodation] | | |0,2,d
+Response[Arrange Accommodation, Conduct Pre-Departure Orientation] | | |
+Precedence[Issue Work Permit, Approve Visa] | | |
+Chain Response[Complete Relocation, Conduct Post-Arrival Check] | | |0,48,h
+Choice[Conduct Pre-Departure Orientation, Conduct Post-Arrival Check] | | |
+Responded Existence[Initiate Visa Application, Initiate Visa Application] |A.Visa Fee > 100 | |
+Responded Existence[Book Flight, Book Flight] |A.Flight Class in (Business, First) | |
